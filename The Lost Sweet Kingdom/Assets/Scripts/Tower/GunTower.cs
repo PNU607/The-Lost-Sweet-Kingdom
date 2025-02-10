@@ -34,9 +34,9 @@ public class GunTower : TrackingTower
     /// 타워 세팅
     /// bulletTransform을 가져옴
     /// </summary>
-    public override void Setup(EnemyManager enemyManager)
+    public override void Setup()
     {
-        base.Setup(enemyManager);
+        base.Setup();
         bulletTransform = transform.GetChild(0);
     }
 
@@ -50,6 +50,14 @@ public class GunTower : TrackingTower
         {
             // 타겟이 없으면
             if (attackTarget == null)
+            {
+                // 타겟 탐색 상태로 전환
+                ChangeState(TowerState.SearchTarget);
+                break;
+            }
+
+            // 타겟이 비활성화되면
+            if (!attackTarget.gameObject.activeSelf)
             {
                 // 타겟 탐색 상태로 전환
                 ChangeState(TowerState.SearchTarget);

@@ -29,9 +29,9 @@ public class TrackingTower : Tower
     /// 타워를 탐색 상태로 변경
     /// </summary>
     /// <param name="enemyManager"></param>
-    public override void Setup(EnemyManager enemyManager)
+    public override void Setup()
     {
-        base.Setup(enemyManager);
+        base.Setup();
         ChangeState(TowerState.SearchTarget);
     }
 

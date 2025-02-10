@@ -55,6 +55,11 @@ public class Bullet : MonoBehaviour
         movement2D = GetComponent<Movement2D>();
         this.target = target;
         this.attackDamage = attackDamage;
+
+        if (target != null)
+        {
+            direction = (target.position - transform.position).normalized;
+        }
     }
 
     /// <summary>
@@ -63,40 +68,29 @@ public class Bullet : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (target != null)
+        if (target != null && target.gameObject.activeSelf)
         {
-            Vector3 d = (target.position - transform.position).normalized;
-            if (d != Vector3.zero)
-            {
-                direction = d;
-            }
-
             movement2D.MoveTo(direction);
         }
         else
         {
-            //if (direction == Vector3.zero)
-            {
-                Destroy(gameObject);
-                //return;
-            }
-
-            //transform.position += direction * movement2D.MoveSpeed * Time.deltaTime;
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 
+
+
     /// <summary>
     /// 충돌 체크
-    /// 충돌한 collision의 태그가 Enemy이며 지정한 타겟이면, 타겟에 대미지를 주고 충돌체는 파괴
+    /// 충돌한 collision의 태그가 Enemy이면, 타겟에 대미지를 주고 충돌체는 파괴
     /// </summary>
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Enemy")) return;
-        if (collision.transform != target) return;
+        //if (collision.transform != target) return;
 
-        collision.GetComponent<Enemy>().TakeDamage(attackDamage);
+        collision.GetComponent<EnemyTest>().TakeDamage(attackDamage);
         Destroy(gameObject);
     }
 }
