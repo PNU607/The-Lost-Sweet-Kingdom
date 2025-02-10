@@ -3,6 +3,9 @@
 
 나쁜 동물 친구들이 과자들의성을 점령하려는 2D Tower Defense 게임입니다.
 
+###개발 기간
+Since 2025.02.03 ~
+
 ---
 ## Programmer
 
