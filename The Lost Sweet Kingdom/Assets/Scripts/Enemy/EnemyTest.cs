@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyTest : MonoBehaviour
 {
+    [SerializeField]
+    private float hp;
+
     public AStar aStarScript;
     public float moveSpeed = 2f;
 
@@ -45,6 +48,23 @@ public class EnemyTest : MonoBehaviour
 
             currentTargetIndex++;
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        hp -= damage;
+
+        if (hp <= 0)
+        {
+            OnDie();
+        }
+    }
+
+    private void OnDie()
+    {
+        Debug.Log("Die");
+        ObjectPool.Instance.ReturnEnemy(this.gameObject, this.gameObject);
+        //this.gameObject.SetActive(false);
     }
 
     void OnDestroy()

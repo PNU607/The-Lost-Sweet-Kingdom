@@ -25,12 +25,6 @@ using UnityEngine;
 public class TowerManager : MonoBehaviour
 {
     /// <summary>
-    /// 생성된 Enemy List를 가져오기 위한 Manager
-    /// </summary>
-    [SerializeField]
-    private EnemyManager enemyManager;
-
-    /// <summary>
     /// 배치할 타워의 프리팹
     /// </summary>
     [SerializeField]
@@ -77,11 +71,7 @@ public class TowerManager : MonoBehaviour
 
         if (hit2D.collider != null) // 배치 가능한 영역인지 체크
         {
-            SpawnTower(hit2D.point);
-        }
-        else
-        {
-            Debug.Log("배치 불가능한 위치입니다!"); // 배치할 수 없는 경우 메시지 출력
+            SpawnTower(hit2D.transform);
         }
     }
 
@@ -89,11 +79,20 @@ public class TowerManager : MonoBehaviour
     /// 타워 생성
     /// </summary>
     /// <param name="tileTransform"></param>
-    public void SpawnTower(Vector2 tileTransform)
+    public void SpawnTower(Transform tileTransform)
     {
-        GameObject clone = Instantiate(towerPrefab, tileTransform, Quaternion.identity, this.transform);
+        Tile tile = tileTransform.GetComponent<Tile>();
+
+        if (tile.isOccupied)
+        {
+            return;
+        }
+
+        tile.isOccupied = true;
+
+        GameObject clone = Instantiate(towerPrefab, tileTransform.position, Quaternion.identity, this.transform);
         Tower tower = clone.GetComponent<Tower>();
 
-        tower.Setup(enemyManager);
+        tower.Setup();
     }
 }

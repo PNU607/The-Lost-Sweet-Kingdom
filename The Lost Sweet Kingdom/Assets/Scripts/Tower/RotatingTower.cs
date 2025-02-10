@@ -26,9 +26,9 @@ public class RotatingTower : Tower
     /// 타워의 상태를 지속적으로 회전하는 상태로 세팅
     /// </summary>
     /// <param name="enemyManager"></param>
-    public override void Setup(EnemyManager enemyManager)
+    public override void Setup()
     {
-        base.Setup(enemyManager);
+        base.Setup();
         ChangeState(TowerState.Rotate);
     }
 }
