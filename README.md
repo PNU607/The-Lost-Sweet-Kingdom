@@ -28,8 +28,8 @@
   </tr>
   <tr>
     <td align="center">
-      <a href="https://github.com/YunseongJeong" target="_blank">
-        정윤성
+      <a href="https://github.com/doro1129" target="_blank">
+        서지혜
       </a>
     </td>
     <td align="center">
