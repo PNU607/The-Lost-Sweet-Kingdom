@@ -12,6 +12,17 @@ public class EnemyTest : MonoBehaviour
 
     void Start()
     {
+        if (aStarScript == null)
+        {
+            aStarScript = FindObjectOfType<AStar>();
+        }
+
+        if (aStarScript == null)
+        {
+            Debug.LogError("AStar script not found in the scene!");
+            return;
+        }
+
         path = aStarScript.FindPath(aStarScript.start, aStarScript.goal);
         if (path != null && path.Count > 0)
         {
@@ -34,5 +45,11 @@ public class EnemyTest : MonoBehaviour
 
             currentTargetIndex++;
         }
+    }
+
+    void OnDestroy()
+    {
+        ObjectPool.Instance.ReturnEnemy(this.gameObject, this.gameObject);
+
     }
 }
