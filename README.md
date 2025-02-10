@@ -3,11 +3,12 @@
 
 나쁜 동물 친구들이 과자들의성을 점령하려는 2D Tower Defense 게임입니다.
 
-### Project Period..
-Since 2025.02.03 ~
+### Project Period
+[Since] 2025.02.03 ~
 
 ### Used Tool
-<p align="left"><a href="https://unity.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/unity3d/unity3d-icon.svg" alt="unity" width="40" height="40"/> </a> </p>
+<p><img src="https://img.shields.io/badge/unity-FFFFFF?style=for-the-badge&logo=unity&logoColor=black">
+<img src="https://img.shields.io/badge/notion-FFFFFF?style=for-the-badge&logo=notion&logoColor=black"></p>
 
 ---
 ## Programmer
