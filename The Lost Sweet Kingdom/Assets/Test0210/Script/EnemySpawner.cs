@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public float spawnDelay = 1f;
-    public float startDelay = 1f;
+    private float spawnDelay = 1f;
+    private float startDelay = 1f;
     public GameObject[] enemyTypes;
     public Transform spawnPoint;
 

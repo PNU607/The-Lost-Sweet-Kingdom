@@ -50,6 +50,5 @@ public class EnemyTest : MonoBehaviour
     void OnDestroy()
     {
         ObjectPool.Instance.ReturnEnemy(this.gameObject, this.gameObject);
-
     }
 }
