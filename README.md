@@ -16,8 +16,8 @@
   </tr>
   <tr>
     <td align="center" width="200px">
-      <a href="https://github.com/Monolong" target="_blank">
-        <img src="https://avatars.githubusercontent.com/u/83206119?v=4" alt="문성필 프로필" />
+      <a href="https://github.com/doro1129" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/50572094?v=4" alt="서지혜 프로필" />
       </a>
     </td>
     <td align="center" width="200px">
