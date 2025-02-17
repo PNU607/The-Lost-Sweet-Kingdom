@@ -42,7 +42,18 @@ public class EnemyTest : MonoBehaviour
 
             while ((transform.position - targetPos3D).sqrMagnitude > 0.1f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos3D, moveSpeed * Time.deltaTime);
+                Vector3 newPosition = transform.position;
+
+                if (Mathf.Abs(targetPos3D.x - transform.position.x) > 0.01f)
+                {
+                    newPosition.x = Mathf.MoveTowards(transform.position.x, targetPos3D.x, moveSpeed * Time.deltaTime);
+                }
+                else if (Mathf.Abs(targetPos3D.y - transform.position.y) > 0.01f)
+                {
+                    newPosition.y = Mathf.MoveTowards(transform.position.y, targetPos3D.y, moveSpeed * Time.deltaTime);
+                }
+
+                transform.position = newPosition;
                 yield return null;
             }
 
