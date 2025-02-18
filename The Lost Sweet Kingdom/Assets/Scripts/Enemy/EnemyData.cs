@@ -1,0 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "NewEnemyData", menuName = "Tower Defense/Enemy Data")]
+public class EnemyData : ScriptableObject
+{
+    [Header("Basic Info")]
+    // 적 이름
+    public string enemyName;
+    // 공격할 적 프리팹
+    public GameObject enemyPrefab;
+
+    [Header("Stats")]
+    // 체력
+    public int maxHealth = 3;
+    // 이동 속도
+    public float moveSpeed = 2.0f;
+    // 처치 시 획득하는 골드
+    public int goldReward;
+}
