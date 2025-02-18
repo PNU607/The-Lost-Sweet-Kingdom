@@ -74,7 +74,9 @@ public class EnemyTest : MonoBehaviour
     private void OnDie()
     {
         Debug.Log("Die");
+        GoldManager.instance.AddGold(10);
         ObjectPool.Instance.ReturnEnemy(this.gameObject, this.gameObject);
+
         //this.gameObject.SetActive(false);
     }
 
