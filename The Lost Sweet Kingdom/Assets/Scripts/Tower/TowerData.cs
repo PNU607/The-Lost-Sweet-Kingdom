@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewTowerData", menuName = "Tower Defense/Tower Data")]
 public class TowerData : ScriptableObject
 {
+    [Header("Basic Info")]
     // 타워 이름
     public string towerName;
     // UI에서 표시될 타워 아이콘

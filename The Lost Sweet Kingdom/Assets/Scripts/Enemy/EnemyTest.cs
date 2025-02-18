@@ -5,13 +5,20 @@ using UnityEngine;
 public class EnemyTest : MonoBehaviour
 {
     [SerializeField]
+    private EnemyData currentEnemyData;
     private float hp;
 
     public AStar aStarScript;
-    public float moveSpeed = 2f;
+    private float moveSpeed;
 
     private List<Vector2> path;
     private int currentTargetIndex = 0;
+
+    private void OnEnable()
+    {
+        hp = currentEnemyData.maxHealth;
+        moveSpeed = currentEnemyData.moveSpeed;
+    }
 
     void Start()
     {
