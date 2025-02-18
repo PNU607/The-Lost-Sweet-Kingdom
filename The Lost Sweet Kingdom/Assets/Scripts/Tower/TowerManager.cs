@@ -10,9 +10,7 @@
  *  - 2025-02-08: TowerManager 스크립트 최초 작성
  */
 
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 /* 
  * @class: TowerManager
@@ -38,13 +36,10 @@ public class TowerManager : MonoBehaviour
     private Camera mainCamera;
 
     /// <summary>
-    /// 참조하는 파일맵
+    /// 타워를 배치 가능한 타일 Layer
     /// </summary>
-    public Tilemap tilemap;
-    /// <summary>
-    /// 배치된 타일의 위치, 타워들 조합
-    /// </summary>
-    private Dictionary<Vector3Int, GameObject> placedTowers = new Dictionary<Vector3Int, GameObject>();
+    [SerializeField]
+    private LayerMask placementLayer;
 
     /// <summary>
     /// Awake
@@ -71,51 +66,33 @@ public class TowerManager : MonoBehaviour
     /// </summary>
     void PlaceTower()
     {
-        // 마우스 위치를 월드 좌표로 변환
-        Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition); // 마우스 위치를 월드 좌표로 변환
+        RaycastHit2D hit2D = Physics2D.Raycast(mousePosition, Vector2.zero, 0f, placementLayer); // Raycast 실행
 
-        // 해당 타일에 이미 타워가 있으면 설치 불가
-        if (IsTileOccupied(mousePosition))
+        if (hit2D.collider != null) // 배치 가능한 영역인지 체크
         {
-            Debug.Log("타워가 이미 존재합니다!");
+            SpawnTower(hit2D.transform);
+        }
+    }
+
+    /// <summary>
+    /// 타워 생성
+    /// </summary>
+    /// <param name="tileTransform"></param>
+    public void SpawnTower(Transform tileTransform)
+    {
+        Tile tile = tileTransform.GetComponent<Tile>();
+
+        if (tile.isOccupied)
+        {
+            return;
         }
 
-        Vector3Int cellPosition = tilemap.WorldToCell(mousePosition);
-        // 타워 생성
-        GameObject clone = Instantiate(towerPrefab, tilemap.GetCellCenterWorld(cellPosition), Quaternion.identity);
-        placedTowers[cellPosition] = clone;
+        tile.isOccupied = true;
 
+        GameObject clone = Instantiate(towerPrefab, tileTransform.position, Quaternion.identity, this.transform);
         Tower tower = clone.GetComponent<Tower>();
+
         tower.Setup();
-    }
-
-    /// <summary>
-    /// 해당 위치의 타일에 있는 타워 제거
-    /// </summary>
-    /// <param name="worldPosition">제거할 타워의 타일 위치</param>
-    /// <returns></returns>
-    public bool RemoveTower(Vector3 worldPosition)
-    {
-        Vector3Int cellPosition = tilemap.WorldToCell(worldPosition);
-
-        if (placedTowers.TryGetValue(cellPosition, out GameObject tower))
-        {
-            Destroy(tower);
-            placedTowers.Remove(cellPosition);
-            return true;
-        }
-
-        return false;
-    }
-
-    /// <summary>
-    /// 해당 위치에 타워가 있는지 확인
-    /// </summary>
-    /// <param name="worldPosition">타워를 배치하려고 하는 타일 위치</param>
-    /// <returns></returns>
-    public bool IsTileOccupied(Vector3 worldPosition)
-    {
-        Vector3Int cellPosition = tilemap.WorldToCell(worldPosition);
-        return placedTowers.ContainsKey(cellPosition);
     }
 }
