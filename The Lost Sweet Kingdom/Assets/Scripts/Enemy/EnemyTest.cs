@@ -9,6 +9,7 @@ public class EnemyTest : MonoBehaviour
     private float hp;
 
     public AStar aStarScript;
+    private float moveSpeed;
 
     private List<Vector2> path;
     private int currentTargetIndex = 0;
@@ -16,6 +17,7 @@ public class EnemyTest : MonoBehaviour
     private void OnEnable()
     {
         hp = currentEnemyData.maxHealth;
+        moveSpeed = currentEnemyData.moveSpeed;
     }
 
     void Start()
@@ -51,11 +53,11 @@ public class EnemyTest : MonoBehaviour
 
                 if (Mathf.Abs(targetPos3D.x - transform.position.x) > 0.01f)
                 {
-                    newPosition.x = Mathf.MoveTowards(transform.position.x, targetPos3D.x, currentEnemyData.moveSpeed * Time.deltaTime);
+                    newPosition.x = Mathf.MoveTowards(transform.position.x, targetPos3D.x, moveSpeed * Time.deltaTime);
                 }
                 else if (Mathf.Abs(targetPos3D.y - transform.position.y) > 0.01f)
                 {
-                    newPosition.y = Mathf.MoveTowards(transform.position.y, targetPos3D.y, currentEnemyData.moveSpeed * Time.deltaTime);
+                    newPosition.y = Mathf.MoveTowards(transform.position.y, targetPos3D.y, moveSpeed * Time.deltaTime);
                 }
 
                 transform.position = newPosition;
@@ -79,7 +81,7 @@ public class EnemyTest : MonoBehaviour
     private void OnDie()
     {
         Debug.Log("Die");
-        GoldManager.instance.AddGold(currentEnemyData.goldReward);
+        GoldManager.instance.AddGold(10);
         ObjectPool.Instance.ReturnEnemy(this.gameObject, this.gameObject);
 
         //this.gameObject.SetActive(false);
