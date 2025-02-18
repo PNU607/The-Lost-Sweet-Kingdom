@@ -107,14 +107,7 @@ public class AStar : MonoBehaviour
     void Start()
     {
         List<Vector2> path = FindPath(start, goal);
-        if (path != null)
-        {
-            foreach (var p in path)
-            {
-                Debug.Log(p);
-            }
-        }
-        else
+        if (path == null)
         {
             Debug.Log("Path not found!");
         }

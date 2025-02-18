@@ -1,40 +1,70 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using Unity.VisualScripting;
 
 public class EnemySpawner : MonoBehaviour
 {
-    private float spawnDelay = 1f;
-    private float startDelay = 1f;
-    public GameObject[] enemyTypes;
+    public static EnemySpawner instance;
+
+    public List<WaveData> waves;
     public Transform spawnPoint;
 
+    private int currentWaveIndex = 0;
     private bool isGameRunning = false;
 
-    void Start()
-    {
-        StartCoroutine(SpawnEnemies());
-    }
+    public TextMeshProUGUI waveText;
 
-    public void OnStartButtonPressed() 
+    private void Awake()
     {
-        isGameRunning = true;
-        StartCoroutine(SpawnEnemies());
-    }
-
-    IEnumerator SpawnEnemies()
-    {
-        yield return new WaitForSeconds(startDelay);
-
-        while (isGameRunning)
+        if (instance == null)
         {
-            GameObject enemyPrefab = enemyTypes[Random.Range(0, enemyTypes.Length)];
-
-            GameObject enemy = ObjectPool.Instance.GetEnemy(enemyPrefab);
-
-            enemy.transform.position = spawnPoint.position;
-
-            yield return new WaitForSeconds(spawnDelay);
+            instance = this;
         }
+    }
+    private void Start()
+    {
+        UpdateWaveText();
+    }
+
+    public void StartGame()
+    {
+        if (isGameRunning == false)
+        {
+            isGameRunning = true;
+            StartCoroutine(SpawnWaves());
+        }
+    }
+
+    IEnumerator SpawnWaves()
+    {
+        WaveData wave = waves[currentWaveIndex];
+
+        UpdateWaveText();
+
+        yield return new WaitForSeconds(wave.startDelay);
+
+        Debug.Log($"Start Wave : {currentWaveIndex}");
+
+        foreach (var enemyInfo in wave.enemies)
+        {
+            for (int i = 0; i < enemyInfo.count; i++)
+            {
+                GameObject enemy = ObjectPool.Instance.GetEnemy(enemyInfo.enemyPrefab);
+                enemy.transform.position = spawnPoint.position;
+                yield return new WaitForSeconds(enemyInfo.spawnDelay);
+            }
+        }
+
+        currentWaveIndex++;
+        yield return new WaitForSeconds(3f);
+
+        isGameRunning = false;
+    }
+
+    public void UpdateWaveText()
+    {
+        waveText.text = $"Wave : {currentWaveIndex}";
     }
 }
