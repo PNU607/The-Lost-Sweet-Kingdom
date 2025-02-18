@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 417705146}
   - component: {fileID: 417705149}
   m_Layer: 5
-  m_Name: Button
+  m_Name: WaveButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -300,7 +300,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 417705149}
         m_TargetAssemblyTypeName: EnemySpawner, Assembly-CSharp
-        m_MethodName: OnStartButtonPressed
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -360,9 +360,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58236f38380fd3c4b92a108e5c21c4a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTypes:
-  - {fileID: 257202954049900638, guid: fbf8acade9b5576498be7f5e29b7588a, type: 3}
-  - {fileID: 656381047975851793, guid: 0f8409516f954944ca6675d9fbc4f2a2, type: 3}
+  waves:
+  - {fileID: 11400000, guid: 2772b7dd33e542e44bfc0b9a631ce32e, type: 2}
+  - {fileID: 11400000, guid: 21598bb03ece47e4c9012a043640d57b, type: 2}
   spawnPoint: {fileID: 2021651343}
 --- !u!1 &571643895
 GameObject:
@@ -3735,14 +3735,6 @@ PrefabInstance:
     - target: {fileID: 42282881071728246, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
       propertyPath: m_Name
       value: Castle
-      objectReference: {fileID: 0}
-    - target: {fileID: 652030579215054149, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
-      propertyPath: m_Size.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 652030579215054149, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
-      propertyPath: m_Size.y
-      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5539791218199227874, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
       propertyPath: m_LocalPosition.x

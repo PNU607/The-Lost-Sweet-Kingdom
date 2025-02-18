@@ -4,37 +4,42 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    private float spawnDelay = 1f;
-    private float startDelay = 1f;
-    public GameObject[] enemyTypes;
+    public List<WaveData> waves;
     public Transform spawnPoint;
 
+    private int currentWaveIndex = 0;
     private bool isGameRunning = false;
 
-    void Start()
+    public void StartGame()
     {
-        StartCoroutine(SpawnEnemies());
-    }
-
-    public void OnStartButtonPressed() 
-    {
-        isGameRunning = true;
-        StartCoroutine(SpawnEnemies());
-    }
-
-    IEnumerator SpawnEnemies()
-    {
-        yield return new WaitForSeconds(startDelay);
-
-        while (isGameRunning)
+        if (isGameRunning == false)
         {
-            GameObject enemyPrefab = enemyTypes[Random.Range(0, enemyTypes.Length)];
-
-            GameObject enemy = ObjectPool.Instance.GetEnemy(enemyPrefab);
-
-            enemy.transform.position = spawnPoint.position;
-
-            yield return new WaitForSeconds(spawnDelay);
+            isGameRunning = true;
+            StartCoroutine(SpawnWaves());
         }
+    }
+
+    IEnumerator SpawnWaves()
+    {
+        WaveData wave = waves[currentWaveIndex];
+
+        yield return new WaitForSeconds(wave.startDelay);
+
+        Debug.Log($"Start Wave : {currentWaveIndex}");
+
+        foreach (var enemyInfo in wave.enemies)
+        {
+            for (int i = 0; i < enemyInfo.count; i++)
+            {
+                GameObject enemy = ObjectPool.Instance.GetEnemy(enemyInfo.enemyPrefab);
+                enemy.transform.position = spawnPoint.position;
+                yield return new WaitForSeconds(enemyInfo.spawnDelay);
+            }
+        }
+
+        currentWaveIndex++;
+        yield return new WaitForSeconds(3f);
+        
+        isGameRunning = false;
     }
 }
