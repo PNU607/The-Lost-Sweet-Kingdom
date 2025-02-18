@@ -1,14 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using Unity.VisualScripting;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public static EnemySpawner instance;
+
     public List<WaveData> waves;
     public Transform spawnPoint;
 
     private int currentWaveIndex = 0;
     private bool isGameRunning = false;
+
+    public TextMeshProUGUI waveText;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+    private void Start()
+    {
+        UpdateWaveText();
+    }
 
     public void StartGame()
     {
@@ -22,6 +40,8 @@ public class EnemySpawner : MonoBehaviour
     IEnumerator SpawnWaves()
     {
         WaveData wave = waves[currentWaveIndex];
+
+        UpdateWaveText();
 
         yield return new WaitForSeconds(wave.startDelay);
 
@@ -39,7 +59,12 @@ public class EnemySpawner : MonoBehaviour
 
         currentWaveIndex++;
         yield return new WaitForSeconds(3f);
-        
+
         isGameRunning = false;
+    }
+
+    public void UpdateWaveText()
+    {
+        waveText.text = $"Wave : {currentWaveIndex}";
     }
 }

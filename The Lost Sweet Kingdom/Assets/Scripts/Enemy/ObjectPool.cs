@@ -6,7 +6,7 @@ public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool Instance;
     public GameObject[] enemyPrefabs;
-    public int poolSize = 10;
+    private int poolSize;
     private Dictionary<GameObject, Queue<GameObject>> pools;
 
     void Awake()
@@ -23,6 +23,7 @@ public class ObjectPool : MonoBehaviour
 
     void Start()
     {
+        poolSize = 1000;
         pools = new Dictionary<GameObject, Queue<GameObject>>();
 
         foreach (var prefab in enemyPrefabs)
@@ -55,7 +56,14 @@ public class ObjectPool : MonoBehaviour
 
     public void ReturnEnemy(GameObject enemy, GameObject enemyPrefab)
     {
-        enemy.SetActive(false);
-        pools[enemyPrefab].Enqueue(enemy);
+        if (pools.ContainsKey(enemyPrefab))
+        {
+            enemy.SetActive(false);
+            pools[enemyPrefab].Enqueue(enemy);
+        }
+        else
+        {
+            Debug.Log("Not in Dictionary");
+        }
     }
 }
