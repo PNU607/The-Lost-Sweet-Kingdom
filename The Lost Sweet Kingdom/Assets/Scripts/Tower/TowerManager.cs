@@ -8,6 +8,7 @@
  * @see: EnemyManager.cs, Tower.cs
  * @history:
  *  - 2025-02-08: TowerManager 스크립트 최초 작성
+ *  - 2025-02-18: PlaceTower, RemoveTower, IsTileOccupied 함수 추가 및 수정
  */
 
 using System.Collections.Generic;
@@ -78,9 +79,16 @@ public class TowerManager : MonoBehaviour
         if (IsTileOccupied(mousePosition))
         {
             Debug.Log("타워가 이미 존재합니다!");
+            return;
         }
 
         Vector3Int cellPosition = tilemap.WorldToCell(mousePosition);
+        if (tilemap.GetTile(cellPosition) == null)
+        {
+            //Debug.Log("벽 타일이 아닙니다!");
+            return;
+        }
+
         // 타워 생성
         GameObject clone = Instantiate(towerPrefab, tilemap.GetCellCenterWorld(cellPosition), Quaternion.identity);
         placedTowers[cellPosition] = clone;
