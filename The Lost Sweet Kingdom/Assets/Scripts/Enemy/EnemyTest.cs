@@ -84,4 +84,13 @@ public class EnemyTest : MonoBehaviour
     {
         ObjectPool.Instance.ReturnEnemy(this.gameObject, this.gameObject);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject == Castle.instance.gameObject)
+        {
+            Castle.instance.TakeDamage(10);
+            ObjectPool.Instance.ReturnEnemy(this.gameObject, this.gameObject);
+        }
+    }
 }
