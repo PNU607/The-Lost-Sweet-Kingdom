@@ -25,10 +25,18 @@ using UnityEngine;
  */
 public class GunTower : TrackingTower
 {
+    private GameObjectPool<Bullet> bulletPool;
+
     /// <summary>
     /// 발사체 생성할 위치 (transform)
     /// </summary>
     Transform bulletTransform;
+
+    private void Start()
+    {
+        Bullet bullet = currentTowerData.weaponPrefab.GetComponent<Bullet>();
+        bulletPool = new GameObjectPool<Bullet>(bullet, 5);
+    }
 
     /// <summary>
     /// 타워 세팅
@@ -88,9 +96,12 @@ public class GunTower : TrackingTower
     /// </summary>
     private void Attack()
     {
-        GameObject bulletClone = Instantiate(currentTowerData.weaponPrefab, bulletTransform.position, Quaternion.identity);
-        Bullet bullet = bulletClone.GetComponent<Bullet>();
-
+        Bullet bullet = bulletPool.Spawn(bulletTransform.position);
         bullet.Setup(attackTarget, currentTowerData.attackDamage);
+    }
+
+    public void ReleaseBullet(Bullet bullet)
+    {
+        bulletPool.Release(bullet);
     }
 }
