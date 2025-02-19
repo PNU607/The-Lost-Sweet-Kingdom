@@ -8,6 +8,7 @@
  * @see: EnemyManager.cs, Tower.cs
  * @history:
  *  - 2025-02-08: TowerManager 스크립트 최초 작성
+ *  - 2025-02-18: PlaceTower, RemoveTower, IsTileOccupied 함수 추가 및 수정
  */
 
 using UnityEngine;
@@ -71,28 +72,22 @@ public class TowerManager : MonoBehaviour
 
         if (hit2D.collider != null) // 배치 가능한 영역인지 체크
         {
-            SpawnTower(hit2D.transform);
-        }
-    }
-
-    /// <summary>
-    /// 타워 생성
-    /// </summary>
-    /// <param name="tileTransform"></param>
-    public void SpawnTower(Transform tileTransform)
-    {
-        Tile tile = tileTransform.GetComponent<Tile>();
-
-        if (tile.isOccupied)
-        {
+            Debug.Log("타워가 이미 존재합니다!");
             return;
         }
 
-        tile.isOccupied = true;
+        Vector3Int cellPosition = tilemap.WorldToCell(mousePosition);
+        if (tilemap.GetTile(cellPosition) == null)
+        {
+            //Debug.Log("벽 타일이 아닙니다!");
+            return;
+        }
 
-        GameObject clone = Instantiate(towerPrefab, tileTransform.position, Quaternion.identity, this.transform);
+        // 타워 생성
+        GameObject clone = Instantiate(towerPrefab, tilemap.GetCellCenterWorld(cellPosition), Quaternion.identity);
+        placedTowers[cellPosition] = clone;
+        
         Tower tower = clone.GetComponent<Tower>();
-
         tower.Setup();
     }
 }
