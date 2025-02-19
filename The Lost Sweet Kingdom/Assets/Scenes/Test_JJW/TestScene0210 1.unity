@@ -529,9 +529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 4625834919878556233, guid: 5a0c70812512649e895b934fb101be86, type: 3}
-  placementLayer:
-    serializedVersion: 2
-    m_Bits: 0
+  tilemap: {fileID: 617617599}
 --- !u!4 &571643897
 Transform:
   m_ObjectHideFlags: 0
@@ -590,7 +588,7 @@ GameObject:
   - component: {fileID: 617617599}
   - component: {fileID: 617617598}
   - component: {fileID: 617617600}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TestWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

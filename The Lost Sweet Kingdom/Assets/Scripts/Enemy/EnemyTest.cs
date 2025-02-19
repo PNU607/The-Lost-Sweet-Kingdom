@@ -100,4 +100,4 @@ public class EnemyTest : MonoBehaviour
             ObjectPool.Instance.ReturnEnemy(this.gameObject, this.gameObject);
         }
     }
-}
+};
