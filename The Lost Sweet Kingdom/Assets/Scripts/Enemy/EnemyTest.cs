@@ -82,14 +82,14 @@ public class EnemyTest : MonoBehaviour
     {
         Debug.Log("Die");
         GoldManager.instance.AddGold(10);
-        ObjectPool.Instance.ReturnEnemy(this.gameObject, this.gameObject);
+        ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
 
-        //this.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 
     void OnDestroy()
     {
-        ObjectPool.Instance.ReturnEnemy(this.gameObject, this.gameObject);
+        ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -97,7 +97,8 @@ public class EnemyTest : MonoBehaviour
         if (collision.gameObject == Castle.instance.gameObject)
         {
             Castle.instance.TakeDamage(10);
-            ObjectPool.Instance.ReturnEnemy(this.gameObject, this.gameObject);
+            ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
+
         }
     }
 }
