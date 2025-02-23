@@ -51,6 +51,16 @@ public class Tower : MonoBehaviour
         }
     }
 
+    private bool isDragging = false;
+    private Vector3 offset;
+    private Collider2D towerCollider;
+    private Vector3 prevPosition;
+
+    /// <summary>
+    /// 메인 카메라
+    /// </summary>
+    private Camera mainCamera;
+
     /// <summary>
     /// 현재 Tower의 상태
     /// </summary>
@@ -60,13 +70,92 @@ public class Tower : MonoBehaviour
     /// </summary>
     protected Transform attackTarget = null;
 
+    public SpriteRenderer rangeIndicator; // 사거리 표시용 원 SpriteRenderer
+
     /// <summary>
     /// 타워 세팅
     /// </summary>
     /// <param name="enemyManager"></param>
     public virtual void Setup()
     {
+        UpdateRangeIndicator();
+        rangeIndicator.enabled = false; // 처음에는 숨김
 
+        if (towerCollider == null)
+        {
+            towerCollider = GetComponent<Collider2D>();
+        }
+
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+        }
+    }
+
+    public void ShowRange(bool show)
+    {
+        rangeIndicator.enabled = show;
+    }
+
+    private void UpdateRangeIndicator()
+    {
+        if (rangeIndicator != null)
+        {
+            rangeIndicator.transform.localScale = new Vector3(currentTowerData.attackRange * 2, currentTowerData.attackRange * 2, 1);
+        }
+    }
+
+    void OnMouseDown()
+    {
+        if (!IsPointerOverUI()) // UI 위가 아닐 때만 드래그 허용
+        {
+            isDragging = true;
+            prevPosition = transform.position;
+            offset = transform.position - GetMouseWorldPosition();
+            towerCollider.enabled = false; // 이동 중 충돌 비활성화
+
+            ShowRange(true);
+        }
+    }
+
+    void OnMouseDrag()
+    {
+        if (isDragging)
+        {
+            transform.position = GetMouseWorldPosition() + offset;
+        }
+    }
+
+    void OnMouseUp()
+    {
+        isDragging = false;
+        towerCollider.enabled = true; // 이동 완료 후 충돌 활성화
+
+        if (!TowerManager.Instance.IsValidTowerTile(this.transform.position)) // 배치 불가능한 위치라면 원래 자리로 되돌리기
+        {
+            // 원래 자리로 돌아가게 설정
+            transform.position = prevPosition;
+        }
+        else
+        {
+            Vector3 movePosition = TowerManager.Instance.GetTilePosition(transform.position);
+            transform.position = movePosition;
+            TowerManager.Instance.MoveTower(prevPosition, movePosition, this.gameObject);
+        }
+
+        ShowRange(false);
+    }
+
+    private Vector3 GetMouseWorldPosition()
+    {
+        Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0; // 2D 게임이므로 Z값 고정
+        return mousePos;
+    }
+
+    private bool IsPointerOverUI()
+    {
+        return UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
     }
 
     /// <summary>

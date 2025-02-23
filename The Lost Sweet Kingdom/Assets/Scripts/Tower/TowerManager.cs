@@ -29,10 +29,9 @@ using UnityEngine.Tilemaps;
 public class TowerManager : MonoBehaviour
 {
     /// <summary>
-    /// 배치할 타워의 프리팹
+    /// 싱글톤용 instance
     /// </summary>
-    [SerializeField]
-    private GameObject towerPrefab;
+    public static TowerManager Instance;
 
     /// <summary>
     /// 메인 카메라
@@ -40,7 +39,7 @@ public class TowerManager : MonoBehaviour
     private Camera mainCamera;
 
     /// <summary>
-    /// 참조하는 파일맵
+    /// 타워를 배치할 파일맵
     /// </summary>
     public Tilemap tilemap;
     /// <summary>
@@ -50,11 +49,21 @@ public class TowerManager : MonoBehaviour
 
     /// <summary>
     /// Awake
-    /// 메인 카메라 세팅
+    /// 싱글톤 세팅
     /// </summary>
     private void Awake()
     {
+        Instance = this;
+    }
+
+    /// <summary>
+    /// Start
+    /// 메인 카메라 세팅
+    /// </summary>
+    private void Start()
+    {
         mainCamera = Camera.main;
+
     }
 
     /// <summary>
@@ -62,45 +71,51 @@ public class TowerManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // 마우스 왼쪽 클릭
-        {
-            PlaceTower();
-        }
+        //if (Input.GetMouseButtonDown(0)) // 마우스 왼쪽 클릭
+        //{
+        //    PlaceTower();
+        //}
     }
 
     /// <summary>
     /// 타워를 배치할 수 있는 영역인지 체크 후 배치
     /// </summary>
-    void PlaceTower()
+    /// <param name="towerPrefab">배치할 타워의 프리팹</param>
+    public bool TrySpawnTower(GameObject towerPrefab)
     {
         // 마우스 위치를 월드 좌표로 변환
         Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-
-        // 해당 타일에 이미 타워가 있으면 설치 불가
-        if (IsTileOccupied(mousePosition))
+        // 타워 설치 가능 여부 확인
+        if (!IsValidTowerTile(mousePosition))
         {
-            Debug.Log("타워가 이미 존재합니다!");
-            return;
+            return false;
         }
 
         Vector3Int cellPosition = tilemap.WorldToCell(mousePosition);
-        if (tilemap.GetTile(cellPosition) == null)
-        {
-            //Debug.Log("벽 타일이 아닙니다!");
-            return;
-        }
+        SpawnTower(cellPosition, towerPrefab);
+
+        return true;
+    }
+
+    /// <summary>
+    /// 타워를 생성하여 배치
+    /// </summary>
+    /// <param name="cellPosition">타워를 배치하려고 하는 타일 위치</param>
+    /// <param name="towerPrefab">배치할 타워의 프리팹</param>
+    private void SpawnTower(Vector3Int cellPosition, GameObject towerPrefab = null)
+    {
         // 타워 생성
         GameObject clone = Instantiate(towerPrefab, tilemap.GetCellCenterWorld(cellPosition), Quaternion.identity);
-        placedTowers[cellPosition] = clone;
+        PlaceTower(cellPosition, clone);
 
         Tower tower = clone.GetComponent<Tower>();
         tower.Setup();
     }
 
     /// <summary>
-    /// 해당 위치의 타일에 있는 타워 제거
+    /// 해당 위치의 타일에 있는 타워 데이터 삭제
     /// </summary>
-    /// <param name="worldPosition">제거할 타워의 타일 위치</param>
+    /// <param name="worldPosition">제거할 타워의 타일 월드 위치</param>
     /// <returns></returns>
     public bool RemoveTower(Vector3 worldPosition)
     {
@@ -108,7 +123,6 @@ public class TowerManager : MonoBehaviour
 
         if (placedTowers.TryGetValue(cellPosition, out GameObject tower))
         {
-            Destroy(tower);
             placedTowers.Remove(cellPosition);
             return true;
         }
@@ -117,13 +131,76 @@ public class TowerManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 해당 위치에 타워가 있는지 확인
+    /// 해당 위치의 타일에 있는 타워 삭제
     /// </summary>
-    /// <param name="worldPosition">타워를 배치하려고 하는 타일 위치</param>
-    /// <returns></returns>
-    public bool IsTileOccupied(Vector3 worldPosition)
+    /// <param name="tower">삭제할 타워</param>
+    public void DestroyTower(GameObject tower)
     {
-        Vector3Int cellPosition = tilemap.WorldToCell(worldPosition);
+        Destroy(tower);
+        RemoveTower(tower.transform.position);
+    }
+
+    public void MoveTower(Vector3 prevPosition, Vector3 nextPosition, GameObject towerObj)
+    {
+        RemoveTower(prevPosition);
+
+        Vector3Int nextCellPosition = tilemap.WorldToCell(nextPosition);
+        PlaceTower(nextCellPosition, towerObj);
+    }
+
+    private void PlaceTower(Vector3Int cellPosition, GameObject towerObj)
+    {
+        placedTowers[cellPosition] = towerObj;
+    }
+
+    /// <summary>
+    /// 해당 위치 타일에 타워가 있는지 여부 확인
+    /// </summary>
+    /// <param name="cellPosition">타워를 배치하려고 하는 타일 위치</param>
+    /// <returns></returns>
+    private bool IsTileOccupied(Vector3Int cellPosition)
+    {
         return placedTowers.ContainsKey(cellPosition);
+    }
+
+    /// <summary>
+    /// 해당 위치 타일이 타워를 설치할 수 있는 타일 종류인지 여부 확인
+    /// </summary>
+    /// <param name="cellPosition">타워를 배치하려고 하는 타일 위치</param>
+    /// <returns></returns>
+    private bool IsBuildableTile(Vector3Int cellPosition)
+    {
+        return tilemap.GetTile(cellPosition) != null;
+    }
+
+    /// <summary>
+    /// 현재 마우스 위치가 타워를 설치할 수 있는지 여부 확인
+    /// </summary>
+    /// <param name="mousePosition">월드 좌표로 변환된 마우스 위치</param>
+    /// <returns></returns>
+    public bool IsValidTowerTile(Vector2 mousePosition)
+    {
+        Vector3Int cellPosition = tilemap.WorldToCell(mousePosition);
+
+        // 해당 타일에 이미 타워가 있으면 설치 불가
+        if (IsTileOccupied(cellPosition))
+        {
+            //Debug.Log("타워가 이미 존재합니다!");
+
+            return false;
+        }
+        // 해당 타일이 타워 설치 가능한 타일 종류가 아닐 경우 설치 불가
+        if (!IsBuildableTile(cellPosition))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public Vector3 GetTilePosition(Vector2 mousePosition)
+    {
+        Vector3Int cellPosition = tilemap.WorldToCell(mousePosition);
+        return tilemap.GetCellCenterWorld(cellPosition);
     }
 }
