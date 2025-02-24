@@ -15,4 +15,5 @@ public class WaveData : ScriptableObject
 
     public List<EnemySpawnInfo> enemies;
     public float startDelay = 1f;
+
 }

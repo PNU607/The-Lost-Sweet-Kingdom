@@ -45,7 +45,7 @@ public class EnemySpawner : MonoBehaviour
 
         yield return new WaitForSeconds(wave.startDelay);
 
-        Debug.Log($"Start Wave : {currentWaveIndex}");
+        Debug.Log($"Start Wave : {currentWaveIndex + 1}");
 
         foreach (var enemyInfo in wave.enemies)
         {
@@ -65,6 +65,6 @@ public class EnemySpawner : MonoBehaviour
 
     public void UpdateWaveText()
     {
-        waveText.text = $"Wave : {currentWaveIndex}";
+        waveText.text = $"Wave : {currentWaveIndex + 1}";
     }
 }

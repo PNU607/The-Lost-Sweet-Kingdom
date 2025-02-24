@@ -21,15 +21,26 @@ public class GoldManager : MonoBehaviour
 
     private void Start()
     {
-        gold = 0;
+        gold = 100;
         UpdateGoldUI();
     }
 
     public void AddGold(int amount)
     {
         gold += amount;
-        Debug.Log("Get Money");
         UpdateGoldUI();
+    }
+
+    public void SpendGold(int amount)
+    {
+        if (gold < amount)
+        {
+            Debug.Log("Not Enogh Money");
+            return;
+        }
+        gold -= amount;
+        UpdateGoldUI();
+
     }
 
     public void UpdateGoldUI()
