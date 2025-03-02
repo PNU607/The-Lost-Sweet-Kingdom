@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     public Transform spawnPoint;
 
     private int currentWaveIndex = 0;
-    private bool isGameRunning = false;
+    public bool isGameRunning = false;
 
     public TextMeshProUGUI waveText;
 
@@ -59,8 +59,6 @@ public class EnemySpawner : MonoBehaviour
 
         currentWaveIndex++;
         yield return new WaitForSeconds(3f);
-
-        isGameRunning = false;
     }
 
     public void UpdateWaveText()

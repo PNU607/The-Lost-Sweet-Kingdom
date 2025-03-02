@@ -86,6 +86,7 @@ public class EnemyTest : MonoBehaviour
         ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
 
         this.gameObject.SetActive(false);
+        WaveManager.instance.enemyCountDown();
     }
 
     void OnDestroy()
@@ -99,7 +100,7 @@ public class EnemyTest : MonoBehaviour
         {
             Castle.instance.TakeDamage(10);
             ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
-
+            WaveManager.instance.enemyCountDown();
         }
     }
 }

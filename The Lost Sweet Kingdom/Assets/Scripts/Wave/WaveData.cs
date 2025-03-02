@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Wave", menuName = "Wave Data")]
@@ -15,5 +16,4 @@ public class WaveData : ScriptableObject
 
     public List<EnemySpawnInfo> enemies;
     public float startDelay = 1f;
-
 }
