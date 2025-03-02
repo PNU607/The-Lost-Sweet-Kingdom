@@ -15,5 +15,5 @@ MonoBehaviour:
   enemyName: YellowPudding
   enemyPrefab: {fileID: 257202954049900638, guid: d97d15af52d2dc8428ea7dbacb025134, type: 3}
   maxHealth: 3
-  moveSpeed: 4
+  moveSpeed: 1
   goldReward: 5
