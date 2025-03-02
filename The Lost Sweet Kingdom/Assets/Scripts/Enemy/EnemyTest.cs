@@ -65,6 +65,7 @@ public class EnemyTest : MonoBehaviour
             }
 
             currentTargetIndex++;
+
         }
     }
 
