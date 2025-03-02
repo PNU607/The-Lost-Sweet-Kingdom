@@ -47,7 +47,7 @@ public class EnemyTest : MonoBehaviour
             Vector2 targetPosition = path[currentTargetIndex];
             Vector3 targetPos3D = new Vector3(targetPosition.x, targetPosition.y, 0);
 
-            while ((transform.position - targetPos3D).sqrMagnitude > 0.1f)
+            while ((transform.position - targetPos3D).sqrMagnitude > 0.01f)
             {
                 Vector3 newPosition = transform.position;
 
