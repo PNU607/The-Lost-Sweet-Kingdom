@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8722886917320418673}
   - component: {fileID: 3154045095608183631}
   m_Layer: 6
-  m_Name: EnemyTest1
+  m_Name: YellowPudding
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 04213f72c5adf3c40824b4a62f1da502, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b73b78dd3d36ee8438e9982f28178fd4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
