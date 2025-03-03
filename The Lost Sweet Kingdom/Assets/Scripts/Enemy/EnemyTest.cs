@@ -103,4 +103,4 @@ public class EnemyTest : MonoBehaviour
             WaveManager.instance.enemyCountDown();
         }
     }
-}
+};

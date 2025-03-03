@@ -2,9 +2,9 @@
  * @file: Bullet.cs
  * @author: 서지혜
  * @date: 2025-02-09
- * @brief: GunTower에서 발사하는 발사체 스크립트
+ * @brief: GunTower에서 발사하는 일직선 탄 발사체 스크립트
  * @details:
- *  - 적 방향으로 이동하여 적과 충돌하면 대미지를 입힘
+ *  - 처음 노렸을 때의 적 방향으로 직선 이동하여 적과 충돌하면 대미지를 입힘
  * @see: GunTower.cs
  * @history:
  *  - 2025-02-09: Bullet 스크립트 최초 작성
@@ -16,10 +16,10 @@ using UnityEngine;
  * @class: Bullet
  * @author: 서지혜
  * @date: 2025-02-09
- * @brief: GunTower에서 발사하는 발사체 클래스
+ * @brief: GunTower에서 발사하는 일직선 탄 발사체 클래스
  * @details:
  *  - 적과 충돌 시 적의 hp를 줄이는 기능
- *  - Movement2D를 이용해 발사체 이동 기능
+ *  - Movement2D를 이용해 발사체 일직선 이동 기능
  * @history:
  *  - 2025-02-09: Bullet 클래스 최초 작성
  */
@@ -28,12 +28,12 @@ public class Bullet : MonoBehaviour
     /// <summary>
     /// 2D 이동
     /// </summary>
-    private Movement2D movement2D;
+    protected Movement2D movement2D;
 
     /// <summary>
     /// 발사체를 맞출 목표물
     /// </summary>
-    private Transform target;
+    protected Transform target;
 
     /// <summary>
     /// 적에게 줄 대미지
@@ -45,16 +45,19 @@ public class Bullet : MonoBehaviour
     /// </summary>
     private Vector3 direction;
 
+    private GunTower shotTower;
+
     /// <summary>
     /// 발사체 세팅
     /// </summary>
     /// <param name="target"></param>
     /// <param name="attackDamage"></param>
-    public void Setup(Transform target, float attackDamage)
+    public void Setup(Transform target, float attackDamage, GunTower gunTower)
     {
         movement2D = GetComponent<Movement2D>();
         this.target = target;
         this.attackDamage = attackDamage;
+        this.shotTower = gunTower;
 
         if (target != null)
         {
@@ -74,11 +77,9 @@ public class Bullet : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            ReleaseBullet();
         }
     }
-
-
 
     /// <summary>
     /// 충돌 체크
@@ -91,6 +92,21 @@ public class Bullet : MonoBehaviour
         //if (collision.transform != target) return;
 
         collision.GetComponent<EnemyTest>().TakeDamage(attackDamage);
-        Destroy(gameObject);
+        ReleaseBullet();
+    }
+
+    /// <summary>
+    /// Bullet을 Object Pool로 되돌림
+    /// </summary>
+    protected void ReleaseBullet()
+    {
+        if (shotTower != null)
+        {
+            shotTower.GetComponent<GunTower>().ReleaseBullet(this);
+        }
+        else
+        {
+            Debug.Log("shotTower 없음");
+        }
     }
 }
