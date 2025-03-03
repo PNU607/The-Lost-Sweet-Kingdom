@@ -88,6 +88,7 @@ public class TowerManager : MonoBehaviour
         // 타워 설치 가능 여부 확인
         if (!IsValidTowerTile(mousePosition))
         {
+            Debug.Log("설치 불가 위치");
             return false;
         }
 
@@ -196,13 +197,14 @@ public class TowerManager : MonoBehaviour
         // 해당 타일에 이미 타워가 있으면 설치 불가
         if (IsTileOccupied(cellPosition))
         {
-            //Debug.Log("타워가 이미 존재합니다!");
+            Debug.Log("타워가 이미 존재!");
 
             return false;
         }
         // 해당 타일이 타워 설치 가능한 타일 종류가 아닐 경우 설치 불가
         if (!IsBuildableTile(cellPosition))
         {
+            Debug.Log("타워 설치 가능 위치 아님!");
             return false;
         }
 

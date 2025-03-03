@@ -20,6 +20,7 @@ using UnityEngine;
 /// SearchTarget: 범위 내에 있는 적을 탐색중
 /// AttackToTarget: 타겟으로 정한 적을 공격중
 /// Rotate: 계속 회전중
+/// None: 아무 것도 아닌 상태
 /// </summary>
 public enum TowerState { SearchTarget = 0, AttackToTarget, Rotate, None }
 
@@ -178,6 +179,7 @@ public class Tower : MonoBehaviour
         if (!TowerManager.Instance.IsValidTowerTile(this.transform.position)) 
         {
             // 원래 자리로 돌아가게 설정
+            Debug.Log("타워 이동 불가");
             transform.position = prevPosition;
         }
         else
@@ -185,6 +187,7 @@ public class Tower : MonoBehaviour
             Vector3 movePosition = TowerManager.Instance.GetTilePosition(transform.position);
             transform.position = movePosition;
             TowerManager.Instance.MoveTower(prevPosition, movePosition, this.gameObject);
+            Debug.Log("타워 이동");
         }
 
         ShowRange(false);

@@ -101,7 +101,7 @@ public class GunTower : TrackingTower
     private void Attack()
     {
         Bullet bullet = bulletPool.Spawn(bulletTransform.position);
-        bullet.Setup(attackTarget, currentTowerData.attackDamage);
+        bullet.Setup(attackTarget, currentTowerData.attackDamage, this);
     }
 
     /// <summary>

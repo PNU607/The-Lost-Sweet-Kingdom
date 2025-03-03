@@ -45,16 +45,19 @@ public class Bullet : MonoBehaviour
     /// </summary>
     private Vector3 direction;
 
+    private GunTower shotTower;
+
     /// <summary>
     /// 발사체 세팅
     /// </summary>
     /// <param name="target"></param>
     /// <param name="attackDamage"></param>
-    public void Setup(Transform target, float attackDamage)
+    public void Setup(Transform target, float attackDamage, GunTower gunTower)
     {
         movement2D = GetComponent<Movement2D>();
         this.target = target;
         this.attackDamage = attackDamage;
+        this.shotTower = gunTower;
 
         if (target != null)
         {
@@ -97,6 +100,13 @@ public class Bullet : MonoBehaviour
     /// </summary>
     protected void ReleaseBullet()
     {
-        target.gameObject.GetComponent<GunTower>().ReleaseBullet(this);
+        if (shotTower != null)
+        {
+            shotTower.GetComponent<GunTower>().ReleaseBullet(this);
+        }
+        else
+        {
+            Debug.Log("shotTower 없음");
+        }
     }
 }
