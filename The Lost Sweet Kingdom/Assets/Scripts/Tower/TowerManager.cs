@@ -140,6 +140,12 @@ public class TowerManager : MonoBehaviour
         RemoveTower(tower.transform.position);
     }
 
+    /// <summary>
+    /// 타워를 해당 위치로 이동
+    /// </summary>
+    /// <param name="prevPosition">이동하기 전 위치</param>
+    /// <param name="nextPosition">이동할 위치</param>
+    /// <param name="towerObj">이동할 타워의 오브젝트</param>
     public void MoveTower(Vector3 prevPosition, Vector3 nextPosition, GameObject towerObj)
     {
         RemoveTower(prevPosition);
@@ -148,6 +154,11 @@ public class TowerManager : MonoBehaviour
         PlaceTower(nextCellPosition, towerObj);
     }
 
+    /// <summary>
+    /// 타워를 배치
+    /// </summary>
+    /// <param name="cellPosition">타워를 배치할 셀의 위치</param>
+    /// <param name="towerObj">배치할 타워 오브젝트</param>
     private void PlaceTower(Vector3Int cellPosition, GameObject towerObj)
     {
         placedTowers[cellPosition] = towerObj;
@@ -198,6 +209,11 @@ public class TowerManager : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// 마우스 위치에 있는 타일의 중점값을 가져옴
+    /// </summary>
+    /// <param name="mousePosition">월드 좌표로 변환된 마우스 위치</param>
+    /// <returns></returns>
     public Vector3 GetTilePosition(Vector2 mousePosition)
     {
         Vector3Int cellPosition = tilemap.WorldToCell(mousePosition);

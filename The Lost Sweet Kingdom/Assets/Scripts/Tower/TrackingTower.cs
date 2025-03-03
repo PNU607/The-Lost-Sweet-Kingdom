@@ -8,6 +8,7 @@
  * @see: Tower.cs
  * @history:
  *  - 2025-02-09: TrackingTower 스크립트 최초 작성
+ *  - 2025-02-22: TrackingTower class 내 Update문 virtual에서 override로 수정
  */
 
 using UnityEngine;
@@ -21,6 +22,7 @@ using UnityEngine;
  *  - 타겟 방향으로 회전 기능
  * @history:
  *  - 2025-02-09: TrackingTower 클래스 최초 작성
+ *  - 2025-02-22: Update문 virtual -> override로 수정
  */
 public class TrackingTower : Tower
 {
@@ -39,8 +41,9 @@ public class TrackingTower : Tower
     /// 업데이트
     /// 공격 타겟이 있으면 타겟 방향으로 회전
     /// </summary>
-    protected virtual void Update()
+    protected override void Update()
     {
+        base.Update();
         if (attackTarget != null)
         {
             RotateToTarget();

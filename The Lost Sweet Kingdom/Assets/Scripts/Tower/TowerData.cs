@@ -25,7 +25,10 @@ public class TowerData : ScriptableObject
     // 회전 속도
     public float rotationSpeed;
 
+
     [Header("Upgrade Settings")]
+    // 타워 레벨
+    public int towerLevel;
     // 업그레이드할 다음 타워 데이터 (없으면 null)
     public TowerData nextUpgrade;  
 }
