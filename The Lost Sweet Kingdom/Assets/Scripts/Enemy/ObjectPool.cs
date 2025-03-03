@@ -23,7 +23,7 @@ public class ObjectPool : MonoBehaviour
 
     void Start()
     {
-        poolSize = 1000;
+        poolSize = 30;
         pools = new Dictionary<GameObject, Queue<GameObject>>();
 
         foreach (var prefab in enemyPrefabs)

@@ -47,7 +47,7 @@ public class EnemyTest : MonoBehaviour
             Vector2 targetPosition = path[currentTargetIndex];
             Vector3 targetPos3D = new Vector3(targetPosition.x, targetPosition.y, 0);
 
-            while ((transform.position - targetPos3D).sqrMagnitude > 0.1f)
+            while ((transform.position - targetPos3D).sqrMagnitude > 0.01f)
             {
                 Vector3 newPosition = transform.position;
 
@@ -65,6 +65,7 @@ public class EnemyTest : MonoBehaviour
             }
 
             currentTargetIndex++;
+
         }
     }
 
@@ -82,14 +83,15 @@ public class EnemyTest : MonoBehaviour
     {
         Debug.Log("Die");
         GoldManager.instance.AddGold(10);
-        ObjectPool.Instance.ReturnEnemy(this.gameObject, this.gameObject);
+        ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
 
-        //this.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
+        WaveManager.instance.enemyCountDown();
     }
 
     void OnDestroy()
     {
-        ObjectPool.Instance.ReturnEnemy(this.gameObject, this.gameObject);
+        ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -97,7 +99,8 @@ public class EnemyTest : MonoBehaviour
         if (collision.gameObject == Castle.instance.gameObject)
         {
             Castle.instance.TakeDamage(10);
-            ObjectPool.Instance.ReturnEnemy(this.gameObject, this.gameObject);
+            ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
+            WaveManager.instance.enemyCountDown();
         }
     }
 }

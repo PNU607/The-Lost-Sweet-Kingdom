@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2724f645758e41c0af099aa7536579e, type: 3}
-  m_Name: Enemy1
+  m_Name: RedPudding
   m_EditorClassIdentifier: 
-  enemyName: Enemy1
-  enemyPrefab: {fileID: 656381047975851793, guid: 0f8409516f954944ca6675d9fbc4f2a2, type: 3}
+  enemyName: RedPudding
+  enemyPrefab: {fileID: 257202954049900638, guid: fbf8acade9b5576498be7f5e29b7588a, type: 3}
   maxHealth: 3
   moveSpeed: 2
   goldReward: 2

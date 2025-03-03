@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     public Transform spawnPoint;
 
     private int currentWaveIndex = 0;
-    private bool isGameRunning = false;
+    public bool isGameRunning = false;
 
     public TextMeshProUGUI waveText;
 
@@ -45,7 +45,7 @@ public class EnemySpawner : MonoBehaviour
 
         yield return new WaitForSeconds(wave.startDelay);
 
-        Debug.Log($"Start Wave : {currentWaveIndex}");
+        Debug.Log($"Start Wave : {currentWaveIndex + 1}");
 
         foreach (var enemyInfo in wave.enemies)
         {
@@ -59,12 +59,10 @@ public class EnemySpawner : MonoBehaviour
 
         currentWaveIndex++;
         yield return new WaitForSeconds(3f);
-
-        isGameRunning = false;
     }
 
     public void UpdateWaveText()
     {
-        waveText.text = $"Wave : {currentWaveIndex}";
+        waveText.text = $"Wave : {currentWaveIndex + 1}";
     }
 }
