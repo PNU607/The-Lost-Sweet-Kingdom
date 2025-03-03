@@ -573,6 +573,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2772b7dd33e542e44bfc0b9a631ce32e, type: 2}
   - {fileID: 11400000, guid: 21598bb03ece47e4c9012a043640d57b, type: 2}
   spawnPoint: {fileID: 2021651343}
+  isGameRunning: 0
   waveText: {fileID: 445390844}
 --- !u!1 &445390842
 GameObject:
@@ -741,6 +742,7 @@ Transform:
   - {fileID: 1085672205}
   - {fileID: 571643897}
   - {fileID: 258218615}
+  - {fileID: 776319558}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &571643895
@@ -2493,6 +2495,55 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!1 &776319557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 776319558}
+  - component: {fileID: 776319559}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &776319558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776319557}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 568699698}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &776319559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776319557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e557fe98c63284c8df5c34e96662de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waves:
+  - {fileID: 11400000, guid: 2772b7dd33e542e44bfc0b9a631ce32e, type: 2}
+  - {fileID: 11400000, guid: 21598bb03ece47e4c9012a043640d57b, type: 2}
+  totalEnemy: 0
+  waveCount: 0
 --- !u!1001 &805010602
 PrefabInstance:
   m_ObjectHideFlags: 0
