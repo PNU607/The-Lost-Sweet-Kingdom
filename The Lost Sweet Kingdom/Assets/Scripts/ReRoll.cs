@@ -33,7 +33,7 @@ public class ReRoll : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        float offsetX = 400f;
+        float offsetX = 380f;
 
         for (int i = 0; i < 5; i++)
         {
@@ -42,9 +42,9 @@ public class ReRoll : MonoBehaviour
             if (randomUnit.TowerPrefab != null)
             {
                 GameObject towerObj = Instantiate(randomUnit.TowerPrefab, unitPanel);
-                towerObj.transform.localPosition = new Vector3(i * offsetX - 600f, 0, 0);
+                towerObj.transform.localPosition = new Vector3(i * offsetX - 750f, 0, 0);
                 RectTransform rectTransform = towerObj.GetComponent<RectTransform>();
-                rectTransform.sizeDelta = new Vector2(300f, 1100f);
+                rectTransform.sizeDelta = new Vector2(300f, 700f);
             }
         }
     }
