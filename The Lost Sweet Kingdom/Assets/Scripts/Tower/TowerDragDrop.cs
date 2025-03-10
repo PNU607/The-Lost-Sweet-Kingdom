@@ -57,7 +57,11 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        towerImage = GetComponentInChildren<Image>();
         mainCamera = Camera.main;
+
+        // @TODO: SetUp 함수 이후에 Reroll 시 해주도록 함
+        SetUp(currentTowerData);
     }
 
     /// <summary>

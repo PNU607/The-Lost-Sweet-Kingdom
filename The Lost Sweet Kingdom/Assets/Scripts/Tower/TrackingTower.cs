@@ -9,6 +9,7 @@
  * @history:
  *  - 2025-02-09: TrackingTower 스크립트 최초 작성
  *  - 2025-02-22: TrackingTower class 내 Update문 virtual에서 override로 수정
+ *  - 2025-03-08: 공격 방향에 따라 sprite flip 기능 추가
  */
 
 using UnityEngine;
@@ -23,6 +24,7 @@ using UnityEngine;
  * @history:
  *  - 2025-02-09: TrackingTower 클래스 최초 작성
  *  - 2025-02-22: Update문 virtual -> override로 수정
+ *  - 2025-03-08: RotateToTarget 함수 내 sprite flip 기능 추가
  */
 public class TrackingTower : Tower
 {
@@ -31,9 +33,9 @@ public class TrackingTower : Tower
     /// 타워를 탐색 상태로 변경
     /// </summary>
     /// <param name="enemyManager"></param>
-    public override void Setup()
+    public override void Setup(TowerData towerData = null)
     {
-        base.Setup();
+        base.Setup(towerData);
         ChangeState(TowerState.SearchTarget);
     }
 
@@ -59,7 +61,17 @@ public class TrackingTower : Tower
         float dy = attackTarget.position.y - transform.position.y;
 
         float degree = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
-        Quaternion targetRotation = Quaternion.Euler(0, 0, degree);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * currentTowerData.rotationSpeed);
+
+        if (degree > -90 && degree < 90)
+        {
+            towerSprite.flipX = true;
+        }
+        else
+        {
+            towerSprite.flipX = false;
+            degree += 180;
+        }
+        //Quaternion targetRotation = Quaternion.Euler(0, 0, degree);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * currentTowerData.rotationSpeed);
     }
 }

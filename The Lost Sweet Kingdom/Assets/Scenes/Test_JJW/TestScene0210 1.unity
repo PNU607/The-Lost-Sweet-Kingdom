@@ -547,7 +547,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - {fileID: 11400000, guid: 2772b7dd33e542e44bfc0b9a631ce32e, type: 2}
+  - {fileID: 11400000, guid: 21598bb03ece47e4c9012a043640d57b, type: 2}
   spawnPoint: {fileID: 2021651343}
+  isGameRunning: 0
   waveText: {fileID: 445390844}
 --- !u!1 &445390842
 GameObject:
@@ -847,7 +849,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 305459651}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9940141
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3179,6 +3181,55 @@ RectTransform:
   m_AnchoredPosition: {x: 838, y: 494}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1237782923
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1237782925}
+  - component: {fileID: 1237782924}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1237782924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237782923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e557fe98c63284c8df5c34e96662de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waves:
+  - {fileID: 11400000, guid: 2772b7dd33e542e44bfc0b9a631ce32e, type: 2}
+  - {fileID: 11400000, guid: 21598bb03ece47e4c9012a043640d57b, type: 2}
+  totalEnemy: 0
+  waveCount: 0
+--- !u!4 &1237782925
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237782923}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1413394243 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5539791218199227874, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
@@ -4500,3 +4551,4 @@ SceneRoots:
   - {fileID: 1085672205}
   - {fileID: 571643897}
   - {fileID: 258218615}
+  - {fileID: 1237782925}
