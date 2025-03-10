@@ -1,14 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class ReRoll : MonoBehaviour
 {
     public ReRollData rerollData;
     public Transform unitPanel;
-    public GameObject unitPrefab;
     public int rerollCost = 2;
 
     private void Start()
@@ -36,24 +33,19 @@ public class ReRoll : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        float offsetX = 300f;
-        Vector2 imageSize = new Vector2(600f, 2800f);
+        float offsetX = 400f;
 
         for (int i = 0; i < 5; i++)
         {
             Unit randomUnit = GetRandomUnitBasedOnProbability();
 
-            GameObject unitObj = Instantiate(unitPrefab, unitPanel);
-
-            unitObj.transform.Find("UnitImage").GetComponent<Image>().sprite = randomUnit.unitSprite;
-
-            RectTransform unitImageRect = unitObj.transform.Find("UnitImage").GetComponent<RectTransform>();
-            unitImageRect.sizeDelta = imageSize;
-
-            float xPos = i * offsetX - 600f;
-            float yPos = 0f;
-
-            unitObj.transform.localPosition = new Vector3(xPos, yPos, 0);
+            if (randomUnit.TowerPrefab != null)
+            {
+                GameObject towerObj = Instantiate(randomUnit.TowerPrefab, unitPanel);
+                towerObj.transform.localPosition = new Vector3(i * offsetX - 600f, 0, 0);
+                RectTransform rectTransform = towerObj.GetComponent<RectTransform>();
+                rectTransform.sizeDelta = new Vector2(300f, 1100f);
+            }
         }
     }
 
@@ -66,8 +58,8 @@ public class ReRoll : MonoBehaviour
         }
 
         float randomValue = Random.Range(0f, totalProbability);
-
         float cumulativeProbability = 0f;
+
         foreach (Unit unit in rerollData.units)
         {
             cumulativeProbability += unit.spawnProbability;
