@@ -10,6 +10,7 @@
  *  - 2025-02-08: Tower 스크립트 최초 작성
  *  - 2025-02-22: 타워의 상태 변경 기능 수정
  *  - 2025-02-23: 타워의 공격 범위 전시 기능, 타워의 이동 기능 추가
+ *  - 2025-03-08: 타워의 애니메이션 추가, 타워 Merge 기능 추가
  */
 
 using System.Linq;
@@ -36,6 +37,7 @@ public enum TowerState { SearchTarget = 0, AttackToTarget, Rotate, None }
  *  - 2025-02-08: Tower 클래스 최초 작성
  *  - 2025-02-22: AttackToTarget을 IEnumerator를 void로 수정
  *  - 2025-02-23: ShowRange, UpdateRangeIndicator, OnMouseDown, OnMouseDrag, OnMouseUp 함수 추가
+ *  - 2025-03-08: 타워의 애니메이션 추가, 타워 Merge 기능 추가
  */
 public class Tower : MonoBehaviour
 {
@@ -98,11 +100,36 @@ public class Tower : MonoBehaviour
     public SpriteRenderer rangeIndicator;
 
     /// <summary>
+    /// 타워의 애니메이터
+    /// </summary>
+    public Animator towerAnim;
+
+    /// <summary>
+    /// 타워의 스프라이트 렌더러
+    /// </summary>
+    protected SpriteRenderer towerSprite;
+
+    /// <summary>
+    /// 적 레이어
+    /// </summary>
+    public LayerMask enemyLayer;
+
+    /// <summary>
     /// 타워 세팅
     /// </summary>
     /// <param name="enemyManager"></param>
-    public virtual void Setup()
+    public virtual void Setup(TowerData nextTowerData = null)
     {
+        //@TODO: level ui setting 
+        if (nextTowerData != null)
+        {
+            currentTowerData = nextTowerData;
+        }
+
+        towerSprite = this.GetComponent<SpriteRenderer>();
+        towerAnim = this.GetComponent<Animator>();
+        towerAnim.SetFloat("attackSpeed", 1/currentTowerData.attackCooldown);
+
         UpdateRangeIndicator();
         rangeIndicator.enabled = false; // 처음에는 숨김
 
@@ -175,16 +202,40 @@ public class Tower : MonoBehaviour
         // 이동 완료 후 충돌 활성화
         towerCollider.enabled = true;
 
-        // 배치 불가능한 위치라면 원래 자리로 되돌리기
-        if (!TowerManager.Instance.IsValidTowerTile(this.transform.position)) 
+        Vector3 movePosition = TowerManager.Instance.GetTilePosition(transform.position);
+        Tower occupiedTower;
+        bool isOccupiedTile = TowerManager.Instance.IsTileOccupied(movePosition, out occupiedTower);
+
+        if (isOccupiedTile) 
         {
+            // 현재 위치 타일의 타워가 자기 자신과 같을 때
+            if (TowerManager.Instance.GetTowerObjOnThePosition(movePosition) == this.gameObject)
+            {
+                Debug.Log("타워 이동 불가");
+                transform.position = prevPosition;
+            }
+            // Merge가 가능하면
+            else if (TowerManager.Instance.CanMerge(occupiedTower, this))
+            {
+                TowerManager.Instance.MergeTowers(occupiedTower, this);
+            }
+            else
+            {
+                Debug.Log("타워 이동 불가");
+                transform.position = prevPosition;
+            }
+        }
+        // 배치 불가능한 위치라면 원래 자리로 되돌리기
+        else if (!TowerManager.Instance.IsBuildableTile(movePosition))
+        {
+            //Debug.Log("타워 설치 가능 위치 아님!");
+
             // 원래 자리로 돌아가게 설정
             Debug.Log("타워 이동 불가");
             transform.position = prevPosition;
         }
         else
         {
-            Vector3 movePosition = TowerManager.Instance.GetTilePosition(transform.position);
             transform.position = movePosition;
             TowerManager.Instance.MoveTower(prevPosition, movePosition, this.gameObject);
             Debug.Log("타워 이동");
@@ -268,7 +319,7 @@ public class Tower : MonoBehaviour
     protected virtual void SearchTarget()
     {
         // 현재 타워의 위치에서 원형의 공격 범위 내에 있는 모든 Enemy(Layer)를 가져옴
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, currentTowerData.attackRange, LayerMask.GetMask("Enemy"));
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, currentTowerData.attackRange, enemyLayer);
         float closestDistance = Mathf.Infinity;
         Transform closestEnemy = null;
 

@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac77b7c63f27d9b49b11a2bf4addbe23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentEnemyData: {fileID: 11400000, guid: d250f9ded01f6344eb3343f7b2ff3220, type: 2}
+  currentEnemyData: {fileID: 11400000, guid: 5adf14a3e6166654488419be36403861, type: 2}
   aStarScript: {fileID: 0}
 --- !u!50 &1902759397154923754
 Rigidbody2D:

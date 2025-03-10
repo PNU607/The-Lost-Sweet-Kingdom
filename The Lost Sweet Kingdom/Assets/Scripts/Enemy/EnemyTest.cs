@@ -9,6 +9,7 @@ public class EnemyTest : MonoBehaviour
     private float hp;
 
     public AStar aStarScript;
+    private float baseSpeed;
     private float moveSpeed;
 
     private List<Vector2> path;
@@ -17,6 +18,7 @@ public class EnemyTest : MonoBehaviour
     private void OnEnable()
     {
         hp = currentEnemyData.maxHealth;
+        baseSpeed = currentEnemyData.moveSpeed;
         moveSpeed = currentEnemyData.moveSpeed;
     }
 
@@ -77,6 +79,16 @@ public class EnemyTest : MonoBehaviour
         {
             OnDie();
         }
+    }
+
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        moveSpeed = baseSpeed * multiplier;
+    }
+
+    public void ResetSpeed()
+    {
+        moveSpeed = baseSpeed;
     }
 
     private void OnDie()

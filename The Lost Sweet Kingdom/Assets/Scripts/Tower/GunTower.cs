@@ -9,6 +9,7 @@
  * @history:
  *  - 2025-02-09: GunTower 스크립트 최초 작성
  *  - 2025-02-22: 타워의 상태 변경 기능 수정
+ *  - 2025-03-08: 타워의 애니메이션 추가
  */
 
 using UnityEngine;
@@ -23,6 +24,7 @@ using UnityEngine;
  * @history:
  *  - 2025-02-09: GunTower 클래스 최초 작성
  *  - 2025-02-22: AttackToTarget을 IEnumerator를 void로 수정
+ *  - 2025-03-08: 타워의 애니메이션 추가
  */
 public class GunTower : TrackingTower
 {
@@ -34,7 +36,8 @@ public class GunTower : TrackingTower
     /// <summary>
     /// 발사체 생성할 위치 (transform)
     /// </summary>
-    Transform bulletTransform;
+    [SerializeField]
+    private Transform bulletTransform;
 
     /// <summary>
     /// Start
@@ -42,7 +45,7 @@ public class GunTower : TrackingTower
     /// </summary>
     private void Start()
     {
-        bulletTransform = transform.GetChild(0);
+        //bulletTransform = transform.GetChild(0);
 
         Bullet bullet = currentTowerData.weaponPrefab.GetComponent<Bullet>();
         bulletPool = new GameObjectPool<Bullet>(bullet, 10);
@@ -52,9 +55,9 @@ public class GunTower : TrackingTower
     /// 타워 세팅
     /// bulletTransform을 가져옴
     /// </summary>
-    public override void Setup()
+    public override void Setup(TowerData towerData = null)
     {
-        base.Setup();
+        base.Setup(towerData);
     }
 
     /// <summary>
@@ -67,6 +70,7 @@ public class GunTower : TrackingTower
         if (attackTarget == null)
         {
             // 타겟 탐색 상태로 전환
+            towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -75,6 +79,7 @@ public class GunTower : TrackingTower
         if (!attackTarget.gameObject.activeSelf)
         {
             // 타겟 탐색 상태로 전환
+            towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -87,6 +92,7 @@ public class GunTower : TrackingTower
         {
             // 타겟 탐색 상태로 전환
             attackTarget = null;
+            towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -100,6 +106,17 @@ public class GunTower : TrackingTower
     /// </summary>
     private void Attack()
     {
+        Vector2 targetDirection = (attackTarget.position - transform.position).normalized;
+        if (targetDirection.x > 0)
+        {
+            bulletTransform.localPosition = new Vector3(Mathf.Abs(bulletTransform.localPosition.x), bulletTransform.localPosition.y, bulletTransform.localPosition.z);
+        }
+        else
+        {
+            bulletTransform.localPosition = new Vector3(-Mathf.Abs(bulletTransform.localPosition.x), bulletTransform.localPosition.y, bulletTransform.localPosition.z);
+        }
+
+        towerAnim.SetBool("isAttacking", true);
         Bullet bullet = bulletPool.Spawn(bulletTransform.position);
         bullet.Setup(attackTarget, currentTowerData.attackDamage, this);
     }
