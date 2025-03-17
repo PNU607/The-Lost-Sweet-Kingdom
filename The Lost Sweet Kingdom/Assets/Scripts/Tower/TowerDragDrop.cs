@@ -24,6 +24,7 @@ using UnityEngine.UI;
  * @history:
  *  - 2025-02-22: TowerDragDrop 클래스 최초 작성
  *  - 2025-03-17: Awake의 SetUp 비활성화 해놨습니다. ReRoll에서 호출하고 있어요
+                  OnEndDrag에 Gold 소모 추가했습니다
  */
 public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -120,6 +121,9 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         // 드래그한 타워 UI defuault로 되돌리기
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
+
+        //Cost 소모
+        GoldManager.instance.SpendGold(currentTowerData.cost);
 
         // 드래그 끝난 위치에 타워 생성
         TowerManager.Instance.TrySpawnTower(currentTowerData.towerPrefab);

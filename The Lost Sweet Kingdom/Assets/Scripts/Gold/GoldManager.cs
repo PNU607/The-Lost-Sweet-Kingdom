@@ -39,6 +39,7 @@ public class GoldManager : MonoBehaviour
             return;
         }
         gold -= amount;
+        Debug.Log($"Spend : {amount}");
         UpdateGoldUI();
 
     }
