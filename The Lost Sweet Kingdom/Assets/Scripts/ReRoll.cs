@@ -7,6 +7,7 @@ public class ReRoll : MonoBehaviour
     public ReRollData rerollData;
     public Transform unitPanel;
     public int rerollCost = 2;
+    public GameObject towerUIPrefab;
 
     private void Start()
     {
@@ -39,12 +40,15 @@ public class ReRoll : MonoBehaviour
         {
             Unit randomUnit = GetRandomUnitBasedOnProbability();
 
-            if (randomUnit.TowerPrefab != null)
+            if (randomUnit.towerData != null)
             {
-                GameObject towerObj = Instantiate(randomUnit.TowerPrefab, unitPanel);
+                GameObject towerObj = Instantiate(towerUIPrefab, unitPanel);
+                RectTransform imageRectTransform = towerObj.GetComponent<RectTransform>();
+                imageRectTransform.sizeDelta = new Vector2(300f, 500f);
                 towerObj.transform.localPosition = new Vector3(i * offsetX - 750f, 0, 0);
-                RectTransform rectTransform = towerObj.GetComponent<RectTransform>();
-                rectTransform.sizeDelta = new Vector2(300f, 700f);
+
+                TowerDragDrop towerDragDrop = towerObj.GetComponent<TowerDragDrop>();
+                towerDragDrop.SetUp(randomUnit.towerData);
             }
         }
     }

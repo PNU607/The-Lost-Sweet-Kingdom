@@ -7,6 +7,6 @@ using UnityEngine;
 public class Unit
 {
     public string unitName;
-    public GameObject TowerPrefab;
+    public TowerData towerData;
     public float spawnProbability;
 }

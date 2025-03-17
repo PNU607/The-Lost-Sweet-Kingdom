@@ -23,6 +23,7 @@ using UnityEngine.UI;
  *  - 타워를 드래그 시 타워 프리뷰 생성, 드래그한 위치 따라 이동, 드래그 완료된 위치에 배치 기능
  * @history:
  *  - 2025-02-22: TowerDragDrop 클래스 최초 작성
+ *  - 2025-03-17: Awake의 SetUp 비활성화 해놨습니다. ReRoll에서 호출하고 있어요
  */
 public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -61,7 +62,7 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         mainCamera = Camera.main;
 
         // @TODO: SetUp 함수 이후에 Reroll 시 해주도록 함
-        SetUp(currentTowerData);
+        //SetUp(currentTowerData);
     }
 
     /// <summary>
