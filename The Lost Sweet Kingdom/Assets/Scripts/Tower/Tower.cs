@@ -13,6 +13,7 @@
  *  - 2025-03-08: 타워의 애니메이션 추가, 타워 Merge 기능 추가
  */
 
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -318,40 +319,7 @@ public class Tower : MonoBehaviour
     /// <returns></returns>
     protected virtual void SearchTarget()
     {
-        // 현재 타워의 위치에서 원형의 공격 범위 내에 있는 모든 Enemy(Layer)를 가져옴
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, currentTowerData.attackRange, enemyLayer);
-        float closestDistance = Mathf.Infinity;
-        Transform closestEnemy = null;
-
-        // 이전의 공격 타겟이 아직 범위 내에 있으면
-        if (attackTarget != null
-            && hitColliders.Length > 0
-            && hitColliders.Select(x => x.gameObject).Contains(attackTarget.gameObject))
-        {
-            // 타겟 오브젝트가 활성화 되어 있으면
-            if (attackTarget.gameObject.activeSelf)
-            {
-                // 계속 해당 타겟을 공격 타겟으로 하여 반복
-                return;
-            }
-        }
-
-        // 범위 내 모든 적 순회
-        foreach (Collider2D collider in hitColliders)
-        {
-            // 각 적과 타워와의 제곱 거리 계산 (루트 연산 제거)
-            float distance = (collider.transform.position - transform.position).sqrMagnitude;
-            // 현재 저장된 closestDistance보다 distance가 작거나 같으면
-            if (distance < closestDistance)
-            {
-                // 타워와 가장 가까운 적과의 거리 저장
-                closestDistance = distance;
-                // 타워와 가장 가까운 적을 공격 타겟으로 저장
-                closestEnemy = collider.transform;
-            }
-        }
-
-        attackTarget = closestEnemy;
+        attackTarget = GetClosestEnemy()?.transform;
 
         // 공격 타겟이 있으면
         if (attackTarget != null)
@@ -376,6 +344,49 @@ public class Tower : MonoBehaviour
     protected virtual void Rotate()
     {
         transform.Rotate(0, 0, currentTowerData.rotationSpeed * Time.deltaTime);
+    }
+
+    protected List<EnemyTest> GetEnemiesInRange()
+    {
+        List<EnemyTest> enemiesInRange = new List<EnemyTest>();
+
+        // 현재 타워의 위치에서 원형의 공격 범위 내에 있는 모든 Enemy(Layer)를 가져옴
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, currentTowerData.attackRange, enemyLayer);
+
+        foreach (Collider2D col in colliders)
+        {
+            EnemyTest enemy = col.GetComponent<EnemyTest>();
+            if (enemy != null)
+            {
+                enemiesInRange.Add(enemy);
+            }
+        }
+        return enemiesInRange;
+    }
+
+    protected EnemyTest GetClosestEnemy()
+    {
+        List<EnemyTest> enemies = GetEnemiesInRange();
+
+        float closestDistance = Mathf.Infinity;
+        EnemyTest closestEnemy = null;
+
+        // 범위 내 모든 적 순회
+        foreach (EnemyTest enemy in enemies)
+        {
+            // 각 적과 타워와의 제곱 거리 계산 (루트 연산 제거)
+            float distance = (enemy.transform.position - transform.position).sqrMagnitude;
+            // 현재 저장된 closestDistance보다 distance가 작거나 같으면
+            if (distance < closestDistance)
+            {
+                // 타워와 가장 가까운 적과의 거리 저장
+                closestDistance = distance;
+                // 타워와 가장 가까운 적을 공격 타겟으로 저장
+                closestEnemy = enemy;
+            }
+        }
+
+        return closestEnemy;
     }
 
     /// <summary>

@@ -73,6 +73,7 @@ public class EnemyTest : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        Debug.Log("Take Damage " + damage + " Total HP " + hp);
         hp -= damage;
 
         if (hp <= 0)
@@ -81,14 +82,36 @@ public class EnemyTest : MonoBehaviour
         }
     }
 
-    public void SetSpeedMultiplier(float multiplier)
+    public void SetSpeedMultiplier(float multiplier, float duration)
     {
         moveSpeed = baseSpeed * multiplier;
+
+        // 원래 속도로 복구
+        StartCoroutine(ResetSpeed(duration));
     }
 
-    public void ResetSpeed()
+    private IEnumerator ResetSpeed(float duration)
     {
+        yield return new WaitForSeconds(duration);
+
         moveSpeed = baseSpeed;
+    }
+
+    public void TakeContinuousDamageForBullet(float damage, float duration)
+    {
+        StartCoroutine(TakeContinuousDamage(damage, duration));
+    }
+
+    private IEnumerator TakeContinuousDamage(float damage, float duration)
+    {
+        float timer = 0;
+        while (timer <= duration)
+        {
+            TakeDamage(damage);
+
+            yield return new WaitForSeconds(0.5f);
+            timer += Time.deltaTime;
+        }
     }
 
     private void OnDie()

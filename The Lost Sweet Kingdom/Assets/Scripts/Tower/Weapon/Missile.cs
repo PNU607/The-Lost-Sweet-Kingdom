@@ -15,7 +15,7 @@ using UnityEngine;
 /* 
  * @class: Missile
  * @author: 서지혜
- * @date: 2025-02-09
+ * @date: 2025-02-23
  * @brief: GunTower에서 발사하는 유도탄 발사체 클래스
  * @details:
  *  - 적과 충돌 시 적의 hp를 줄이는 기능

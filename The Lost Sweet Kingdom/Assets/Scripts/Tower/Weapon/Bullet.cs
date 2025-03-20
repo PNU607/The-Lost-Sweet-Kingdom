@@ -45,7 +45,7 @@ public class Bullet : MonoBehaviour
     /// </summary>
     private Vector3 direction;
 
-    private GunTower shotTower;
+    protected GunTower shotTower;
 
     /// <summary>
     /// 발사체 세팅
@@ -91,7 +91,7 @@ public class Bullet : MonoBehaviour
         if (!collision.CompareTag("Enemy")) return;
         //if (collision.transform != target) return;
 
-        collision.GetComponent<EnemyTest>().TakeDamage(attackDamage);
+        Attack(collision);
         ReleaseBullet();
     }
 
@@ -108,5 +108,14 @@ public class Bullet : MonoBehaviour
         {
             Debug.Log("shotTower 없음");
         }
+    }
+
+    /// <summary>
+    /// 발사체의 공격 기능
+    /// </summary>
+    /// <param name="collision"></param>
+    protected virtual void Attack(Collider2D collision)
+    {
+        collision.GetComponent<EnemyTest>().TakeDamage(attackDamage);
     }
 }
