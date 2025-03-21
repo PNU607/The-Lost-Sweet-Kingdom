@@ -221,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rerollData: {fileID: 11400000, guid: 88c922aa3428b8a4c968ea11faab87b5, type: 2}
   unitPanel: {fileID: 1078726805}
-  rerollCost: 2
+  rerollCost: 10
   towerUIPrefab: {fileID: 8887764149964107737, guid: 9c3375d47960540a282addc2bf3e7695, type: 3}
   offsetX: 370
   width: 360
@@ -516,8 +516,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - {fileID: 11400000, guid: 2772b7dd33e542e44bfc0b9a631ce32e, type: 2}
-  - {fileID: 11400000, guid: 21598bb03ece47e4c9012a043640d57b, type: 2}
+  - {fileID: 11400000, guid: ab9a3b1ab8d6be54a8f236000864bebd, type: 2}
+  - {fileID: 11400000, guid: a3c369d9dba7b8f40a9a560c05012e16, type: 2}
+  - {fileID: 11400000, guid: 5c7af86a7d0c0ee43ac8ec0bcc6982c1, type: 2}
   spawnPoint: {fileID: 2021651343}
   isGameRunning: 0
   waveText: {fileID: 445390844}
@@ -3750,8 +3751,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - {fileID: 11400000, guid: 2772b7dd33e542e44bfc0b9a631ce32e, type: 2}
-  - {fileID: 11400000, guid: 21598bb03ece47e4c9012a043640d57b, type: 2}
+  - {fileID: 11400000, guid: ab9a3b1ab8d6be54a8f236000864bebd, type: 2}
+  - {fileID: 11400000, guid: a3c369d9dba7b8f40a9a560c05012e16, type: 2}
+  - {fileID: 11400000, guid: 5c7af86a7d0c0ee43ac8ec0bcc6982c1, type: 2}
   totalEnemy: 0
   waveCount: 0
 --- !u!4 &1525395301
