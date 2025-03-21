@@ -11,6 +11,7 @@
  *  - 2025-02-22: 타워의 상태 변경 기능 수정
  *  - 2025-02-23: 타워의 공격 범위 전시 기능, 타워의 이동 기능 추가
  *  - 2025-03-08: 타워의 애니메이션 추가, 타워 Merge 기능 추가
+ *  - 2025-03-16: 공격 타겟 리스트로 변경
  */
 
 using System.Collections.Generic;
@@ -39,6 +40,7 @@ public enum TowerState { SearchTarget = 0, AttackToTarget, Rotate, None }
  *  - 2025-02-22: AttackToTarget을 IEnumerator를 void로 수정
  *  - 2025-02-23: ShowRange, UpdateRangeIndicator, OnMouseDown, OnMouseDrag, OnMouseUp 함수 추가
  *  - 2025-03-08: 타워의 애니메이션 추가, 타워 Merge 기능 추가
+ *  - 2025-03-16: attackTarget -> closestAttackTarget 변수 수정
  */
 public class Tower : MonoBehaviour
 {
@@ -91,9 +93,13 @@ public class Tower : MonoBehaviour
     /// </summary>
     private TowerState prevTowerState = TowerState.None;
     /// <summary>
-    /// 공격할 타겟
+    /// 공격할 타겟 리스트
     /// </summary>
-    protected Transform attackTarget = null;
+    protected List<EnemyTest> attackTargets = null;
+    /// <summary>
+    /// 가장 가까운 타겟
+    /// </summary>
+    protected EnemyTest closestAttackTarget = null;
 
     /// <summary>
     /// 타워의 공격 범위 표시용 SpriteRenderer
@@ -319,10 +325,11 @@ public class Tower : MonoBehaviour
     /// <returns></returns>
     protected virtual void SearchTarget()
     {
-        attackTarget = GetClosestEnemy()?.transform;
+        attackTargets = GetEnemiesInRange();
+        closestAttackTarget = GetClosestEnemy();
 
         // 공격 타겟이 있으면
-        if (attackTarget != null)
+        if (attackTargets != null && attackTargets.Count > 0)
         {
             ChangeState(TowerState.AttackToTarget);
         }

@@ -10,6 +10,7 @@
  *  - 2025-02-09: TrackingTower 스크립트 최초 작성
  *  - 2025-02-22: TrackingTower class 내 Update문 virtual에서 override로 수정
  *  - 2025-03-08: 공격 방향에 따라 sprite flip 기능 추가
+ *  - 2025-03-16: 공격 타겟 리스트로 변경되면서 변수 수정
  */
 
 using UnityEngine;
@@ -25,6 +26,7 @@ using UnityEngine;
  *  - 2025-02-09: TrackingTower 클래스 최초 작성
  *  - 2025-02-22: Update문 virtual -> override로 수정
  *  - 2025-03-08: RotateToTarget 함수 내 sprite flip 기능 추가
+ *  - 2025-03-16: attackTarget -> closestAttackTarget 변수 수정
  */
 public class TrackingTower : Tower
 {
@@ -46,7 +48,7 @@ public class TrackingTower : Tower
     protected override void Update()
     {
         base.Update();
-        if (attackTarget != null)
+        if (closestAttackTarget != null)
         {
             RotateToTarget();
         }
@@ -57,8 +59,8 @@ public class TrackingTower : Tower
     /// </summary>
     private void RotateToTarget()
     {
-        float dx = attackTarget.position.x - transform.position.x;
-        float dy = attackTarget.position.y - transform.position.y;
+        float dx = closestAttackTarget.transform.position.x - transform.position.x;
+        float dy = closestAttackTarget.transform.position.y - transform.position.y;
 
         float degree = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
 

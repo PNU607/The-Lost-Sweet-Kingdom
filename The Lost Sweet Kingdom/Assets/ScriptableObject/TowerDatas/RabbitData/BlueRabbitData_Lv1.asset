@@ -17,7 +17,7 @@ MonoBehaviour:
   towerPrefab: {fileID: 4625834919878556233, guid: 8dbb6be00d2a04f46bf3d986e745a741, type: 3}
   weaponPrefab: {fileID: 4877909776406011252, guid: c96a019f935cf45528197166ae847c69, type: 3}
   cost: 0
-  attackRange: 1.5
+  attackRange: 2
   attackCooldown: 1
   attackDuration: 2
   attackDamage: 2
