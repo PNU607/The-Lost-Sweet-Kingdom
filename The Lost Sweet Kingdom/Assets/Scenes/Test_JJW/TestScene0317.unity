@@ -223,6 +223,10 @@ MonoBehaviour:
   unitPanel: {fileID: 1078726805}
   rerollCost: 2
   towerUIPrefab: {fileID: 8887764149964107737, guid: 9c3375d47960540a282addc2bf3e7695, type: 3}
+  offsetX: 370
+  width: 360
+  height: 970
+  startPosition: 740
 --- !u!114 &332384223
 MonoBehaviour:
   m_ObjectHideFlags: 0
