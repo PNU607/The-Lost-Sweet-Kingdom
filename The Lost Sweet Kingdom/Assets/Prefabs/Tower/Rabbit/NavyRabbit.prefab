@@ -101,9 +101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 004069175f9d9438599f414079947761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTowerData: {fileID: 11400000, guid: 2785164a8b61c4821a53e46185156e78, type: 2}
+  currentTowerData: {fileID: 11400000, guid: 64b661c6ceb1340b08000ce7d2406d50, type: 2}
   rangeIndicator: {fileID: 3738841098518847753}
-  towerAnim: {fileID: 0}
+  towerAnim: {fileID: 6592042468430555329}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64

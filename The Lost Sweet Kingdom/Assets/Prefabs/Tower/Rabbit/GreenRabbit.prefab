@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentTowerData: {fileID: 11400000, guid: c0975cf7f894941f3b81be9e254336d5, type: 2}
   rangeIndicator: {fileID: 3738841098518847753}
-  towerAnim: {fileID: 0}
+  towerAnim: {fileID: 6592042468430555329}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
