@@ -15,12 +15,6 @@ MonoBehaviour:
   towerName: Green Rabbit Lv1
   towerIcon: {fileID: 21300000, guid: 22bd377f6e95cb5488c69447e4a182d2, type: 3}
   towerPrefab: {fileID: 4625834919878556233, guid: f7e5ddc86bc554dd78eebcb2d1413284, type: 3}
-  weaponPrefab: {fileID: 4877909776406011252, guid: f6e4a6821367243b3bc6324e5af2e5d5, type: 3}
-  cost: 0
-  attackRange: 1.5
-  attackCooldown: 0.5
-  attackDuration: 3
-  attackDamage: 0.5
   rotationSpeed: 0
   towerLevel: 1
   nextUpgrade: {fileID: 11400000, guid: 5792dbc5f959443858897e8e832ac018, type: 2}
