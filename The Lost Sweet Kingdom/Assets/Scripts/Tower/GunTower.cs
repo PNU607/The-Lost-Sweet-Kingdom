@@ -10,6 +10,7 @@
  *  - 2025-02-09: GunTower 스크립트 최초 작성
  *  - 2025-02-22: 타워의 상태 변경 기능 수정
  *  - 2025-03-08: 타워의 애니메이션 추가
+ *  - 2025-03-16: 공격 타겟 리스트로 변경되면서 변수 수정
  */
 
 using UnityEngine;
@@ -25,6 +26,7 @@ using UnityEngine;
  *  - 2025-02-09: GunTower 클래스 최초 작성
  *  - 2025-02-22: AttackToTarget을 IEnumerator를 void로 수정
  *  - 2025-03-08: 타워의 애니메이션 추가
+ *  - 2025-03-16: attackTarget -> closestAttackTarget 변수 수정
  */
 public class GunTower : TrackingTower
 {
@@ -67,7 +69,7 @@ public class GunTower : TrackingTower
     protected override void AttackToTarget()
     {
         // 타겟이 없으면
-        if (attackTarget == null)
+        if (closestAttackTarget == null)
         {
             // 타겟 탐색 상태로 전환
             towerAnim.SetBool("isAttacking", false);
@@ -76,7 +78,7 @@ public class GunTower : TrackingTower
         }
 
         // 타겟이 비활성화되면
-        if (!attackTarget.gameObject.activeSelf)
+        if (!closestAttackTarget.gameObject.activeSelf)
         {
             // 타겟 탐색 상태로 전환
             towerAnim.SetBool("isAttacking", false);
@@ -85,13 +87,13 @@ public class GunTower : TrackingTower
         }
 
         // 타겟과의 거리 계산
-        float distance = Vector3.Distance(attackTarget.position, transform.position);
+        float distance = Vector3.Distance(closestAttackTarget.transform.position, transform.position);
 
         // 타겟과의 거리가 공격 범위보다 멀리 있으면
         if (distance > currentTowerData.attackRange)
         {
             // 타겟 탐색 상태로 전환
-            attackTarget = null;
+            attackTargets = null;
             towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
@@ -106,7 +108,7 @@ public class GunTower : TrackingTower
     /// </summary>
     private void Attack()
     {
-        Vector2 targetDirection = (attackTarget.position - transform.position).normalized;
+        Vector2 targetDirection = (closestAttackTarget.transform.position - transform.position).normalized;
         if (targetDirection.x > 0)
         {
             bulletTransform.localPosition = new Vector3(Mathf.Abs(bulletTransform.localPosition.x), bulletTransform.localPosition.y, bulletTransform.localPosition.z);
@@ -118,7 +120,7 @@ public class GunTower : TrackingTower
 
         towerAnim.SetBool("isAttacking", true);
         Bullet bullet = bulletPool.Spawn(bulletTransform.position);
-        bullet.Setup(attackTarget, currentTowerData.attackDamage, this);
+        bullet.Setup(closestAttackTarget.transform, currentTowerData.attackDamage, this);
     }
 
     /// <summary>

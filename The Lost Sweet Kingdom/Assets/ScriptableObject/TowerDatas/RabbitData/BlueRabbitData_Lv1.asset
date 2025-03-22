@@ -15,11 +15,12 @@ MonoBehaviour:
   towerName: Blue Rabbit Lv1
   towerIcon: {fileID: 21300000, guid: 65130679ffbdf2648a6d3d18f02d27ba, type: 3}
   towerPrefab: {fileID: 4625834919878556233, guid: 8dbb6be00d2a04f46bf3d986e745a741, type: 3}
-  weaponPrefab: {fileID: 4877909776406011252, guid: a5fb88efefa1e494da9f948c0ef8518e, type: 3}
+  weaponPrefab: {fileID: 4877909776406011252, guid: c96a019f935cf45528197166ae847c69, type: 3}
   cost: 0
-  attackRange: 1.5
+  attackRange: 2
   attackCooldown: 1
-  attackDamage: 1
+  attackDuration: 2
+  attackDamage: 2
   rotationSpeed: 0
   towerLevel: 1
   nextUpgrade: {fileID: 11400000, guid: c562971f3a7e04cc2911e51293621544, type: 2}
