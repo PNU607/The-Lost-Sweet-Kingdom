@@ -18,10 +18,14 @@ public class TowerData : ScriptableObject
     public int cost;
     // 공격 사거리
     public float attackRange;
+    // 무기의 공격 사거리
+    public float attackWeaponRange;
     // 공격 속도(초당 공격 횟수)
     public float attackCooldown;
+    // 공격 지속 시간 - 지속 딜, 디버프 공격에 이용됨
+    public float attackDuration;
     // 공격력
-    public int attackDamage;
+    public float attackDamage;
     // 회전 속도
     public float rotationSpeed;
 

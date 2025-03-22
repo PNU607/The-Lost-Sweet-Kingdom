@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3135961830937656473}
   - component: {fileID: 5162888563007946881}
   - component: {fileID: 4604530389949578415}
-  - component: {fileID: 5631467123291082551}
+  - component: {fileID: 1319797476861364989}
   m_Layer: 0
-  m_Name: CarretBullet_Missile
+  m_Name: CarretBullet_SlowMissile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 999b3e7d7f4eeea419fee3e625dba13d, type: 3}
-  m_Color: {r: 0.9150943, g: 0.375534, b: 0.375534, a: 1}
+  m_Color: {r: 0.21173012, g: 0.32589555, b: 0.735849, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   moveDirection: {x: 0, y: 0, z: 0}
---- !u!114 &5631467123291082551
+--- !u!114 &1319797476861364989
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,6 +173,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4877909776406011252}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5635f1b50094d419780bfc9a84a54429, type: 3}
+  m_Script: {fileID: 11500000, guid: b2ae2ec4bcc1c4879b0910e9df8ee2d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -4,7 +4,7 @@
  * @date: 2025-02-09
  * @brief: GunTower에서 발사하는 일직선 탄 발사체 스크립트
  * @details:
- *  - 처음 노렸을 때의 적 방향으로 직선 이동하여 적과 충돌하면 대미지를 입힘
+ *  - 처음 노렸을 때의 적 방향으로 직선 이동하여 적과 충돌하면 데미지를 입힘
  * @see: GunTower.cs
  * @history:
  *  - 2025-02-09: Bullet 스크립트 최초 작성
@@ -36,7 +36,7 @@ public class Bullet : MonoBehaviour
     protected Transform target;
 
     /// <summary>
-    /// 적에게 줄 대미지
+    /// 적에게 줄 데미지
     /// </summary>
     private float attackDamage;
 
@@ -45,7 +45,7 @@ public class Bullet : MonoBehaviour
     /// </summary>
     private Vector3 direction;
 
-    private GunTower shotTower;
+    protected GunTower shotTower;
 
     /// <summary>
     /// 발사체 세팅
@@ -83,7 +83,7 @@ public class Bullet : MonoBehaviour
 
     /// <summary>
     /// 충돌 체크
-    /// 충돌한 collision의 태그가 Enemy이면, 타겟에 대미지를 주고 충돌체는 파괴
+    /// 충돌한 collision의 태그가 Enemy이면, 타겟에 데미지를 주고 충돌체는 파괴
     /// </summary>
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
@@ -91,7 +91,7 @@ public class Bullet : MonoBehaviour
         if (!collision.CompareTag("Enemy")) return;
         //if (collision.transform != target) return;
 
-        collision.GetComponent<EnemyTest>().TakeDamage(attackDamage);
+        Attack(collision);
         ReleaseBullet();
     }
 
@@ -108,5 +108,14 @@ public class Bullet : MonoBehaviour
         {
             Debug.Log("shotTower 없음");
         }
+    }
+
+    /// <summary>
+    /// 발사체의 공격 기능
+    /// </summary>
+    /// <param name="collision"></param>
+    protected virtual void Attack(Collider2D collision)
+    {
+        collision.GetComponent<EnemyTest>().TakeDamage(attackDamage);
     }
 }

@@ -11,8 +11,10 @@
  *  - 2025-02-22: 타워의 상태 변경 기능 수정
  *  - 2025-02-23: 타워의 공격 범위 전시 기능, 타워의 이동 기능 추가
  *  - 2025-03-08: 타워의 애니메이션 추가, 타워 Merge 기능 추가
+ *  - 2025-03-16: 공격 타겟 리스트로 변경
  */
 
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -38,6 +40,7 @@ public enum TowerState { SearchTarget = 0, AttackToTarget, Rotate, None }
  *  - 2025-02-22: AttackToTarget을 IEnumerator를 void로 수정
  *  - 2025-02-23: ShowRange, UpdateRangeIndicator, OnMouseDown, OnMouseDrag, OnMouseUp 함수 추가
  *  - 2025-03-08: 타워의 애니메이션 추가, 타워 Merge 기능 추가
+ *  - 2025-03-16: attackTarget -> closestAttackTarget 변수 수정
  */
 public class Tower : MonoBehaviour
 {
@@ -90,9 +93,13 @@ public class Tower : MonoBehaviour
     /// </summary>
     private TowerState prevTowerState = TowerState.None;
     /// <summary>
-    /// 공격할 타겟
+    /// 공격할 타겟 리스트
     /// </summary>
-    protected Transform attackTarget = null;
+    protected List<EnemyTest> attackTargets = null;
+    /// <summary>
+    /// 가장 가까운 타겟
+    /// </summary>
+    protected EnemyTest closestAttackTarget = null;
 
     /// <summary>
     /// 타워의 공격 범위 표시용 SpriteRenderer
@@ -318,43 +325,11 @@ public class Tower : MonoBehaviour
     /// <returns></returns>
     protected virtual void SearchTarget()
     {
-        // 현재 타워의 위치에서 원형의 공격 범위 내에 있는 모든 Enemy(Layer)를 가져옴
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, currentTowerData.attackRange, enemyLayer);
-        float closestDistance = Mathf.Infinity;
-        Transform closestEnemy = null;
-
-        // 이전의 공격 타겟이 아직 범위 내에 있으면
-        if (attackTarget != null
-            && hitColliders.Length > 0
-            && hitColliders.Select(x => x.gameObject).Contains(attackTarget.gameObject))
-        {
-            // 타겟 오브젝트가 활성화 되어 있으면
-            if (attackTarget.gameObject.activeSelf)
-            {
-                // 계속 해당 타겟을 공격 타겟으로 하여 반복
-                return;
-            }
-        }
-
-        // 범위 내 모든 적 순회
-        foreach (Collider2D collider in hitColliders)
-        {
-            // 각 적과 타워와의 제곱 거리 계산 (루트 연산 제거)
-            float distance = (collider.transform.position - transform.position).sqrMagnitude;
-            // 현재 저장된 closestDistance보다 distance가 작거나 같으면
-            if (distance < closestDistance)
-            {
-                // 타워와 가장 가까운 적과의 거리 저장
-                closestDistance = distance;
-                // 타워와 가장 가까운 적을 공격 타겟으로 저장
-                closestEnemy = collider.transform;
-            }
-        }
-
-        attackTarget = closestEnemy;
+        attackTargets = GetEnemiesInRange();
+        closestAttackTarget = GetClosestEnemy();
 
         // 공격 타겟이 있으면
-        if (attackTarget != null)
+        if (attackTargets != null && attackTargets.Count > 0)
         {
             ChangeState(TowerState.AttackToTarget);
         }
@@ -376,6 +351,49 @@ public class Tower : MonoBehaviour
     protected virtual void Rotate()
     {
         transform.Rotate(0, 0, currentTowerData.rotationSpeed * Time.deltaTime);
+    }
+
+    protected List<EnemyTest> GetEnemiesInRange()
+    {
+        List<EnemyTest> enemiesInRange = new List<EnemyTest>();
+
+        // 현재 타워의 위치에서 원형의 공격 범위 내에 있는 모든 Enemy(Layer)를 가져옴
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, currentTowerData.attackRange, enemyLayer);
+
+        foreach (Collider2D col in colliders)
+        {
+            EnemyTest enemy = col.GetComponent<EnemyTest>();
+            if (enemy != null)
+            {
+                enemiesInRange.Add(enemy);
+            }
+        }
+        return enemiesInRange;
+    }
+
+    protected EnemyTest GetClosestEnemy()
+    {
+        List<EnemyTest> enemies = GetEnemiesInRange();
+
+        float closestDistance = Mathf.Infinity;
+        EnemyTest closestEnemy = null;
+
+        // 범위 내 모든 적 순회
+        foreach (EnemyTest enemy in enemies)
+        {
+            // 각 적과 타워와의 제곱 거리 계산 (루트 연산 제거)
+            float distance = (enemy.transform.position - transform.position).sqrMagnitude;
+            // 현재 저장된 closestDistance보다 distance가 작거나 같으면
+            if (distance < closestDistance)
+            {
+                // 타워와 가장 가까운 적과의 거리 저장
+                closestDistance = distance;
+                // 타워와 가장 가까운 적을 공격 타겟으로 저장
+                closestEnemy = enemy;
+            }
+        }
+
+        return closestEnemy;
     }
 
     /// <summary>
