@@ -32,6 +32,7 @@ public class SlowMissile : Missile
     protected override void Attack(Collider2D collision)
     {
         EnemyTest enemy = collision.GetComponent<EnemyTest>();
+
         StartCoroutine(SlowEnemy(enemy));
     }
 

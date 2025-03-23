@@ -4,6 +4,8 @@ using UnityEngine;
 public class TowerData : ScriptableObject
 {
     [Header("Basic Info")]
+    // 타워 레벨
+    public int towerLevel;
     // 타워 이름
     public string towerName;
     // UI에서 표시될 타워 아이콘
@@ -31,8 +33,6 @@ public class TowerData : ScriptableObject
 
 
     [Header("Upgrade Settings")]
-    // 타워 레벨
-    public int towerLevel;
     // 업그레이드할 다음 타워 데이터 (없으면 null)
     public TowerData nextUpgrade;  
 }

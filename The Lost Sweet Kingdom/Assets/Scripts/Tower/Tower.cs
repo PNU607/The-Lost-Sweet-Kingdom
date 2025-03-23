@@ -176,6 +176,7 @@ public class Tower : MonoBehaviour
     /// </summary>
     void OnMouseDown()
     {
+        Debug.Log("IsPointerOverUI " + IsPointerOverUI());
         // UI 위가 아닐 때만 드래그 허용
         if (!IsPointerOverUI()) 
         {

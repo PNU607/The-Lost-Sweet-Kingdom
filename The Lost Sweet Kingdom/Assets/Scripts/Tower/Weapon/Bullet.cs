@@ -45,6 +45,9 @@ public class Bullet : MonoBehaviour
     /// </summary>
     private Vector3 direction;
 
+    /// <summary>
+    /// Bullet을 발사하는 타워
+    /// </summary>
     protected GunTower shotTower;
 
     /// <summary>
@@ -91,6 +94,7 @@ public class Bullet : MonoBehaviour
         if (!collision.CompareTag("Enemy")) return;
         //if (collision.transform != target) return;
 
+        if (!this.gameObject.activeSelf) return;
         Attack(collision);
         ReleaseBullet();
     }

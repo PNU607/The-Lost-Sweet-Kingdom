@@ -25,22 +25,9 @@ using UnityEngine;
 public class ExplosiveBullet : Bullet
 {
     /// <summary>
-    /// 충돌 체크
-    /// 충돌한 collision의 태그가 Enemy이면, 일정 범위의 적들에게 데미지를 주고 충돌체는 파괴
-    /// </summary>
-    /// <param name="collision"></param>
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!collision.CompareTag("Enemy")) return;
-
-        Explode();
-        ReleaseBullet();
-    }
-
-    /// <summary>
     /// 일정 범위의 적들에게 데미지를 줌
     /// </summary>
-    private void Explode()
+    protected override void Attack(Collider2D collision)
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, shotTower.CurrentTowerData.attackWeaponRange, shotTower.enemyLayer);
         foreach (Collider2D col in colliders)
