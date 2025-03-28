@@ -10,8 +10,6 @@ public class ReRoll : MonoBehaviour
     public GameObject towerUIPrefab;
 
     public float offsetX = 370f;
-    public float width = 360f;
-    public float height = 970f;
     public float startPosition = 740f;
 
     private void Start()
@@ -46,8 +44,6 @@ public class ReRoll : MonoBehaviour
             if (randomUnit.towerData != null)
             {
                 GameObject towerObj = Instantiate(towerUIPrefab, unitPanel);
-                RectTransform imageRectTransform = towerObj.GetComponent<RectTransform>();
-                imageRectTransform.sizeDelta = new Vector2(width, height);
                 towerObj.transform.localPosition = new Vector3(i * offsetX - startPosition, 0, 0);
 
                 TowerDragDrop towerDragDrop = towerObj.GetComponent<TowerDragDrop>();
