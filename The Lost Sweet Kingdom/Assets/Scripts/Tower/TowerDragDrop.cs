@@ -13,6 +13,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 /* 
  * @class: TowerDragDrop
@@ -50,6 +51,17 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public TowerData currentTowerData;
 
     /// <summary>
+    /// 타워 이름을 표시할 텍스트
+    /// </summary>
+    public TMP_Text towerNameText;
+
+    /// <summary>
+    /// 타워 이름 배경 색상을 변경할 UI 오브젝트
+    /// </summary>
+    private Image towerNameBackground;
+    private float backgroundAlpha = 0.8f;
+
+    /// <summary>
     /// 메인 카메라
     /// </summary>
     private Camera mainCamera;
@@ -61,6 +73,8 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         canvasGroup = GetComponent<CanvasGroup>();
         towerImage = GetComponentInChildren<Image>();
+        towerNameText = GetComponentInChildren<TMP_Text>();
+        towerNameBackground = transform.Find("TowerNameBackground").GetComponent<Image>();
         mainCamera = Camera.main;
 
         // @TODO: SetUp 함수 이후에 Reroll 시 해주도록 함
@@ -75,6 +89,27 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         currentTowerData = towerData;
         towerImage.sprite = currentTowerData.towerIcon;
+        towerNameText.text = currentTowerData.towerName;
+        towerNameBackground.color = GetColorFromTowerName(towerData.towerName, backgroundAlpha);
+    }
+    private Color GetColorFromTowerName(string name, float alpha)
+    {
+        int firstSpaceIndex = name.IndexOf(' ');
+        string ColorName = name.Substring(0, firstSpaceIndex);
+
+        alpha = Mathf.Clamp01(alpha);
+
+        switch (ColorName.ToLower())
+        {
+            case "red": return new Color(1f, 0f, 0f, alpha);
+            case "orange": return new Color(1f, 0.5f, 0f, alpha);
+            case "yellow": return new Color(1f, 1f, 0f, alpha);
+            case "green": return new Color(0f, 1f, 0f, alpha);
+            case "blue": return new Color(0f, 0f, 1f, alpha);
+            case "navy": return new Color(0f, 0f, 0.5f, alpha);
+            case "purple": return new Color(0.5f, 0f, 0.5f, alpha);
+            default: return new Color(0.5f, 0.5f, 0.5f, alpha);
+        }
     }
 
     /// <summary>

@@ -6,7 +6,7 @@ public class EnemyTest : MonoBehaviour
 {
     [SerializeField]
     private EnemyData currentEnemyData;
-    private float hp;
+    public float hp;
 
     public AStar aStarScript;
     private float baseSpeed;
