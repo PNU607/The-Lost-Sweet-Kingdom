@@ -14,6 +14,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 /* 
  * @class: TowerDragDrop
@@ -27,6 +28,7 @@ using TMPro;
  *  - 2025-03-17: Awake의 SetUp 비활성화 해놨습니다. ReRoll에서 호출하고 있어요
                   OnEndDrag에 Gold 소모 추가, Icon 선택불가 등 기능 추가했습니다
  *  - 2025-03-21: OnEndDrag에 잘못 설치 시, 다시 선택할 수 있도록 변경하였습니다
+ *  - 2025-03-28: UI Setup에서 Name, Cost Update하게 했습니다.
  */
 public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -59,7 +61,18 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     /// 타워 이름 배경 색상을 변경할 UI 오브젝트
     /// </summary>
     private Image towerNameBackground;
-    private float backgroundAlpha = 0.8f;
+    private float backgroundAlpha = 0.7f;
+
+    /// <summary>
+    /// 타워 비용을 표시할 텍스트
+    /// </summary>
+    public TMP_Text costText;
+
+    /// <summary>
+    /// 타워 비용 배경 색상을 변경할 UI 오브젝트
+    /// </summary>
+    private Image costBackground;
+    private float costbackgroundAlpha = 0.5f;
 
     /// <summary>
     /// 메인 카메라
@@ -73,8 +86,11 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         canvasGroup = GetComponent<CanvasGroup>();
         towerImage = GetComponentInChildren<Image>();
-        towerNameText = GetComponentInChildren<TMP_Text>();
+        costText = transform.Find("CostText").GetComponent<TMP_Text>();
+        towerNameText = transform.Find("TowerNameText").GetComponent<TMP_Text>();
+        costBackground = transform.Find("CostBackground").GetComponent<Image>();
         towerNameBackground = transform.Find("TowerNameBackground").GetComponent<Image>();
+        
         mainCamera = Camera.main;
 
         // @TODO: SetUp 함수 이후에 Reroll 시 해주도록 함
@@ -89,9 +105,12 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         currentTowerData = towerData;
         towerImage.sprite = currentTowerData.towerIcon;
+        costText.text = "Cost : " + currentTowerData.cost.ToString();
         towerNameText.text = currentTowerData.towerName;
+        costBackground.color = GetColorFromTowerName(towerData.towerName, costbackgroundAlpha);
         towerNameBackground.color = GetColorFromTowerName(towerData.towerName, backgroundAlpha);
     }
+
     private Color GetColorFromTowerName(string name, float alpha)
     {
         int firstSpaceIndex = name.IndexOf(' ');
