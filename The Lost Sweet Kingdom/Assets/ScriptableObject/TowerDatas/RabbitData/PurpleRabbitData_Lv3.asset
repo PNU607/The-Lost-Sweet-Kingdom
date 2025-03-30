@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: PurpleRabbitData_Lv3
   m_EditorClassIdentifier: 
+  towerLevel: 3
   towerName: Purple Rabbit Lv3
   towerIcon: {fileID: 21300000, guid: 3046d19460b3db14890c38cac88297d3, type: 3}
   towerPrefab: {fileID: 4625834919878556233, guid: 77b98658610d6424783398c1b762ec60, type: 3}
-  weaponPrefab: {fileID: 4877909776406011252, guid: a5fb88efefa1e494da9f948c0ef8518e, type: 3}
+  weaponPrefab: {fileID: 4877909776406011252, guid: 3cdc75d993a3744a5bcac738351679bf, type: 3}
   cost: 0
   attackRange: 4
-  attackCooldown: 3.5
-  attackDamage: 5
-  rotationSpeed: 0
-  towerLevel: 3
+  attackWeaponRange: 3
+  attackCooldown: 2
+  attackDuration: 0
+  attackDamage: 3
+  rotationSpeed: 3
   nextUpgrade: {fileID: 0}

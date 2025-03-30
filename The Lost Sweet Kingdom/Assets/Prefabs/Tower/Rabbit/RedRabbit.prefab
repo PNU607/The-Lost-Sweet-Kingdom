@@ -101,13 +101,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 004069175f9d9438599f414079947761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSpawnTransform: {fileID: 3863901792690209694}
   currentTowerData: {fileID: 11400000, guid: 44d0fff61f0794bf68082d6ba446b0d7, type: 2}
   rangeIndicator: {fileID: 3738841098518847753}
   towerAnim: {fileID: 6592042468430555329}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  bulletTransform: {fileID: 3863901792690209694}
 --- !u!95 &6592042468430555329
 Animator:
   serializedVersion: 5

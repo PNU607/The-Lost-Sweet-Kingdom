@@ -107,7 +107,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  bulletTransform: {fileID: 3863901792690209694}
+  weaponSpawnTransform: {fileID: 3863901792690209694}
 --- !u!95 &6592042468430555329
 Animator:
   serializedVersion: 5

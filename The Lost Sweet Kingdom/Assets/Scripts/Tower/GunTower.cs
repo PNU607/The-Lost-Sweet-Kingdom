@@ -31,29 +31,6 @@ using UnityEngine;
 public class GunTower : TrackingTower
 {
     /// <summary>
-    /// 발사할 발사체의 Object Pool
-    /// </summary>
-    private GameObjectPool<Bullet> bulletPool;
-
-    /// <summary>
-    /// 발사체 생성할 위치 (transform)
-    /// </summary>
-    [SerializeField]
-    private Transform bulletTransform;
-
-    /// <summary>
-    /// Start
-    /// 변수 세팅 및 Bullet Object Pool 생성
-    /// </summary>
-    private void Start()
-    {
-        //bulletTransform = transform.GetChild(0);
-
-        Bullet bullet = currentTowerData.weaponPrefab.GetComponent<Bullet>();
-        bulletPool = new GameObjectPool<Bullet>(bullet, 10);
-    }
-
-    /// <summary>
     /// 타워 세팅
     /// bulletTransform을 가져옴
     /// </summary>
@@ -108,27 +85,8 @@ public class GunTower : TrackingTower
     /// </summary>
     private void Attack()
     {
-        Vector2 targetDirection = (closestAttackTarget.transform.position - transform.position).normalized;
-        if (targetDirection.x > 0)
-        {
-            bulletTransform.localPosition = new Vector3(Mathf.Abs(bulletTransform.localPosition.x), bulletTransform.localPosition.y, bulletTransform.localPosition.z);
-        }
-        else
-        {
-            bulletTransform.localPosition = new Vector3(-Mathf.Abs(bulletTransform.localPosition.x), bulletTransform.localPosition.y, bulletTransform.localPosition.z);
-        }
-
         towerAnim.SetBool("isAttacking", true);
-        Bullet bullet = bulletPool.Spawn(bulletTransform.position);
-        bullet.Setup(closestAttackTarget.transform, currentTowerData.attackDamage, this);
-    }
-
-    /// <summary>
-    /// Bullet을 Object Pool에 반환
-    /// </summary>
-    /// <param name="bullet"></param>
-    public void ReleaseBullet(Bullet bullet)
-    {
-        bulletPool.Release(bullet);
+        TowerWeapon weapon = weaponPool.Spawn(weaponSpawnTransform.position);
+        weapon.Setup(closestAttackTarget.transform, this);
     }
 }

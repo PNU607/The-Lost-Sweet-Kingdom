@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: NavyRabbitData_Lv2
   m_EditorClassIdentifier: 
+  towerLevel: 2
   towerName: Navy Rabbit Lv2
   towerIcon: {fileID: 21300000, guid: b86a0fff33aad764f92df7242f7f627e, type: 3}
   towerPrefab: {fileID: 4625834919878556233, guid: f4e19a94429be4593ae13dd4d131f06c, type: 3}
-  weaponPrefab: {fileID: 4877909776406011252, guid: a5fb88efefa1e494da9f948c0ef8518e, type: 3}
+  weaponPrefab: {fileID: 0}
   cost: 0
   attackRange: 3
-  attackCooldown: 1
-  attackDamage: 2
-  rotationSpeed: 0
-  towerLevel: 2
+  attackWeaponRange: 3
+  attackCooldown: 2
+  attackDuration: 1.3
+  attackDamage: 1.5
+  rotationSpeed: 3
   nextUpgrade: {fileID: 11400000, guid: b1916758bc7cc485696c731b30c4a20d, type: 2}
