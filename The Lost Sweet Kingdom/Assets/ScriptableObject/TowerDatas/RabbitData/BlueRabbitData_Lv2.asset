@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: BlueRabbitData_Lv2
   m_EditorClassIdentifier: 
+  towerLevel: 2
   towerName: Blue Rabbit Lv2
   towerIcon: {fileID: 21300000, guid: 65130679ffbdf2648a6d3d18f02d27ba, type: 3}
   towerPrefab: {fileID: 4625834919878556233, guid: 8dbb6be00d2a04f46bf3d986e745a741, type: 3}
-  weaponPrefab: {fileID: 4877909776406011252, guid: a5fb88efefa1e494da9f948c0ef8518e, type: 3}
+  weaponPrefab: {fileID: 4877909776406011252, guid: c96a019f935cf45528197166ae847c69, type: 3}
   cost: 0
-  attackRange: 2.5
-  attackCooldown: 0.8
-  attackDuration: 0
+  attackRange: 2.3
+  attackWeaponRange: 0
+  attackCooldown: 1
+  attackDuration: 2
   attackDamage: 2
-  rotationSpeed: 0
-  towerLevel: 2
+  rotationSpeed: 3
   nextUpgrade: {fileID: 11400000, guid: 317cb01b5a05d4aa98830327332506b7, type: 2}

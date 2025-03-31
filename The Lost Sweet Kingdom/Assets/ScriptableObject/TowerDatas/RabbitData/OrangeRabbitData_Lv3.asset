@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: OrangeRabbitData_Lv3
   m_EditorClassIdentifier: 
+  towerLevel: 3
   towerName: Orange Rabbit Lv3
   towerIcon: {fileID: 21300000, guid: 045197e9a87fae24b99d9e80bf2db01a, type: 3}
   towerPrefab: {fileID: 4625834919878556233, guid: 8c0df72b649a644c38cb194a853eefc2, type: 3}
   weaponPrefab: {fileID: 4877909776406011252, guid: a5fb88efefa1e494da9f948c0ef8518e, type: 3}
   cost: 0
   attackRange: 2
+  attackWeaponRange: 0
   attackCooldown: 0.8
+  attackDuration: 0
   attackDamage: 1
-  rotationSpeed: 0
-  towerLevel: 3
+  rotationSpeed: 3
   nextUpgrade: {fileID: 0}

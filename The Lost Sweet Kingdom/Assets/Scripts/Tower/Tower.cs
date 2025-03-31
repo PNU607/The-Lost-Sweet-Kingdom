@@ -12,10 +12,10 @@
  *  - 2025-02-23: 타워의 공격 범위 전시 기능, 타워의 이동 기능 추가
  *  - 2025-03-08: 타워의 애니메이션 추가, 타워 Merge 기능 추가
  *  - 2025-03-16: 공격 타겟 리스트로 변경
+ *  - 2025-03-23: GunTower 내의 Object Pool을 가져옴. Bullet을 TowerWeapon으로 변경.
  */
 
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -41,9 +41,16 @@ public enum TowerState { SearchTarget = 0, AttackToTarget, Rotate, None }
  *  - 2025-02-23: ShowRange, UpdateRangeIndicator, OnMouseDown, OnMouseDrag, OnMouseUp 함수 추가
  *  - 2025-03-08: 타워의 애니메이션 추가, 타워 Merge 기능 추가
  *  - 2025-03-16: attackTarget -> closestAttackTarget 변수 수정
+ *  - 2025-03-23: weaponPool 추가, Bullet -> TowerWeapon으로 클래스 수정
  */
 public class Tower : MonoBehaviour
 {
+    /// <summary>
+    /// 발사체 생성할 위치 (transform)
+    /// </summary>
+    [SerializeField]
+    protected Transform weaponSpawnTransform;
+
     /// <summary>
     /// 현재 타워의 데이터
     /// </summary>
@@ -60,6 +67,11 @@ public class Tower : MonoBehaviour
             currentTowerData = value;
         }
     }
+
+    /// <summary>
+    /// 발사할 발사체의 Object Pool
+    /// </summary>
+    protected GameObjectPool<TowerWeapon> weaponPool;
 
     /// <summary>
     /// 드래그 중인지 여부
@@ -121,6 +133,12 @@ public class Tower : MonoBehaviour
     /// </summary>
     public LayerMask enemyLayer;
 
+    protected virtual void Start()
+    {
+        TowerWeapon weapon = currentTowerData.weaponPrefab.GetComponent<TowerWeapon>();
+        weaponPool = new GameObjectPool<TowerWeapon>(weapon, 10);
+    }
+
     /// <summary>
     /// 타워 세팅
     /// </summary>
@@ -176,6 +194,7 @@ public class Tower : MonoBehaviour
     /// </summary>
     void OnMouseDown()
     {
+        Debug.Log("IsPointerOverUI " + IsPointerOverUI());
         // UI 위가 아닐 때만 드래그 허용
         if (!IsPointerOverUI()) 
         {
@@ -394,6 +413,15 @@ public class Tower : MonoBehaviour
         }
 
         return closestEnemy;
+    }
+
+    /// <summary>
+    /// Bullet을 Object Pool에 반환
+    /// </summary>
+    /// <param name="weapon"></param>
+    public void ReleaseWeapon(TowerWeapon weapon)
+    {
+        weaponPool.Release(weapon);
     }
 
     /// <summary>

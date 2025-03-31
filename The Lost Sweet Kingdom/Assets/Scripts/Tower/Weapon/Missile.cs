@@ -8,10 +8,10 @@
  * @see: GunTower.cs, Bullet.cs
  * @history:
  *  - 2025-02-23: Missile 스크립트 최초 작성
+ *  - 2025-03-23: TowerWeapon 추가로 무기의 이동 기능 로직 수정
  */
 
 using UnityEngine;
-
 /* 
  * @class: Missile
  * @author: 서지혜
@@ -22,24 +22,18 @@ using UnityEngine;
  *  - Movement2D를 이용해 적 방향으로 발사체 이동 기능
  * @history:
  *  - 2025-02-23: Missile 클래스 최초 작성
+ *  - 2025-03-23: Update 함수 삭제 및 MoveWeapon 추가
  */
+
 public class Missile : Bullet
 {
     /// <summary>
-    /// 업데이트
-    /// 타겟이 있으면 발사체가 타겟 방향으로 이동, 없으면 발사체 파괴
-    /// @TODO: Destroy를 Object Pool에 Release하도록 수정 필요
+    /// 무기의 이동 방향 설정
     /// </summary>
-    private void Update()
+    protected override void SetDirection()
     {
-        if (target != null && target.gameObject.activeSelf)
-        {
-            Vector3 d = (target.position - transform.position).normalized;
-            movement2D.MoveTo(d);
-        }
-        else
-        {
-            ReleaseBullet();
-        }
+        base.SetDirection();
+
+        direction = (target.position - transform.position).normalized;
     }
 }

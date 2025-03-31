@@ -8,6 +8,7 @@
  * @see: GunTower.cs
  * @history:
  *  - 2025-02-09: Bullet 스크립트 최초 작성
+ *  - 2025-03-23: TowerWeapon 추가로 최상위 기능 분리 및 무기의 이동 기능 로직 수정
  */
 
 using UnityEngine;
@@ -22,8 +23,9 @@ using UnityEngine;
  *  - Movement2D를 이용해 발사체 일직선 이동 기능
  * @history:
  *  - 2025-02-09: Bullet 클래스 최초 작성
+ *  - 2025-03-23: TowerWeapon 상속으로 인해 Setup 함수 수정, Update 함수 삭제 및 MoveWeapon 추가
  */
-public class Bullet : MonoBehaviour
+public class Bullet : TowerWeapon
 {
     /// <summary>
     /// 2D 이동
@@ -31,33 +33,20 @@ public class Bullet : MonoBehaviour
     protected Movement2D movement2D;
 
     /// <summary>
-    /// 발사체를 맞출 목표물
-    /// </summary>
-    protected Transform target;
-
-    /// <summary>
-    /// 적에게 줄 데미지
-    /// </summary>
-    private float attackDamage;
-
-    /// <summary>
     /// 발사체가 날아가는 방향 (적의 방향)
     /// </summary>
-    private Vector3 direction;
-
-    protected GunTower shotTower;
+    protected Vector3 direction;
 
     /// <summary>
     /// 발사체 세팅
     /// </summary>
     /// <param name="target"></param>
     /// <param name="attackDamage"></param>
-    public void Setup(Transform target, float attackDamage, GunTower gunTower)
+    public override void Setup(Transform target, Tower shotTower)
     {
+        base.Setup(target, shotTower);
+
         movement2D = GetComponent<Movement2D>();
-        this.target = target;
-        this.attackDamage = attackDamage;
-        this.shotTower = gunTower;
 
         if (target != null)
         {
@@ -65,20 +54,11 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 업데이트
-    /// 타겟이 있으면 발사체가 타겟 방향으로 이동, 없으면 발사체 파괴
-    /// </summary>
-    private void Update()
+    protected override void MoveWeapon()
     {
-        if (target != null && target.gameObject.activeSelf)
-        {
-            movement2D.MoveTo(direction);
-        }
-        else
-        {
-            ReleaseBullet();
-        }
+        base.MoveWeapon();
+        
+        movement2D.MoveTo(direction);
     }
 
     /// <summary>
@@ -91,31 +71,19 @@ public class Bullet : MonoBehaviour
         if (!collision.CompareTag("Enemy")) return;
         //if (collision.transform != target) return;
 
+        if (!this.gameObject.activeSelf) return;
         Attack(collision);
-        ReleaseBullet();
-    }
-
-    /// <summary>
-    /// Bullet을 Object Pool로 되돌림
-    /// </summary>
-    protected void ReleaseBullet()
-    {
-        if (shotTower != null)
-        {
-            shotTower.GetComponent<GunTower>().ReleaseBullet(this);
-        }
-        else
-        {
-            Debug.Log("shotTower 없음");
-        }
+        ReleaseWeapon();
     }
 
     /// <summary>
     /// 발사체의 공격 기능
     /// </summary>
     /// <param name="collision"></param>
-    protected virtual void Attack(Collider2D collision)
+    protected override void Attack(Collider2D collision)
     {
-        collision.GetComponent<EnemyTest>().TakeDamage(attackDamage);
+        base.Attack(collision);
+
+        collision.GetComponent<EnemyTest>().TakeDamage(shotTower.CurrentTowerData.attackDamage);
     }
 }

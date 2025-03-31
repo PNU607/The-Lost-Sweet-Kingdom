@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: RedRabbitData_Lv2
   m_EditorClassIdentifier: 
+  towerLevel: 2
   towerName: Red Rabbit Lv2
   towerIcon: {fileID: 21300000, guid: 32a0ca2dee1660140ba9cfa6083b3d3d, type: 3}
   towerPrefab: {fileID: 4625834919878556233, guid: 420f8e2bf1a484d97834a7c4000d1f89, type: 3}
-  weaponPrefab: {fileID: 4877909776406011252, guid: a5fb88efefa1e494da9f948c0ef8518e, type: 3}
+  weaponPrefab: {fileID: 4877909776406011252, guid: c5299a537a04d4259b09560dd7f13104, type: 3}
   cost: 0
-  attackRange: 1
+  attackRange: 2.8
+  attackWeaponRange: 0
   attackCooldown: 1
-  attackDamage: 3
-  rotationSpeed: 0
-  towerLevel: 2
+  attackDuration: 0
+  attackDamage: 1.5
+  rotationSpeed: 3
   nextUpgrade: {fileID: 11400000, guid: 7f5f04600800f4561bb79dec5908265f, type: 2}

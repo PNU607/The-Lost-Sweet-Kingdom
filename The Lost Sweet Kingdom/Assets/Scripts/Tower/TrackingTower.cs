@@ -73,6 +73,15 @@ public class TrackingTower : Tower
             towerSprite.flipX = false;
             degree += 180;
         }
+
+        if (dx > 0)
+        {
+            weaponSpawnTransform.localPosition = new Vector3(Mathf.Abs(weaponSpawnTransform.localPosition.x), weaponSpawnTransform.localPosition.y, weaponSpawnTransform.localPosition.z);
+        }
+        else
+        {
+            weaponSpawnTransform.localPosition = new Vector3(-Mathf.Abs(weaponSpawnTransform.localPosition.x), weaponSpawnTransform.localPosition.y, weaponSpawnTransform.localPosition.z);
+        }
         //Quaternion targetRotation = Quaternion.Euler(0, 0, degree);
         //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * currentTowerData.rotationSpeed);
     }
