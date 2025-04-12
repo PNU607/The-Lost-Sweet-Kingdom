@@ -173,7 +173,38 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     /// <param name="eventData"></param>
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (GoldManager.instance.gold >= currentTowerData.cost)
+        {
+            // 드래그 끝난 위치에 타워 생성
+            // 잘못 된 위치일시, 초기화
+            TowerManager.Instance.TrySpawnTower(currentTowerData.towerPrefab);
+            bool isBuildable = TowerManager.Instance.TrySpawnTower(currentTowerData.towerPrefab);
+            if (isBuildable)
+            {
+                canvasGroup.alpha = 0.3f;
+                GoldManager.instance.SpendGold(currentTowerData.cost);
+            }
+            else
+            {
+                canvasGroup.alpha = 1f;
+                canvasGroup.blocksRaycasts = true;
+            }
+
+            // 타워 프리뷰 오브젝트 삭제
+            Destroy(previewTowerObj);
+            previewTowerObj = null;
+        }
+        else
+        {
+            Debug.Log("Not Enough Money!");
+
+            // 타워 프리뷰 오브젝트 삭제
+            Destroy(previewTowerObj);
+            previewTowerObj = null;
+
+            canvasGroup.alpha = 1f;
             canvasGroup.blocksRaycasts = true;
         }
     }
+
 }
