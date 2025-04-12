@@ -67,7 +67,7 @@ public class GunTower : TrackingTower
         float distance = Vector3.Distance(closestAttackTarget.transform.position, transform.position);
 
         // 타겟과의 거리가 공격 범위보다 멀리 있으면
-        if (distance > currentTowerData.attackRange)
+        if (distance > applyData.attackRange)
         {
             // 타겟 탐색 상태로 전환
             attackTargets = null;
@@ -78,6 +78,7 @@ public class GunTower : TrackingTower
 
         // 공격
         Attack();
+        attackTimer = 0;
     }
 
     /// <summary>

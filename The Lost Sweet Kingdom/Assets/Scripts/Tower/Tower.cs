@@ -52,7 +52,7 @@ public class Tower : MonoBehaviour
     protected Transform weaponSpawnTransform;
 
     /// <summary>
-    /// 현재 타워의 데이터
+    /// 현재 타워의 기본 데이터
     /// </summary>
     [SerializeField]
     protected TowerData currentTowerData;
@@ -67,6 +67,11 @@ public class Tower : MonoBehaviour
             currentTowerData = value;
         }
     }
+
+    /// <summary>
+    /// 현재 타워에 적용된 데이터
+    /// </summary>
+    public TowerData applyData;
 
     /// <summary>
     /// 발사할 발사체의 Object Pool
@@ -133,10 +138,22 @@ public class Tower : MonoBehaviour
     /// </summary>
     public LayerMask enemyLayer;
 
+    /// <summary>
+    /// 타워에 활성화된 보너스들
+    /// </summary>
+    private HashSet<TowerBonus> activeBonuses = new HashSet<TowerBonus>();
+
+    /// <summary>
+    /// Start
+    /// TowerWeapon Pool 생성
+    /// </summary>
     protected virtual void Start()
     {
-        TowerWeapon weapon = currentTowerData.weaponPrefab.GetComponent<TowerWeapon>();
-        weaponPool = new GameObjectPool<TowerWeapon>(weapon, 10);
+        if (applyData.weaponPrefab != null)
+        {
+            TowerWeapon weapon = applyData.weaponPrefab.GetComponent<TowerWeapon>();
+            weaponPool = new GameObjectPool<TowerWeapon>(weapon, 10);
+        }
     }
 
     /// <summary>
@@ -145,15 +162,20 @@ public class Tower : MonoBehaviour
     /// <param name="enemyManager"></param>
     public virtual void Setup(TowerData nextTowerData = null)
     {
-        //@TODO: level ui setting 
+        if (applyData == null && currentTowerData != null)
+        {
+            applyData = Instantiate(currentTowerData);
+        }
+
         if (nextTowerData != null)
         {
             currentTowerData = nextTowerData;
+            applyData = Instantiate(currentTowerData);
         }
 
         towerSprite = this.GetComponent<SpriteRenderer>();
         towerAnim = this.GetComponent<Animator>();
-        towerAnim.SetFloat("attackSpeed", 1/currentTowerData.attackCooldown);
+        towerAnim.SetFloat("attackSpeed", 1/applyData.attackCooldown);
 
         UpdateRangeIndicator();
         rangeIndicator.enabled = false; // 처음에는 숨김
@@ -185,7 +207,7 @@ public class Tower : MonoBehaviour
     {
         if (rangeIndicator != null)
         {
-            rangeIndicator.transform.localScale = new Vector3(currentTowerData.attackRange * 2, currentTowerData.attackRange * 2, 1);
+            rangeIndicator.transform.localScale = new Vector3(applyData.attackRange * 2, applyData.attackRange * 2, 1);
         }
     }
 
@@ -302,7 +324,7 @@ public class Tower : MonoBehaviour
     /// <summary>
     /// 공격 시간 계산용 타이머
     /// </summary>
-    float attackTimer = 0;
+    protected float attackTimer = 0;
     /// <summary>
     /// Update
     /// 타워의 상태에 따라 실행하는 함수를 전환
@@ -314,18 +336,17 @@ public class Tower : MonoBehaviour
             return;
         }
 
+        attackTimer += Time.deltaTime;
         if (currentTowerState == TowerState.AttackToTarget)
         {
-            attackTimer += Time.deltaTime;
-            if (attackTimer >= currentTowerData.attackCooldown)
+            if (attackTimer >= applyData.attackCooldown)
             {
                 AttackToTarget();
-                attackTimer = 0;
             }
         }
         else
         {
-            attackTimer = 0;
+            //attackTimer = 0;
 
             if (currentTowerState == TowerState.SearchTarget)
             {
@@ -369,15 +390,19 @@ public class Tower : MonoBehaviour
     /// <returns></returns>
     protected virtual void Rotate()
     {
-        transform.Rotate(0, 0, currentTowerData.rotationSpeed * Time.deltaTime);
+        transform.Rotate(0, 0, applyData.rotationSpeed * Time.deltaTime);
     }
 
+    /// <summary>
+    /// 공격 범위 내 적들의 리스트를 반환
+    /// </summary>
+    /// <returns></returns>
     protected List<EnemyTest> GetEnemiesInRange()
     {
         List<EnemyTest> enemiesInRange = new List<EnemyTest>();
 
         // 현재 타워의 위치에서 원형의 공격 범위 내에 있는 모든 Enemy(Layer)를 가져옴
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, currentTowerData.attackRange, enemyLayer);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, applyData.attackRange, enemyLayer);
 
         foreach (Collider2D col in colliders)
         {
@@ -390,6 +415,10 @@ public class Tower : MonoBehaviour
         return enemiesInRange;
     }
 
+    /// <summary>
+    /// 공격 범위 내 가장 가까운 적 하나를 반환
+    /// </summary>
+    /// <returns></returns>
     protected EnemyTest GetClosestEnemy()
     {
         List<EnemyTest> enemies = GetEnemiesInRange();
@@ -422,6 +451,44 @@ public class Tower : MonoBehaviour
     public void ReleaseWeapon(TowerWeapon weapon)
     {
         weaponPool.Release(weapon);
+    }
+
+    /// <summary>
+    /// 보너스 적용
+    /// </summary>
+    /// <param name="bonus">적용할 보너스</param>
+    public void ApplyBonus(TowerBonus bonus)
+    {
+        if (!activeBonuses.Contains(bonus))
+        {
+            Debug.Log("조합 보너스 적용");
+            activeBonuses.Add(bonus);
+
+            switch (bonus)
+            {
+                case TowerBonus.SameTowerColor:
+                    Debug.Log("SameTowerColor");
+                    Debug.Log("기존 타워 공격력: " + applyData.attackDamage);
+                    applyData.attackDamage += 0.5f;
+                    Debug.Log("바뀐 타워 공격력: " + applyData.attackDamage);
+                    break;
+                case TowerBonus.SameTowerType:
+                    Debug.Log("SameTowerType");
+                    Debug.Log("기존 타워 범위: " + applyData.attackRange);
+                    applyData.attackRange += 0.2f;
+                    Debug.Log("바뀐 타워 범위: " + applyData.attackRange);
+                    break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 보너스 초기화
+    /// </summary>
+    public void ClearBonuses()
+    {
+        activeBonuses.Clear();
+        applyData = Instantiate(currentTowerData);
     }
 
     /// <summary>

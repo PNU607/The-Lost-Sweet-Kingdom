@@ -61,7 +61,7 @@ public class LaserTower : TrackingTower
         float distance = Vector3.Distance(closestAttackTarget.transform.position, transform.position);
 
         // 타겟과의 거리가 공격 범위보다 멀리 있으면
-        if (distance > currentTowerData.attackRange)
+        if (distance > applyData.attackRange)
         {
             // 타겟 탐색 상태로 전환
             attackTargets = null;
@@ -73,6 +73,7 @@ public class LaserTower : TrackingTower
 
         // 공격
         FireLaser();
+        attackTimer = 0;
     }
 
     /// <summary>
@@ -94,7 +95,7 @@ public class LaserTower : TrackingTower
         towerAnim.SetBool("isAttacking", true);
         Vector2 startPos = transform.position;
         Vector2 direction = (closestAttackTarget.transform.position - transform.position).normalized;
-        float maxDistance = currentTowerData.attackWeaponRange;
+        float maxDistance = applyData.attackWeaponRange;
 
         // 레이저의 끝 지점 설정 (레이저가 최대 사거리까지 가도록)
         Vector2 endPos = (Vector2)transform.position + direction * maxDistance;
@@ -112,7 +113,7 @@ public class LaserTower : TrackingTower
             EnemyTest enemy = hit.collider.GetComponent<EnemyTest>();
             if (enemy != null)
             {
-                enemy.TakeDamage(currentTowerData.attackDamage);
+                enemy.TakeDamage(applyData.attackDamage);
             }
         }
 

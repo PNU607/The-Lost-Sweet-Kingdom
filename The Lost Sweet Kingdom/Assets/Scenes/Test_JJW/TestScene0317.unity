@@ -666,6 +666,7 @@ GameObject:
   m_Component:
   - component: {fileID: 571643897}
   - component: {fileID: 571643896}
+  - component: {fileID: 571643898}
   m_Layer: 0
   m_Name: TowerManager
   m_TagString: Untagged
@@ -686,6 +687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 617617599}
+  bonusManager: {fileID: 571643898}
 --- !u!4 &571643897
 Transform:
   m_ObjectHideFlags: 0
@@ -701,6 +703,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1986175116}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &571643898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571643895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c700bedadc8d6464688f128e509d274d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &607002862
 GameObject:
   m_ObjectHideFlags: 0
@@ -2756,6 +2770,7 @@ GameObject:
   - component: {fileID: 1078726805}
   - component: {fileID: 1078726807}
   - component: {fileID: 1078726806}
+  - component: {fileID: 1078726808}
   m_Layer: 5
   m_Name: ReRollPanel
   m_TagString: Untagged
@@ -2820,6 +2835,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078726804}
   m_CullTransparentMesh: 0
+--- !u!114 &1078726808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078726804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &1085672203
 GameObject:
   m_ObjectHideFlags: 0

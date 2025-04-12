@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponSpawnTransform: {fileID: 3863901792690209694}
   currentTowerData: {fileID: 11400000, guid: 64b661c6ceb1340b08000ce7d2406d50, type: 2}
+  applyData: {fileID: 0}
   rangeIndicator: {fileID: 3738841098518847753}
   towerAnim: {fileID: 6592042468430555329}
   enemyLayer:

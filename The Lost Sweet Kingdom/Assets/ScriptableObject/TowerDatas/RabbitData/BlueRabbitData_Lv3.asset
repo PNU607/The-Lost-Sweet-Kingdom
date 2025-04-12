@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: BlueRabbitData_Lv3
   m_EditorClassIdentifier: 
-  towerLevel: 3
   towerName: Blue Rabbit Lv3
+  towerColor: 4
+  towerType: 0
+  towerLevel: 3
   towerIcon: {fileID: 21300000, guid: 65130679ffbdf2648a6d3d18f02d27ba, type: 3}
   towerPrefab: {fileID: 4625834919878556233, guid: 8dbb6be00d2a04f46bf3d986e745a741, type: 3}
   weaponPrefab: {fileID: 4877909776406011252, guid: c96a019f935cf45528197166ae847c69, type: 3}

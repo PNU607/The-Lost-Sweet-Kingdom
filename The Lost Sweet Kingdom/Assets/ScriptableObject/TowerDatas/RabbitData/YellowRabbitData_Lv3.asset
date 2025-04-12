@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: YellowRabbitData_Lv3
   m_EditorClassIdentifier: 
-  towerLevel: 3
   towerName: Yellow Rabbit Lv3
+  towerColor: 2
+  towerType: 0
+  towerLevel: 3
   towerIcon: {fileID: 21300000, guid: 8239eed6359020c4b8d14d9298c5362a, type: 3}
   towerPrefab: {fileID: 4625834919878556233, guid: e6aebbcbc00b946118bd8e19f57b5614, type: 3}
   weaponPrefab: {fileID: 4877909776406011252, guid: 3cdc75d993a3744a5bcac738351679bf, type: 3}
   cost: 0
-  attackRange: 2
-  attackWeaponRange: 2
+  attackRange: 2.5
+  attackWeaponRange: 4
   attackCooldown: 1
-  attackDuration: 0
+  attackDuration: 1.3
   attackDamage: 0.8
   rotationSpeed: 3
-  nextUpgrade: {fileID: 11400000, guid: c4354bc5230a84916b0b59c93198cca9, type: 2}
+  nextUpgrade: {fileID: 0}
