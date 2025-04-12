@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: NavyRabbitData_Lv2
   m_EditorClassIdentifier: 
-  towerLevel: 2
   towerName: Navy Rabbit Lv2
+  towerColor: 5
+  towerType: 0
+  towerLevel: 2
   towerIcon: {fileID: 21300000, guid: b86a0fff33aad764f92df7242f7f627e, type: 3}
   towerPrefab: {fileID: 4625834919878556233, guid: f4e19a94429be4593ae13dd4d131f06c, type: 3}
   weaponPrefab: {fileID: 0}

@@ -55,20 +55,20 @@ public class KnifeTower : RotatingTower
         if (lastAttackTime.ContainsKey(enemy))
         {
             // 공격 쿨타임이 아직 지나지 않았으면
-            if (Time.time - lastAttackTime[enemy] < currentTowerData.attackCooldown)
+            if (Time.time - lastAttackTime[enemy] < applyData.attackCooldown)
             {
                 return;
             }
 
             // 대미지 적용
-            enemy.TakeDamage(currentTowerData.attackDamage);
+            enemy.TakeDamage(applyData.attackDamage);
             // 마지막 공격 시간 기록
             lastAttackTime[enemy] = Time.time;
         }
         else
         {
             // 대미지 적용
-            enemy.TakeDamage(currentTowerData.attackDamage);
+            enemy.TakeDamage(applyData.attackDamage);
             // 마지막 공격 시간 기록
             lastAttackTime.Add(enemy, Time.time);
         }

@@ -49,6 +49,8 @@ public class TowerManager : MonoBehaviour
     /// </summary>
     private Dictionary<Vector3Int, GameObject> placedTowers = new Dictionary<Vector3Int, GameObject>();
 
+    [SerializeField] private TowerBonusManager bonusManager;
+
     /// <summary>
     /// Awake
     /// 싱글톤 세팅
@@ -125,6 +127,7 @@ public class TowerManager : MonoBehaviour
 
         Tower tower = clone.GetComponent<Tower>();
         tower.Setup();
+        bonusManager.RegisterTower(tower);
     }
 
     /// <summary>
@@ -140,6 +143,7 @@ public class TowerManager : MonoBehaviour
         if (placedTowers.TryGetValue(cellPosition, out GameObject tower))
         {
             placedTowers.Remove(cellPosition);
+            bonusManager.UnregisterTower(tower.GetComponent<Tower>());
             return true;
         }
 
@@ -158,6 +162,7 @@ public class TowerManager : MonoBehaviour
             if (placedTower.Value == towerObj)
             {
                 placedTowers.Remove(placedTower.Key);
+                bonusManager.UnregisterTower(towerObj.GetComponent<Tower>());
                 return true;
             }
         }
@@ -299,7 +304,9 @@ public class TowerManager : MonoBehaviour
         DestroyTower(towerB.gameObject);
 
         // 새로운 타워 생성 (오브젝트 풀링 사용 가능)
+        bonusManager.UnregisterTower(towerA);
         towerA.Setup(nextTowerData);
+        bonusManager.RegisterTower(towerA);
 
         Debug.Log(towerA.name + " Merge 성공, Level " + towerA.CurrentTowerData.towerLevel);
 
