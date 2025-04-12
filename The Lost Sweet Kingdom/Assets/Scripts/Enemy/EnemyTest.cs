@@ -20,10 +20,7 @@ public class EnemyTest : MonoBehaviour
         hp = currentEnemyData.maxHealth;
         baseSpeed = currentEnemyData.moveSpeed;
         moveSpeed = currentEnemyData.moveSpeed;
-    }
 
-    void Start()
-    {
         if (aStarScript == null)
         {
             aStarScript = FindObjectOfType<AStar>();
