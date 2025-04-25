@@ -21,6 +21,9 @@ public class EnemyTest : MonoBehaviour
         baseSpeed = currentEnemyData.moveSpeed;
         moveSpeed = currentEnemyData.moveSpeed;
 
+        currentTargetIndex = 0;
+        path = null;
+
         if (aStarScript == null)
         {
             aStarScript = FindObjectOfType<AStar>();
