@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public enum TowerBonus
@@ -13,6 +14,9 @@ public class TowerBonusManager : MonoBehaviour
 {
     public static TowerBonusManager Instance;
     private readonly List<Tower> allTowers = new();
+
+    [SerializeField]
+    private TextMeshProUGUI bonusText;
 
     [SerializeField]
     private int colorCombinationNum = 3;
@@ -55,6 +59,7 @@ public class TowerBonusManager : MonoBehaviour
         bonusAppliedColor.Clear();
         bonusAppliedType.Clear();
 
+        bonusText.text = string.Empty;
         foreach (var group in groupedByColor)
         {
             bonusAppliedColor.Add(group.FirstOrDefault().CurrentTowerData.towerColor);
@@ -62,7 +67,9 @@ public class TowerBonusManager : MonoBehaviour
             {
                 tower.ApplyBonus(TowerBonus.SameTowerColor);
             }
+            bonusText.text += group.Key + " Color Bonus\n";
         }
+        bonusText.text += "\n";
 
         foreach (var group in groupedByType)
         {
@@ -71,6 +78,7 @@ public class TowerBonusManager : MonoBehaviour
             {
                 tower.ApplyBonus(TowerBonus.SameTowerType);
             }
+            bonusText.text += group.Key + " Type Bonus ";
         }
     }
 }

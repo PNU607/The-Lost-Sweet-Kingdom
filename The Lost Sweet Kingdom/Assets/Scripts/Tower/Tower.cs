@@ -12,7 +12,9 @@
  *  - 2025-02-23: 타워의 공격 범위 전시 기능, 타워의 이동 기능 추가
  *  - 2025-03-08: 타워의 애니메이션 추가, 타워 Merge 기능 추가
  *  - 2025-03-16: 공격 타겟 리스트로 변경
- *  - 2025-03-23: GunTower 내의 Object Pool을 가져옴. Bullet을 TowerWeapon으로 변경.
+ *  - 2025-03-23: GunTower 내의 Object Pool을 가져옴. Bullet을 TowerWeapon으로 변경
+ *  - 2025-03-30: target search 기능 리스트로 가져오도록 수정
+ *  - 2025-04-11: 조합 보너스 기능 추가
  */
 
 using System.Collections.Generic;
@@ -42,6 +44,8 @@ public enum TowerState { SearchTarget = 0, AttackToTarget, Rotate, None }
  *  - 2025-03-08: 타워의 애니메이션 추가, 타워 Merge 기능 추가
  *  - 2025-03-16: attackTarget -> closestAttackTarget 변수 수정
  *  - 2025-03-23: weaponPool 추가, Bullet -> TowerWeapon으로 클래스 수정
+ *  - 2025-03-30: attackTarget List로 가져올 수 있도록 수정
+ *  - 2025-04-11: ApplyBonus, ClearBonuses 함수 추가
  */
 public class Tower : MonoBehaviour
 {

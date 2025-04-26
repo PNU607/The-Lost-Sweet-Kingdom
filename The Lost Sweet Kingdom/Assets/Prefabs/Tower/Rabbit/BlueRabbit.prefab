@@ -99,7 +99,7 @@ Animator:
   m_GameObject: {fileID: 4625834919878556233}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 851ee4da64aff47b39f6d51b95f2f6ea, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7d87b7fd169b345ae8a8bdcf2b8be803, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -157,13 +157,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 004069175f9d9438599f414079947761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSpawnTransform: {fileID: 3863901792690209694}
   currentTowerData: {fileID: 11400000, guid: 2785164a8b61c4821a53e46185156e78, type: 2}
+  applyData: {fileID: 0}
   rangeIndicator: {fileID: 3738841098518847753}
   towerAnim: {fileID: 6592042468430555329}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  weaponSpawnTransform: {fileID: 3863901792690209694}
 --- !u!1 &8245505385163353932
 GameObject:
   m_ObjectHideFlags: 0
