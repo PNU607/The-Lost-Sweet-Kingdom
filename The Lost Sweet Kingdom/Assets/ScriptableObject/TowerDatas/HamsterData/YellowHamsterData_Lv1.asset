@@ -16,7 +16,7 @@ MonoBehaviour:
   towerColor: 2
   towerType: 1
   towerLevel: 1
-  towerIcon: {fileID: 21300000, guid: 8239eed6359020c4b8d14d9298c5362a, type: 3}
+  towerIcon: {fileID: 21300000, guid: 8a3cdaf593afc114fbfa7f49e706c8f6, type: 3}
   towerPrefab: {fileID: 4625834919878556233, guid: effbd97a8b40546558b166a6621515f0, type: 3}
   weaponPrefab: {fileID: 4877909776406011252, guid: 3cdc75d993a3744a5bcac738351679bf, type: 3}
   cost: 30

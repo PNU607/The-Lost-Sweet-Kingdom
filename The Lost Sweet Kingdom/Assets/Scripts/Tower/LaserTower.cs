@@ -72,7 +72,7 @@ public class LaserTower : TrackingTower
         }
 
         // 공격
-        FireLaser();
+        SetAttackAnimation();
         attackTimer = 0;
     }
 
@@ -87,37 +87,47 @@ public class LaserTower : TrackingTower
     /// <summary>
     /// 레이저 발사
     /// </summary>
-    private void FireLaser()
+    private void SetAttackAnimation()
     {
         if (closestAttackTarget == null) return;
 
-        Debug.Log("Fire Laser");
         towerAnim.SetBool("isAttacking", true);
-        Vector2 startPos = transform.position;
-        Vector2 direction = (closestAttackTarget.transform.position - transform.position).normalized;
-        float maxDistance = applyData.attackWeaponRange;
+    }
 
-        // 레이저의 끝 지점 설정 (레이저가 최대 사거리까지 가도록)
-        Vector2 endPos = (Vector2)transform.position + direction * maxDistance;
-
-        // LineRenderer로 레이저 시각화
-        lineRenderer.enabled = true;
-        lineRenderer.positionCount = 2;
-        lineRenderer.SetPosition(0, startPos);
-        lineRenderer.SetPosition(1, endPos);
-
-        // Raycast로 선상의 모든 적 찾기
-        RaycastHit2D[] hits = Physics2D.RaycastAll(startPos, direction, maxDistance, enemyLayer);
-        foreach (RaycastHit2D hit in hits)
+    private void Attack()
+    {
+        if (closestAttackTarget != null)
         {
-            EnemyTest enemy = hit.collider.GetComponent<EnemyTest>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(applyData.attackDamage);
-            }
-        }
+            Vector2 startPos = transform.position;
+            Vector2 direction = (closestAttackTarget.transform.position - transform.position).normalized;
+            float maxDistance = applyData.attackWeaponRange;
 
-        StartCoroutine(DisableLaser());
+            // 레이저의 끝 지점 설정 (레이저가 최대 사거리까지 가도록)
+            Vector2 endPos = (Vector2)transform.position + direction * maxDistance;
+
+            // LineRenderer로 레이저 시각화
+            lineRenderer.enabled = true;
+            lineRenderer.positionCount = 2;
+            lineRenderer.SetPosition(0, startPos);
+            lineRenderer.SetPosition(1, endPos);
+
+            // Raycast로 선상의 모든 적 찾기
+            RaycastHit2D[] hits = Physics2D.RaycastAll(startPos, direction, maxDistance, enemyLayer);
+            foreach (RaycastHit2D hit in hits)
+            {
+                EnemyTest enemy = hit.collider.GetComponent<EnemyTest>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(applyData.attackDamage);
+                }
+            }
+
+            StartCoroutine(DisableLaser());
+        }
+        else
+        {
+            towerAnim.SetBool("isAttacking", false);
+        }
     }
 
     /// <summary>
@@ -126,7 +136,7 @@ public class LaserTower : TrackingTower
     /// <returns></returns>
     private IEnumerator DisableLaser()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         lineRenderer.enabled = false;
     }
 }

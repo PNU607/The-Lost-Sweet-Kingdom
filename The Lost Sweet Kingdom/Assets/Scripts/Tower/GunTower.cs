@@ -77,17 +77,29 @@ public class GunTower : TrackingTower
         }
 
         // 공격
-        Attack();
+        SetAttackAnimation();
         attackTimer = 0;
     }
 
     /// <summary>
     /// 발사체 생성 후 세팅
     /// </summary>
-    private void Attack()
+    private void SetAttackAnimation()
     {
         towerAnim.SetBool("isAttacking", true);
-        TowerWeapon weapon = weaponPool.Spawn(weaponSpawnTransform.position);
-        weapon.Setup(closestAttackTarget.transform, this);
+    }
+
+    private void Attack()
+    {
+        Debug.Log("SpawnWeapon");
+        if (closestAttackTarget != null)
+        {
+            TowerWeapon weapon = weaponPool.Spawn(weaponSpawnTransform.position);
+            weapon.Setup(closestAttackTarget.transform, this);
+        }
+        else
+        {
+            towerAnim.SetBool("isAttacking", false);
+        }
     }
 }

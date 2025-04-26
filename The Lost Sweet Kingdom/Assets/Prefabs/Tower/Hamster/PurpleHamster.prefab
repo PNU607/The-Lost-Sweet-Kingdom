@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: ccac9b5e023f26349959a10ee564a7d5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 87f9557ff3fa1b84dacca2a8e3d83ab6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSpawnTransform: {fileID: 3863901792690209694}
-  currentTowerData: {fileID: 11400000, guid: 0d704662b39b24047a494fe1c405594e, type: 2}
+  currentTowerData: {fileID: 11400000, guid: ea77afcc6f784483fa208e7d484ebcc3, type: 2}
+  applyData: {fileID: 0}
   rangeIndicator: {fileID: 3738841098518847753}
   towerAnim: {fileID: 6592042468430555329}
   enemyLayer:
@@ -118,7 +119,7 @@ Animator:
   m_GameObject: {fileID: 4625834919878556233}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cc74e4377bba843ca94332e6e3e1b3a2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7c44d4abe04d341e4b1cd533df92a7bb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

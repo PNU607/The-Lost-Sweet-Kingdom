@@ -101,13 +101,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 004069175f9d9438599f414079947761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSpawnTransform: {fileID: 3863901792690209694}
   currentTowerData: {fileID: 11400000, guid: c0975cf7f894941f3b81be9e254336d5, type: 2}
+  applyData: {fileID: 0}
   rangeIndicator: {fileID: 3738841098518847753}
   towerAnim: {fileID: 6592042468430555329}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  weaponSpawnTransform: {fileID: 3863901792690209694}
 --- !u!95 &6592042468430555329
 Animator:
   serializedVersion: 5
@@ -118,7 +119,7 @@ Animator:
   m_GameObject: {fileID: 4625834919878556233}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3eb3729e871a24a918dc59e21a2b05da, type: 2}
+  m_Controller: {fileID: 9100000, guid: 65550ba8786204ab1850638e07a3768b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
