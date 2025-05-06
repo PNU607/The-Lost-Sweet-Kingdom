@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentEnemyData: {fileID: 11400000, guid: d1baef17bf975ff45856fa1321240026, type: 2}
   hp: 0
+  healthBarPrefab: {fileID: 2028540144233393013, guid: 16e5fb0b7e85af448bcf6960faa5e0a0, type: 3}
   aStarScript: {fileID: 0}
 --- !u!50 &8722886917320418673
 Rigidbody2D:

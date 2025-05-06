@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,8 +14,9 @@ public enum SoundType
     BGM
 }
 
-public class SoundManager : SingletonObject<SoundManager>
+public class SoundManager : MonoBehaviour
 {
+
     private const float DEFAULT_VOLUME = 1;
 
     private SoundObject bgmSoundObject;
@@ -109,3 +110,4 @@ public class SoundManager : SingletonObject<SoundManager>
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
+*/
