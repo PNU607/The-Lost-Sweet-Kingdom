@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 440726991096356145}
   - component: {fileID: 8040527055605574419}
   m_Layer: 0
-  m_Name: ForeGround
+  m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 5279569889805527007}
   - component: {fileID: 4176191811954930343}
   m_Layer: 0
-  m_Name: BackGround
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
