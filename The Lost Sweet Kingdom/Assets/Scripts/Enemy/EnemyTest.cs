@@ -8,6 +8,11 @@ public class EnemyTest : MonoBehaviour
     private EnemyData currentEnemyData;
     public float hp;
 
+    public GameObject healthBarPrefab;
+    private Transform healthBarInstance;
+    private Transform foreground;
+    private Vector3 initialForegroundScale;
+
     public AStar aStarScript;
     private float baseSpeed;
     private float moveSpeed;
@@ -23,6 +28,17 @@ public class EnemyTest : MonoBehaviour
 
         currentTargetIndex = 0;
         path = null;
+
+        if (healthBarInstance == null)
+        {
+            GameObject go = Instantiate(healthBarPrefab, transform);
+            healthBarInstance = go.transform;
+            healthBarInstance.localPosition = new Vector3(-0.3f, -0.7f, 0);
+            foreground = healthBarInstance.Find("Foreground");
+            initialForegroundScale = foreground.localScale;
+        }
+
+        UpdateHealthBar();
 
         if (aStarScript == null)
         {
@@ -71,10 +87,20 @@ public class EnemyTest : MonoBehaviour
         }
     }
 
+    void UpdateHealthBar()
+    {
+        if (foreground != null)
+        {
+            float ratio = hp / currentEnemyData.maxHealth;
+            foreground.localScale = new Vector3(initialForegroundScale.x * ratio, initialForegroundScale.y, initialForegroundScale.z);
+        }
+    }
+
     public void TakeDamage(float damage)
     {
         Debug.Log("Take Damage " + damage + " Total HP " + hp);
         hp -= damage;
+        UpdateHealthBar();
 
         if (hp <= 0)
         {
@@ -119,6 +145,8 @@ public class EnemyTest : MonoBehaviour
         Debug.Log("Die");
         GoldManager.instance.AddGold(10);
         ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
+
+        Destroy(healthBarInstance?.gameObject);
 
         this.gameObject.SetActive(false);
         WaveManager.instance.enemyCountDown();
