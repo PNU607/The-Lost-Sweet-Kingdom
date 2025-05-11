@@ -39,6 +39,7 @@ public class TrackingTower : Tower
     public override void Setup(TowerData towerData, int level = 1)
     {
         base.Setup(towerData, level);
+        
         ChangeState(TowerState.SearchTarget);
     }
 
