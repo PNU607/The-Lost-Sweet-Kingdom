@@ -10,10 +10,12 @@
  *  - 2025-02-08: TowerManager 스크립트 최초 작성
  *  - 2025-02-18: Tower 배치 기능 수정
  *  - 2025-03-09: Tower Merge 기능 추가
+ *  - 2025-05-06: drag 기능 수정
  */
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
 /* 
@@ -27,6 +29,7 @@ using UnityEngine.Tilemaps;
  *  - 2025-02-08: TowerManager 클래스 최초 작성
  *  - 2025-02-18: PlaceTower, RemoveTower, IsTileOccupied 함수 추가 및 수정
  *  - 2025-03-09: CanMerge, MergeTowers 함수 추가, TrySpawnTower 함수 내 Merge 기능 추가
+ *  - 2025-05-06: drag 기능 수정
  */
 public class TowerManager : MonoBehaviour
 {
@@ -49,7 +52,20 @@ public class TowerManager : MonoBehaviour
     /// </summary>
     private Dictionary<Vector3Int, GameObject> placedTowers = new Dictionary<Vector3Int, GameObject>();
 
+    /// <summary>
+    /// 드래그 중인지 여부
+    /// </summary>
+    private bool isDragging = false;
+
+    /// <summary>
+    /// 타워에 매겨지는 보너스 관리 매니저
+    /// </summary>
     [SerializeField] private TowerBonusManager bonusManager;
+
+    /// <summary>
+    /// 현재 drag중인 tower
+    /// </summary>
+    private Tower currentDragTarget;
 
     /// <summary>
     /// Awake
@@ -75,24 +91,22 @@ public class TowerManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //if (Input.GetMouseButtonDown(0)) // 마우스 왼쪽 클릭
-        //{
-        //    PlaceTower();
-        //}
+        SetDragEvent();
     }
 
     /// <summary>
     /// 타워를 배치할 수 있는 영역인지 체크 후 배치
     /// </summary>
-    /// <param name="towerPrefab">배치할 타워의 프리팹</param>
-    public bool TrySpawnTower(GameObject towerPrefab)
+    /// <param name="towerData">배치할 타워의 데이터</param>
+    /// <param name="level">배치할 타워의 레벨</param>
+    public bool TrySpawnTower(TowerData towerData, int level)
     {
         // 마우스 위치를 월드 좌표로 변환
         Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
         // 타워 설치 가능 여부 확인
         Tower occupiedTower;
-        Tower spawnTower = towerPrefab.GetComponent<Tower>();
+        Tower spawnTower = towerData.towerPrefab.GetComponent<Tower>();
         bool isOccupiedTile = IsTileOccupied(mousePosition, out occupiedTower);
         if (isOccupiedTile
             && CanMerge(occupiedTower, spawnTower))
@@ -107,7 +121,7 @@ public class TowerManager : MonoBehaviour
             return false;
         }
 
-        SpawnTower(mousePosition, towerPrefab);
+        SpawnTower(mousePosition, towerData, level);
 
         return true;
     }
@@ -116,17 +130,18 @@ public class TowerManager : MonoBehaviour
     /// 타워를 생성하여 배치
     /// </summary>
     /// <param name="mousePosition">월드 좌표로 변환된 마우스 위치</param>
-    /// <param name="towerPrefab">배치할 타워의 프리팹</param>
-    private void SpawnTower(Vector3 mousePosition, GameObject towerPrefab = null)
+    /// <param name="towerData">배치할 타워의 데이터</param>
+    /// <param name="level">배치할 타워의 레벨</param>
+    private void SpawnTower(Vector3 mousePosition, TowerData towerData, int level)
     {
         Vector3Int cellPosition = tilemap.WorldToCell(mousePosition);
 
         // 타워 생성
-        GameObject clone = Instantiate(towerPrefab, tilemap.GetCellCenterWorld(cellPosition), Quaternion.identity);
+        GameObject clone = Instantiate(towerData.towerPrefab, tilemap.GetCellCenterWorld(cellPosition), Quaternion.identity);
         PlaceTower(cellPosition, clone);
 
         Tower tower = clone.GetComponent<Tower>();
-        tower.Setup();
+        tower.Setup(towerData, level);
         bonusManager.RegisterTower(tower);
     }
 
@@ -298,17 +313,17 @@ public class TowerManager : MonoBehaviour
     {
         if (!CanMerge(towerA, towerB)) return null;
 
-        TowerData nextTowerData = towerA.CurrentTowerData.nextUpgrade;
+        TowerData nextTowerData = towerA.CurrentTowerData;
 
         // 기존 타워 제거
         DestroyTower(towerB.gameObject);
 
         // 새로운 타워 생성 (오브젝트 풀링 사용 가능)
         bonusManager.UnregisterTower(towerA);
-        towerA.Setup(nextTowerData);
+        towerA.Setup(nextTowerData, towerA.towerLevel + 1);
         bonusManager.RegisterTower(towerA);
 
-        Debug.Log(towerA.name + " Merge 성공, Level " + towerA.CurrentTowerData.towerLevel);
+        Debug.Log(towerA.name + " Merge 성공, Level " + towerA.towerLevel);
 
         return towerA;
     }
@@ -326,9 +341,50 @@ public class TowerManager : MonoBehaviour
             return false;
 
         // 최대 레벨인지 확인
-        if (towerA.CurrentTowerData.nextUpgrade == null)
+        if (towerA.CurrentTowerData != null && towerA.CurrentTowerData.levelDatas.Length == towerA.towerLevel)
             return false;
 
         return true;
+    }
+
+    /// <summary>
+    /// 기존 Tower의 Mouse 이벤트 처
+    /// </summary>
+    private void SetDragEvent()
+    {
+        // UI 위에 클릭한 경우 무시
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return;
+
+        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        int layerMask = LayerMask.GetMask("Tower");
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, 0f, layerMask);
+            if (hit.collider != null)
+            {
+                currentDragTarget = hit.collider.gameObject.GetComponentInParent<Tower>();
+                isDragging = true;
+
+                // 가상의 OnMouseDown 대체
+                currentDragTarget.OnMouseDownEvent();
+            }
+        }
+
+        if (Input.GetMouseButton(0) && isDragging && currentDragTarget != null)
+        {
+            // 가상의 OnMouseDrag 대체
+            currentDragTarget.OnMouseDragEvent();
+        }
+
+        if (Input.GetMouseButtonUp(0) && isDragging && currentDragTarget != null)
+        {
+            // 가상의 OnMouseUp 대체
+            currentDragTarget.OnMouseUpEvent();
+
+            currentDragTarget = null;
+            isDragging = false;
+        }
     }
 }

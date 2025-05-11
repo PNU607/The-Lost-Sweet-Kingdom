@@ -34,10 +34,11 @@ public class TrackingTower : Tower
     /// 타워 세팅
     /// 타워를 탐색 상태로 변경
     /// </summary>
-    /// <param name="enemyManager"></param>
-    public override void Setup(TowerData towerData = null)
+    /// <param name="towerData"></param>
+    /// <param name="level"></param>
+    public override void Setup(TowerData towerData, int level = 1)
     {
-        base.Setup(towerData);
+        base.Setup(towerData, level);
         ChangeState(TowerState.SearchTarget);
     }
 

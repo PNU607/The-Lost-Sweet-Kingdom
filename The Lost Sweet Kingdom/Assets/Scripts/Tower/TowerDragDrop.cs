@@ -8,13 +8,13 @@
  * @see: TowerData.cs, TowerManager.cs
  * @history:
  *  - 2025-02-22: TowerDragDrop 스크립트 최초 작성
+ *  - 2025-05-06: Drag 시 Tower Animation None 기능 추가
  */
 
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 /* 
  * @class: TowerDragDrop
@@ -29,6 +29,7 @@ using static UnityEditor.Timeline.TimelinePlaybackControls;
                   OnEndDrag에 Gold 소모 추가, Icon 선택불가 등 기능 추가했습니다
  *  - 2025-03-21: OnEndDrag에 잘못 설치 시, 다시 선택할 수 있도록 변경하였습니다
  *  - 2025-03-28: UI Setup에서 Name, Cost Update하게 했습니다.
+ *  - 2025-05-06: Drag 시 Tower Animation None 기능 추가
  */
 public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -36,6 +37,11 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     /// 드래그 중에 표시할 타워 프리뷰
     /// </summary>
     private GameObject previewTowerObj;
+    /// <summary>
+    /// 드래그 중인 타워
+    /// </summary>
+    private Tower previewTower;
+
     /// <summary>
     /// UI의 캔버스 그룹
     /// </summary>
@@ -143,12 +149,13 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         // 타워 프리뷰 생성
         previewTowerObj = Instantiate(currentTowerData.towerPrefab);
-        previewTowerObj.GetComponent<Collider2D>().enabled = false;
 
         // 드래그 중 사거리 표시 활성화
-        Tower previewTower = previewTowerObj.GetComponent<Tower>();
-        previewTower.Setup();
+        previewTower = previewTowerObj.GetComponent<Tower>();
+        previewTower.towerCollider.enabled = false;
+        previewTower.Setup(currentTowerData, 1);
         previewTower.ShowRange(true);
+        previewTower.towerAnim.SetBool("isDragging", true);
     }
 
     /// <summary>
@@ -178,7 +185,7 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             // 드래그 끝난 위치에 타워 생성
             // 잘못 된 위치일시, 초기화
             //TowerManager.Instance.TrySpawnTower(currentTowerData.towerPrefab);
-            bool isBuildable = TowerManager.Instance.TrySpawnTower(currentTowerData.towerPrefab);
+            bool isBuildable = TowerManager.Instance.TrySpawnTower(currentTowerData, 1);
             if (isBuildable)
             {
                 canvasGroup.alpha = 0.3f;
@@ -189,6 +196,8 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 canvasGroup.alpha = 1f;
                 canvasGroup.blocksRaycasts = true;
             }
+
+            previewTower.towerAnim.SetBool("isDragging", false);
 
             // 타워 프리뷰 오브젝트 삭제
             Destroy(previewTowerObj);

@@ -57,7 +57,7 @@ public class Bullet : TowerWeapon
     protected override void MoveWeapon()
     {
         base.MoveWeapon();
-        
+
         movement2D.MoveTo(direction);
     }
 
@@ -84,6 +84,6 @@ public class Bullet : TowerWeapon
     {
         base.Attack(collision);
 
-        collision.GetComponent<EnemyTest>().TakeDamage(shotTower.CurrentTowerData.attackDamage);
+        collision.GetComponent<EnemyTest>().TakeDamage(shotTower.CurrentTowerData.levelDatas[shotTower.towerLevel].attackDamage);
     }
 }

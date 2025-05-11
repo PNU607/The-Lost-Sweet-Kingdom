@@ -737,6 +737,7 @@ GameObject:
   m_Component:
   - component: {fileID: 571643897}
   - component: {fileID: 571643896}
+  - component: {fileID: 571643898}
   m_Layer: 0
   m_Name: TowerManager
   m_TagString: Untagged
@@ -757,6 +758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 617617599}
+  bonusManager: {fileID: 571643898}
 --- !u!4 &571643897
 Transform:
   m_ObjectHideFlags: 0
@@ -772,6 +774,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1986175116}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &571643898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571643895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c700bedadc8d6464688f128e509d274d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bonusText: {fileID: 0}
+  colorCombinationNum: 3
+  typeCombinationNum: 7
 --- !u!1 &607002862
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,7 +832,7 @@ GameObject:
   - component: {fileID: 617617599}
   - component: {fileID: 617617598}
   - component: {fileID: 617617600}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: TestWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2386,7 +2403,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 127
 --- !u!114 &913834408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3731,6 +3748,10 @@ PrefabInstance:
     - target: {fileID: 42282881071728246, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
       propertyPath: m_Name
       value: Castle
+      objectReference: {fileID: 0}
+    - target: {fileID: 42282881071728246, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4283190384870784024, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
       propertyPath: m_SortingOrder
