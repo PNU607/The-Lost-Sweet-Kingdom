@@ -15,10 +15,12 @@
  *  - 2025-03-23: GunTower 내의 Object Pool을 가져옴. Bullet을 TowerWeapon으로 변경
  *  - 2025-03-30: target search 기능 리스트로 가져오도록 수정
  *  - 2025-04-11: 조합 보너스 기능 추가
+ *  - 2025-05-01: MouseEvent 시 기능 호출 로직 수정
  */
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 /// <summary>
 /// 타워의 상태
@@ -46,6 +48,7 @@ public enum TowerState { SearchTarget = 0, AttackToTarget, Rotate, None }
  *  - 2025-03-23: weaponPool 추가, Bullet -> TowerWeapon으로 클래스 수정
  *  - 2025-03-30: attackTarget List로 가져올 수 있도록 수정
  *  - 2025-04-11: ApplyBonus, ClearBonuses 함수 추가
+ *  - 2025-05-01: OnMouseDown, OnMouseDrag, OnMouseUp 함수 뒤 Event로 붙여 TowerManager에서 Drag 관리하도록 수정
  */
 public class Tower : MonoBehaviour
 {
@@ -75,7 +78,12 @@ public class Tower : MonoBehaviour
     /// <summary>
     /// 현재 타워에 적용된 데이터
     /// </summary>
-    public TowerData applyData;
+    public TowerLevelData applyLevelData;
+
+    /// <summary>
+    /// 현재 타워 레벨
+    /// </summary>
+    public int towerLevel;
 
     /// <summary>
     /// 발사할 발사체의 Object Pool
@@ -93,7 +101,7 @@ public class Tower : MonoBehaviour
     /// <summary>
     /// 타워의 콜라이더
     /// </summary>
-    private Collider2D towerCollider;
+    public Collider2D towerCollider;
     /// <summary>
     /// 타워의 이전 위치
     /// </summary>
@@ -153,9 +161,9 @@ public class Tower : MonoBehaviour
     /// </summary>
     protected virtual void Start()
     {
-        if (applyData.weaponPrefab != null)
+        if (currentTowerData != null && currentTowerData.weaponPrefab != null)
         {
-            TowerWeapon weapon = applyData.weaponPrefab.GetComponent<TowerWeapon>();
+            TowerWeapon weapon = currentTowerData.weaponPrefab.GetComponent<TowerWeapon>();
             weaponPool = new GameObjectPool<TowerWeapon>(weapon, 10);
         }
     }
@@ -163,30 +171,27 @@ public class Tower : MonoBehaviour
     /// <summary>
     /// 타워 세팅
     /// </summary>
-    /// <param name="enemyManager"></param>
-    public virtual void Setup(TowerData nextTowerData = null)
+    /// <param name="nextTowerData"></param>
+    public virtual void Setup(TowerData nextTowerData, int level = 1)
     {
-        if (applyData == null && currentTowerData != null)
-        {
-            applyData = Instantiate(currentTowerData);
-        }
+        towerLevel = level;
 
-        if (nextTowerData != null)
-        {
-            currentTowerData = nextTowerData;
-            applyData = Instantiate(currentTowerData);
-        }
+        currentTowerData = nextTowerData;
+        Debug.Log(level - 1);
+        applyLevelData = currentTowerData.levelDatas[level - 1];
 
-        towerSprite = this.GetComponent<SpriteRenderer>();
-        towerAnim = this.GetComponent<Animator>();
-        towerAnim.SetFloat("attackSpeed", 1/applyData.attackCooldown);
+        var spriteLibrary = GetComponentInChildren<SpriteLibrary>();
+        spriteLibrary.spriteLibraryAsset = currentTowerData.spriteLibrary;
+
+        towerSprite = this.GetComponentInChildren<SpriteRenderer>();
+        towerAnim.SetFloat("attackSpeed", 1/applyLevelData.attackCooldown);
 
         UpdateRangeIndicator();
         rangeIndicator.enabled = false; // 처음에는 숨김
 
         if (towerCollider == null)
         {
-            towerCollider = GetComponent<Collider2D>();
+            towerCollider = this.GetComponentInChildren<Collider2D>();
         }
 
         if (mainCamera == null)
@@ -211,20 +216,20 @@ public class Tower : MonoBehaviour
     {
         if (rangeIndicator != null)
         {
-            rangeIndicator.transform.localScale = new Vector3(applyData.attackRange * 2, applyData.attackRange * 2, 1);
+            rangeIndicator.transform.localScale = new Vector3(applyLevelData.attackRange * 2, applyLevelData.attackRange * 2, 1);
         }
     }
 
     /// <summary>
     /// 마우스 버튼을 눌렀을 때
     /// </summary>
-    void OnMouseDown()
+    public void OnMouseDownEvent()
     {
-        Debug.Log("IsPointerOverUI " + IsPointerOverUI());
         // UI 위가 아닐 때만 드래그 허용
         if (!IsPointerOverUI()) 
         {
             isDragging = true;
+            towerAnim.SetBool("isDragging", true);
             prevPosition = transform.position;
             offset = transform.position - GetMouseWorldPosition();
             // 이동 중 충돌 비활성화
@@ -237,7 +242,7 @@ public class Tower : MonoBehaviour
     /// <summary>
     /// 마우스를 드래그 중일 때
     /// </summary>
-    void OnMouseDrag()
+    public void OnMouseDragEvent()
     {
         if (isDragging)
         {
@@ -248,9 +253,10 @@ public class Tower : MonoBehaviour
     /// <summary>
     /// 마우스 버튼을 뗏을 때
     /// </summary>
-    void OnMouseUp()
+    public void OnMouseUpEvent()
     {
         isDragging = false;
+        towerAnim.SetBool("isDragging", false);
         // 이동 완료 후 충돌 활성화
         towerCollider.enabled = true;
 
@@ -343,7 +349,7 @@ public class Tower : MonoBehaviour
         attackTimer += Time.deltaTime;
         if (currentTowerState == TowerState.AttackToTarget)
         {
-            if (attackTimer >= applyData.attackCooldown)
+            if (attackTimer >= applyLevelData.attackCooldown)
             {
                 AttackToTarget();
             }
@@ -394,7 +400,7 @@ public class Tower : MonoBehaviour
     /// <returns></returns>
     protected virtual void Rotate()
     {
-        transform.Rotate(0, 0, applyData.rotationSpeed * Time.deltaTime);
+        transform.Rotate(0, 0, applyLevelData.rotationSpeed * Time.deltaTime);
     }
 
     /// <summary>
@@ -406,7 +412,7 @@ public class Tower : MonoBehaviour
         List<EnemyTest> enemiesInRange = new List<EnemyTest>();
 
         // 현재 타워의 위치에서 원형의 공격 범위 내에 있는 모든 Enemy(Layer)를 가져옴
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, applyData.attackRange, enemyLayer);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, applyLevelData.attackRange, enemyLayer);
 
         foreach (Collider2D col in colliders)
         {
@@ -448,6 +454,11 @@ public class Tower : MonoBehaviour
         return closestEnemy;
     }
 
+    public virtual void Attack()
+    {
+
+    }
+
     /// <summary>
     /// Bullet을 Object Pool에 반환
     /// </summary>
@@ -472,15 +483,15 @@ public class Tower : MonoBehaviour
             {
                 case TowerBonus.SameTowerColor:
                     Debug.Log("SameTowerColor");
-                    Debug.Log("기존 타워 공격력: " + applyData.attackDamage);
-                    applyData.attackDamage += 0.5f;
-                    Debug.Log("바뀐 타워 공격력: " + applyData.attackDamage);
+                    Debug.Log("기존 타워 공격력: " + applyLevelData.attackDamage);
+                    applyLevelData.attackDamage += 0.5f;
+                    Debug.Log("바뀐 타워 공격력: " + applyLevelData.attackDamage);
                     break;
                 case TowerBonus.SameTowerType:
                     Debug.Log("SameTowerType");
-                    Debug.Log("기존 타워 범위: " + applyData.attackRange);
-                    applyData.attackRange += 0.2f;
-                    Debug.Log("바뀐 타워 범위: " + applyData.attackRange);
+                    Debug.Log("기존 타워 범위: " + applyLevelData.attackRange);
+                    applyLevelData.attackRange += 0.2f;
+                    Debug.Log("바뀐 타워 범위: " + applyLevelData.attackRange);
                     break;
             }
         }
@@ -492,7 +503,7 @@ public class Tower : MonoBehaviour
     public void ClearBonuses()
     {
         activeBonuses.Clear();
-        applyData = Instantiate(currentTowerData);
+        applyLevelData = currentTowerData.levelDatas[towerLevel - 1];
     }
 
     /// <summary>

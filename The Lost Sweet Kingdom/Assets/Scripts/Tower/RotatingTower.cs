@@ -25,10 +25,11 @@ public class RotatingTower : Tower
     /// <summary>
     /// 타워의 상태를 지속적으로 회전하는 상태로 세팅
     /// </summary>
-    /// <param name="enemyManager"></param>
-    public override void Setup(TowerData towerData = null)
+    /// <param name="towerData"></param>
+    /// <param name="level"></param>
+    public override void Setup(TowerData towerData, int level)
     {
-        base.Setup(towerData);
+        base.Setup(towerData, level);
         ChangeState(TowerState.Rotate);
     }
 }

@@ -31,15 +31,6 @@ using UnityEngine;
 public class GunTower : TrackingTower
 {
     /// <summary>
-    /// 타워 세팅
-    /// bulletTransform을 가져옴
-    /// </summary>
-    public override void Setup(TowerData towerData = null)
-    {
-        base.Setup(towerData);
-    }
-
-    /// <summary>
     /// 타겟을 향해 발사체를 생성
     /// </summary>
     /// <returns></returns>
@@ -67,7 +58,7 @@ public class GunTower : TrackingTower
         float distance = Vector3.Distance(closestAttackTarget.transform.position, transform.position);
 
         // 타겟과의 거리가 공격 범위보다 멀리 있으면
-        if (distance > applyData.attackRange)
+        if (distance > applyLevelData.attackRange)
         {
             // 타겟 탐색 상태로 전환
             attackTargets = null;
@@ -89,7 +80,7 @@ public class GunTower : TrackingTower
         towerAnim.SetBool("isAttacking", true);
     }
 
-    private void Attack()
+    public override void Attack()
     {
         Debug.Log("SpawnWeapon");
         if (closestAttackTarget != null)

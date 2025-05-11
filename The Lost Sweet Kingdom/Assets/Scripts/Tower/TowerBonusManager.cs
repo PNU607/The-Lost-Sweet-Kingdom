@@ -59,27 +59,31 @@ public class TowerBonusManager : MonoBehaviour
         bonusAppliedColor.Clear();
         bonusAppliedType.Clear();
 
-        bonusText.text = string.Empty;
-        foreach (var group in groupedByColor)
+        if (bonusText != null)
         {
-            bonusAppliedColor.Add(group.FirstOrDefault().CurrentTowerData.towerColor);
-            foreach (var tower in group)
+            bonusText.text = string.Empty;
+            foreach (var group in groupedByColor)
             {
-                tower.ApplyBonus(TowerBonus.SameTowerColor);
+                bonusAppliedColor.Add(group.FirstOrDefault().CurrentTowerData.towerColor);
+                foreach (var tower in group)
+                {
+                    tower.ApplyBonus(TowerBonus.SameTowerColor);
+                }
+                bonusText.text += group.Key + " Color Bonus\n";
             }
-            bonusText.text += group.Key + " Color Bonus\n";
-        }
-        bonusText.text += "\n";
+            bonusText.text += "\n";
 
-        foreach (var group in groupedByType)
-        {
-            bonusAppliedType.Add(group.FirstOrDefault().CurrentTowerData.towerType);
-            foreach (var tower in group)
+            foreach (var group in groupedByType)
             {
-                tower.ApplyBonus(TowerBonus.SameTowerType);
+                bonusAppliedType.Add(group.FirstOrDefault().CurrentTowerData.towerType);
+                foreach (var tower in group)
+                {
+                    tower.ApplyBonus(TowerBonus.SameTowerType);
+                }
+                bonusText.text += group.Key + " Type Bonus ";
             }
-            bonusText.text += group.Key + " Type Bonus ";
         }
+        
     }
 }
 
