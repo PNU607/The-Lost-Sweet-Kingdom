@@ -42,6 +42,9 @@ public class EnemyTest : MonoBehaviour
             healthBarInstance = Instantiate(healthBarPrefab, uiCanvas.transform);
 
             healthSlider = healthBarInstance.GetComponent<Slider>();
+
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position + Vector3.down * 0.5f);
+            healthBarInstance.transform.position = screenPos;
         }
 
         UpdateHealthBar();
