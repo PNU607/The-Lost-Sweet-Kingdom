@@ -97,7 +97,7 @@ public class EnemyTest : MonoBehaviour
     {
         if (healthBarInstance != null)
         {
-            Vector3 screenPos = mainCamera.WorldToScreenPoint(transform.position + Vector3.up * 1f);
+            Vector3 screenPos = mainCamera.WorldToScreenPoint(transform.position + Vector3.down * 0.5f);
             healthBarInstance.transform.position = screenPos;
         }
     }
