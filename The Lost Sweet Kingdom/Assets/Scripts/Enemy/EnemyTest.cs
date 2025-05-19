@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Sound;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyTest : MonoBehaviour
 {
@@ -11,9 +12,12 @@ public class EnemyTest : MonoBehaviour
     public float hp;
 
     public GameObject healthBarPrefab;
-    private Transform healthBarInstance;
-    private Transform foreground;
-    private Vector3 initialForegroundScale;
+    private Slider healthSlider;
+    private GameObject healthBarInstance;
+
+    private Camera mainCamera;
+    private Canvas uiCanvas;
+
 
     public AStar aStarScript;
     private float baseSpeed;
@@ -27,17 +31,17 @@ public class EnemyTest : MonoBehaviour
         hp = currentEnemyData.maxHealth;
         baseSpeed = currentEnemyData.moveSpeed;
         moveSpeed = currentEnemyData.moveSpeed;
+        mainCamera = Camera.main;
 
         currentTargetIndex = 0;
         path = null;
 
         if (healthBarInstance == null)
         {
-            GameObject go = Instantiate(healthBarPrefab, transform);
-            healthBarInstance = go.transform;
-            healthBarInstance.localPosition = new Vector3(-0.3f, -0.7f, 0);
-            foreground = healthBarInstance.Find("Foreground");
-            initialForegroundScale = foreground.localScale;
+            uiCanvas = GameObject.Find("EnemyHpCanvas").GetComponent<Canvas>();
+            healthBarInstance = Instantiate(healthBarPrefab, uiCanvas.transform);
+
+            healthSlider = healthBarInstance.GetComponent<Slider>();
         }
 
         UpdateHealthBar();
@@ -89,12 +93,20 @@ public class EnemyTest : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (healthBarInstance != null)
+        {
+            Vector3 screenPos = mainCamera.WorldToScreenPoint(transform.position + Vector3.up * 1f);
+            healthBarInstance.transform.position = screenPos;
+        }
+    }
+
     void UpdateHealthBar()
     {
-        if (foreground != null)
+        if (healthSlider != null)
         {
-            float ratio = hp / currentEnemyData.maxHealth;
-            foreground.localScale = new Vector3(initialForegroundScale.x * ratio, initialForegroundScale.y, initialForegroundScale.z);
+            healthSlider.value = hp / currentEnemyData.maxHealth;
         }
     }
 
