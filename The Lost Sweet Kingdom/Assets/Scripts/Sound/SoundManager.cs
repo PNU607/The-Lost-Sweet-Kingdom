@@ -1,4 +1,4 @@
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +16,7 @@ public enum SoundType
 
 public class SoundManager : MonoBehaviour
 {
+    public static SoundManager Instance;
 
     private const float DEFAULT_VOLUME = 1;
 
@@ -24,6 +25,23 @@ public class SoundManager : MonoBehaviour
     public SoundSourceList soundSourceList;
     private Dictionary<SoundType, float> volumes = new Dictionary<SoundType, float>();
     public List<SoundObject> soundObjects;
+
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        InitializeVolumes();
+    }
 
     private void InitializeVolumes()
     {
@@ -42,12 +60,6 @@ public class SoundManager : MonoBehaviour
         }
 
         return bgmSoundObject;
-    }
-
-    protected override void Awake()
-    {
-        base.Awake();
-        InitializeVolumes();
     }
 
     private void Start()
@@ -110,4 +122,3 @@ public class SoundManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
-*/

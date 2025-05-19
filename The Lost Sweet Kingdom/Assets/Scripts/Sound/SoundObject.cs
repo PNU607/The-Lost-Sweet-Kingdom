@@ -1,4 +1,4 @@
-/*using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 namespace System.Sound
@@ -24,7 +24,14 @@ namespace System.Sound
 
         private void Awake()
         {
-            _masterVolume = DataManager.Instance.LoadSection<SoundData>("SoundData") == null ? 1f : DataManager.Instance.LoadSection<SoundData>("SoundData").masterVolume;
+            if (DataManager.Instance != null && DataManager.Instance.SoundData != null)
+            {
+                _masterVolume = DataManager.Instance.SoundData.masterVolume;
+            }
+            else
+            {
+                _masterVolume = 1f;
+            }
         }
 
         private void Start()
@@ -118,6 +125,16 @@ namespace System.Sound
                 _audioSource.volume = _volume * _masterVolume;
             }
         }
+
+        public void PlayWithCallback(ICallback callback)
+        {
+            StartCoroutine(PlayCoroutine(callback));
+        }
+
+        private IEnumerator PlayCoroutine(ICallback callback)
+        {
+            yield return Play();
+            callback?.OnProcessCompleted();
+        }
     }
 }
-*/
