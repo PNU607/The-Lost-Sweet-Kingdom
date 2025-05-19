@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Sound;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyTest : MonoBehaviour
@@ -101,6 +102,7 @@ public class EnemyTest : MonoBehaviour
     {
         SoundObject _soundObject;
         _soundObject = Sound.Play("EnemyAttacked", false);
+        _soundObject.SetVolume(0.03f);
 
         Debug.Log("Take Damage " + damage + " Total HP " + hp);
         hp -= damage;
