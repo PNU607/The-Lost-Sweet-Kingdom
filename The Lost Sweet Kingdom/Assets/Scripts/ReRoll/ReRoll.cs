@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Sound;
 using UnityEngine;
 
 public class ReRoll : MonoBehaviour
@@ -18,6 +19,8 @@ public class ReRoll : MonoBehaviour
     {
         if (GoldManager.instance.gold >= rerollCost)
         {
+            SoundObject _soundObject;
+            _soundObject = Sound.Play("EnemyAttacked", false);
             GoldManager.instance.SpendGold(rerollCost);
             GenerateUnits();
         }

@@ -17,7 +17,7 @@ namespace System.Sound
                         createFunc: () =>
                         {
                             GameObject go = UnityEngine.Object.Instantiate(
-                                UnityEngine.Resources.Load<GameObject>("Prefabs/System/Sound/SoundObject"),
+                                UnityEngine.Resources.Load<GameObject>("ScriptableObject/Sound/SoundObject"),
                                 SoundManager.Instance.transform);
                             return go.GetComponent<SoundObject>();
                         },
