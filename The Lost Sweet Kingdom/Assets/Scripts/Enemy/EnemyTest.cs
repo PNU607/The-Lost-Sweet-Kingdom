@@ -74,6 +74,11 @@ public class EnemyTest : MonoBehaviour
         enemyAnim = GetComponent<Animator>();
         spriteLibrary = GetComponent<SpriteLibrary>();
         spriteResolver = GetComponent<SpriteResolver>();
+        if (spriteLibrary != null && currentEnemyData.spriteLibraryAsset != null)
+        {
+            spriteLibrary.spriteLibraryAsset = currentEnemyData.spriteLibraryAsset;
+        }
+
         enemyAnim.SetBool("isOnEnable", true);
     }
 
