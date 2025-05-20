@@ -74,12 +74,7 @@ public class EnemyTest : MonoBehaviour
         enemyAnim = GetComponent<Animator>();
         spriteLibrary = GetComponent<SpriteLibrary>();
         spriteResolver = GetComponent<SpriteResolver>();
-        if (spriteResolver != null && currentEnemyData.spriteLibraryAsset != null)
-        {
-            spriteLibrary.spriteLibraryAsset = currentEnemyData.spriteLibraryAsset;
-        }
-
-        SetAnimation("Idle");
+        enemyAnim.SetBool("isOnEnable", true);
     }
 
     IEnumerator FollowPath()
@@ -200,14 +195,6 @@ public class EnemyTest : MonoBehaviour
             Castle.instance.TakeDamage(10);
             ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
             WaveManager.instance.enemyCountDown();
-        }
-    }
-
-    public void SetAnimation(string state)
-    {
-        if (spriteResolver != null)
-        {
-            spriteResolver.SetCategoryAndLabel("State", state);
         }
     }
 };
