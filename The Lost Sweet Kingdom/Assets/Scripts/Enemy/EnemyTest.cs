@@ -27,6 +27,7 @@ public class EnemyTest : MonoBehaviour
     private List<Vector2> path;
     private int currentTargetIndex = 0;
 
+    private Animator enemyAnim;
     private SpriteLibrary spriteLibrary;
     private SpriteResolver spriteResolver;
 
@@ -70,6 +71,7 @@ public class EnemyTest : MonoBehaviour
             StartCoroutine(FollowPath());
         }
 
+        enemyAnim = GetComponent<Animator>();
         spriteLibrary = GetComponent<SpriteLibrary>();
         spriteResolver = GetComponent<SpriteResolver>();
         if (spriteResolver != null && currentEnemyData.spriteLibraryAsset != null)
