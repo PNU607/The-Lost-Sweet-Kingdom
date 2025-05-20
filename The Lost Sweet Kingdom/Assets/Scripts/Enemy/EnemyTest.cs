@@ -135,6 +135,7 @@ public class EnemyTest : MonoBehaviour
         _soundObject.SetVolume(0.03f);
 
         Debug.Log("Take Damage " + damage + " Total HP " + hp);
+        StartCoroutine(DoDamageReaction());
         hp -= damage;
         UpdateHealthBar();
 
@@ -142,6 +143,25 @@ public class EnemyTest : MonoBehaviour
         {
             OnDie();
         }
+    }
+
+    private IEnumerator DoDamageReaction()
+    {
+        Vector3 originalScale = transform.localScale;
+        Vector3 enlargedScale = originalScale * 1.1f;
+
+        float duration = 0.1f;
+        float elapsed = 0f;
+
+        transform.localScale = enlargedScale;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localScale = originalScale;
     }
 
     public void SetSpeedMultiplier(float multiplier, float duration)
