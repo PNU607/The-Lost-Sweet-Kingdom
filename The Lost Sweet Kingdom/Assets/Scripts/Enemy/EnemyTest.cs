@@ -4,6 +4,7 @@ using System.Sound;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.U2D.Animation;
 
 public class EnemyTest : MonoBehaviour
 {
@@ -25,6 +26,9 @@ public class EnemyTest : MonoBehaviour
 
     private List<Vector2> path;
     private int currentTargetIndex = 0;
+
+    private SpriteLibrary spriteLibrary;
+    private SpriteResolver spriteResolver;
 
     private void OnEnable()
     {
@@ -65,6 +69,15 @@ public class EnemyTest : MonoBehaviour
         {
             StartCoroutine(FollowPath());
         }
+
+        spriteLibrary = GetComponent<SpriteLibrary>();
+        spriteResolver = GetComponent<SpriteResolver>();
+        if (spriteResolver != null && currentEnemyData.spriteLibraryAsset != null)
+        {
+            spriteLibrary.spriteLibraryAsset = currentEnemyData.spriteLibraryAsset;
+        }
+
+        SetAnimation("Idle");
     }
 
     IEnumerator FollowPath()
@@ -185,6 +198,14 @@ public class EnemyTest : MonoBehaviour
             Castle.instance.TakeDamage(10);
             ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
             WaveManager.instance.enemyCountDown();
+        }
+    }
+
+    public void SetAnimation(string state)
+    {
+        if (spriteResolver != null)
+        {
+            spriteResolver.SetCategoryAndLabel("State", state);
         }
     }
 };
