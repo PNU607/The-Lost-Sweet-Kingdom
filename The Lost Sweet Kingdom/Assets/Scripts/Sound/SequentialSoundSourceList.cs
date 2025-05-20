@@ -1,9 +1,9 @@
-/*using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SoundSourceList", menuName = "ScriptableObject/New SequentialSoundSourceList")]
+[CreateAssetMenu(fileName = "SequentialSoundSourceList", menuName = "ScriptableObject/New SequentialSoundSourceList")]
 public class SequentialSoundSourceList : ScriptableObject
 {
     [SerializeField]
@@ -58,4 +58,3 @@ public class SequentialSoundSourceList : ScriptableObject
         return soundSources.Count;
     }
 }
-*/

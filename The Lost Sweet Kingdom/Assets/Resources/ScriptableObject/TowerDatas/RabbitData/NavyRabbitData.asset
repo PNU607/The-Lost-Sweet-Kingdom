@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
+  m_Name: NavyRabbitData
+  m_EditorClassIdentifier: 
+  towerName: Navy Rabbit
+  towerColor: 5
+  towerType: 0
+  towerIcon: {fileID: 21300000, guid: b86a0fff33aad764f92df7242f7f627e, type: 3}
+  towerPrefab: {fileID: 4625834919878556233, guid: 9e6b835ce4fec494aa66b96f7a95e342, type: 3}
+  weaponPrefab: {fileID: 0}
+  spriteLibrary: {fileID: 7108339969198208228, guid: 1f67b6517ca034340b3599804d54bce5, type: 3}
+  cost: 60
+  levelDatas:
+  - level: 1
+    attackRange: 1.7
+    attackWeaponRange: 0
+    attackCooldown: 1
+    attackDuration: 0
+    attackDamage: 1
+    rotationSpeed: 0
+  - level: 2
+    attackRange: 2
+    attackWeaponRange: 0
+    attackCooldown: 0.8
+    attackDuration: 0
+    attackDamage: 1.2
+    rotationSpeed: 0
+  - level: 3
+    attackRange: 2.2
+    attackWeaponRange: 0
+    attackCooldown: 0.5
+    attackDuration: 0
+    attackDamage: 1.4
+    rotationSpeed: 0

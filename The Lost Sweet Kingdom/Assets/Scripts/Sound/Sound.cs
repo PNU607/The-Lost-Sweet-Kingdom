@@ -1,8 +1,6 @@
-/*using System.Collections;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
-using Util.Interface;
-using Util.ObjectCreator;
 
 namespace System.Sound
 {
@@ -15,26 +13,41 @@ namespace System.Sound
             {
                 if (_objectPool == null)
                 {
-                    _objectPool = new ObjectPool<SoundObject>(10, UnityEngine.Resources.Load<GameObject>("Prefabs/System/Sound/SoundObject"), SoundManager.Instance.transform);
+                    _objectPool = new ObjectPool<SoundObject>(
+                        createFunc: () =>
+                        {
+                            GameObject go = UnityEngine.Object.Instantiate(
+                                UnityEngine.Resources.Load<GameObject>("ScriptableObject/Sound/SoundObject"),
+                                SoundManager.Instance.transform);
+                            return go.GetComponent<SoundObject>();
+                        },
+                        actionOnGet: obj => obj.gameObject.SetActive(true),
+                        actionOnRelease: obj => obj.gameObject.SetActive(false),
+                        actionOnDestroy: obj => UnityEngine.Object.Destroy(obj.gameObject),
+                        collectionCheck: false,
+                        defaultCapacity: 10
+                    );
                 }
                 return _objectPool;
             }
         }
+
         public static SoundObject Play(string soundId, bool loop = false)
         {
-            SoundObject soundObject = ObjectPool.GetObject();
-            soundObject.gameObject.SetActive(true);
+            SoundObject soundObject = ObjectPool.Get();
             soundObject.Initialize();
             soundObject.SetSoundSourceByName(soundId);
             soundObject.SetLoop(loop);
-            soundObject.StartCoroutine(Play(soundObject, new SoundPlayCallback(soundObject)));
+            soundObject.PlayWithCallback(new SoundPlayCallback(soundObject));
             return soundObject;
         }
+
         public static void Stop(SoundObject soundObject)
         {
             soundObject?.Stop();
-            soundObject?.gameObject.SetActive(false);
+            ObjectPool.Release(soundObject);
         }
+
         private class SoundPlayCallback : ICallback
         {
             private SoundObject _soundObject;
@@ -43,16 +56,16 @@ namespace System.Sound
             {
                 _soundObject = soundObject;
             }
+
             public void OnProcessCompleted()
             {
-                _soundObject.gameObject.SetActive(false);
+                ObjectPool.Release(_soundObject);
             }
         }
-
-        public static IEnumerator Play(SoundObject soundObject, ICallback callback)
-        {
-            yield return soundObject.Play();
-            callback.OnProcessCompleted();
-        }
     }
-}*/
+
+    public interface ICallback
+    {
+        void OnProcessCompleted();
+    }
+}

@@ -185,7 +185,7 @@ public class Tower : MonoBehaviour
 
         towerSprite = this.GetComponentInChildren<SpriteRenderer>();
         towerAnim.SetFloat("attackSpeed", 1/applyLevelData.attackCooldown);
-
+        
         UpdateRangeIndicator();
         rangeIndicator.enabled = false; // 처음에는 숨김
 

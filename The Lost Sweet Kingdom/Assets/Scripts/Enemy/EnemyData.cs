@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 [CreateAssetMenu(fileName = "NewEnemyData", menuName = "Tower Defense/Enemy Data")]
 public class EnemyData : ScriptableObject
@@ -18,4 +19,7 @@ public class EnemyData : ScriptableObject
     public float moveSpeed = 2.0f;
     // 처치 시 획득하는 골드
     public int goldReward;
+
+    [Header("Anim")]
+    public SpriteLibraryAsset spriteLibraryAsset;
 }

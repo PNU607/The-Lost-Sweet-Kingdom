@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5198961917271973822
 Transform:
   m_ObjectHideFlags: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentEnemyData: {fileID: 11400000, guid: 5adf14a3e6166654488419be36403861, type: 2}
   hp: 0
-  healthBarPrefab: {fileID: 2028540144233393013, guid: 16e5fb0b7e85af448bcf6960faa5e0a0, type: 3}
+  healthBarPrefab: {fileID: 7910187004064824466, guid: 16e5fb0b7e85af448bcf6960faa5e0a0, type: 3}
   aStarScript: {fileID: 0}
 --- !u!50 &1902759397154923754
 Rigidbody2D:

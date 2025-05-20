@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Sound;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.U2D.Animation;
 
 public class EnemyTest : MonoBehaviour
 {
@@ -9,9 +13,12 @@ public class EnemyTest : MonoBehaviour
     public float hp;
 
     public GameObject healthBarPrefab;
-    private Transform healthBarInstance;
-    private Transform foreground;
-    private Vector3 initialForegroundScale;
+    private Slider healthSlider;
+    private GameObject healthBarInstance;
+
+    private Camera mainCamera;
+    private Canvas uiCanvas;
+
 
     public AStar aStarScript;
     private float baseSpeed;
@@ -20,22 +27,29 @@ public class EnemyTest : MonoBehaviour
     private List<Vector2> path;
     private int currentTargetIndex = 0;
 
+    private Animator enemyAnim;
+    private SpriteLibrary spriteLibrary;
+    private SpriteResolver spriteResolver;
+
     private void OnEnable()
     {
         hp = currentEnemyData.maxHealth;
         baseSpeed = currentEnemyData.moveSpeed;
         moveSpeed = currentEnemyData.moveSpeed;
+        mainCamera = Camera.main;
 
         currentTargetIndex = 0;
         path = null;
 
         if (healthBarInstance == null)
         {
-            GameObject go = Instantiate(healthBarPrefab, transform);
-            healthBarInstance = go.transform;
-            healthBarInstance.localPosition = new Vector3(-0.3f, -0.7f, 0);
-            foreground = healthBarInstance.Find("Foreground");
-            initialForegroundScale = foreground.localScale;
+            uiCanvas = GameObject.Find("EnemyHpCanvas").GetComponent<Canvas>();
+            healthBarInstance = Instantiate(healthBarPrefab, uiCanvas.transform);
+
+            healthSlider = healthBarInstance.GetComponent<Slider>();
+
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position + Vector3.down * 0.5f);
+            healthBarInstance.transform.position = screenPos;
         }
 
         UpdateHealthBar();
@@ -56,6 +70,16 @@ public class EnemyTest : MonoBehaviour
         {
             StartCoroutine(FollowPath());
         }
+
+        enemyAnim = GetComponent<Animator>();
+        spriteLibrary = GetComponent<SpriteLibrary>();
+        spriteResolver = GetComponent<SpriteResolver>();
+        if (spriteLibrary != null && currentEnemyData.spriteLibraryAsset != null)
+        {
+            spriteLibrary.spriteLibraryAsset = currentEnemyData.spriteLibraryAsset;
+        }
+
+        enemyAnim.SetBool("isOnEnable", true);
     }
 
     IEnumerator FollowPath()
@@ -87,18 +111,31 @@ public class EnemyTest : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (healthBarInstance != null)
+        {
+            Vector3 screenPos = mainCamera.WorldToScreenPoint(transform.position + Vector3.down * 0.5f);
+            healthBarInstance.transform.position = screenPos;
+        }
+    }
+
     void UpdateHealthBar()
     {
-        if (foreground != null)
+        if (healthSlider != null)
         {
-            float ratio = hp / currentEnemyData.maxHealth;
-            foreground.localScale = new Vector3(initialForegroundScale.x * ratio, initialForegroundScale.y, initialForegroundScale.z);
+            healthSlider.value = hp / currentEnemyData.maxHealth;
         }
     }
 
     public void TakeDamage(float damage)
     {
+        SoundObject _soundObject;
+        _soundObject = Sound.Play("EnemyAttacked", false);
+        _soundObject.SetVolume(0.03f);
+
         Debug.Log("Take Damage " + damage + " Total HP " + hp);
+        StartCoroutine(DoDamageReaction());
         hp -= damage;
         UpdateHealthBar();
 
@@ -106,6 +143,25 @@ public class EnemyTest : MonoBehaviour
         {
             OnDie();
         }
+    }
+
+    private IEnumerator DoDamageReaction()
+    {
+        Vector3 originalScale = transform.localScale;
+        Vector3 enlargedScale = originalScale * 1.1f;
+
+        float duration = 0.1f;
+        float elapsed = 0f;
+
+        transform.localScale = enlargedScale;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localScale = originalScale;
     }
 
     public void SetSpeedMultiplier(float multiplier, float duration)
