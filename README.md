@@ -8,7 +8,8 @@
 
 ### Used Tool
 <p><img src="https://img.shields.io/badge/unity-FFFFFF?style=for-the-badge&logo=unity&logoColor=black">
-<img src="https://img.shields.io/badge/notion-FFFFFF?style=for-the-badge&logo=notion&logoColor=black"></p>
+<img src="https://img.shields.io/badge/notion-FFFFFF?style=for-the-badge&logo=notion&logoColor=black">
+<img src="https://img.shields.io/badge/jira-FFFFFF?style=for-the-badge&logo=jira&logoColor=black"></p>
 
 ---
 ## Programmer
