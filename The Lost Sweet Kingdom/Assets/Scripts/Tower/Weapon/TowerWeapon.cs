@@ -98,7 +98,7 @@ public class TowerWeapon : MonoBehaviour
     {
         if (shotTower != null)
         {
-            shotTower.GetComponent<GunTower>().ReleaseWeapon(this);
+            shotTower.GetComponent<Tower>().ReleaseWeapon(this);
         }
         else
         {

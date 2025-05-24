@@ -48,6 +48,10 @@ public class TowerManager : MonoBehaviour
     /// </summary>
     public Tilemap tilemap;
     /// <summary>
+    /// 타워를 배치할 파일맵
+    /// </summary>
+    public Tilemap attackableTilemap;
+    /// <summary>
     /// 배치된 타일의 위치, 타워들 조합
     /// </summary>
     private Dictionary<Vector3Int, GameObject> placedTowers = new Dictionary<Vector3Int, GameObject>();

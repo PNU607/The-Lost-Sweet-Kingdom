@@ -10,35 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
-  m_Name: RedRabbitData
+  m_Name: BlueSquirrelData
   m_EditorClassIdentifier: 
-  towerName: Red Rabbit
-  towerColor: 0
-  towerType: 0
-  towerIcon: {fileID: 21300000, guid: 32a0ca2dee1660140ba9cfa6083b3d3d, type: 3}
+  towerName: Blue Squirrel
+  towerColor: 4
+  towerType: 2
+  towerIcon: {fileID: 21300000, guid: f23506f88d78ec345933060d0fd93c5b, type: 3}
   towerPrefab: {fileID: 4625834919878556233, guid: 317c52815fa92f548a941df6995f42c3, type: 3}
-  weaponPrefab: {fileID: 4877909776406011252, guid: c5299a537a04d4259b09560dd7f13104, type: 3}
-  spriteLibrary: {fileID: 7108339969198208228, guid: 6641fee325a264c089cd3592619bc3e3, type: 3}
-  cost: 10
+  weaponPrefab: {fileID: 4877909776406011252, guid: c96a019f935cf45528197166ae847c69, type: 3}
+  spriteLibrary: {fileID: 7108339969198208228, guid: cebed1090a73a6842abae0fa855eb041, type: 3}
+  cost: 50
   levelDatas:
   - level: 1
-    attackRange: 2
+    attackRange: 1.7
     attackWeaponRange: 0
     attackCooldown: 1
-    attackDuration: 0
-    attackDamage: 1
+    attackDuration: 0.8
+    attackDamage: 1.5
     rotationSpeed: 0
   - level: 2
-    attackRange: 2.3
+    attackRange: 2
     attackWeaponRange: 0
     attackCooldown: 0.8
-    attackDuration: 0
-    attackDamage: 1.2
+    attackDuration: 1
+    attackDamage: 1.8
     rotationSpeed: 0
   - level: 3
-    attackRange: 2.5
+    attackRange: 2.2
     attackWeaponRange: 0
     attackCooldown: 0.5
-    attackDuration: 0
-    attackDamage: 1.4
+    attackDuration: 1.2
+    attackDamage: 2
     rotationSpeed: 0
