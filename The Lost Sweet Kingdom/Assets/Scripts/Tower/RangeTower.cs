@@ -3,7 +3,6 @@ using UnityEngine.Tilemaps;
 
 public class RangeTower : TrackingTower
 {
-    [Header("공격 설정")]
     public Vector2Int[] attackDirections = new Vector2Int[]
     {
         Vector2Int.up,
@@ -16,8 +15,10 @@ public class RangeTower : TrackingTower
         new Vector2Int(-1, -1)  // ↙
     };
 
-    [Header("이펙트")]
-    public GameObject attackEffectPrefab;
+    [SerializeField]
+    private Vector3 attackHeadOffset = new Vector3(0,1f,0);
+    [SerializeField]
+    private Vector2 tileCheckSizeMultiplier = new Vector2(0.9f, 0.9f);
 
     private Tilemap attackableTilemap;
 
@@ -85,42 +86,46 @@ public class RangeTower : TrackingTower
         {
             for (int i = 1; i <= applyLevelData.attackRange; i++)
             {
-                Vector3Int checkPos = towerCellPos + new Vector3Int(dir.x, dir.y, 0) * i;
+                Vector3Int tilePos = towerCellPos + new Vector3Int(dir.x, dir.y, 0);
 
-                // 공격 가능한 타일 위에 있는지 확인
-                if (!attackableTilemap.HasTile(checkPos))
+                if (!attackableTilemap.HasTile(tilePos))
                     continue;
 
-                Vector3 worldPos = attackableTilemap.GetCellCenterWorld(checkPos);
-                Vector2 boxSize = GetEnemyCheckSize();
+                Vector3 tileWorldPos = attackableTilemap.GetCellCenterWorld(tilePos);
+                Vector2 boxSize = GetTileCheckBoxSize();
 
-                Collider2D enemy = Physics2D.OverlapBox(worldPos, boxSize, 0f, enemyLayer);
+                Collider2D[] enemies = Physics2D.OverlapBoxAll(tileWorldPos, boxSize, 0f, enemyLayer);
 
-                if (enemy != null)
+                if (enemies.Length > 0)
                 {
-                    // 공격 실행
-                    if (attackEffectPrefab)
-                        Instantiate(attackEffectPrefab, worldPos, Quaternion.identity);
+                    foreach (var enemyCol in enemies)
+                    {
+                        if (enemyCol == null) continue;
 
-                    // 데미지 입히기
-                    var health = enemy.GetComponent<EnemyTest>();
-                    if (health != null)
-                        health.TakeDamage(applyLevelData.attackDamage);
+                        // 머리 위 이펙트 위치
+                        Vector3 effectPos = enemyCol.transform.position + attackHeadOffset;
 
-                    // 한 방향에서 적 하나만 공격
-                    break;
+                        TowerWeapon weapon = weaponPool.Spawn(effectPos);
+                        weapon.Setup(enemyCol.transform, this);
+
+                        var health = enemyCol.GetComponent<EnemyTest>();
+                        if (health != null)
+                            health.TakeDamage(1);
+                    }
+
+                    break; // 한 방향에서 첫 타일만 처리 (멀리 있는 적은 무시)
                 }
             }
         }
     }
 
-    Vector2 GetEnemyCheckSize()
+    Vector2 GetTileCheckBoxSize()
     {
         Vector3 cellSize = attackableTilemap.cellSize;
-        return new Vector2(cellSize.x * 0.9f, cellSize.y * 0.9f);
+        return new Vector2(cellSize.x * tileCheckSizeMultiplier.x, cellSize.y * tileCheckSizeMultiplier.y);
     }
 
-    private void OnDrawGizmosSelected()
+    void OnDrawGizmosSelected()
     {
         if (attackableTilemap == null) return;
 
@@ -131,11 +136,11 @@ public class RangeTower : TrackingTower
         {
             for (int i = 1; i <= applyLevelData.attackRange; i++)
             {
-                Vector3Int pos = towerCellPos + new Vector3Int(dir.x, dir.y, 0) * i;
-                if (!attackableTilemap.HasTile(pos)) continue;
+                Vector3Int tilePos = towerCellPos + new Vector3Int(dir.x, dir.y, 0);
+                if (!attackableTilemap.HasTile(tilePos)) continue;
 
-                Vector3 worldPos = attackableTilemap.GetCellCenterWorld(pos);
-                Gizmos.DrawWireCube(worldPos, GetEnemyCheckSize());
+                Vector3 worldPos = attackableTilemap.GetCellCenterWorld(tilePos);
+                Gizmos.DrawWireCube(worldPos, GetTileCheckBoxSize());
             }
         }
     }

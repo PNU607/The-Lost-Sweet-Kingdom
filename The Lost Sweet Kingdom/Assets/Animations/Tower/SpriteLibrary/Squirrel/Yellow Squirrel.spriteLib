@@ -21,7 +21,7 @@ MonoBehaviour:
       m_Hash: 530755569
       m_Sprite: {fileID: 21300000, guid: 3f4c3963a4f78d842b9f2e12ed4bb7ec, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: 5f44e0fa191f59246abb0bb4b6565b94, type: 3}
+      m_SpriteOverride: {fileID: 21300000, guid: 8ac6f15ab76e65848b6beedd356f933e, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 1
   - m_Name: Idle
@@ -32,12 +32,12 @@ MonoBehaviour:
       m_Hash: 790364397
       m_Sprite: {fileID: 21300000, guid: 3f4c3963a4f78d842b9f2e12ed4bb7ec, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: 5f44e0fa191f59246abb0bb4b6565b94, type: 3}
+      m_SpriteOverride: {fileID: 21300000, guid: 8ac6f15ab76e65848b6beedd356f933e, type: 3}
     - m_Name: Idle2
       m_Hash: 907366743
       m_Sprite: {fileID: 21300000, guid: 632c87ad3470762478924a7a98af6792, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: cbef6e393703cd541ad157ff8bc54d87, type: 3}
+      m_SpriteOverride: {fileID: 21300000, guid: a1c712b22a3bcb349b46f06fc8395d71, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 2
   - m_Name: Attack
@@ -48,19 +48,19 @@ MonoBehaviour:
       m_Hash: 1026424610
       m_Sprite: {fileID: 21300000, guid: d7b357161e97eec46a824a776de49a70, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: 16b5f20890e7d33468894e4e4327f99b, type: 3}
+      m_SpriteOverride: {fileID: 21300000, guid: a6121a0fba21f5a489e62c2cb494ad1f, type: 3}
     - m_Name: Attack2
       m_Hash: 606383768
       m_Sprite: {fileID: 21300000, guid: d7b357161e97eec46a824a776de49a70, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: 16b5f20890e7d33468894e4e4327f99b, type: 3}
+      m_SpriteOverride: {fileID: 21300000, guid: d1de17f2bbc10e846b8d212d61217969, type: 3}
     - m_Name: Attack3
       m_Hash: 321101326
       m_Sprite: {fileID: 21300000, guid: 231c39d52c7524249ba2a47b4c11375f, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: 8f3dda7afd82605428bce726611515cb, type: 3}
+      m_SpriteOverride: {fileID: 21300000, guid: 1f87b8db7e32da048a85892a16bdcee9, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 3
   m_PrimaryLibraryGUID: edfcb27ce763b4642997d5b3fdf87d32
-  m_ModificationHash: 638836804569667670
+  m_ModificationHash: 638836807479686011
   m_Version: 1

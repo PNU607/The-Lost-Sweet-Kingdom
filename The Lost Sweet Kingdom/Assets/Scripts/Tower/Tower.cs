@@ -416,6 +416,7 @@ public class Tower : MonoBehaviour
 
         foreach (Collider2D col in colliders)
         {
+            Debug.Log(col.gameObject.name);
             EnemyTest enemy = col.GetComponent<EnemyTest>();
             if (enemy != null)
             {
