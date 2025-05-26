@@ -16,6 +16,7 @@ public enum TowerType
 {
     Rabbit,
     Hamster,
+    Squirrel,
 }
 
 [System.Serializable]

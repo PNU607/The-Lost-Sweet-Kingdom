@@ -848,6 +848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 617617599}
+  attackableTilemap: {fileID: 1486419929}
   bonusManager: {fileID: 571643898}
 --- !u!4 &571643897
 Transform:
