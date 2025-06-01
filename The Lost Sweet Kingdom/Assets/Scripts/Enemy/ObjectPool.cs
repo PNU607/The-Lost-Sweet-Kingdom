@@ -5,65 +5,42 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool Instance;
-    public GameObject[] enemyPrefabs;
-    private int poolSize;
-    private Dictionary<GameObject, Queue<GameObject>> pools;
 
-    void Awake()
+    private Dictionary<EnemyData, Queue<GameObject>> pool = new();
+
+    private void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 
-    void Start()
+    public GameObject GetEnemy(EnemyData data)
     {
-        poolSize = 10;
-        pools = new Dictionary<GameObject, Queue<GameObject>>();
-
-        foreach (var prefab in enemyPrefabs)
+        if (!pool.ContainsKey(data))
         {
-            Queue<GameObject> enemyQueue = new Queue<GameObject>();
-            for (int i = 0; i < poolSize; i++)
-            {
-                GameObject enemy = Instantiate(prefab);
-                enemy.SetActive(false);
-                enemyQueue.Enqueue(enemy);
-            }
-            pools.Add(prefab, enemyQueue);
+            pool[data] = new Queue<GameObject>();
         }
-    }
 
-    public GameObject GetEnemy(GameObject enemyPrefab)
-    {
-        if (pools.ContainsKey(enemyPrefab) && pools[enemyPrefab].Count > 0)
+        if (pool[data].Count > 0)
         {
-            GameObject enemy = pools[enemyPrefab].Dequeue();
+            GameObject enemy = pool[data].Dequeue();
             enemy.SetActive(true);
             return enemy;
         }
         else
         {
-            Debug.LogWarning("No more enemies in the pool. Consider increasing pool size.");
-            return null;
+            GameObject newEnemy = Instantiate(data.enemyPrefab);
+            return newEnemy;
         }
     }
 
-    public void ReturnEnemy(GameObject enemy, GameObject enemyPrefab)
+    public void ReturnEnemy(GameObject enemy, EnemyData data)
     {
-        if (pools.ContainsKey(enemyPrefab))
+        enemy.SetActive(false);
+        if (!pool.ContainsKey(data))
         {
-            enemy.SetActive(false);
-            pools[enemyPrefab].Enqueue(enemy);
+            pool[data] = new Queue<GameObject>();
         }
-        else
-        {
-            Debug.Log("Not in Dictionary");
-        }
+        pool[data].Enqueue(enemy);
     }
 }

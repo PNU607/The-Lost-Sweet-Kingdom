@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -23,6 +22,7 @@ public class EnemySpawner : MonoBehaviour
             instance = this;
         }
     }
+
     private void Start()
     {
         UpdateWaveText();
@@ -30,7 +30,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void StartGame()
     {
-        if (isGameRunning == false)
+        if (!isGameRunning)
         {
             isGameRunning = true;
             StartCoroutine(SpawnWaves());
@@ -39,26 +39,35 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnWaves()
     {
-        WaveData wave = waves[currentWaveIndex];
-
-        UpdateWaveText();
-
-        yield return new WaitForSeconds(wave.startDelay);
-
-        Debug.Log($"Start Wave : {currentWaveIndex + 1}");
-
-        foreach (var enemyInfo in wave.enemies)
+        while (currentWaveIndex < waves.Count)
         {
-            for (int i = 0; i < enemyInfo.count; i++)
+            WaveData wave = waves[currentWaveIndex];
+            UpdateWaveText();
+
+            yield return new WaitForSeconds(wave.startDelay);
+
+            Debug.Log($"Start Wave : {currentWaveIndex + 1}");
+
+            foreach (var enemyInfo in wave.enemies)
             {
-                GameObject enemy = ObjectPool.Instance.GetEnemy(enemyInfo.enemyPrefab);
-                enemy.transform.position = spawnPoint.position;
-                yield return new WaitForSeconds(enemyInfo.spawnDelay);
+                for (int i = 0; i < enemyInfo.count; i++)
+                {
+                    GameObject enemy = ObjectPool.Instance.GetEnemy(enemyInfo.enemyData);
+                    enemy.transform.position = spawnPoint.position;
+
+                    EnemyTest enemyTest = enemy.GetComponent<EnemyTest>();
+                    enemyTest.SetEnemyData(enemyInfo.enemyData);
+
+                    yield return new WaitForSeconds(enemyInfo.spawnDelay);
+                }
             }
+
+            currentWaveIndex++;
+            yield return new WaitForSeconds(3f);
         }
 
-        currentWaveIndex++;
-        yield return new WaitForSeconds(3f);
+        Debug.Log("모든 웨이브 완료!");
+        isGameRunning = false;
     }
 
     public void UpdateWaveText()

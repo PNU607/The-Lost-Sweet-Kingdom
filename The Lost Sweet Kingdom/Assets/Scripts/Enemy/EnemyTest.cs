@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Sound;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.U2D.Animation;
+using System.Sound;
 
 public class EnemyTest : MonoBehaviour
 {
@@ -18,7 +17,6 @@ public class EnemyTest : MonoBehaviour
 
     private Camera mainCamera;
     private Canvas uiCanvas;
-
 
     public AStar aStarScript;
     private float baseSpeed;
@@ -43,13 +41,12 @@ public class EnemyTest : MonoBehaviour
 
         if (healthBarInstance == null)
         {
-            uiCanvas = GameObject.Find("EnemyHpCanvas").GetComponent<Canvas>();
-            healthBarInstance = Instantiate(healthBarPrefab, uiCanvas.transform);
-
-            healthSlider = healthBarInstance.GetComponent<Slider>();
-
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position + Vector3.down * 0.5f);
-            healthBarInstance.transform.position = screenPos;
+            uiCanvas = GameObject.Find("EnemyHpCanvas")?.GetComponent<Canvas>();
+            if (uiCanvas != null)
+            {
+                healthBarInstance = Instantiate(healthBarPrefab, uiCanvas.transform);
+                healthSlider = healthBarInstance.GetComponent<Slider>();
+            }
         }
 
         UpdateHealthBar();
@@ -79,7 +76,10 @@ public class EnemyTest : MonoBehaviour
             spriteLibrary.spriteLibraryAsset = currentEnemyData.spriteLibraryAsset;
         }
 
-        enemyAnim.SetBool("isOnEnable", true);
+        if (enemyAnim != null)
+        {
+            enemyAnim.SetBool("isOnEnable", true);
+        }
     }
 
     IEnumerator FollowPath()
@@ -107,7 +107,6 @@ public class EnemyTest : MonoBehaviour
             }
 
             currentTargetIndex++;
-
         }
     }
 
@@ -130,12 +129,12 @@ public class EnemyTest : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        SoundObject _soundObject;
-        _soundObject = Sound.Play("EnemyAttacked", false);
-        _soundObject.SetVolume(0.03f);
+        SoundObject sound = Sound.Play("EnemyAttacked", false);
+        sound?.SetVolume(0.03f);
 
-        Debug.Log("Take Damage " + damage + " Total HP " + hp);
+        Debug.Log($"Take Damage {damage} | Total HP: {hp}");
         StartCoroutine(DoDamageReaction());
+
         hp -= damage;
         UpdateHealthBar();
 
@@ -167,15 +166,12 @@ public class EnemyTest : MonoBehaviour
     public void SetSpeedMultiplier(float multiplier, float duration)
     {
         moveSpeed = baseSpeed * multiplier;
-
-        // 원래 속도로 복구
         StartCoroutine(ResetSpeed(duration));
     }
 
     private IEnumerator ResetSpeed(float duration)
     {
         yield return new WaitForSeconds(duration);
-
         moveSpeed = baseSpeed;
     }
 
@@ -190,27 +186,21 @@ public class EnemyTest : MonoBehaviour
         while (timer <= duration)
         {
             TakeDamage(damage);
-
             yield return new WaitForSeconds(0.5f);
-            timer += Time.deltaTime;
+            timer += 0.5f;
         }
     }
 
     private void OnDie()
     {
         Debug.Log("Die");
-        GoldManager.instance.AddGold(10);
-        ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
+        GoldManager.instance.AddGold(currentEnemyData.goldReward);
+        ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData);
 
         Destroy(healthBarInstance?.gameObject);
-
         this.gameObject.SetActive(false);
-        WaveManager.instance.enemyCountDown();
-    }
 
-    void OnDestroy()
-    {
-        ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
+        WaveManager.instance.enemyCountDown();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -218,8 +208,15 @@ public class EnemyTest : MonoBehaviour
         if (collision.gameObject == Castle.instance.gameObject)
         {
             Castle.instance.TakeDamage(10);
-            ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
+            ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData);
+            this.gameObject.SetActive(false);
+
             WaveManager.instance.enemyCountDown();
         }
     }
-};
+
+    public void SetEnemyData(EnemyData data)
+    {
+        currentEnemyData = data;
+    }
+}

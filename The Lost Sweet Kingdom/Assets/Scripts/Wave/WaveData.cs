@@ -9,7 +9,7 @@ public class WaveData : ScriptableObject
     [System.Serializable]
     public class EnemySpawnInfo
     {
-        public GameObject enemyPrefab;
+        public EnemyData enemyData;
         public int count;
         public float spawnDelay;
     }
