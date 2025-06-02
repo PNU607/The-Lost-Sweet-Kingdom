@@ -560,7 +560,6 @@ MonoBehaviour:
   waves:
   - {fileID: 11400000, guid: ab9a3b1ab8d6be54a8f236000864bebd, type: 2}
   - {fileID: 11400000, guid: a3c369d9dba7b8f40a9a560c05012e16, type: 2}
-  - {fileID: 11400000, guid: 5c7af86a7d0c0ee43ac8ec0bcc6982c1, type: 2}
   spawnPoint: {fileID: 2021651343}
   isGameRunning: 0
   waveText: {fileID: 445390844}
@@ -2797,11 +2796,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55daec519c9264b48b4494faa18840e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 257202954049900638, guid: fbf8acade9b5576498be7f5e29b7588a, type: 3}
-  - {fileID: 656381047975851793, guid: 0f8409516f954944ca6675d9fbc4f2a2, type: 3}
-  - {fileID: 257202954049900638, guid: d97d15af52d2dc8428ea7dbacb025134, type: 3}
-  - {fileID: 2776107149917627590, guid: 6b892e20109b98042b5cb17d32b41878, type: 3}
 --- !u!4 &1085672205
 Transform:
   m_ObjectHideFlags: 0
@@ -3702,7 +3696,6 @@ MonoBehaviour:
   waves:
   - {fileID: 11400000, guid: ab9a3b1ab8d6be54a8f236000864bebd, type: 2}
   - {fileID: 11400000, guid: a3c369d9dba7b8f40a9a560c05012e16, type: 2}
-  - {fileID: 11400000, guid: 5c7af86a7d0c0ee43ac8ec0bcc6982c1, type: 2}
   totalEnemy: 0
   waveCount: 0
 --- !u!4 &1525395301

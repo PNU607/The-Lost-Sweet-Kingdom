@@ -12,31 +12,53 @@ public class ObjectPool : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+        else
+            Destroy(gameObject);
     }
 
     public GameObject GetEnemy(EnemyData data)
     {
+        if (data == null)
+        {
+            Debug.LogError("EnemyData is null in ObjectPool.GetEnemy");
+            return null;
+        }
+
         if (!pool.ContainsKey(data))
         {
             pool[data] = new Queue<GameObject>();
         }
 
+        GameObject enemy;
+
         if (pool[data].Count > 0)
         {
-            GameObject enemy = pool[data].Dequeue();
+            enemy = pool[data].Dequeue();
             enemy.SetActive(true);
-            return enemy;
         }
         else
         {
-            GameObject newEnemy = Instantiate(data.enemyPrefab);
-            return newEnemy;
+            enemy = Instantiate(data.enemyPrefab);
+            enemy.SetActive(true);
         }
+
+        EnemyTest enemyTest = enemy.GetComponent<EnemyTest>();
+        if (enemyTest == null)
+        {
+            Debug.LogError("Enemy prefab does not have EnemyTest component");
+        }
+        else
+        {
+            enemyTest.SetEnemyData(data);
+        }
+
+        return enemy;
     }
 
     public void ReturnEnemy(GameObject enemy, EnemyData data)
     {
         enemy.SetActive(false);
+
         if (!pool.ContainsKey(data))
         {
             pool[data] = new Queue<GameObject>();

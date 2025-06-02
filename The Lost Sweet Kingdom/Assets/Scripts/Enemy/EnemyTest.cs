@@ -31,6 +31,16 @@ public class EnemyTest : MonoBehaviour
 
     private void OnEnable()
     {
+        if (currentEnemyData == null)
+        {
+            return;
+        }
+
+        InitializeEnemy();
+    }
+
+    private void InitializeEnemy()
+    {
         hp = currentEnemyData.maxHealth;
         baseSpeed = currentEnemyData.moveSpeed;
         moveSpeed = currentEnemyData.moveSpeed;
@@ -197,7 +207,12 @@ public class EnemyTest : MonoBehaviour
         GoldManager.instance.AddGold(currentEnemyData.goldReward);
         ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData);
 
-        Destroy(healthBarInstance?.gameObject);
+        if (healthBarInstance != null)
+        {
+            Destroy(healthBarInstance);
+            healthBarInstance = null;
+        }
+
         this.gameObject.SetActive(false);
 
         WaveManager.instance.enemyCountDown();
@@ -218,5 +233,6 @@ public class EnemyTest : MonoBehaviour
     public void SetEnemyData(EnemyData data)
     {
         currentEnemyData = data;
+        InitializeEnemy();
     }
 }

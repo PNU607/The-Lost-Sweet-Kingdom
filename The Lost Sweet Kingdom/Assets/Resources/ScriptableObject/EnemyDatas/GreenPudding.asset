@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2724f645758e41c0af099aa7536579e, type: 3}
   m_Name: GreenPudding
   m_EditorClassIdentifier: 
-  enemyName: 
+  enemyName: GreenPudding
   enemyPrefab: {fileID: 2776107149917627590, guid: 43fd16807a915f145993f873f03069a9, type: 3}
   maxHealth: 10
   moveSpeed: 2
