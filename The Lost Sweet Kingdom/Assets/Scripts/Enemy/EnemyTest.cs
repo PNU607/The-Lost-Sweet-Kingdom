@@ -11,9 +11,7 @@ public class EnemyTest : MonoBehaviour
     private EnemyData currentEnemyData;
     public float hp;
 
-    public GameObject healthBarPrefab;
     private Slider healthSlider;
-    private GameObject healthBarInstance;
 
     private Camera mainCamera;
     private Canvas uiCanvas;
@@ -43,6 +41,19 @@ public class EnemyTest : MonoBehaviour
     private void Awake()
     {
         originalScale = transform.localScale;
+
+        healthSlider = GetComponentInChildren<Slider>();
+        if (healthSlider == null)
+        {
+            Debug.LogWarning("Not exist Hpbar.");
+        }
+
+        mainCamera = Camera.main;
+        uiCanvas = GetComponentInChildren<Canvas>();
+        if (uiCanvas != null && uiCanvas.renderMode == RenderMode.WorldSpace && uiCanvas.worldCamera == null)
+        {
+            uiCanvas.worldCamera = mainCamera;
+        }
     }
 
     private void InitializeEnemy()
@@ -53,21 +64,10 @@ public class EnemyTest : MonoBehaviour
         transform.localScale = originalScale;
         baseSpeed = currentEnemyData.moveSpeed;
         moveSpeed = currentEnemyData.moveSpeed;
-        mainCamera = Camera.main;
-
-        path = null;
-
-        if (healthBarInstance == null)
-        {
-            uiCanvas = GameObject.Find("EnemyHpCanvas")?.GetComponent<Canvas>();
-            if (uiCanvas != null)
-            {
-                healthBarInstance = Instantiate(healthBarPrefab, uiCanvas.transform);
-                healthSlider = healthBarInstance.GetComponent<Slider>();
-            }
-        }
 
         UpdateHealthBar();
+
+        path = null;
 
         if (aStarScript == null)
         {
@@ -119,16 +119,19 @@ public class EnemyTest : MonoBehaviour
 
     private void Update()
     {
-        if (healthBarInstance != null)
+        if (healthSlider != null)
         {
-            Vector3 screenPos = mainCamera.WorldToScreenPoint(transform.position + Vector3.down * 0.5f);
-            healthBarInstance.transform.position = screenPos;
+            Canvas canvas = healthSlider.GetComponentInParent<Canvas>();
+            if (canvas != null && canvas.renderMode == RenderMode.WorldSpace)
+            {
+                canvas.transform.rotation = mainCamera.transform.rotation;
+            }
         }
     }
 
     void UpdateHealthBar()
     {
-        if (healthSlider != null)
+        if (healthSlider != null && currentEnemyData != null)
         {
             healthSlider.value = hp / currentEnemyData.maxHealth;
         }
@@ -219,10 +222,9 @@ public class EnemyTest : MonoBehaviour
         GoldManager.instance.AddGold(currentEnemyData.goldReward);
         ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData);
 
-        if (healthBarInstance != null)
+        if (healthSlider != null)
         {
-            Destroy(healthBarInstance);
-            healthBarInstance = null;
+            healthSlider.value = 0f;
         }
 
         this.gameObject.SetActive(false);
