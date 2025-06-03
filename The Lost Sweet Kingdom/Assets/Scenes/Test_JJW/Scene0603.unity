@@ -558,6 +558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
+  - {fileID: 11400000, guid: 33fadf20a984e4a4a981e5b1c6866781, type: 2}
   - {fileID: 11400000, guid: ab9a3b1ab8d6be54a8f236000864bebd, type: 2}
   - {fileID: 11400000, guid: a3c369d9dba7b8f40a9a560c05012e16, type: 2}
   spawnPoint: {fileID: 2021651343}
@@ -3654,6 +3655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
+  - {fileID: 11400000, guid: 33fadf20a984e4a4a981e5b1c6866781, type: 2}
   - {fileID: 11400000, guid: ab9a3b1ab8d6be54a8f236000864bebd, type: 2}
   - {fileID: 11400000, guid: a3c369d9dba7b8f40a9a560c05012e16, type: 2}
   totalEnemy: 0
