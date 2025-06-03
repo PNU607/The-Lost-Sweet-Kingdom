@@ -46,7 +46,6 @@ public class SlowMissile : Missile
         if (enemy == null) yield break;
 
         // 적 이속 감소
-        TowerData towerData = shotTower.CurrentTowerData;
-        enemy.SetSpeedMultiplier(1 / towerData.levelDatas[shotTower.towerLevel].attackDamage, towerData.levelDatas[shotTower.towerLevel].attackDuration);
+        enemy.SetSpeedMultiplier(1 / shotTower.applyLevelData.attackDamage, shotTower.applyLevelData.attackDuration);
     }
 }

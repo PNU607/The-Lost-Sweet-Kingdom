@@ -17,7 +17,7 @@ MonoBehaviour:
   towerType: 0
   towerIcon: {fileID: 21300000, guid: 32a0ca2dee1660140ba9cfa6083b3d3d, type: 3}
   towerPrefab: {fileID: 4625834919878556233, guid: 317c52815fa92f548a941df6995f42c3, type: 3}
-  weaponPrefab: {fileID: 4877909776406011252, guid: c5299a537a04d4259b09560dd7f13104, type: 3}
+  weaponPrefab: {fileID: 4877909776406011252, guid: 6c3a9370ce19d374b82d9fc96f971516, type: 3}
   spriteLibrary: {fileID: 7108339969198208228, guid: 6641fee325a264c089cd3592619bc3e3, type: 3}
   cost: 10
   levelDatas:
