@@ -22,6 +22,8 @@ public class EnemyTest : MonoBehaviour
     private float baseSpeed;
     private float moveSpeed;
 
+    private Vector3 originalScale;
+
     private List<Vector2> path;
     private int currentTargetIndex = 0;
 
@@ -39,9 +41,15 @@ public class EnemyTest : MonoBehaviour
         InitializeEnemy();
     }
 
+    private void Awake()
+    {
+        originalScale = transform.localScale;
+    }
+
     private void InitializeEnemy()
     {
         hp = currentEnemyData.maxHealth;
+        transform.localScale = originalScale;
         baseSpeed = currentEnemyData.moveSpeed;
         moveSpeed = currentEnemyData.moveSpeed;
         mainCamera = Camera.main;
@@ -145,8 +153,7 @@ public class EnemyTest : MonoBehaviour
 
     private IEnumerator DoDamageReaction()
     {
-        Vector3 originalScale = transform.localScale;
-        Vector3 enlargedScale = originalScale * 1.1f;
+        Vector3 enlargedScale = originalScale * 1.3f;
 
         float duration = 0.1f;
         float elapsed = 0f;
