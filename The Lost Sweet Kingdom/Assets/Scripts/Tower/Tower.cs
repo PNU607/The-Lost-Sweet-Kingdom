@@ -177,7 +177,7 @@ public class Tower : MonoBehaviour
         towerLevel = level;
 
         currentTowerData = nextTowerData;
-        Debug.Log(level - 1);
+        //Debug.Log(level - 1);
         applyLevelData = currentTowerData.levelDatas[level - 1];
 
         var spriteLibrary = GetComponentInChildren<SpriteLibrary>();
@@ -416,7 +416,7 @@ public class Tower : MonoBehaviour
 
         foreach (Collider2D col in colliders)
         {
-            Debug.Log(col.gameObject.name);
+            //Debug.Log(col.gameObject.name);
             EnemyTest enemy = col.GetComponent<EnemyTest>();
             if (enemy != null)
             {

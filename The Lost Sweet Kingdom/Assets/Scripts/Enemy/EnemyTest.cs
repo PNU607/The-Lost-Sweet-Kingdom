@@ -136,16 +136,21 @@ public class EnemyTest : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (hp <= 0) return;
+
         SoundObject sound = Sound.Play("EnemyAttacked", false);
         sound?.SetVolume(0.03f);
 
-        Debug.Log($"Take Damage {damage} | Total HP: {hp}");
-        StartCoroutine(DoDamageReaction());
+        //Debug.Log($"Take Damage {damage} | Total HP: {hp}");
 
         hp -= damage;
         UpdateHealthBar();
 
-        if (hp <= 0)
+        if (hp > 0)
+        {
+            StartCoroutine(DoDamageReaction());
+        }
+        else
         {
             OnDie();
         }
