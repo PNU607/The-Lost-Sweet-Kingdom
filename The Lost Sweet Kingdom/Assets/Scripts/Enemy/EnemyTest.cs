@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Sound;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.U2D.Animation;
+using System.Sound;
 
 public class EnemyTest : MonoBehaviour
 {
@@ -12,20 +11,18 @@ public class EnemyTest : MonoBehaviour
     private EnemyData currentEnemyData;
     public float hp;
 
-    public GameObject healthBarPrefab;
     private Slider healthSlider;
-    private GameObject healthBarInstance;
 
     private Camera mainCamera;
     private Canvas uiCanvas;
-
 
     public AStar aStarScript;
     private float baseSpeed;
     private float moveSpeed;
 
+    private Vector3 originalScale;
+
     private List<Vector2> path;
-    private int currentTargetIndex = 0;
 
     private Animator enemyAnim;
     private SpriteLibrary spriteLibrary;
@@ -33,26 +30,44 @@ public class EnemyTest : MonoBehaviour
 
     private void OnEnable()
     {
-        hp = currentEnemyData.maxHealth;
-        baseSpeed = currentEnemyData.moveSpeed;
-        moveSpeed = currentEnemyData.moveSpeed;
-        mainCamera = Camera.main;
-
-        currentTargetIndex = 0;
-        path = null;
-
-        if (healthBarInstance == null)
+        if (currentEnemyData == null)
         {
-            uiCanvas = GameObject.Find("EnemyHpCanvas").GetComponent<Canvas>();
-            healthBarInstance = Instantiate(healthBarPrefab, uiCanvas.transform);
-
-            healthSlider = healthBarInstance.GetComponent<Slider>();
-
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position + Vector3.down * 0.5f);
-            healthBarInstance.transform.position = screenPos;
+            return;
         }
 
+        InitializeEnemy();
+    }
+
+    private void Awake()
+    {
+        originalScale = transform.localScale;
+
+        healthSlider = GetComponentInChildren<Slider>();
+        if (healthSlider == null)
+        {
+            Debug.LogWarning("Not exist Hpbar.");
+        }
+
+        mainCamera = Camera.main;
+        uiCanvas = GetComponentInChildren<Canvas>();
+        if (uiCanvas != null && uiCanvas.renderMode == RenderMode.WorldSpace && uiCanvas.worldCamera == null)
+        {
+            uiCanvas.worldCamera = mainCamera;
+        }
+    }
+
+    private void InitializeEnemy()
+    {
+        StopAllCoroutines();
+
+        hp = currentEnemyData.maxHealth;
+        transform.localScale = originalScale;
+        baseSpeed = currentEnemyData.moveSpeed;
+        moveSpeed = currentEnemyData.moveSpeed;
+
         UpdateHealthBar();
+
+        path = null;
 
         if (aStarScript == null)
         {
@@ -79,50 +94,44 @@ public class EnemyTest : MonoBehaviour
             spriteLibrary.spriteLibraryAsset = currentEnemyData.spriteLibraryAsset;
         }
 
-        enemyAnim.SetBool("isOnEnable", true);
+        if (enemyAnim != null)
+        {
+            enemyAnim.SetBool("isOnEnable", true);
+        }
     }
 
     IEnumerator FollowPath()
     {
-        while (currentTargetIndex < path.Count)
+        foreach (Vector2 point in path)
         {
-            Vector2 targetPosition = path[currentTargetIndex];
-            Vector3 targetPos3D = new Vector3(targetPosition.x, targetPosition.y, 0);
+            Vector3 targetPos = new Vector3(point.x, point.y, 0f);
 
-            while ((transform.position - targetPos3D).sqrMagnitude > 0.01f)
+            while ((transform.position - targetPos).sqrMagnitude > 0.01f)
             {
-                Vector3 newPosition = transform.position;
-
-                if (Mathf.Abs(targetPos3D.x - transform.position.x) > 0.01f)
-                {
-                    newPosition.x = Mathf.MoveTowards(transform.position.x, targetPos3D.x, moveSpeed * Time.deltaTime);
-                }
-                else if (Mathf.Abs(targetPos3D.y - transform.position.y) > 0.01f)
-                {
-                    newPosition.y = Mathf.MoveTowards(transform.position.y, targetPos3D.y, moveSpeed * Time.deltaTime);
-                }
-
-                transform.position = newPosition;
+                Vector3 dir = (targetPos - transform.position).normalized;
+                transform.position += dir * moveSpeed * Time.deltaTime;
                 yield return null;
             }
 
-            currentTargetIndex++;
-
+            transform.position = targetPos;
         }
     }
 
     private void Update()
     {
-        if (healthBarInstance != null)
+        if (healthSlider != null)
         {
-            Vector3 screenPos = mainCamera.WorldToScreenPoint(transform.position + Vector3.down * 0.5f);
-            healthBarInstance.transform.position = screenPos;
+            Canvas canvas = healthSlider.GetComponentInParent<Canvas>();
+            if (canvas != null && canvas.renderMode == RenderMode.WorldSpace)
+            {
+                canvas.transform.rotation = mainCamera.transform.rotation;
+            }
         }
     }
 
     void UpdateHealthBar()
     {
-        if (healthSlider != null)
+        if (healthSlider != null && currentEnemyData != null)
         {
             healthSlider.value = hp / currentEnemyData.maxHealth;
         }
@@ -130,16 +139,21 @@ public class EnemyTest : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        SoundObject _soundObject;
-        _soundObject = Sound.Play("EnemyAttacked", false);
-        _soundObject.SetVolume(0.03f);
+        if (hp <= 0) return;
 
-        Debug.Log("Take Damage " + damage + " Total HP " + hp);
-        StartCoroutine(DoDamageReaction());
+        SoundObject sound = Sound.Play("EnemyAttacked", false);
+        sound?.SetVolume(0.03f);
+
+        //Debug.Log($"Take Damage {damage} | Total HP: {hp}");
+
         hp -= damage;
         UpdateHealthBar();
 
-        if (hp <= 0)
+        if (hp > 0)
+        {
+            StartCoroutine(DoDamageReaction());
+        }
+        else
         {
             OnDie();
         }
@@ -147,21 +161,31 @@ public class EnemyTest : MonoBehaviour
 
     private IEnumerator DoDamageReaction()
     {
-        Vector3 originalScale = transform.localScale;
-        Vector3 enlargedScale = originalScale * 1.1f;
+        Vector3 startScale = originalScale;
+        Vector3 targetScale = originalScale * 1.3f;
 
-        float duration = 0.1f;
+        float hitDuration = 0.1f;
+        float halfDuration = hitDuration * 0.5f;
         float elapsed = 0f;
 
-        transform.localScale = enlargedScale;
-
-        while (elapsed < duration)
+        while (elapsed < halfDuration)
         {
             elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / halfDuration);
+            transform.localScale = Vector3.Lerp(startScale, targetScale, t);
             yield return null;
         }
 
-        transform.localScale = originalScale;
+        elapsed = 0f;
+        while (elapsed < halfDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / halfDuration);
+            transform.localScale = Vector3.Lerp(targetScale, startScale, t);
+            yield return null;
+        }
+
+        transform.localScale = startScale;
     }
 
     public void SetSpeedMultiplier(float multiplier, float duration)
@@ -170,15 +194,12 @@ public class EnemyTest : MonoBehaviour
         Debug.Log("baseSpeed: " + baseSpeed);
 
         moveSpeed = baseSpeed * multiplier;
-
-        // 원래 속도로 복구
         StartCoroutine(ResetSpeed(duration));
     }
 
     private IEnumerator ResetSpeed(float duration)
     {
         yield return new WaitForSeconds(duration);
-
         moveSpeed = baseSpeed;
     }
 
@@ -193,27 +214,25 @@ public class EnemyTest : MonoBehaviour
         while (timer <= duration)
         {
             TakeDamage(damage);
-
             yield return new WaitForSeconds(0.5f);
-            timer += Time.deltaTime;
+            timer += 0.5f;
         }
     }
 
     private void OnDie()
     {
         Debug.Log("Die");
-        GoldManager.instance.AddGold(10);
-        ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
+        GoldManager.instance.AddGold(currentEnemyData.goldReward);
+        ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData);
 
-        Destroy(healthBarInstance?.gameObject);
+        if (healthSlider != null)
+        {
+            healthSlider.value = 0f;
+        }
 
         this.gameObject.SetActive(false);
-        WaveManager.instance.enemyCountDown();
-    }
 
-    void OnDestroy()
-    {
-        ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
+        WaveManager.instance.enemyCountDown();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -221,8 +240,16 @@ public class EnemyTest : MonoBehaviour
         if (collision.gameObject == Castle.instance.gameObject)
         {
             Castle.instance.TakeDamage(10);
-            ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData.enemyPrefab);
+            ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData);
+            this.gameObject.SetActive(false);
+
             WaveManager.instance.enemyCountDown();
         }
     }
-};
+
+    public void SetEnemyData(EnemyData data)
+    {
+        currentEnemyData = data;
+        InitializeEnemy();
+    }
+}

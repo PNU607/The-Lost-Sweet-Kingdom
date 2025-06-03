@@ -82,7 +82,7 @@ public class GunTower : TrackingTower
 
     public override void Attack()
     {
-        Debug.Log("SpawnWeapon");
+        //Debug.Log("SpawnWeapon");
         if (closestAttackTarget != null)
         {
             TowerWeapon weapon = weaponPool.Spawn(weaponSpawnTransform.position);

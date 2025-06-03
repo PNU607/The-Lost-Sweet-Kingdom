@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2724f645758e41c0af099aa7536579e, type: 3}
-  m_Name: RedPudding
+  m_Name: Biscuit
   m_EditorClassIdentifier: 
-  enemyName: RedPudding
   enemyPrefab: {fileID: 2776107149917627590, guid: 43fd16807a915f145993f873f03069a9, type: 3}
-  maxHealth: 15
+  maxHealth: 10
   moveSpeed: 2
-  goldReward: 30
-  spriteLibraryAsset: {fileID: 7108339969198208228, guid: 2aa5f742066f2644baf8ec2b83a47e6c, type: 3}
+  goldReward: 100
+  spriteLibraryAsset: {fileID: 7108339969198208228, guid: 1208013fed83cbc49ab14acb4c853f9a, type: 3}

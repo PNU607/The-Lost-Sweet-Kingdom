@@ -7,9 +7,7 @@ using UnityEngine.U2D.Animation;
 public class EnemyData : ScriptableObject
 {
     [Header("Basic Info")]
-    // 적 이름
-    public string enemyName;
-    // 공격할 적 프리팹
+    //적 프리팹
     public GameObject enemyPrefab;
 
     [Header("Stats")]

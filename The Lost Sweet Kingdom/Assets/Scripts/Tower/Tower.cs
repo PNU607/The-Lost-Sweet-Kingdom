@@ -177,7 +177,7 @@ public class Tower : MonoBehaviour
         towerLevel = level;
 
         currentTowerData = nextTowerData;
-        Debug.Log(level - 1);
+        //Debug.Log(level - 1);
         applyLevelData = currentTowerData.levelDatas[level - 1];
 
         var spriteLibrary = GetComponentInChildren<SpriteLibrary>();
