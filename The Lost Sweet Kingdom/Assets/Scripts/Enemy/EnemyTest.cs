@@ -160,20 +160,31 @@ public class EnemyTest : MonoBehaviour
 
     private IEnumerator DoDamageReaction()
     {
-        Vector3 enlargedScale = originalScale * 1.3f;
+        Vector3 startScale = originalScale;
+        Vector3 targetScale = originalScale * 1.3f;
 
-        float duration = 0.1f;
+        float hitDuration = 0.1f;
+        float halfDuration = hitDuration * 0.5f;
         float elapsed = 0f;
 
-        transform.localScale = enlargedScale;
-
-        while (elapsed < duration)
+        while (elapsed < halfDuration)
         {
             elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / halfDuration);
+            transform.localScale = Vector3.Lerp(startScale, targetScale, t);
             yield return null;
         }
 
-        transform.localScale = originalScale;
+        elapsed = 0f;
+        while (elapsed < halfDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / halfDuration);
+            transform.localScale = Vector3.Lerp(targetScale, startScale, t);
+            yield return null;
+        }
+
+        transform.localScale = startScale;
     }
 
     public void SetSpeedMultiplier(float multiplier, float duration)
