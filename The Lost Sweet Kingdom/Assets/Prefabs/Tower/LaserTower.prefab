@@ -47,9 +47,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponSpawnTransform: {fileID: 6308560535118868880}
   currentTowerData: {fileID: 0}
-  applyData: {fileID: 0}
+  applyLevelData:
+    level: 0
+    attackRange: 0
+    attackWeaponRange: 0
+    attackCooldown: 0
+    attackDuration: 0
+    attackDamage: 0
+    rotationSpeed: 0
+  towerLevel: 0
   towerCollider: {fileID: 567085941890029935}
-  rangeIndicator: {fileID: 7363789736034425882}
+  rangeIndicator: {fileID: 5904461553786000135}
   towerAnim: {fileID: 4136688089220438735}
   enemyLayer:
     serializedVersion: 2
@@ -126,6 +134,11 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 6592042468430555329, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
   m_PrefabInstance: {fileID: 7067225699723342350}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &5904461553786000135 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3738841098518847753, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
+  m_PrefabInstance: {fileID: 7067225699723342350}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6100903446563868652 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3943208275471777250, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
@@ -139,10 +152,5 @@ Transform:
 --- !u!120 &7084569349169204109 stripped
 LineRenderer:
   m_CorrespondingSourceObject: {fileID: 18759992221677955, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
-  m_PrefabInstance: {fileID: 7067225699723342350}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &7363789736034425882 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 298007145423220244, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
   m_PrefabInstance: {fileID: 7067225699723342350}
   m_PrefabAsset: {fileID: 0}
