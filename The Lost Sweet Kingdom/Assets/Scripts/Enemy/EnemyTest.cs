@@ -48,6 +48,8 @@ public class EnemyTest : MonoBehaviour
 
     private void InitializeEnemy()
     {
+        StopAllCoroutines();
+
         hp = currentEnemyData.maxHealth;
         transform.localScale = originalScale;
         baseSpeed = currentEnemyData.moveSpeed;
