@@ -15,6 +15,6 @@ MonoBehaviour:
   enemyName: GreenPudding
   enemyPrefab: {fileID: 2776107149917627590, guid: 43fd16807a915f145993f873f03069a9, type: 3}
   maxHealth: 10
-  moveSpeed: 2
+  moveSpeed: 1
   goldReward: 30
   spriteLibraryAsset: {fileID: 7108339969198208228, guid: 196fe9d882391a840ad8915e207bbafd, type: 3}
