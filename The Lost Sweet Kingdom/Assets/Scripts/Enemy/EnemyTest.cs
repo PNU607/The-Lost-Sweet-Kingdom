@@ -190,6 +190,9 @@ public class EnemyTest : MonoBehaviour
 
     public void SetSpeedMultiplier(float multiplier, float duration)
     {
+        Debug.Log("Set Speed Multiplier: " + multiplier + " for duration: " + duration);
+        Debug.Log("baseSpeed: " + baseSpeed);
+
         moveSpeed = baseSpeed * multiplier;
         StartCoroutine(ResetSpeed(duration));
     }

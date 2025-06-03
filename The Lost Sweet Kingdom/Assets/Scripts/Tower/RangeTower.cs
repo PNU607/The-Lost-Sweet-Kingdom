@@ -3,18 +3,8 @@ using UnityEngine.Tilemaps;
 
 public class RangeTower : TrackingTower
 {
-    public Vector2Int[] attackDirections = new Vector2Int[]
-    {
-        Vector2Int.up,
-        Vector2Int.down,
-        Vector2Int.left,
-        Vector2Int.right,
-        new Vector2Int(1, 1),   // ↗
-        new Vector2Int(-1, 1),  // ↖
-        new Vector2Int(1, -1),  // ↘
-        new Vector2Int(-1, -1)  // ↙
-    };
-
+    [SerializeField]
+    private Vector2Int[] attackDirections = DirectionPresets.All8; // 공격 방향 설정 (상하좌우 + 대각선)
     [SerializeField]
     private Vector3 attackHeadOffset = new Vector3(0,1f,0);
     [SerializeField]
@@ -102,15 +92,7 @@ public class RangeTower : TrackingTower
                     {
                         if (enemyCol == null) continue;
 
-                        // 머리 위 이펙트 위치
-                        Vector3 effectPos = enemyCol.transform.position + attackHeadOffset;
-
-                        TowerWeapon weapon = weaponPool.Spawn(effectPos);
-                        weapon.Setup(enemyCol.transform, this);
-
-                        var health = enemyCol.GetComponent<EnemyTest>();
-                        if (health != null)
-                            health.TakeDamage(1);
+                        AttackRangeTarget(enemyCol);
                     }
 
                     break; // 한 방향에서 첫 타일만 처리 (멀리 있는 적은 무시)
@@ -119,29 +101,22 @@ public class RangeTower : TrackingTower
         }
     }
 
+    protected virtual void AttackRangeTarget(Collider2D enemyCol)
+    {
+        // 머리 위 이펙트 위치
+        Vector3 effectPos = enemyCol.transform.position + attackHeadOffset;
+
+        TowerWeapon weapon = weaponPool.Spawn(effectPos);
+        weapon.Setup(enemyCol.transform, this);
+
+        var health = enemyCol.GetComponent<EnemyTest>();
+        if (health != null)
+            health.TakeDamage(applyLevelData.attackDamage);
+    }
+
     Vector2 GetTileCheckBoxSize()
     {
         Vector3 cellSize = attackableTilemap.cellSize;
         return new Vector2(cellSize.x * tileCheckSizeMultiplier.x, cellSize.y * tileCheckSizeMultiplier.y);
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        if (attackableTilemap == null) return;
-
-        Gizmos.color = Color.red;
-        Vector3Int towerCellPos = attackableTilemap.WorldToCell(transform.position);
-
-        foreach (Vector2Int dir in attackDirections)
-        {
-            for (int i = 1; i <= applyLevelData.attackRange; i++)
-            {
-                Vector3Int tilePos = towerCellPos + new Vector3Int(dir.x, dir.y, 0);
-                if (!attackableTilemap.HasTile(tilePos)) continue;
-
-                Vector3 worldPos = attackableTilemap.GetCellCenterWorld(tilePos);
-                Gizmos.DrawWireCube(worldPos, GetTileCheckBoxSize());
-            }
-        }
     }
 }

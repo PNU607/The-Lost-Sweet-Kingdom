@@ -416,7 +416,6 @@ public class Tower : MonoBehaviour
 
         foreach (Collider2D col in colliders)
         {
-            //Debug.Log(col.gameObject.name);
             EnemyTest enemy = col.GetComponent<EnemyTest>();
             if (enemy != null)
             {
@@ -505,6 +504,20 @@ public class Tower : MonoBehaviour
     {
         activeBonuses.Clear();
         applyLevelData = currentTowerData.levelDatas[towerLevel - 1];
+    }
+
+    protected virtual void OnDisable()
+    {
+        // 타워의 상태를 None으로 초기화
+        currentTowerState = TowerState.None;
+        prevTowerState = TowerState.None;
+        attackTargets = null;
+        closestAttackTarget = null;
+        // 타워 애니메이션 초기화
+        towerAnim.SetBool("isDragging", false);
+        towerAnim.SetBool("isAttacking", false);
+
+        attackTimer = 0f; // 공격 타이머 초기화
     }
 
     /// <summary>
