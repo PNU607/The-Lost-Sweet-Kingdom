@@ -25,7 +25,6 @@ public class EnemyTest : MonoBehaviour
     private Vector3 originalScale;
 
     private List<Vector2> path;
-    private int currentTargetIndex = 0;
 
     private Animator enemyAnim;
     private SpriteLibrary spriteLibrary;
@@ -56,7 +55,6 @@ public class EnemyTest : MonoBehaviour
         moveSpeed = currentEnemyData.moveSpeed;
         mainCamera = Camera.main;
 
-        currentTargetIndex = 0;
         path = null;
 
         if (healthBarInstance == null)
