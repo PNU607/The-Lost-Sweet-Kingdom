@@ -5,65 +5,64 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool Instance;
-    public GameObject[] enemyPrefabs;
-    private int poolSize;
-    private Dictionary<GameObject, Queue<GameObject>> pools;
 
-    void Awake()
+    private Dictionary<EnemyData, Queue<GameObject>> pool = new();
+
+    private void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
 
-    void Start()
+    public GameObject GetEnemy(EnemyData data)
     {
-        poolSize = 10;
-        pools = new Dictionary<GameObject, Queue<GameObject>>();
-
-        foreach (var prefab in enemyPrefabs)
+        if (data == null)
         {
-            Queue<GameObject> enemyQueue = new Queue<GameObject>();
-            for (int i = 0; i < poolSize; i++)
-            {
-                GameObject enemy = Instantiate(prefab);
-                enemy.SetActive(false);
-                enemyQueue.Enqueue(enemy);
-            }
-            pools.Add(prefab, enemyQueue);
-        }
-    }
-
-    public GameObject GetEnemy(GameObject enemyPrefab)
-    {
-        if (pools.ContainsKey(enemyPrefab) && pools[enemyPrefab].Count > 0)
-        {
-            GameObject enemy = pools[enemyPrefab].Dequeue();
-            enemy.SetActive(true);
-            return enemy;
-        }
-        else
-        {
-            Debug.LogWarning("No more enemies in the pool. Consider increasing pool size.");
+            Debug.LogError("EnemyData is null in ObjectPool.GetEnemy");
             return null;
         }
-    }
 
-    public void ReturnEnemy(GameObject enemy, GameObject enemyPrefab)
-    {
-        if (pools.ContainsKey(enemyPrefab))
+        if (!pool.ContainsKey(data))
         {
-            enemy.SetActive(false);
-            pools[enemyPrefab].Enqueue(enemy);
+            pool[data] = new Queue<GameObject>();
+        }
+
+        GameObject enemy;
+
+        if (pool[data].Count > 0)
+        {
+            enemy = pool[data].Dequeue();
+            enemy.SetActive(true);
         }
         else
         {
-            Debug.Log("Not in Dictionary");
+            enemy = Instantiate(data.enemyPrefab);
+            enemy.SetActive(true);
         }
+
+        EnemyTest enemyTest = enemy.GetComponent<EnemyTest>();
+        if (enemyTest == null)
+        {
+            Debug.LogError("Enemy prefab does not have EnemyTest component");
+        }
+        else
+        {
+            enemyTest.SetEnemyData(data);
+        }
+
+        return enemy;
+    }
+
+    public void ReturnEnemy(GameObject enemy, EnemyData data)
+    {
+        enemy.SetActive(false);
+
+        if (!pool.ContainsKey(data))
+        {
+            pool[data] = new Queue<GameObject>();
+        }
+        pool[data].Enqueue(enemy);
     }
 }
