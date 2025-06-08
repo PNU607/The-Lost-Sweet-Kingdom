@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183b7d1bf0fadd84caf8b4bfc8a03dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rerollData: {fileID: 11400000, guid: aa51c9b07177b1346bc808efe90a3b56, type: 2}
+  rerollData: {fileID: 11400000, guid: cea02041570c84648b022d340be982d9, type: 2}
   unitPanel: {fileID: 1078726805}
   rerollCost: 10
   towerUIPrefab: {fileID: 8887764149964107737, guid: 9c3375d47960540a282addc2bf3e7695, type: 3}

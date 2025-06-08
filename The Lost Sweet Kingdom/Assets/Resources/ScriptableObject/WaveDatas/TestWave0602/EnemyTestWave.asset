@@ -13,10 +13,7 @@ MonoBehaviour:
   m_Name: EnemyTestWave
   m_EditorClassIdentifier: 
   enemies:
-  - enemyData: {fileID: 11400000, guid: 7e2a3049f3eefa749a3ea0359645972d, type: 2}
-    count: 5
-    spawnDelay: 1
   - enemyData: {fileID: 11400000, guid: b95a33d93a46b8e4f935f2123ea7ea20, type: 2}
-    count: 5
+    count: 100
     spawnDelay: 1
   startDelay: 1
