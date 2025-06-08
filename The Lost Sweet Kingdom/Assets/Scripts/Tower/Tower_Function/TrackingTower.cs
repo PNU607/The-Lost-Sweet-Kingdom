@@ -30,6 +30,8 @@ using UnityEngine;
  */
 public class TrackingTower : Tower
 {
+    protected bool isFlipX = false; // X축 반전 여부
+
     /// <summary>
     /// 타워 세팅
     /// 타워를 탐색 상태로 변경
@@ -68,10 +70,12 @@ public class TrackingTower : Tower
 
         if (degree > -90 && degree < 90)
         {
+            isFlipX = true;
             towerSprite.flipX = true;
         }
         else
         {
+            isFlipX = false;
             towerSprite.flipX = false;
             degree += 180;
         }
