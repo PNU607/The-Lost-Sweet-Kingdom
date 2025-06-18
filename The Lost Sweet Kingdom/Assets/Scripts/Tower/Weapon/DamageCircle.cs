@@ -22,8 +22,6 @@ public class DamageCircle : TowerWeapon
 
     protected override void Update()
     {
-        // base.Update(); ← 호출하지 않음!!
-
         duration -= Time.deltaTime;
         tickTimer += Time.deltaTime;
 
