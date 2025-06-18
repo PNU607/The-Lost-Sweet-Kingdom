@@ -5,6 +5,13 @@ using UnityEngine.Tilemaps;
 
 public class BigbangTower : TrackingTower
 {
+    public int burstCount = 10;
+    public float burstInterval = 0.2f;
+    public Vector2 scaleRange = new Vector2(1f, 2f);
+
+    private Vector3 weaponBaseScale;
+    private bool weaponBaseScaleSet = false;
+
     protected override void AttackToTarget()
     {
         if (closestAttackTarget == null)
@@ -42,15 +49,9 @@ public class BigbangTower : TrackingTower
 
     public override void Attack()
     {
-        List<EnemyTest> enemiesInRange = GetEnemiesInRange();
-
-        if (enemiesInRange.Count > 0)
+        if (closestAttackTarget != null)
         {
-            foreach (EnemyTest enemy in enemiesInRange)
-            {
-                TowerWeapon weapon = weaponPool.Spawn(weaponSpawnTransform.position);
-                weapon.Setup(enemy.transform, this);
-            }
+            StartCoroutine(BigbangBurst());
 
             towerAnim.SetBool("isAttacking", true);
         }
@@ -58,5 +59,30 @@ public class BigbangTower : TrackingTower
         {
             towerAnim.SetBool("isAttacking", false);
         }
+    }
+
+    private IEnumerator BigbangBurst()
+    {
+        for (int i = 0; i < burstCount; i++)
+        {
+            Vector2 offset = Random.insideUnitCircle * applyLevelData.attackRange;
+            Vector3 spawnPos = transform.position + new Vector3(offset.x, offset.y, 0);
+
+            TowerWeapon weapon = weaponPool.Spawn(spawnPos);
+            weapon.Setup(null, this);
+
+            if (!weaponBaseScaleSet)
+            {
+                weaponBaseScale = weapon.transform.localScale;
+                weaponBaseScaleSet = true;
+            }
+
+            float scale = Random.Range(scaleRange.x, scaleRange.y);
+            weapon.transform.localScale = weaponBaseScale * scale;
+
+            yield return new WaitForSeconds(burstInterval);
+        }
+
+        towerAnim.SetBool("isAttacking", false);
     }
 }

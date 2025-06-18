@@ -14,7 +14,7 @@ public class DamageZone : TowerWeapon
     protected override void Update()
     {
         base.Update();
-
+        
         duration -= Time.deltaTime;
         tickTimer += Time.deltaTime;
 
@@ -33,6 +33,10 @@ public class DamageZone : TowerWeapon
         }
 
         if (duration <= 0f)
+        {
+            Debug.Log(duration);
             Destroy(gameObject);
+        }
+            
     }
 }
