@@ -45,7 +45,6 @@ public class ToxicMissile : Missile
         if (enemy == null) yield break;
 
         // 적 이속 감소
-        TowerData towerData = shotTower.CurrentTowerData;
-        enemy.TakeContinuousDamageForBullet(towerData.levelDatas[shotTower.towerLevel].attackDamage, towerData.levelDatas[shotTower.towerLevel].attackDuration);
+        enemy.TakeContinuousDamageForBullet(shotTower.applyLevelData.attackDamage, shotTower.applyLevelData.attackDuration);
     }
 }

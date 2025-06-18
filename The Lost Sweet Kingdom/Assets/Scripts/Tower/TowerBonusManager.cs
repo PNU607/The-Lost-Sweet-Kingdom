@@ -4,24 +4,22 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public enum TowerBonus
-{
-    SameTowerColor,
-    SameTowerType,
-}
-
 public class TowerBonusManager : MonoBehaviour
 {
     public static TowerBonusManager Instance;
     private readonly List<Tower> allTowers = new();
 
-    [SerializeField]
-    private TextMeshProUGUI bonusText;
+    public BonusDataBase bonusDataBase;
 
     [SerializeField]
-    private int colorCombinationNum = 3;
+    private GameObject bonusPanel;
     [SerializeField]
-    private int typeCombinationNum = 7;
+    private GameObject bonusIconPrefab;
+
+    [SerializeField]
+    private int colorCombinationNum = 3; // 보너스에 필요한 같은 색상 타워의 수
+    [SerializeField]
+    private int typeCombinationNum = 7;  // 보너스에 필요한 같은 타입 타워의 수
 
     public HashSet<TowerColor> bonusAppliedColor = new HashSet<TowerColor>();
     public HashSet<TowerType> bonusAppliedType = new HashSet<TowerType>();
@@ -59,31 +57,47 @@ public class TowerBonusManager : MonoBehaviour
         bonusAppliedColor.Clear();
         bonusAppliedType.Clear();
 
-        if (bonusText != null)
-        {
-            bonusText.text = string.Empty;
-            foreach (var group in groupedByColor)
-            {
-                bonusAppliedColor.Add(group.FirstOrDefault().CurrentTowerData.towerColor);
-                foreach (var tower in group)
-                {
-                    tower.ApplyBonus(TowerBonus.SameTowerColor);
-                }
-                bonusText.text += group.Key + " Color Bonus\n";
-            }
-            bonusText.text += "\n";
+        //if (bonusNameText != null)
+        //{
+        //    bonusNameText.text = string.Empty;
+        //    foreach (var group in groupedByColor)
+        //    {
+        //        bonusAppliedColor.Add(group.FirstOrDefault().CurrentTowerData.towerColor);
+        //        foreach (var tower in group)
+        //        {
+        //            tower.ApplyBonus(TowerBonus.SameTowerColor);
+        //        }
+        //        bonusNameText.text += group.Key + " Color Bonus\n";
+        //    }
+        //    bonusNameText.text += "\n";
 
-            foreach (var group in groupedByType)
-            {
-                bonusAppliedType.Add(group.FirstOrDefault().CurrentTowerData.towerType);
-                foreach (var tower in group)
-                {
-                    tower.ApplyBonus(TowerBonus.SameTowerType);
-                }
-                bonusText.text += group.Key + " Type Bonus ";
-            }
+        //    foreach (var group in groupedByType)
+        //    {
+        //        bonusAppliedType.Add(group.FirstOrDefault().CurrentTowerData.towerType);
+        //        foreach (var tower in group)
+        //        {
+        //            tower.ApplyBonus(TowerBonus.SameTowerType);
+        //        }
+        //        bonusNameText.text += group.Key + " Type Bonus ";
+        //    }
+        //}
+    }
+
+    private void AddBonusIcons()
+    {
+        foreach (var colorBonus in bonusAppliedColor)
+        {
+            GameObject bonusIconClone = Instantiate(bonusIconPrefab, bonusPanel.transform);
+            BonusData bonusData = bonusDataBase.GetBonusByName("SameTowerColor_" + colorBonus.ToString());
+            bonusIconClone.GetComponent<BonusIconUI>().SetBonus(bonusData.bonusName, bonusData.bonusContent);
         }
-        
+
+        foreach (var typeBonus in bonusAppliedType)
+        {
+            GameObject bonusIconClone = Instantiate(bonusIconPrefab, bonusPanel.transform);
+            BonusData bonusData = bonusDataBase.GetBonusByName("SameTowerType_" + typeBonus.ToString());
+            bonusIconClone.GetComponent<BonusIconUI>().SetBonus(bonusData.bonusName, bonusData.bonusContent);
+        }
     }
 }
 

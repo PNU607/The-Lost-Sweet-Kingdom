@@ -52,43 +52,10 @@ public class TowerWeapon : MonoBehaviour
 
     /// <summary>
     /// 업데이트
-    /// 타겟이 있으면 발사체가 타겟 방향으로 이동, 없으면 발사체 파괴
     /// </summary>
     protected virtual void Update()
     {
-        if (target != null && target.gameObject.activeSelf)
-        {
-            MoveWeapon();
-        }
-        else
-        {
-            ReleaseWeapon();
-        }
-    }
 
-    protected virtual void MoveWeapon()
-    {
-        SetDirection();
-    }
-
-    protected virtual void SetDirection()
-    {
-
-    }
-
-    /// <summary>
-    /// 충돌 체크
-    /// 충돌한 collision의 태그가 Enemy이면, 타겟에 데미지를 주고 충돌체는 파괴
-    /// </summary>
-    /// <param name="collision"></param>
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!collision.CompareTag("Enemy")) return;
-        //if (collision.transform != target) return;
-
-        if (!this.gameObject.activeSelf) return;
-        Attack(collision);
-        ReleaseWeapon();
     }
 
     /// <summary>
