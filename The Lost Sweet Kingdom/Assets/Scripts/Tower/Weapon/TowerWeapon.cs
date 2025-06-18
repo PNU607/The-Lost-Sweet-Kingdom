@@ -88,7 +88,10 @@ public class TowerWeapon : MonoBehaviour
 
         if (!this.gameObject.activeSelf) return;
         Attack(collision);
-        ReleaseWeapon();
+        {
+            ReleaseWeapon();
+        }
+        
     }
 
     /// <summary>

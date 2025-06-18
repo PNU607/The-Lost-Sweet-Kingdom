@@ -31,7 +31,7 @@ using TMPro;
  *  - 2025-03-28: UI Setup에서 Name, Cost Update하게 했습니다.
  *  - 2025-05-06: Drag 시 Tower Animation None 기능 추가
  */
-public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     /// <summary>
     /// 드래그 중에 표시할 타워 프리뷰
@@ -70,6 +70,15 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private float backgroundAlpha = 0.7f;
 
     /// <summary>
+    /// Ui Scale 데이터
+    /// </summary>
+    private Vector3 originalScale;
+    private float scaleUpFactor = 1.3f;
+    private Canvas selfCanvas;
+    private int originalOrder;
+    private int highlightOrder = 10;
+
+    /// <summary>
     /// 타워 비용을 표시할 텍스트
     /// </summary>
     public TMP_Text costText;
@@ -90,6 +99,11 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     /// </summary>
     private void Awake()
     {
+        originalScale = transform.localScale;
+        selfCanvas = GetComponent<Canvas>();
+        if (selfCanvas != null)
+            originalOrder = selfCanvas.sortingOrder;
+
         canvasGroup = GetComponent<CanvasGroup>();
         towerImage = GetComponentInChildren<Image>();
         costText = transform.Find("CostText").GetComponent<TMP_Text>();
@@ -135,6 +149,24 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             case "purple": return new Color(0.5f, 0f, 0.5f, alpha);
             default: return new Color(0.5f, 0.5f, 0.5f, alpha);
         }
+    }
+
+    /// <summary>
+    /// 마우스를 올렸을 시
+    /// </summary>
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        transform.localScale = originalScale * scaleUpFactor;
+        selfCanvas.sortingOrder = highlightOrder;
+    }
+
+    /// <summary>
+    /// 마우스를 내렸을 시
+    /// </summary>
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        transform.localScale = originalScale;
+        selfCanvas.sortingOrder = originalOrder;
     }
 
     /// <summary>
