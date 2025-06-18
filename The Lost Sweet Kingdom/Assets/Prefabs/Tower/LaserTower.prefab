@@ -62,6 +62,8 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
+  StarArea: {fileID: 5426412832108668736}
+  LevelStarObj: {fileID: 3200583436632040334, guid: 089b339b16e386943a3241620a0beb76, type: 3}
   lineRenderer: {fileID: 7084569349169204109}
 --- !u!1001 &7067225699723342350
 PrefabInstance:
@@ -132,6 +134,11 @@ CircleCollider2D:
 --- !u!95 &4136688089220438735 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6592042468430555329, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
+  m_PrefabInstance: {fileID: 7067225699723342350}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5426412832108668736 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2980725363458446670, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
   m_PrefabInstance: {fileID: 7067225699723342350}
   m_PrefabAsset: {fileID: 0}
 --- !u!212 &5904461553786000135 stripped

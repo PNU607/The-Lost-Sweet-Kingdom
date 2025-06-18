@@ -43,6 +43,7 @@ public class Movement2D : MonoBehaviour
     private void Update()
     {
         transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        RotateTo();
     }
 
     /// <summary>
@@ -52,5 +53,19 @@ public class Movement2D : MonoBehaviour
     public void MoveTo(Vector3 direction)
     {
         moveDirection = direction;
+    }
+
+    /// <summary>
+    /// 오브젝트의 아래쪽이 타겟을 향하도록 회전
+    /// </summary>
+    /// <param name="direction">타겟의 방향</param>
+    public void RotateTo()
+    {
+        // 회전: 아래쪽이 타겟을 향하도록 (즉, -transform.up이 target 방향)
+        float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg + 90f;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        // 이동
+        transform.position += (Vector3)moveDirection * moveSpeed * Time.deltaTime;
     }
 }

@@ -4,13 +4,13 @@ using UnityEngine.Tilemaps;
 public class RangeTower : TrackingTower
 {
     [SerializeField]
-    private Vector2Int[] attackDirections = DirectionPresets.All8; // 공격 방향 설정 (상하좌우 + 대각선)
+    protected Vector2Int[] attackDirections = DirectionPresets.All8; // 공격 방향 설정 (상하좌우 + 대각선)
     [SerializeField]
     private Vector3 attackHeadOffset = new Vector3(0,1f,0);
     [SerializeField]
     private Vector2 tileCheckSizeMultiplier = new Vector2(0.9f, 0.9f);
 
-    private Tilemap attackableTilemap;
+    protected Tilemap attackableTilemap;
 
     public override void Setup(TowerData nextTowerData, int level = 1)
     {
@@ -114,7 +114,7 @@ public class RangeTower : TrackingTower
             health.TakeDamage(applyLevelData.attackDamage);
     }
 
-    Vector2 GetTileCheckBoxSize()
+    protected Vector2 GetTileCheckBoxSize()
     {
         Vector3 cellSize = attackableTilemap.cellSize;
         return new Vector2(cellSize.x * tileCheckSizeMultiplier.x, cellSize.y * tileCheckSizeMultiplier.y);

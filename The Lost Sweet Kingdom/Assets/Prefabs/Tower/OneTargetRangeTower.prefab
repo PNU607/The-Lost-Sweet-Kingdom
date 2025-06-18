@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3943208275471777250}
-  - component: {fileID: 8054321488816470514}
+  - component: {fileID: 7692136018066604491}
   m_Layer: 7
-  m_Name: ZoneTower
+  m_Name: OneTargetRangeTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 6100903446563868652}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8054321488816470514
+--- !u!114 &7692136018066604491
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4625834919878556233}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d72bcab75ca68cc48a66076f0f864b7d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b684ba861c604d43ae09510850d7ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSpawnTransform: {fileID: 6308560535118868880}
@@ -73,7 +73,8 @@ MonoBehaviour:
   - {x: -1, y: 1}
   - {x: 1, y: -1}
   - {x: -1, y: -1}
-  zoneSizeMultiplier: {x: 0.9, y: 0.9}
+  attackHeadOffset: {x: 0, y: 2, z: 0}
+  tileCheckSizeMultiplier: {x: 0.9, y: 0.9}
 --- !u!1001 &7067225699723342350
 PrefabInstance:
   m_ObjectHideFlags: 0

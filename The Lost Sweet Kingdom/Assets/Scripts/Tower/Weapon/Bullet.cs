@@ -54,11 +54,31 @@ public class Bullet : TowerWeapon
         }
     }
 
-    protected override void MoveWeapon()
+    /// <summary>
+    /// 업데이트
+    /// 타겟이 있으면 발사체가 타겟 방향으로 이동, 없으면 발사체 파괴
+    /// </summary>
+    protected override void Update()
     {
-        base.MoveWeapon();
+        if (target != null && target.gameObject.activeSelf)
+        {
+            MoveWeapon();
+        }
+        else
+        {
+            ReleaseWeapon();
+        }
+    }
 
+    protected virtual void MoveWeapon()
+    {
+        SetDirection();
         movement2D.MoveTo(direction);
+    }
+
+    protected virtual void SetDirection()
+    {
+
     }
 
     /// <summary>
@@ -84,6 +104,6 @@ public class Bullet : TowerWeapon
     {
         base.Attack(collision);
 
-        collision.GetComponent<EnemyTest>().TakeDamage(shotTower.CurrentTowerData.levelDatas[shotTower.towerLevel].attackDamage);
+        collision.GetComponent<EnemyTest>().TakeDamage(shotTower.applyLevelData.attackDamage);
     }
 }

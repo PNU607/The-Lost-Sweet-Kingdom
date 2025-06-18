@@ -36,4 +36,18 @@ public class Missile : Bullet
 
         direction = (target.position - transform.position).normalized;
     }
+
+    /// <summary>
+    /// 충돌 체크
+    /// 충돌한 collision의 태그가 Enemy이면, 타겟에 데미지를 주고 충돌체는 파괴
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Enemy")) return;
+        if (collision.transform != target) return;
+        if (!this.gameObject.activeSelf) return;
+        Attack(collision);
+        ReleaseWeapon();
+    }
 }

@@ -48,13 +48,13 @@ public class ExplosiveMissile : Missile
     {
         isAttackStopped = true;
         explosionRangeIndicator.enabled = true;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, shotTower.CurrentTowerData.levelDatas[shotTower.towerLevel].attackWeaponRange, shotTower.enemyLayer);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, shotTower.applyLevelData.attackWeaponRange, shotTower.enemyLayer);
         foreach (Collider2D col in colliders)
         {
             EnemyTest enemy = col.GetComponent<EnemyTest>();
             if (enemy != null)
             {
-                enemy.TakeDamage(shotTower.CurrentTowerData.levelDatas[shotTower.towerLevel].attackDamage);
+                enemy.TakeDamage(shotTower.applyLevelData.attackDamage);
             }
         }
         ReleaseWeapon();
@@ -91,13 +91,13 @@ public class ExplosiveMissile : Missile
     {
         if (explosionRangeIndicator != null)
         {
-            explosionRangeIndicator.transform.localScale = new Vector3(shotTower.CurrentTowerData.levelDatas[shotTower.towerLevel].attackWeaponRange * 2, shotTower.CurrentTowerData.levelDatas[shotTower.towerLevel].attackWeaponRange * 2, 1);
+            explosionRangeIndicator.transform.localScale = new Vector3(shotTower.applyLevelData.attackWeaponRange * 2, shotTower.applyLevelData.attackWeaponRange * 2, 1);
         }
     }
 
     protected override void ReleaseWeapon()
     {
-        StartCoroutine(ReleaseBulletWithExplosion(shotTower.CurrentTowerData.levelDatas[shotTower.towerLevel].attackDuration));
+        StartCoroutine(ReleaseBulletWithExplosion(shotTower.applyLevelData.attackDuration));
     }
 
     private IEnumerator ReleaseBulletWithExplosion(float explosionTime)

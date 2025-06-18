@@ -150,6 +150,12 @@ public class Tower : MonoBehaviour
     /// </summary>
     public LayerMask enemyLayer;
 
+    [SerializeField]
+    private GameObject StarArea;
+    [SerializeField]
+    private GameObject LevelStarObj;
+
+    private int starCount = 0;
     /// <summary>
     /// 타워에 활성화된 보너스들
     /// </summary>
@@ -174,6 +180,13 @@ public class Tower : MonoBehaviour
     /// <param name="nextTowerData"></param>
     public virtual void Setup(TowerData nextTowerData, int level = 1)
     {
+        if (starCount < level)
+        {
+            GameObject starClone = Instantiate(LevelStarObj, StarArea.transform);
+            starClone.SetActive(true);
+            starCount = level;
+        }
+
         towerLevel = level;
 
         currentTowerData = nextTowerData;
