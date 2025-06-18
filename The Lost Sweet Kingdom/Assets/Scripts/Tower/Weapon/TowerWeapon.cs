@@ -55,7 +55,7 @@ public class TowerWeapon : MonoBehaviour
     /// </summary>
     protected virtual void Update()
     {
-
+    
     }
 
     /// <summary>

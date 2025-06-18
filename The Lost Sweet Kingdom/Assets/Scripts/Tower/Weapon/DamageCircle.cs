@@ -1,28 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageZone : TowerWeapon
+public class DamageCircle : TowerWeapon
 {
-    private float duration = 0f; // DamageZone의 지속 시간
+    private float duration = 0f;
     private float tickTimer = 0f;
+    public float tickInterval = 1f;
+    public float radius = 1f;
 
     public override void Setup(Transform target, Tower shotTower)
     {
         base.Setup(target, shotTower);
-        duration = shotTower.applyLevelData.attackDuration; // 지속 시간 설정
+
+        duration = shotTower.applyLevelData.attackDuration;
+        tickInterval = 0.5f;
+        radius = shotTower.applyLevelData.attackRange;
+
+        tickTimer = tickInterval;
     }
 
     protected override void Update()
     {
-        base.Update();
-        
         duration -= Time.deltaTime;
         tickTimer += Time.deltaTime;
 
-        if (tickTimer >= 1f)
+        if (tickTimer >= tickInterval)
         {
             tickTimer = 0f;
 
-            Collider2D[] enemies = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0f, shotTower.enemyLayer);
+            Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, radius, shotTower.enemyLayer);
             foreach (var enemy in enemies)
             {
                 if (enemy.TryGetComponent(out EnemyTest enemyTest))
@@ -34,9 +41,7 @@ public class DamageZone : TowerWeapon
 
         if (duration <= 0f)
         {
-            Debug.Log(duration);
-            Destroy(gameObject);
+            ReleaseWeapon();
         }
-            
     }
 }
