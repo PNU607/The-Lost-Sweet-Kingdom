@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5153009840771582355}
   - component: {fileID: 3944166957774928685}
   - component: {fileID: 3135961830937656473}
-  - component: {fileID: -3022935387879948602}
+  - component: {fileID: 7945349327041780382}
   m_Layer: 0
   m_Name: BigbangCircle
   m_TagString: Untagged
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.020404104}
   serializedVersion: 2
   m_Radius: 0.120404065
---- !u!114 &-3022935387879948602
+--- !u!114 &7945349327041780382
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,6 +130,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4877909776406011252}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34701e61180acea4ab62072f4117897c, type: 3}
+  m_Script: {fileID: 11500000, guid: 174e65781adb9094ca54f3fe6cdb3cae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tickInterval: 1
+  radius: 1

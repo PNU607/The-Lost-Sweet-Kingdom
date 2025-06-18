@@ -89,7 +89,6 @@ public class TowerWeapon : MonoBehaviour
         if (!this.gameObject.activeSelf) return;
         Attack(collision);
         {
-            Debug.Log("엄준식");
             ReleaseWeapon();
         }
         
