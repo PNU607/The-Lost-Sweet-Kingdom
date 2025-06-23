@@ -3901,6 +3901,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6859481184834230433, guid: 24f94535eb8ef26458e5eb3501904435, type: 3}
+      propertyPath: m_text
+      value: "\uBCF4\uB108\uC2A4 \uD0C0\uC785: xxx\n\uBCF4\uB108\uC2A4 ~~"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859481184834230433, guid: 24f94535eb8ef26458e5eb3501904435, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 0a7cdeae8c3bc8745962175fbc268d3c, type: 2}
+    - target: {fileID: 6859481184834230433, guid: 24f94535eb8ef26458e5eb3501904435, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 744969999685193577, guid: 0a7cdeae8c3bc8745962175fbc268d3c, type: 2}
+    - target: {fileID: 6859481184834230433, guid: 24f94535eb8ef26458e5eb3501904435, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7733173262308112908, guid: 24f94535eb8ef26458e5eb3501904435, type: 3}
       propertyPath: m_Name
       value: BonusIcon
