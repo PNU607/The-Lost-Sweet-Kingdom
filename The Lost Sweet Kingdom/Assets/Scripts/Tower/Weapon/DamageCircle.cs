@@ -2,32 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageCircle : TowerWeapon
+public class DamageCircle : DamageZone
 {
-    private float duration = 0f;
-    private float tickTimer = 0f;
-    public float tickInterval = 1f;
-    public float radius = 1f;
-
-    public override void Setup(Transform target, Tower shotTower)
-    {
-        base.Setup(target, shotTower);
-
-        duration = shotTower.applyLevelData.attackDuration;
-        tickInterval = 0.5f;
-        radius = shotTower.applyLevelData.attackRange;
-
-        tickTimer = tickInterval;
-    }
-
     protected override void Update()
     {
+        base.Update();
+
         duration -= Time.deltaTime;
         tickTimer += Time.deltaTime;
 
-        if (tickTimer >= tickInterval)
+        if (tickTimer >= 1f)
         {
             tickTimer = 0f;
+
+            CircleCollider2D circle = GetComponent<CircleCollider2D>();
+            float radius = circle.radius * transform.lossyScale.x;
 
             Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, radius, shotTower.enemyLayer);
             foreach (var enemy in enemies)
@@ -41,7 +30,7 @@ public class DamageCircle : TowerWeapon
 
         if (duration <= 0f)
         {
-            ReleaseWeapon();
+            Destroy(gameObject);
         }
     }
 }
