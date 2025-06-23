@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 public class BigbangTower : TrackingTower
 {
     public int burstCount = 10;
-    public float burstInterval = 0.2f;
+    public float burstInterval = 0.1f;
     public Vector2 scaleRange = new Vector2(1f, 2f);
 
     private Vector3 weaponBaseScale;
