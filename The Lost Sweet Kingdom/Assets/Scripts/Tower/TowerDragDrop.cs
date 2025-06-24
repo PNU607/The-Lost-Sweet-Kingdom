@@ -15,6 +15,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using System.Sound;
 
 /* 
  * @class: TowerDragDrop
@@ -158,6 +159,10 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         transform.localScale = originalScale * scaleUpFactor;
         selfCanvas.sortingOrder = highlightOrder;
+
+        SoundObject _soundObject;
+        _soundObject = Sound.Play("TowerUIMoushover", false);
+        _soundObject.SetVolume(0.1f);
     }
 
     /// <summary>
@@ -175,6 +180,10 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     /// <param name="eventData"></param>
     public void OnBeginDrag(PointerEventData eventData)
     {
+        SoundObject _soundObject;
+        _soundObject = Sound.Play("TowerMerge", false);
+        _soundObject.SetVolume(0.1f);
+
         // UI 요소 반투명하게 처리
         canvasGroup.alpha = 0.5f;
         canvasGroup.blocksRaycasts = false;
@@ -222,6 +231,10 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             {
                 canvasGroup.alpha = 0.3f;
                 GoldManager.instance.SpendGold(currentTowerData.cost);
+
+                SoundObject _soundObject;
+                _soundObject = Sound.Play("TowerInstallation", false);
+                _soundObject.SetVolume(0.1f);
             }
             else
             {

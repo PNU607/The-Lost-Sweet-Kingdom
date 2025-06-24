@@ -19,3 +19,21 @@ MonoBehaviour:
   - name: GameBgm
     type: 4
     clip: {fileID: 8300000, guid: 5445dc98a42083b409c11a333da860a6, type: 3}
+  - name: TowerUIMoushover
+    type: 0
+    clip: {fileID: 8300000, guid: 323ab1594f1735649b467243a22c9251, type: 3}
+  - name: TowerInstallation
+    type: 0
+    clip: {fileID: 8300000, guid: 81e14d465bca05f4ab175ce8d3806620, type: 3}
+  - name: TowerMerge
+    type: 0
+    clip: {fileID: 8300000, guid: 95c333a2edceb9e49a6a1670d1a31f1d, type: 3}
+  - name: TowerIconClick
+    type: 0
+    clip: {fileID: 8300000, guid: 09fe3c31b496d3e4ea1ddff417369c89, type: 3}
+  - name: TowerMousehover
+    type: 0
+    clip: {fileID: 8300000, guid: f09eeef1047347544a2673fb4e1fee9f, type: 3}
+  - name: EnemyDeath
+    type: 3
+    clip: {fileID: 8300000, guid: 093e6948ba8265d41b0172499374fe68, type: 3}
