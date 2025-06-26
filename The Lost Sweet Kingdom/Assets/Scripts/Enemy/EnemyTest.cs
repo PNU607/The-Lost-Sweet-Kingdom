@@ -223,6 +223,9 @@ public class EnemyTest : MonoBehaviour
     private void OnDie()
     {
         Debug.Log("Die");
+        SoundObject _soundObject;
+        _soundObject = Sound.Play("EnemyDeath", false);
+        _soundObject.SetVolume(0.1f);
         GoldManager.instance.AddGold(currentEnemyData.goldReward);
         ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData);
 

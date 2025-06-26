@@ -19,7 +19,9 @@
  */
 
 using System.Collections.Generic;
+using System.Sound;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.U2D.Animation;
 
 /// <summary>
@@ -50,7 +52,7 @@ public enum TowerState { SearchTarget = 0, AttackToTarget, Rotate, None }
  *  - 2025-04-11: ApplyBonus, ClearBonuses 함수 추가
  *  - 2025-05-01: OnMouseDown, OnMouseDrag, OnMouseUp 함수 뒤 Event로 붙여 TowerManager에서 Drag 관리하도록 수정
  */
-public class Tower : MonoBehaviour
+public class Tower : MonoBehaviour, IPointerEnterHandler
 {
     /// <summary>
     /// 타워의 기본 파츠들을 가진 클래스
@@ -205,6 +207,17 @@ public class Tower : MonoBehaviour
     }
 
     /// <summary>
+    /// 마우스를 올렸을 때
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SoundObject _soundObject;
+        _soundObject = Sound.Play("TowerMousehover", false);
+        _soundObject.SetVolume(0.1f);
+    }
+
+    /// <summary>
     /// 마우스 버튼을 눌렀을 때
     /// </summary>
     public void OnMouseDownEvent()
@@ -260,6 +273,10 @@ public class Tower : MonoBehaviour
             else if (TowerManager.Instance.CanMerge(occupiedTower, this))
             {
                 TowerManager.Instance.MergeTowers(occupiedTower, this);
+
+                SoundObject _soundObject;
+                _soundObject = Sound.Play("TowerMerge", false);
+                _soundObject.SetVolume(0.1f);
             }
             else
             {

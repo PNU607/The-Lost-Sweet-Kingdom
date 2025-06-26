@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class DamageZone : TowerWeapon
 {
-    private float duration = 0f; // DamageZone의 지속 시간
-    private float tickTimer = 0f;
+    public float duration = 0f; // DamageZone의 지속 시간
+    public float tickTimer = 0f;
 
     public override void Setup(Transform target, Tower shotTower)
     {
