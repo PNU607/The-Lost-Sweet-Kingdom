@@ -28,7 +28,7 @@ public class ZoneTower : TrackingTower
         if (closestAttackTarget == null)
         {
             // Å¸°Ù Å½»ö »óÅÂ·Î ÀüÈ¯
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -37,7 +37,7 @@ public class ZoneTower : TrackingTower
         if (!closestAttackTarget.gameObject.activeSelf)
         {
             // Å¸°Ù Å½»ö »óÅÂ·Î ÀüÈ¯
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -50,7 +50,7 @@ public class ZoneTower : TrackingTower
         {
             // Å¸°Ù Å½»ö »óÅÂ·Î ÀüÈ¯
             attackTargets = null;
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -65,7 +65,7 @@ public class ZoneTower : TrackingTower
     /// </summary>
     private void SetAttackAnimation()
     {
-        towerAnim.SetBool("isAttacking", true);
+        towerBase.towerAnim.SetBool("isAttacking", true);
     }
 
     public override void Attack()

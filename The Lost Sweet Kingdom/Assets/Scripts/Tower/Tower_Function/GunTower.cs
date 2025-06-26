@@ -40,7 +40,7 @@ public class GunTower : TrackingTower
         if (closestAttackTarget == null)
         {
             // 타겟 탐색 상태로 전환
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -49,7 +49,7 @@ public class GunTower : TrackingTower
         if (!closestAttackTarget.gameObject.activeSelf)
         {
             // 타겟 탐색 상태로 전환
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -62,7 +62,7 @@ public class GunTower : TrackingTower
         {
             // 타겟 탐색 상태로 전환
             attackTargets = null;
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -77,7 +77,7 @@ public class GunTower : TrackingTower
     /// </summary>
     private void SetAttackAnimation()
     {
-        towerAnim.SetBool("isAttacking", true);
+        towerBase.towerAnim.SetBool("isAttacking", true);
     }
 
     public override void Attack()
@@ -85,12 +85,12 @@ public class GunTower : TrackingTower
         //Debug.Log("SpawnWeapon");
         if (closestAttackTarget != null)
         {
-            TowerWeapon weapon = weaponPool.Spawn(weaponSpawnTransform.position);
+            TowerWeapon weapon = weaponPool.Spawn(towerBase.weaponSpawnTransform.position);
             weapon.Setup(closestAttackTarget.transform, this);
         }
         else
         {
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
         }
     }
 }

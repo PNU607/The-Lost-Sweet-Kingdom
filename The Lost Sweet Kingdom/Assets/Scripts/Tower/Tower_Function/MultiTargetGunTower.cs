@@ -8,14 +8,14 @@ public class MultiTargetGunTower : TrackingTower
     {
         if (closestAttackTarget == null)
         {
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
 
         if (!closestAttackTarget.gameObject.activeSelf)
         {
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -25,7 +25,7 @@ public class MultiTargetGunTower : TrackingTower
         if (distance > applyLevelData.attackRange)
         {
             attackTargets = null;
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -36,7 +36,7 @@ public class MultiTargetGunTower : TrackingTower
 
     private void SetAttackAnimation()
     {
-        towerAnim.SetBool("isAttacking", true);
+        towerBase.towerAnim.SetBool("isAttacking", true);
     }
 
     public override void Attack()
@@ -47,15 +47,15 @@ public class MultiTargetGunTower : TrackingTower
         {
             foreach (EnemyTest enemy in enemiesInRange)
             {
-                TowerWeapon weapon = weaponPool.Spawn(weaponSpawnTransform.position);
+                TowerWeapon weapon = weaponPool.Spawn(towerBase.weaponSpawnTransform.position);
                 weapon.Setup(enemy.transform, this);
             }
 
-            towerAnim.SetBool("isAttacking", true);
+            towerBase.towerAnim.SetBool("isAttacking", true);
         }
         else
         {
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
         }
     }
 }

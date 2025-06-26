@@ -28,7 +28,7 @@ public class RangeTower : TrackingTower
         if (closestAttackTarget == null)
         {
             // 타겟 탐색 상태로 전환
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -37,7 +37,7 @@ public class RangeTower : TrackingTower
         if (!closestAttackTarget.gameObject.activeSelf)
         {
             // 타겟 탐색 상태로 전환
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -50,7 +50,7 @@ public class RangeTower : TrackingTower
         {
             // 타겟 탐색 상태로 전환
             attackTargets = null;
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -65,7 +65,7 @@ public class RangeTower : TrackingTower
     /// </summary>
     private void SetAttackAnimation()
     {
-        towerAnim.SetBool("isAttacking", true);
+        towerBase.towerAnim.SetBool("isAttacking", true);
     }
 
     public override void Attack()
@@ -84,7 +84,7 @@ public class RangeTower : TrackingTower
                 Vector3 tileWorldPos = attackableTilemap.GetCellCenterWorld(tilePos);
                 Vector2 boxSize = GetTileCheckBoxSize();
 
-                Collider2D[] enemies = Physics2D.OverlapBoxAll(tileWorldPos, boxSize, 0f, enemyLayer);
+                Collider2D[] enemies = Physics2D.OverlapBoxAll(tileWorldPos, boxSize, 0f, towerBase.enemyLayer);
 
                 if (enemies.Length > 0)
                 {
