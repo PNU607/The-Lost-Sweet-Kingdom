@@ -15,7 +15,7 @@ Properties {
 	_OutlineSoftness	("Outline Softness", Range(0,1)) = 0
 
 	_Bevel				("Bevel", Range(0,1)) = 0.5
-	_BevelOffset		("Bevel Offset", Range(-0.5,0.5)) = 0
+	_BevelOffset		("Bevel towerBase.offset", Range(-0.5,0.5)) = 0
 	_BevelWidth			("Bevel Width", Range(-.5,0.5)) = 0
 	_BevelClamp			("Bevel Clamp", Range(0,1)) = 0
 	_BevelRoundness		("Bevel Roundness", Range(0,1)) = 0
@@ -57,8 +57,8 @@ Properties {
 	_PerspectiveFilter	("Perspective Correction", Range(0, 1)) = 0.875
 	_Sharpness			("Sharpness", Range(-1,1)) = 0
 
-	_VertexOffsetX		("Vertex OffsetX", float) = 0
-	_VertexOffsetY		("Vertex OffsetY", float) = 0
+	_VertexOffsetX		("Vertex towerBase.offsetX", float) = 0
+	_VertexOffsetY		("Vertex towerBase.offsetY", float) = 0
 
 	_CullMode			("Cull Mode", Float) = 0
 	//_MaskCoord		("Mask Coords", vector) = (0,0,0,0)

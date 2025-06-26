@@ -7,6 +7,7 @@ public class BonusIconUI : TooltipUI
 {
     [SerializeField]
     private TextMeshProUGUI bonusNameText;
+    [SerializeField]
     private TextMeshProUGUI bonusContentText;
 
     public void SetBonus(string bonusName, string bonusContent)

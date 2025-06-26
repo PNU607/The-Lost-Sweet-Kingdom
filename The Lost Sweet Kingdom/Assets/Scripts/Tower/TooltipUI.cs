@@ -5,7 +5,15 @@ using UnityEngine.EventSystems;
 
 public class TooltipUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    //[TextArea] public string tooltipText;
+    public GameObject tooltipObj;
+
+    public virtual void Awake()
+    {
+        if (tooltipObj != null)
+        {
+            tooltipObj.SetActive(false);
+        }
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -21,11 +29,11 @@ public class TooltipUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     protected virtual void ToooltipShow()
     {
-
+        tooltipObj.SetActive(true);
     }
 
     protected virtual void ToooltipHide()
     {
-
+        tooltipObj.SetActive(false);
     }
 }

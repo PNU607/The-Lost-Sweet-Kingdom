@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TowerAnimEvent : MonoBehaviour
+public class towerAnimEvent : MonoBehaviour
 {
     private Tower tower;
 

@@ -41,7 +41,7 @@ public class LaserTower : TrackingTower
         if (closestAttackTarget == null)
         {
             // 타겟 탐색 상태로 전환
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             StopLaser();
             ChangeState(TowerState.SearchTarget);
             return;
@@ -51,7 +51,7 @@ public class LaserTower : TrackingTower
         if (!closestAttackTarget.gameObject.activeSelf)
         {
             // 타겟 탐색 상태로 전환
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             StopLaser();
             ChangeState(TowerState.SearchTarget);
             return;
@@ -65,7 +65,7 @@ public class LaserTower : TrackingTower
         {
             // 타겟 탐색 상태로 전환
             attackTargets = null;
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             StopLaser();
             ChangeState(TowerState.SearchTarget);
             return;
@@ -91,7 +91,7 @@ public class LaserTower : TrackingTower
     {
         if (closestAttackTarget == null) return;
 
-        towerAnim.SetBool("isAttacking", true);
+        towerBase.towerAnim.SetBool("isAttacking", true);
     }
 
     public override void Attack()
@@ -112,7 +112,7 @@ public class LaserTower : TrackingTower
             lineRenderer.SetPosition(1, endPos);
 
             // Raycast로 선상의 모든 적 찾기
-            RaycastHit2D[] hits = Physics2D.RaycastAll(startPos, direction, maxDistance, enemyLayer);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(startPos, direction, maxDistance, towerBase.enemyLayer);
             foreach (RaycastHit2D hit in hits)
             {
                 EnemyTest enemy = hit.collider.GetComponent<EnemyTest>();
@@ -126,7 +126,7 @@ public class LaserTower : TrackingTower
         }
         else
         {
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
         }
     }
 

@@ -113,7 +113,7 @@ public class TowerManager : MonoBehaviour
         Tower spawnTower = towerData.towerPrefab.GetComponent<Tower>();
         bool isOccupiedTile = IsTileOccupied(mousePosition, out occupiedTower);
         if (isOccupiedTile
-            && CanMerge(occupiedTower, spawnTower))
+            && CanMerge(occupiedTower, towerData))
         {
             MergeTowers(occupiedTower, spawnTower);
             return true;
@@ -315,7 +315,7 @@ public class TowerManager : MonoBehaviour
     /// <returns></returns>
     public Tower MergeTowers(Tower towerA, Tower towerB)
     {
-        if (!CanMerge(towerA, towerB)) return null;
+        //if (!CanMerge(towerA, towerB)) return null;
 
         TowerData nextTowerData = towerA.CurrentTowerData;
 
@@ -342,6 +342,25 @@ public class TowerManager : MonoBehaviour
     {
         // 같은 종류의 타워인지, 같은 레벨인지 확인
         if (towerA.CurrentTowerData != towerB.CurrentTowerData)
+            return false;
+
+        // 최대 레벨인지 확인
+        if (towerA.CurrentTowerData != null && towerA.CurrentTowerData.levelDatas.Length == towerA.towerLevel)
+            return false;
+
+        return true;
+    }
+
+    /// <summary>
+    /// Merge 가능 여부 확인
+    /// </summary>
+    /// <param name="towerA">Merge할 위치에 있는 타워</param>
+    /// <param name="towerBData">Merge할 위치로 이동하는 타워의 데이터</param>
+    /// <returns></returns>
+    public bool CanMerge(Tower towerA, TowerData towerBData)
+    {
+        // 같은 종류의 타워인지, 같은 레벨인지 확인
+        if (towerA.CurrentTowerData != towerBData)
             return false;
 
         // 최대 레벨인지 확인

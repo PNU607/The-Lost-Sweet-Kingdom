@@ -53,10 +53,9 @@ public enum TowerState { SearchTarget = 0, AttackToTarget, Rotate, None }
 public class Tower : MonoBehaviour
 {
     /// <summary>
-    /// 발사체 생성할 위치 (transform)
+    /// 타워의 기본 파츠들을 가진 클래스
     /// </summary>
-    [SerializeField]
-    protected Transform weaponSpawnTransform;
+    public TowerBase towerBase;
 
     /// <summary>
     /// 현재 타워의 기본 데이터
@@ -94,14 +93,7 @@ public class Tower : MonoBehaviour
     /// 드래그 중인지 여부
     /// </summary>
     private bool isDragging = false;
-    /// <summary>
-    /// 타워 드래그 시 위치 보정값
-    /// </summary>
-    private Vector3 offset;
-    /// <summary>
-    /// 타워의 콜라이더
-    /// </summary>
-    public Collider2D towerCollider;
+    
     /// <summary>
     /// 타워의 이전 위치
     /// </summary>
@@ -130,31 +122,6 @@ public class Tower : MonoBehaviour
     /// </summary>
     protected EnemyTest closestAttackTarget = null;
 
-    /// <summary>
-    /// 타워의 공격 범위 표시용 SpriteRenderer
-    /// </summary>
-    public SpriteRenderer rangeIndicator;
-
-    /// <summary>
-    /// 타워의 애니메이터
-    /// </summary>
-    public Animator towerAnim;
-
-    /// <summary>
-    /// 타워의 스프라이트 렌더러
-    /// </summary>
-    protected SpriteRenderer towerSprite;
-
-    /// <summary>
-    /// 적 레이어
-    /// </summary>
-    public LayerMask enemyLayer;
-
-    [SerializeField]
-    private GameObject StarArea;
-    [SerializeField]
-    private GameObject LevelStarObj;
-
     private int starCount = 0;
     /// <summary>
     /// 타워에 활성화된 보너스들
@@ -167,6 +134,11 @@ public class Tower : MonoBehaviour
     /// </summary>
     protected virtual void Start()
     {
+        if (towerBase == null)
+        {
+            towerBase = GetComponentInChildren<TowerBase>();
+        }
+
         if (currentTowerData != null && currentTowerData.weaponPrefab != null)
         {
             TowerWeapon weapon = currentTowerData.weaponPrefab.GetComponent<TowerWeapon>();
@@ -180,9 +152,14 @@ public class Tower : MonoBehaviour
     /// <param name="nextTowerData"></param>
     public virtual void Setup(TowerData nextTowerData, int level = 1)
     {
+        if (towerBase == null)
+        {
+            towerBase = GetComponentInChildren<TowerBase>();
+        }
+
         if (starCount < level)
         {
-            GameObject starClone = Instantiate(LevelStarObj, StarArea.transform);
+            GameObject starClone = Instantiate(towerBase.LevelStarObj, towerBase.StarArea.transform);
             starClone.SetActive(true);
             starCount = level;
         }
@@ -196,16 +173,10 @@ public class Tower : MonoBehaviour
         var spriteLibrary = GetComponentInChildren<SpriteLibrary>();
         spriteLibrary.spriteLibraryAsset = currentTowerData.spriteLibrary;
 
-        towerSprite = this.GetComponentInChildren<SpriteRenderer>();
-        towerAnim.SetFloat("attackSpeed", 1/applyLevelData.attackCooldown);
+        towerBase.towerAnim.SetFloat("attackSpeed", 1/applyLevelData.attackCooldown);
         
         UpdateRangeIndicator();
-        rangeIndicator.enabled = false; // 처음에는 숨김
-
-        if (towerCollider == null)
-        {
-            towerCollider = this.GetComponentInChildren<Collider2D>();
-        }
+        towerBase.rangeIndicator.enabled = false; // 처음에는 숨김
 
         if (mainCamera == null)
         {
@@ -219,7 +190,7 @@ public class Tower : MonoBehaviour
     /// <param name="show">전시 여부</param>
     public void ShowRange(bool show)
     {
-        rangeIndicator.enabled = show;
+        towerBase.rangeIndicator.enabled = show;
     }
 
     /// <summary>
@@ -227,9 +198,9 @@ public class Tower : MonoBehaviour
     /// </summary>
     private void UpdateRangeIndicator()
     {
-        if (rangeIndicator != null)
+        if (towerBase.rangeIndicator != null)
         {
-            rangeIndicator.transform.localScale = new Vector3(applyLevelData.attackRange * 2, applyLevelData.attackRange * 2, 1);
+            towerBase.rangeIndicator.transform.localScale = new Vector3(applyLevelData.attackRange * 2, applyLevelData.attackRange * 2, 1);
         }
     }
 
@@ -242,11 +213,11 @@ public class Tower : MonoBehaviour
         if (!IsPointerOverUI()) 
         {
             isDragging = true;
-            towerAnim.SetBool("isDragging", true);
+            towerBase.towerAnim.SetBool("isDragging", true);
             prevPosition = transform.position;
-            offset = transform.position - GetMouseWorldPosition();
+            towerBase.offset = transform.position - GetMouseWorldPosition();
             // 이동 중 충돌 비활성화
-            towerCollider.enabled = false; 
+            towerBase.towerCollider.enabled = false; 
 
             ShowRange(true);
         }
@@ -259,7 +230,7 @@ public class Tower : MonoBehaviour
     {
         if (isDragging)
         {
-            transform.position = GetMouseWorldPosition() + offset;
+            transform.position = GetMouseWorldPosition() + towerBase.offset;
         }
     }
 
@@ -269,9 +240,9 @@ public class Tower : MonoBehaviour
     public void OnMouseUpEvent()
     {
         isDragging = false;
-        towerAnim.SetBool("isDragging", false);
+        towerBase.towerAnim.SetBool("isDragging", false);
         // 이동 완료 후 충돌 활성화
-        towerCollider.enabled = true;
+        towerBase.towerCollider.enabled = true;
 
         Vector3 movePosition = TowerManager.Instance.GetTilePosition(transform.position);
         Tower occupiedTower;
@@ -425,7 +396,7 @@ public class Tower : MonoBehaviour
         List<EnemyTest> enemiesInRange = new List<EnemyTest>();
 
         // 현재 타워의 위치에서 원형의 공격 범위 내에 있는 모든 Enemy(Layer)를 가져옴
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, applyLevelData.attackRange, enemyLayer);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, applyLevelData.attackRange, towerBase.enemyLayer);
 
         foreach (Collider2D col in colliders)
         {
@@ -527,8 +498,8 @@ public class Tower : MonoBehaviour
         attackTargets = null;
         closestAttackTarget = null;
         // 타워 애니메이션 초기화
-        towerAnim.SetBool("isDragging", false);
-        towerAnim.SetBool("isAttacking", false);
+        towerBase.towerAnim.SetBool("isDragging", false);
+        towerBase.towerAnim.SetBool("isAttacking", false);
 
         attackTimer = 0f; // 공격 타이머 초기화
     }

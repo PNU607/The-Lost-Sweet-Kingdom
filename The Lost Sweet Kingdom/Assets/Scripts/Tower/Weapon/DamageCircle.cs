@@ -29,7 +29,7 @@ public class DamageCircle : TowerWeapon
         {
             tickTimer = 0f;
 
-            Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, radius, shotTower.enemyLayer);
+            Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, radius, shotTower.towerBase.enemyLayer);
             foreach (var enemy in enemies)
             {
                 if (enemy.TryGetComponent(out EnemyTest enemyTest))

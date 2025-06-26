@@ -16,14 +16,14 @@ public class BigbangTower : TrackingTower
     {
         if (closestAttackTarget == null)
         {
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
 
         if (!closestAttackTarget.gameObject.activeSelf)
         {
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -33,7 +33,7 @@ public class BigbangTower : TrackingTower
         if (distance > applyLevelData.attackRange)
         {
             attackTargets = null;
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -44,7 +44,7 @@ public class BigbangTower : TrackingTower
 
     private void SetAttackAnimation()
     {
-        towerAnim.SetBool("isAttacking", true);
+        towerBase.towerAnim.SetBool("isAttacking", true);
     }
 
     public override void Attack()
@@ -53,11 +53,11 @@ public class BigbangTower : TrackingTower
         {
             StartCoroutine(BigbangBurst());
 
-            towerAnim.SetBool("isAttacking", true);
+            towerBase.towerAnim.SetBool("isAttacking", true);
         }
         else
         {
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
         }
     }
 
@@ -83,6 +83,6 @@ public class BigbangTower : TrackingTower
             yield return new WaitForSeconds(burstInterval);
         }
 
-        towerAnim.SetBool("isAttacking", false);
+        towerBase.towerAnim.SetBool("isAttacking", false);
     }
 }

@@ -24,7 +24,7 @@ public class MultiRangeTower : RangeTower
         if (closestAttackTarget == null)
         {
             // 타겟 탐색 상태로 전환
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -33,7 +33,7 @@ public class MultiRangeTower : RangeTower
         if (!closestAttackTarget.gameObject.activeSelf)
         {
             // 타겟 탐색 상태로 전환
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -46,7 +46,7 @@ public class MultiRangeTower : RangeTower
         {
             // 타겟 탐색 상태로 전환
             attackTargets = null;
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -55,7 +55,7 @@ public class MultiRangeTower : RangeTower
         {
             startAttackTime = Time.time;
 
-            towerAnim.SetBool("isAttacking", true);
+            towerBase.towerAnim.SetBool("isAttacking", true);
             // 공격
             StartCoroutine(SetAttackAnimation());
 

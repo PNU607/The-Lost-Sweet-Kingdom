@@ -5,8 +5,8 @@ Properties {
 	[HDR]_Color		("Text Color", Color) = (1,1,1,1)
 	_DiffusePower	("Diffuse Power", Range(1.0,4.0)) = 1.0
 
-	_VertexOffsetX("Vertex OffsetX", float) = 0
-	_VertexOffsetY("Vertex OffsetY", float) = 0
+	_VertexOffsetX("Vertex towerBase.offsetX", float) = 0
+	_VertexOffsetY("Vertex towerBase.offsetY", float) = 0
 	_MaskSoftnessX("Mask SoftnessX", float) = 0
 	_MaskSoftnessY("Mask SoftnessY", float) = 0
 
