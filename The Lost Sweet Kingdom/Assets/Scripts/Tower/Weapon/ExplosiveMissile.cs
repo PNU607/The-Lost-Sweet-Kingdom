@@ -48,7 +48,7 @@ public class ExplosiveMissile : Missile
     {
         isAttackStopped = true;
         explosionRangeIndicator.enabled = true;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, shotTower.applyLevelData.attackWeaponRange, shotTower.enemyLayer);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, shotTower.applyLevelData.attackWeaponRange, shotTower.towerBase.enemyLayer);
         foreach (Collider2D col in colliders)
         {
             EnemyTest enemy = col.GetComponent<EnemyTest>();

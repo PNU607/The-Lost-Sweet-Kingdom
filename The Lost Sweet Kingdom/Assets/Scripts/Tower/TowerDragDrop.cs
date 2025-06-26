@@ -184,10 +184,10 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         // 드래그 중 사거리 표시 활성화
         previewTower = previewTowerObj.GetComponent<Tower>();
-        previewTower.towerCollider.enabled = false;
         previewTower.Setup(currentTowerData, 1);
+        previewTower.towerBase.towerCollider.enabled = false;
         previewTower.ShowRange(true);
-        previewTower.towerAnim.SetBool("isDragging", true);
+        previewTower.towerBase.towerAnim.SetBool("isDragging", true);
     }
 
     /// <summary>
@@ -229,7 +229,7 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 canvasGroup.blocksRaycasts = true;
             }
 
-            previewTower.towerAnim.SetBool("isDragging", false);
+            previewTower.towerBase.towerAnim.SetBool("isDragging", false);
 
             // 타워 프리뷰 오브젝트 삭제
             Destroy(previewTowerObj);

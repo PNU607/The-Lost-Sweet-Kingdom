@@ -71,22 +71,22 @@ public class TrackingTower : Tower
         if (degree > -90 && degree < 90)
         {
             isFlipX = true;
-            towerSprite.flipX = true;
+            towerBase.towerSprite.flipX = true;
         }
         else
         {
             isFlipX = false;
-            towerSprite.flipX = false;
+            towerBase.towerSprite.flipX = false;
             degree += 180;
         }
 
         if (dx > 0)
         {
-            weaponSpawnTransform.localPosition = new Vector3(Mathf.Abs(weaponSpawnTransform.localPosition.x), weaponSpawnTransform.localPosition.y, weaponSpawnTransform.localPosition.z);
+            towerBase.weaponSpawnTransform.localPosition = new Vector3(Mathf.Abs(towerBase.weaponSpawnTransform.localPosition.x), towerBase.weaponSpawnTransform.localPosition.y, towerBase.weaponSpawnTransform.localPosition.z);
         }
         else
         {
-            weaponSpawnTransform.localPosition = new Vector3(-Mathf.Abs(weaponSpawnTransform.localPosition.x), weaponSpawnTransform.localPosition.y, weaponSpawnTransform.localPosition.z);
+            towerBase.weaponSpawnTransform.localPosition = new Vector3(-Mathf.Abs(towerBase.weaponSpawnTransform.localPosition.x), towerBase.weaponSpawnTransform.localPosition.y, towerBase.weaponSpawnTransform.localPosition.z);
         }
         //Quaternion targetRotation = Quaternion.Euler(0, 0, degree);
         //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * currentTowerData.rotationSpeed);

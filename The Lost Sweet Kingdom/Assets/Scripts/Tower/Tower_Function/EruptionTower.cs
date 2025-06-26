@@ -12,14 +12,14 @@ public class EruptionTower : TrackingTower
     {
         if (closestAttackTarget == null)
         {
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
 
         if (!closestAttackTarget.gameObject.activeSelf)
         {
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -29,7 +29,7 @@ public class EruptionTower : TrackingTower
         if (distance > applyLevelData.attackRange)
         {
             attackTargets = null;
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
@@ -40,7 +40,7 @@ public class EruptionTower : TrackingTower
 
     private void SetAttackAnimation()
     {
-        towerAnim.SetBool("isAttacking", true);
+        towerBase.towerAnim.SetBool("isAttacking", true);
     }
 
     private readonly Vector3[] directions = new Vector3[]
@@ -73,7 +73,7 @@ public class EruptionTower : TrackingTower
     {
         if (closestAttackTarget == null || !closestAttackTarget.gameObject.activeSelf)
         {
-            towerAnim.SetBool("isAttacking", false);
+            towerBase.towerAnim.SetBool("isAttacking", false);
             return;
         }
 
@@ -92,17 +92,17 @@ public class EruptionTower : TrackingTower
                 GameObject tempTargetGO = new GameObject("TempTarget");
                 tempTargetGO.transform.position = shootPos;
 
-                TowerWeapon weapon = weaponPool.Spawn(weaponSpawnTransform.position);
+                TowerWeapon weapon = weaponPool.Spawn(towerBase.weaponSpawnTransform.position);
                 weapon.Setup(tempTargetGO.transform, this);
 
                 Object.Destroy(tempTargetGO, 2f);
             }
 
-            towerAnim.SetBool("isAttacking", true);
+            towerBase.towerAnim.SetBool("isAttacking", true);
         }
         else
         {
-            towerAnim.SetBool("isAttacking", true);
+            towerBase.towerAnim.SetBool("isAttacking", true);
         }
     }
 }

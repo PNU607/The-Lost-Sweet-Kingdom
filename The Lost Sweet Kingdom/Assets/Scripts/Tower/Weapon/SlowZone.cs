@@ -23,7 +23,7 @@ public class SlowZone : TowerWeapon
         {
             tickTimer = 0f;
 
-            Collider2D[] enemies = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0f, shotTower.enemyLayer);
+            Collider2D[] enemies = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0f, shotTower.towerBase.enemyLayer);
             foreach (var enemy in enemies)
             {
                 if (enemy.TryGetComponent(out EnemyTest enemyTest))

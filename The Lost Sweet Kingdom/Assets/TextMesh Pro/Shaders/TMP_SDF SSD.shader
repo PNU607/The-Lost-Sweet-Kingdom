@@ -15,7 +15,7 @@ Properties {
     _OutlineSoftness    ("Outline Softness", Range(0,1)) = 0
 
     _Bevel              ("Bevel", Range(0,1)) = 0.5
-    _BevelOffset        ("Bevel Offset", Range(-0.5,0.5)) = 0
+    _BevelOffset        ("Bevel towerBase.offset", Range(-0.5,0.5)) = 0
     _BevelWidth         ("Bevel Width", Range(-.5,0.5)) = 0
     _BevelClamp         ("Bevel Clamp", Range(0,1)) = 0
     _BevelRoundness     ("Bevel Roundness", Range(0,1)) = 0
@@ -38,8 +38,8 @@ Properties {
 
 
     [HDR]_UnderlayColor ("Border Color", Color) = (0,0,0, 0.5)
-    _UnderlayOffsetX    ("Border OffsetX", Range(-1,1)) = 0
-    _UnderlayOffsetY    ("Border OffsetY", Range(-1,1)) = 0
+    _UnderlayOffsetX    ("Border towerBase.offsetX", Range(-1,1)) = 0
+    _UnderlayOffsetY    ("Border towerBase.offsetY", Range(-1,1)) = 0
     _UnderlayDilate     ("Border Dilate", Range(-1,1)) = 0
     _UnderlaySoftness   ("Border Softness", Range(0,1)) = 0
 
@@ -66,8 +66,8 @@ Properties {
     _PerspectiveFilter  ("Perspective Correction", Range(0, 1)) = 0.875
     _Sharpness          ("Sharpness", Range(-1,1)) = 0
 
-    _VertexOffsetX      ("Vertex OffsetX", float) = 0
-    _VertexOffsetY      ("Vertex OffsetY", float) = 0
+    _VertexOffsetX      ("Vertex towerBase.offsetX", float) = 0
+    _VertexOffsetY      ("Vertex towerBase.offsetY", float) = 0
 
     _MaskCoord          ("Mask Coordinates", vector) = (0, 0, 32767, 32767)
     _ClipRect           ("Clip Rect", vector) = (-32767, -32767, 32767, 32767)
@@ -154,7 +154,7 @@ SubShader {
             float4 textures         : TEXCOORD5;
         };
 
-        // Used by Unity internally to handle Texture Tiling and Offset.
+        // Used by Unity internally to handle Texture Tiling and towerBase.offset.
         float4 _FaceTex_ST;
         float4 _OutlineTex_ST;
 
@@ -194,7 +194,7 @@ SubShader {
             // Generate UV for the Masking Texture
             float4 clampedRect = clamp(_ClipRect, -2e10, 2e10);
 
-            // Support for texture tiling and offset
+            // Support for texture tiling and towerBase.offset
             float2 textureUV = UnpackUV(input.texcoord1.x);
             float2 faceUV = TRANSFORM_TEX(textureUV, _FaceTex);
             float2 outlineUV = TRANSFORM_TEX(textureUV, _OutlineTex);
