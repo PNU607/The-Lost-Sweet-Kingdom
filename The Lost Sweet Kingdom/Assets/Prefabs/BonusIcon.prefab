@@ -395,12 +395,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Bonus Type: xxx
-
-    Bonus ~~'
+  m_text: "\uBCF4\uB108\uC2A4 \uD0C0\uC785: xxx\n\uBCF4\uB108\uC2A4 ~~"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 167dcb3d5cc210a40bc7ab9b376ac469, type: 2}
-  m_sharedMaterial: {fileID: 6103849044869875429, guid: 167dcb3d5cc210a40bc7ab9b376ac469, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0a7cdeae8c3bc8745962175fbc268d3c, type: 2}
+  m_sharedMaterial: {fileID: 744969999685193577, guid: 0a7cdeae8c3bc8745962175fbc268d3c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
