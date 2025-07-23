@@ -47,5 +47,6 @@ public class SlowMissile : Missile
 
         // 적 이속 감소
         enemy.SetSpeedMultiplier(1 / shotTower.applyLevelData.attackDamage, shotTower.applyLevelData.attackDuration);
+        Debug.Log($"Slow Enemy: {enemy.name} | Duration: {shotTower.applyLevelData.attackDuration} seconds");
     }
 }

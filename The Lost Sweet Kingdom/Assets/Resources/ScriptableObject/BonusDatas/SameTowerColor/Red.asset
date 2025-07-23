@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Red
   m_EditorClassIdentifier: 
   bonusType: 0
-  bonusName: SameTowerColor_Red
-  bonusContent: "\uBE68\uAC04\uC0C9 \uD0C0\uC6CC\uAC00 n\uAC1C \uC774\uC0C1\uC77C
-    \uB54C \uC801\uC6A9"
+  bonusTitle: "\uC0C9\uC0C1_\uBE68\uAC04\uC0C9"
+  bonusName: "\uBE68\uAC04\uC0C9 \uC0C9\uC0C1 \uBCF4\uB108\uC2A4"
+  bonusContent: "\uBE68\uAC04\uC0C9 \uD0C0\uC6CC\uC758 3\uAC1C \uC774\uC0C1 \uC870\uD569\uC73C\uB85C
+    \uACF5\uACA9\uB825\uC774/\uAC00 0% \uC99D\uAC00\uD569\uB2C8\uB2E4."
   statAffected: 0
   value: 0
-  bonusIcon: {fileID: 0}
+  bonusIcon: {fileID: 21300000, guid: e62eec6c56efc724ebc128320c4e1b40, type: 3}

@@ -35,8 +35,7 @@ public class DamageZone : TowerWeapon
         if (duration <= 0f)
         {
             Debug.Log(duration);
-            Destroy(gameObject);
+            ReleaseWeapon();
         }
-            
     }
 }

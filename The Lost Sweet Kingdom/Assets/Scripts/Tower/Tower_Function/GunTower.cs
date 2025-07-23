@@ -88,9 +88,9 @@ public class GunTower : TrackingTower
             TowerWeapon weapon = weaponPool.Spawn(towerBase.weaponSpawnTransform.position);
             weapon.Setup(closestAttackTarget.transform, this);
         }
-        else
+        /*else
         {
             towerBase.towerAnim.SetBool("isAttacking", false);
-        }
+        }*/
     }
 }

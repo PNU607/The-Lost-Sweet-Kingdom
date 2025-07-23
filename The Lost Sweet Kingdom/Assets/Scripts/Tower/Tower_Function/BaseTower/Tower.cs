@@ -212,6 +212,7 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// <param name="eventData"></param>
     public void OnPointerEnter(PointerEventData eventData)
     {
+        Debug.Log("마우스 올림: " + gameObject.name);
         SoundObject _soundObject;
         _soundObject = Sound.Play("TowerMousehover", false);
         _soundObject.SetVolume(0.1f);
@@ -464,7 +465,7 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// Bullet을 Object Pool에 반환
     /// </summary>
     /// <param name="weapon"></param>
-    public void ReleaseWeapon(TowerWeapon weapon)
+    public virtual void ReleaseWeapon(TowerWeapon weapon)
     {
         weaponPool.Release(weapon);
     }
@@ -472,27 +473,31 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// <summary>
     /// 보너스 적용
     /// </summary>
-    /// <param name="bonus">적용할 보너스</param>
-    public void ApplyBonus(TowerBonus bonus)
+    /// <param name="bonusData">적용할 보너스</param>
+    public void ApplyBonus(BonusData bonusData)
     {
-        if (!activeBonuses.Contains(bonus))
+        if (!activeBonuses.Contains(bonusData.bonusType))
         {
-            Debug.Log("조합 보너스 적용");
-            activeBonuses.Add(bonus);
+            activeBonuses.Add(bonusData.bonusType);
 
-            switch (bonus)
+            switch (bonusData.statAffected)
             {
-                case TowerBonus.SameTowerColor:
-                    Debug.Log("SameTowerColor");
-                    Debug.Log("기존 타워 공격력: " + applyLevelData.attackDamage);
-                    applyLevelData.attackDamage += 0.5f;
-                    Debug.Log("바뀐 타워 공격력: " + applyLevelData.attackDamage);
+                case BonusStatType.공격력:
+                    //Debug.Log("기존 타워 공격력: " + applyLevelData.attackDamage);
+                    applyLevelData.attackDamage += applyLevelData.attackDamage * (1 + bonusData.value);
+                    //Debug.Log("바뀐 타워 공격력: " + applyLevelData.attackDamage);
                     break;
-                case TowerBonus.SameTowerType:
-                    Debug.Log("SameTowerType");
-                    Debug.Log("기존 타워 범위: " + applyLevelData.attackRange);
-                    applyLevelData.attackRange += 0.2f;
-                    Debug.Log("바뀐 타워 범위: " + applyLevelData.attackRange);
+                case BonusStatType.공격속도:
+                    //Debug.Log("기존 타워 공격 속도: " + applyLevelData.attackCooldown);
+                    applyLevelData.attackCooldown -= applyLevelData.attackCooldown * (1 - bonusData.value);
+                    towerBase.towerAnim.SetFloat("attackSpeed", 1 / applyLevelData.attackCooldown);
+                    //Debug.Log("바뀐 타워 공격 속도: " + applyLevelData.attackCooldown);
+                    break;
+                case BonusStatType.공격범위:
+                    //Debug.Log("기존 타워 범위: " + applyLevelData.attackRange);
+                    applyLevelData.attackRange += applyLevelData.attackRange * (1 + bonusData.value);
+                    UpdateRangeIndicator();
+                    //Debug.Log("바뀐 타워 범위: " + applyLevelData.attackRange);
                     break;
             }
         }

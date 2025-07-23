@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionRangeIndicator: {fileID: 3434563146495480490}
+  startTargetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &6597270005845194086
 GameObject:
   m_ObjectHideFlags: 0

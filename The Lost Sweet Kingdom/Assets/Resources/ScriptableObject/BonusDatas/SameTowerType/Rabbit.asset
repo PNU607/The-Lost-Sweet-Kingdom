@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Rabbit
   m_EditorClassIdentifier: 
   bonusType: 1
-  bonusName: SameTowerType_Rabbit
-  bonusContent: "\uD1A0\uB07C \uD0C0\uC785\uC758 \uD0C0\uC6CC\uAC00 n\uAC1C \uC774\uC0C1\uC77C
-    \uB54C \uC801\uC6A9"
+  bonusTitle: "\uD0C0\uC785_\uD1A0\uB07C"
+  bonusName: "\uD1A0\uB07C \uD0C0\uC785 \uBCF4\uB108\uC2A4"
+  bonusContent: "\uD1A0\uB07C \uD0C0\uC6CC\uC758 7\uAC1C \uC774\uC0C1 \uC870\uD569\uC73C\uB85C
+    \uACF5\uACA9\uB825\uC774/\uAC00 0% \uC99D\uAC00\uD569\uB2C8\uB2E4."
   statAffected: 0
   value: 0
-  bonusIcon: {fileID: 0}
+  bonusIcon: {fileID: 21300000, guid: cf3a26923681cc64b93a19fb3adde0bf, type: 3}
