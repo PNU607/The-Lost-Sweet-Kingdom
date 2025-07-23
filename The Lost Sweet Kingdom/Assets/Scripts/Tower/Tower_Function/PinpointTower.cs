@@ -6,32 +6,17 @@ public class PinpointTower : OneTargetRangeTower
 {
     protected GameObject attachTarget; // 무기를 부착할 대상 오브젝트
 
+    public override void Setup(TowerData nextTowerData, int level = 1)
+    {
+        base.Setup(nextTowerData, level);
+        attachTarget = this.gameObject;
+    }
+
     public override void Attack()
     {
         base.Attack();
 
-        if (candidates.Count > 0)
-        {
-            EnemyTest closest = null;
-            float minDist = float.MaxValue;
-            Vector3 towerPos = transform.position;
-
-            foreach (var enemy in candidates)
-            {
-                float dist = Vector3.SqrMagnitude(towerPos - enemy.transform.position);
-                if (dist < minDist)
-                {
-                    minDist = dist;
-                    closest = enemy;
-                }
-            }
-
-            if (closest != null)
-            {
-                //AttachSetUpWeapon(closest.gameObject);
-                AttachSetUpWeapon(this.gameObject);
-            }
-        }
+        AttachSetUpWeapon(attachTarget);
     }
 
     /// <summary>
