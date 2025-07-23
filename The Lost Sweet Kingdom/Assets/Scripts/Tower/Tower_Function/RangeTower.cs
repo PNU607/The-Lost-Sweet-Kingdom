@@ -6,7 +6,7 @@ public class RangeTower : TrackingTower
     [SerializeField]
     protected Vector2Int[] attackDirections = DirectionPresets.All8; // 공격 방향 설정 (상하좌우 + 대각선)
     [SerializeField]
-    private Vector3 attackHeadOffset = new Vector3(0,1f,0);
+    protected Vector3 attackHeadOffset = new Vector3(0,1f,0);
     [SerializeField]
     private Vector2 tileCheckSizeMultiplier = new Vector2(0.9f, 0.9f);
 
@@ -109,9 +109,9 @@ public class RangeTower : TrackingTower
         TowerWeapon weapon = weaponPool.Spawn(effectPos);
         weapon.Setup(enemyCol.transform, this);
 
-        var health = enemyCol.GetComponent<EnemyTest>();
-        if (health != null)
-            health.TakeDamage(applyLevelData.attackDamage);
+        //var health = enemyCol.GetComponent<EnemyTest>();
+        //if (health != null)
+        //    health.TakeDamage(applyLevelData.attackDamage);
     }
 
     protected Vector2 GetTileCheckBoxSize()

@@ -1,7 +1,20 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
+using static Unity.VisualScripting.StickyNote;
 
 public enum TowerColor
+{
+    빨간색,
+    주황색,
+    노란색,
+    초록색,
+    파란색,
+    남색,
+    보라색
+}
+
+public enum TowerColorEng
 {
     Red,
     Orange,
@@ -13,6 +26,13 @@ public enum TowerColor
 }
 
 public enum TowerType
+{
+    토끼,
+    햄스터,
+    다람쥐,
+}
+
+public enum TowerTypeEng
 {
     Rabbit,
     Hamster,

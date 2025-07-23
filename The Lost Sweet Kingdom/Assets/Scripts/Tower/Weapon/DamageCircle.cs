@@ -16,7 +16,7 @@ public class DamageCircle : DamageZone
             tickTimer = 0f;
 
             CircleCollider2D circle = GetComponent<CircleCollider2D>();
-            float radius = circle.radius * transform.lossyScale.x;
+            float radius = circle.radius * transform.localScale.x;
 
             Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, radius, shotTower.towerBase.enemyLayer);
             foreach (var enemy in enemies)

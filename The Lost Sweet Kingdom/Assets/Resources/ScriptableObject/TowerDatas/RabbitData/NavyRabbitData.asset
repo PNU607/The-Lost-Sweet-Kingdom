@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: NavyRabbitData
   m_EditorClassIdentifier: 
-  towerName: Navy Rabbit
+  towerName: "\uB0A8\uC0C9 \uD1A0\uB07C"
   towerColor: 5
   towerType: 0
   towerIcon: {fileID: 21300000, guid: b86a0fff33aad764f92df7242f7f627e, type: 3}
-  towerPrefab: {fileID: 4625834919878556233, guid: 9e6b835ce4fec494aa66b96f7a95e342, type: 3}
-  weaponPrefab: {fileID: 0}
+  towerPrefab: {fileID: 4625834919878556233, guid: 79b43bc6866fcea49b01550fdb4106ec, type: 3}
+  weaponPrefab: {fileID: 3573716237412387163, guid: 4af51bce7907aca439c4e3332bc9caf8, type: 3}
   spriteLibrary: {fileID: 7108339969198208228, guid: 1f67b6517ca034340b3599804d54bce5, type: 3}
   cost: 0
   levelDatas:

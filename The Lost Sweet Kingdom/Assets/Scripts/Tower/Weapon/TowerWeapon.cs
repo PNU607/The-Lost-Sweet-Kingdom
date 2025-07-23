@@ -39,6 +39,8 @@ public class TowerWeapon : MonoBehaviour
     /// </summary>
     protected bool isAttackStopped = false;
 
+    protected bool isSetup = false;
+
     /// <summary>
     /// 발사체 세팅
     /// </summary>
@@ -48,6 +50,7 @@ public class TowerWeapon : MonoBehaviour
     {
         this.target = target;
         this.shotTower = shotTower;
+        isSetup = true; // 세팅 완료 상태로 변경
     }
 
     /// <summary>
@@ -55,7 +58,10 @@ public class TowerWeapon : MonoBehaviour
     /// </summary>
     protected virtual void Update()
     {
-    
+        if (!isSetup)
+        {
+            return;
+        }
     }
 
     /// <summary>
@@ -63,6 +69,8 @@ public class TowerWeapon : MonoBehaviour
     /// </summary>
     protected virtual void ReleaseWeapon()
     {
+        isSetup = false;
+
         if (shotTower != null)
         {
             shotTower.GetComponent<Tower>().ReleaseWeapon(this);

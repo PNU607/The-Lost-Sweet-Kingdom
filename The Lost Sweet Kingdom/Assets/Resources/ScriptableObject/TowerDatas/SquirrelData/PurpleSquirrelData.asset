@@ -12,32 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: PurpleSquirrelData
   m_EditorClassIdentifier: 
-  towerName: Purple Squirrel
+  towerName: "\uBCF4\uB77C\uC0C9 \uB2E4\uB78C\uC950"
   towerColor: 6
   towerType: 2
   towerIcon: {fileID: 21300000, guid: 0f073fc11f6930b4e9039f8462dc6175, type: 3}
-  towerPrefab: {fileID: 4625834919878556233, guid: 317c52815fa92f548a941df6995f42c3, type: 3}
+  towerPrefab: {fileID: 4625834919878556233, guid: 2ef66e77429f2994c92e7d6bd8ea6b27, type: 3}
   weaponPrefab: {fileID: 4877909776406011252, guid: 3cdc75d993a3744a5bcac738351679bf, type: 3}
   spriteLibrary: {fileID: 7108339969198208228, guid: 4939ccdea5fe98b42acb981eb2fb8dfb, type: 3}
   cost: 0
   levelDatas:
   - level: 1
     attackRange: 1.7
-    attackWeaponRange: 1
+    attackWeaponRange: 1.8
     attackCooldown: 1
     attackDuration: 0.8
     attackDamage: 1
     rotationSpeed: 0
   - level: 2
     attackRange: 2
-    attackWeaponRange: 1.25
+    attackWeaponRange: 2
     attackCooldown: 0.8
     attackDuration: 1
     attackDamage: 1.2
     rotationSpeed: 0
   - level: 3
     attackRange: 2.2
-    attackWeaponRange: 1.5
+    attackWeaponRange: 2.5
     attackCooldown: 0.5
     attackDuration: 1.2
     attackDamage: 1.4

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Green
   m_EditorClassIdentifier: 
   bonusType: 0
-  bonusTitle: SameTowerColor_Green
-  bonusName: Green Color Bonus
-  bonusContent: "\uCD08\uB85D\uC0C9 \uD0C0\uC6CC\uAC00 n\uAC1C \uC774\uC0C1\uC77C
-    \uB54C \uC801\uC6A9"
+  bonusTitle: "\uC0C9\uC0C1_\uCD08\uB85D\uC0C9"
+  bonusName: "\uCD08\uB85D\uC0C9 \uC0C9\uC0C1 \uBCF4\uB108\uC2A4"
+  bonusContent: "\uCD08\uB85D\uC0C9 \uD0C0\uC6CC\uC758 3\uAC1C \uC774\uC0C1 \uC870\uD569\uC73C\uB85C
+    \uACF5\uACA9\uB825\uC774/\uAC00 0% \uC99D\uAC00\uD569\uB2C8\uB2E4."
   statAffected: 0
   value: 0
-  bonusIcon: {fileID: 0}
+  bonusIcon: {fileID: 21300000, guid: 013546e02b7fadb4595cc13ba7ca93c0, type: 3}
