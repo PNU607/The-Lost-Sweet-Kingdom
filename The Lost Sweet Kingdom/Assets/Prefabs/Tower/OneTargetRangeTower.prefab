@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b684ba861c604d43ae09510850d7ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSpawnTransform: {fileID: 6308560535118868880}
+  towerBase: {fileID: 0}
   currentTowerData: {fileID: 0}
   applyLevelData:
     level: 0
@@ -56,14 +56,6 @@ MonoBehaviour:
     attackDamage: 0
     rotationSpeed: 0
   towerLevel: 0
-  towerCollider: {fileID: 567085941890029935}
-  rangeIndicator: {fileID: 5904461553786000135}
-  towerAnim: {fileID: 4136688089220438735}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  StarArea: {fileID: 5426412832108668736}
-  LevelStarObj: {fileID: 3200583436632040334, guid: 089b339b16e386943a3241620a0beb76, type: 3}
   attackDirections:
   - {x: 0, y: 1}
   - {x: 0, y: -1}
@@ -73,7 +65,7 @@ MonoBehaviour:
   - {x: -1, y: 1}
   - {x: 1, y: -1}
   - {x: -1, y: -1}
-  attackHeadOffset: {x: 0, y: 2, z: 0}
+  attackHeadOffset: {x: 0, y: 1, z: 0}
   tileCheckSizeMultiplier: {x: 0.9, y: 0.9}
 --- !u!1001 &7067225699723342350
 PrefabInstance:
@@ -136,33 +128,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
---- !u!58 &567085941890029935 stripped
-CircleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 7335631502555507553, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
-  m_PrefabInstance: {fileID: 7067225699723342350}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &4136688089220438735 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6592042468430555329, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
-  m_PrefabInstance: {fileID: 7067225699723342350}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5426412832108668736 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2980725363458446670, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
-  m_PrefabInstance: {fileID: 7067225699723342350}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &5904461553786000135 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 3738841098518847753, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
-  m_PrefabInstance: {fileID: 7067225699723342350}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6100903446563868652 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3943208275471777250, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
-  m_PrefabInstance: {fileID: 7067225699723342350}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6308560535118868880 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3863901792690209694, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
   m_PrefabInstance: {fileID: 7067225699723342350}
   m_PrefabAsset: {fileID: 0}

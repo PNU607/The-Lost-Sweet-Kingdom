@@ -16,13 +16,11 @@ public class TowerBonusManager : MonoBehaviour
     [SerializeField]
     private GameObject bonusIconPrefab;
 
-    [SerializeField]
-    private int colorCombinationNum = 3; // 보너스에 필요한 같은 색상 타워의 수
-    [SerializeField]
-    private int typeCombinationNum = 7;  // 보너스에 필요한 같은 타입 타워의 수
+    public int colorCombinationNum = 3; // 보너스에 필요한 같은 색상 타워의 수
+    public int typeCombinationNum = 7;  // 보너스에 필요한 같은 타입 타워의 수
 
-    private HashSet<string> activeBonusNames = new HashSet<string>();
-    private Dictionary<string, GameObject> activeBonusIcons = new Dictionary<string, GameObject>();
+    private HashSet<BonusData> activeBonusNames = new HashSet<BonusData>();
+    private Dictionary<BonusData, GameObject> activeBonusIcons = new Dictionary<BonusData, GameObject>();
 
     private void Awake()
     {
@@ -55,25 +53,31 @@ public class TowerBonusManager : MonoBehaviour
             .Where(g => g.Count() >= typeCombinationNum);
 
 
-        HashSet<string> newBonusNames = new HashSet<string>();
+        HashSet<BonusData> newBonusNames = new HashSet<BonusData>();
         foreach (var group in groupedByColor)
         {
-            newBonusNames.Add(string.Format("{0}_{1}"
-                , TowerBonus.SameTowerColor.ToString()
-                , group.FirstOrDefault().CurrentTowerData.towerColor.ToString()));
+            string bonusName = string.Format("{0}_{1}"
+                , TowerBonus.색상.ToString()
+                , group.FirstOrDefault().CurrentTowerData.towerColor.ToString());
+            BonusData bonusData = bonusDataBase.GetBonusByName(bonusName);
+
+            newBonusNames.Add(bonusData);
+
             foreach (var tower in group)
             {
-                tower.ApplyBonus(TowerBonus.SameTowerColor);
+                tower.ApplyBonus(bonusData);
             }
         }
         foreach (var group in groupedByType)
         {
-            newBonusNames.Add(string.Format("{0}_{1}"
-                , TowerBonus.SameTowerType.ToString()
-                , group.FirstOrDefault().CurrentTowerData.towerType.ToString()));
+            string bonusName = string.Format("{0}_{1}"
+                , TowerBonus.타입.ToString()
+                , group.FirstOrDefault().CurrentTowerData.towerType.ToString());
+            BonusData bonusData = bonusDataBase.GetBonusByName(bonusName);
+            newBonusNames.Add(bonusData);
             foreach (var tower in group)
             {
-                tower.ApplyBonus(TowerBonus.SameTowerType);
+                tower.ApplyBonus(bonusData);
             }
         }
 
@@ -82,38 +86,37 @@ public class TowerBonusManager : MonoBehaviour
         // 사라진 보너스
         var removedBonus = activeBonusNames.Except(newBonusNames).ToList();
 
-        foreach (var bonusName in addedBonus)
+        foreach (var bonus in addedBonus)
         {
-            Debug.Log($"Added Bonus: {bonusName}");
-            ShowComboIcon(bonusName);
+            Debug.Log($"Added Bonus: {bonus.bonusName}");
+            ShowComboIcon(bonus);
         }
-        foreach (var bonusName in removedBonus)
+        foreach (var bonus in removedBonus)
         {
-            Debug.Log($"Removed Bonus: {bonusName}");
-            HideComboIcon(bonusName);
+            Debug.Log($"Removed Bonus: {bonus.bonusName}");
+            HideComboIcon(bonus);
         }
 
         activeBonusNames = newBonusNames;
     }
 
-    public void ShowComboIcon(string bonusName)
+    public void ShowComboIcon(BonusData bonusData)
     {
-        if (activeBonusIcons.ContainsKey(bonusName)) return;
+        if (activeBonusIcons.ContainsKey(bonusData)) return;
 
         GameObject bonusIconClone = Instantiate(bonusIconPrefab, bonusPanel.transform);
-        BonusData bonusData = bonusDataBase.GetBonusByName(bonusName);
-        bonusIconClone.GetComponent<BonusIconUI>().SetBonus(bonusData.bonusName, bonusData.bonusContent);
+        bonusIconClone.GetComponent<BonusIconUI>().SetBonus(bonusData);
 
 
-        activeBonusIcons.Add(bonusName, bonusIconClone);
+        activeBonusIcons.Add(bonusData, bonusIconClone);
     }
 
-    public void HideComboIcon(string bonusName)
+    public void HideComboIcon(BonusData bonusData)
     {
-        if (activeBonusIcons.TryGetValue(bonusName, out var icon))
+        if (activeBonusIcons.TryGetValue(bonusData, out var icon))
         {
             Destroy(icon);
-            activeBonusIcons.Remove(bonusName);
+            activeBonusIcons.Remove(bonusData);
         }
     }
 }

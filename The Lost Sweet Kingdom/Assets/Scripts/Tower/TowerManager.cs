@@ -14,6 +14,7 @@
  */
 
 using System.Collections.Generic;
+using System.Sound;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
@@ -72,6 +73,13 @@ public class TowerManager : MonoBehaviour
     private Tower currentDragTarget;
 
     /// <summary>
+    /// 마지막으로 hover한 타워 오브젝트
+    /// </summary>
+    private GameObject lastHoveredTower;
+
+    private LayerMask towerLayer;
+
+    /// <summary>
     /// Awake
     /// 싱글톤 세팅
     /// </summary>
@@ -88,6 +96,7 @@ public class TowerManager : MonoBehaviour
     {
         mainCamera = Camera.main;
 
+        towerLayer = LayerMask.GetMask("Tower");
     }
 
     /// <summary>
@@ -95,7 +104,34 @@ public class TowerManager : MonoBehaviour
     /// </summary>
     void Update()
     {
+        SetMouseHoverEvent();
         SetDragEvent();
+    }
+
+    private void SetMouseHoverEvent()
+    {
+        Vector2 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, towerLayer);
+
+        if (hit.collider != null)
+        {
+            GameObject hovered = hit.collider.gameObject;
+            if (hovered != lastHoveredTower)
+            {
+                lastHoveredTower = hovered;
+
+                SoundObject _soundObject;
+                _soundObject = Sound.Play("TowerMousehover", false);
+                _soundObject.SetVolume(0.3f);
+            }
+        }
+        else
+        {
+            if (lastHoveredTower != null)
+            {
+                lastHoveredTower = null;
+            }
+        }
     }
 
     /// <summary>

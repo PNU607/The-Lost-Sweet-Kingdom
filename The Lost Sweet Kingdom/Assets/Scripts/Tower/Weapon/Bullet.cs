@@ -60,6 +60,7 @@ public class Bullet : TowerWeapon
     /// </summary>
     protected override void Update()
     {
+        base.Update();
         if (target != null && target.gameObject.activeSelf)
         {
             MoveWeapon();

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: GreenSquirrelData
   m_EditorClassIdentifier: 
-  towerName: Green Squirrel
+  towerName: "\uCD08\uB85D\uC0C9 \uB2E4\uB78C\uC950"
   towerColor: 3
   towerType: 2
   towerIcon: {fileID: 21300000, guid: 6f650df557f2d5945b09b781fc4d0730, type: 3}
-  towerPrefab: {fileID: 4625834919878556233, guid: 317c52815fa92f548a941df6995f42c3, type: 3}
-  weaponPrefab: {fileID: 4877909776406011252, guid: f6e4a6821367243b3bc6324e5af2e5d5, type: 3}
+  towerPrefab: {fileID: 4625834919878556233, guid: 79b43bc6866fcea49b01550fdb4106ec, type: 3}
+  weaponPrefab: {fileID: 3573716237412387163, guid: 4af51bce7907aca439c4e3332bc9caf8, type: 3}
   spriteLibrary: {fileID: 7108339969198208228, guid: a4d3f1e2107a2e24182eb6c9c3aaaa37, type: 3}
   cost: 0
   levelDatas:
@@ -25,20 +25,20 @@ MonoBehaviour:
     attackRange: 1.7
     attackWeaponRange: 0.5
     attackCooldown: 1
-    attackDuration: 0.8
+    attackDuration: 1.5
     attackDamage: 1
     rotationSpeed: 0
   - level: 2
     attackRange: 2
     attackWeaponRange: 0.8
     attackCooldown: 0.8
-    attackDuration: 1
+    attackDuration: 1.7
     attackDamage: 1.2
     rotationSpeed: 0
   - level: 3
     attackRange: 2.2
     attackWeaponRange: 1
     attackCooldown: 0.5
-    attackDuration: 1.2
+    attackDuration: 2
     attackDamage: 1.4
     rotationSpeed: 0

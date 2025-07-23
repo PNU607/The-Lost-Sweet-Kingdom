@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class OneTargetRangeTower : RangeTower
 {
-    List<EnemyTest> candidates = new List<EnemyTest>();
+    protected List<EnemyTest> candidates = new List<EnemyTest>();
 
     public override void Attack()
     {
@@ -29,7 +27,15 @@ public class OneTargetRangeTower : RangeTower
 
             if (closest != null)
             {
-                closest.TakeDamage(applyLevelData.attackDamage);
+                // 머리 위 이펙트 위치
+                Vector3 effectPos = closest.transform.position + attackHeadOffset;
+
+                TowerWeapon weapon = weaponPool.Spawn(effectPos);
+                weapon.Setup(closest.transform, this);
+
+                //var health = closest.GetComponent<EnemyTest>();
+
+                //closest.TakeDamage(applyLevelData.attackDamage);
             }
         }
     }
@@ -40,5 +46,5 @@ public class OneTargetRangeTower : RangeTower
         {
             candidates.Add(enemy);
         }
-    }    
+    }
 }
