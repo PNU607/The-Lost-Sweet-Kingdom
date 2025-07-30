@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class OneTargetRangeTower : RangeTower
 {
-    protected List<EnemyTest> candidates = new List<EnemyTest>();
+    protected Vector3 weaponScale = Vector3.one; // 무기의 기본 스케일
 
     public override void Attack()
     {
@@ -30,8 +30,9 @@ public class OneTargetRangeTower : RangeTower
                 // 머리 위 이펙트 위치
                 Vector3 effectPos = closest.transform.position + attackHeadOffset;
 
-                TowerWeapon weapon = weaponPool.Spawn(effectPos);
-                weapon.Setup(closest.transform, this);
+                TowerWeapon weapon = SpawnWeapon(effectPos, closest.transform);
+                weaponScale = weapon.transform.localScale; // 무기의 기본 스케일을 저장
+
 
                 //var health = closest.GetComponent<EnemyTest>();
 
@@ -42,9 +43,6 @@ public class OneTargetRangeTower : RangeTower
 
     protected override void AttackRangeTarget(Collider2D enemyCol)
     {
-        if (enemyCol.TryGetComponent(out EnemyTest enemy))
-        {
-            candidates.Add(enemy);
-        }
+        return; // 단일 타겟 공격이므로 범위 공격 로직은 사용하지 않음
     }
 }

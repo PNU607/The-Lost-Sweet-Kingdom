@@ -30,7 +30,8 @@ public class DamageCircle : DamageZone
 
         if (duration <= 0f)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            shotTower.ReleaseWeapon(this);
         }
     }
 }

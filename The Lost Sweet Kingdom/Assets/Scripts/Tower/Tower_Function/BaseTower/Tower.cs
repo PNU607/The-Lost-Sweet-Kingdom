@@ -89,7 +89,7 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// <summary>
     /// 발사할 발사체의 Object Pool
     /// </summary>
-    protected GameObjectPool<TowerWeapon> weaponPool;
+    //protected GameObjectPool<TowerWeapon> weaponPool;
 
     /// <summary>
     /// 드래그 중인지 여부
@@ -139,12 +139,6 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
         if (towerBase == null)
         {
             towerBase = GetComponentInChildren<TowerBase>();
-        }
-
-        if (currentTowerData != null && currentTowerData.weaponPrefab != null)
-        {
-            TowerWeapon weapon = currentTowerData.weaponPrefab.GetComponent<TowerWeapon>();
-            weaponPool = new GameObjectPool<TowerWeapon>(weapon, 10);
         }
     }
 
@@ -467,7 +461,7 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// <param name="weapon"></param>
     public virtual void ReleaseWeapon(TowerWeapon weapon)
     {
-        weaponPool.Release(weapon);
+        TowerManager.Instance.ReturnWeapon(currentTowerData.weaponPrefab, weapon);
     }
 
     /// <summary>
