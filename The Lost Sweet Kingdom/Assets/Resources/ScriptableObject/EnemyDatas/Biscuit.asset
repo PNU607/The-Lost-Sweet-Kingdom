@@ -17,3 +17,4 @@ MonoBehaviour:
   moveSpeed: 2
   goldReward: 100
   spriteLibraryAsset: {fileID: 7108339969198208228, guid: 1208013fed83cbc49ab14acb4c853f9a, type: 3}
+  poolSize: 10
