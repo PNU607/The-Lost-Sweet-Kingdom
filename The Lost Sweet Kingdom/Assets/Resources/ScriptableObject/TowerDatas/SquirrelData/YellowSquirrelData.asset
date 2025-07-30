@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: YellowSquirrelData
   m_EditorClassIdentifier: 
-  towerName: Yellow Squirrel
+  towerName: "\uB178\uB780\uC0C9 \uB2E4\uB78C\uC950"
   towerColor: 2
   towerType: 2
   towerIcon: {fileID: 21300000, guid: 499975dd31200d34b91e57aed1880180, type: 3}
-  towerPrefab: {fileID: 4625834919878556233, guid: 317c52815fa92f548a941df6995f42c3, type: 3}
+  towerPrefab: {fileID: 4625834919878556233, guid: f60766af9cbb6f74eaa0b765118117fa, type: 3}
   weaponPrefab: {fileID: 4877909776406011252, guid: 3cdc75d993a3744a5bcac738351679bf, type: 3}
   spriteLibrary: {fileID: 7108339969198208228, guid: edc3a6561b45caf4e959ddb73fe0fc28, type: 3}
   cost: 0
