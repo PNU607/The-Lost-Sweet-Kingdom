@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
     public List<WaveData> waves;
     public Transform spawnPoint;
 
-    private int currentWaveIndex = 0;
+    public int currentWaveIndex = 0;
     public bool isGameRunning = false;
 
     public TextMeshProUGUI waveText;
@@ -39,32 +39,30 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnWaves()
     {
-        while (currentWaveIndex < waves.Count)
+        if (currentWaveIndex >= waves.Count)
         {
-            WaveData wave = waves[currentWaveIndex];
-            UpdateWaveText();
-
-            yield return new WaitForSeconds(wave.startDelay);
-
-            Debug.Log($"Start Wave : {currentWaveIndex + 1}");
-
-            foreach (var enemyInfo in wave.enemies)
-            {
-                for (int i = 0; i < enemyInfo.count; i++)
-                {
-                    GameObject enemy = ObjectPool.Instance.GetEnemy(enemyInfo.enemyData);
-                    enemy.transform.position = spawnPoint.position;
-
-                    yield return new WaitForSeconds(enemyInfo.spawnDelay);
-                }
-            }
-
-            currentWaveIndex++;
-            yield return new WaitForSeconds(3f);
+            Debug.Log("더 이상 웨이브 없음");
+            yield break;
         }
 
-        Debug.Log("모든 웨이브 완료!");
-        isGameRunning = false;
+        WaveData wave = waves[currentWaveIndex];
+        UpdateWaveText();
+
+        yield return new WaitForSeconds(wave.startDelay);
+        Debug.Log($"Start Wave : {currentWaveIndex + 1}");
+
+        foreach (var enemyInfo in wave.enemies)
+        {
+            for (int i = 0; i < enemyInfo.count; i++)
+            {
+                GameObject enemy = ObjectPool.Instance.GetEnemy(enemyInfo.enemyData);
+                enemy.transform.position = spawnPoint.position;
+
+                yield return new WaitForSeconds(enemyInfo.spawnDelay);
+            }
+        }
+
+        Debug.Log("Spawn 종료");
     }
 
     public void UpdateWaveText()

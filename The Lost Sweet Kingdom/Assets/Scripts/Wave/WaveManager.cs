@@ -52,6 +52,9 @@ public class WaveManager : MonoBehaviour
         Debug.Log("Round Finish");
         EnemySpawner.instance.isGameRunning = false;
         waveCount++;
+
+        EnemySpawner.instance.currentWaveIndex = waveCount;
+
         totalEnemy = CountEnemy();
     }
 }

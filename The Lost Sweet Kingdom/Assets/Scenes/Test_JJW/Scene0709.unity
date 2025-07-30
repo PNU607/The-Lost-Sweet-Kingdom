@@ -623,6 +623,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 33fadf20a984e4a4a981e5b1c6866781, type: 2}
   - {fileID: 11400000, guid: 10455b7803479ca4d97d47e5da1e3f7b, type: 2}
   spawnPoint: {fileID: 2021651343}
+  currentWaveIndex: 0
   isGameRunning: 0
   waveText: {fileID: 445390844}
 --- !u!1 &445390842
@@ -3619,8 +3620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - {fileID: 11400000, guid: 33fadf20a984e4a4a981e5b1c6866781, type: 2}
-  - {fileID: 11400000, guid: ab9a3b1ab8d6be54a8f236000864bebd, type: 2}
-  - {fileID: 11400000, guid: a3c369d9dba7b8f40a9a560c05012e16, type: 2}
+  - {fileID: 11400000, guid: 10455b7803479ca4d97d47e5da1e3f7b, type: 2}
   totalEnemy: 0
   waveCount: 0
 --- !u!4 &1525395301

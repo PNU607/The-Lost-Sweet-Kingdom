@@ -147,7 +147,7 @@ public class EnemyTest : MonoBehaviour
         //Debug.Log($"Take Damage {damage} | Total HP: {hp}");
 
         hp -= damage;
-        Debug.Log($"Enemy HP: {hp} / {currentEnemyData.maxHealth}");
+        //Debug.Log($"Enemy HP: {hp} / {currentEnemyData.maxHealth}");
         UpdateHealthBar();
 
         if (hp > 0)
