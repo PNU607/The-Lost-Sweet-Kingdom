@@ -55,9 +55,6 @@ public class EnemySpawner : MonoBehaviour
                     GameObject enemy = ObjectPool.Instance.GetEnemy(enemyInfo.enemyData);
                     enemy.transform.position = spawnPoint.position;
 
-                    EnemyTest enemyTest = enemy.GetComponent<EnemyTest>();
-                    enemyTest.SetEnemyData(enemyInfo.enemyData);
-
                     yield return new WaitForSeconds(enemyInfo.spawnDelay);
                 }
             }

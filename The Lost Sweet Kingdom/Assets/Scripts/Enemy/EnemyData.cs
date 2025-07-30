@@ -20,4 +20,7 @@ public class EnemyData : ScriptableObject
 
     [Header("Anim")]
     public SpriteLibraryAsset spriteLibraryAsset;
+
+    [Header("Pooling")]
+    public int poolSize = 10;
 }

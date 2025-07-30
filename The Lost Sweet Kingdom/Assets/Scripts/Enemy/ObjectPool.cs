@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +12,10 @@ public class ObjectPool : MonoBehaviour
         if (Instance == null)
             Instance = this;
         else
+        {
             Destroy(gameObject);
+            return;
+        }
     }
 
     public GameObject GetEnemy(EnemyData data)
@@ -34,12 +36,10 @@ public class ObjectPool : MonoBehaviour
         if (pool[data].Count > 0)
         {
             enemy = pool[data].Dequeue();
-            enemy.SetActive(true);
         }
         else
         {
             enemy = Instantiate(data.enemyPrefab);
-            enemy.SetActive(true);
         }
 
         EnemyTest enemyTest = enemy.GetComponent<EnemyTest>();
@@ -55,14 +55,26 @@ public class ObjectPool : MonoBehaviour
         return enemy;
     }
 
-    public void ReturnEnemy(GameObject enemy, EnemyData data)
+    public void ReturnEnemy(GameObject enemy)
     {
+        if (enemy == null) return;
+
         enemy.SetActive(false);
+
+        EnemyTest enemyTest = enemy.GetComponent<EnemyTest>();
+        if (enemyTest == null || enemyTest.GetEnemyData() == null)
+        {
+            Debug.LogWarning("Returned enemy has no valid data");
+            return;
+        }
+
+        EnemyData data = enemyTest.GetEnemyData();
 
         if (!pool.ContainsKey(data))
         {
             pool[data] = new Queue<GameObject>();
         }
+
         pool[data].Enqueue(enemy);
     }
 }
