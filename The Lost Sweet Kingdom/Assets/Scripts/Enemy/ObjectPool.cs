@@ -7,6 +7,8 @@ public class ObjectPool : MonoBehaviour
 
     private Dictionary<EnemyData, Queue<GameObject>> pool = new();
 
+    private Dictionary<EnemyData, Transform> poolParents = new();
+
     private void Awake()
     {
         if (Instance == null)
@@ -29,6 +31,10 @@ public class ObjectPool : MonoBehaviour
         if (!pool.ContainsKey(data))
         {
             pool[data] = new Queue<GameObject>();
+
+            GameObject parentGO = new GameObject(data.name + "_Pool");
+            parentGO.transform.SetParent(this.transform);
+            poolParents[data] = parentGO.transform;
         }
 
         GameObject enemy;
@@ -40,6 +46,7 @@ public class ObjectPool : MonoBehaviour
         else
         {
             enemy = Instantiate(data.enemyPrefab);
+            enemy.transform.SetParent(poolParents[data]);
         }
 
         EnemyTest enemyTest = enemy.GetComponent<EnemyTest>();
@@ -73,8 +80,14 @@ public class ObjectPool : MonoBehaviour
         if (!pool.ContainsKey(data))
         {
             pool[data] = new Queue<GameObject>();
+
+            GameObject parentGO = new GameObject(data.name + "_Pool");
+            parentGO.transform.SetParent(this.transform);
+            poolParents[data] = parentGO.transform;
         }
 
+        enemy.transform.SetParent(poolParents[data]);
         pool[data].Enqueue(enemy);
     }
 }
+
