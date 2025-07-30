@@ -18,12 +18,20 @@ public class Castle : MonoBehaviour
 
     private void Start()
     {
-        castleHp = 100;
+        castleHp = 0;
     }
 
-    public void TakeDamage(int damage)
+    private void Update()
     {
-        castleHp -= damage;
+        if (castleHp == 200)
+        {
+            Debug.Log("와 건강해졌어");
+        }
+    }
+
+    public void HealCastle(int healCount)
+    {
+        castleHp += healCount;
         Debug.Log($"CastleHp : {castleHp}");
     }
 }

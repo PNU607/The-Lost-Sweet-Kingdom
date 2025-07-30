@@ -243,7 +243,7 @@ public class EnemyTest : MonoBehaviour
     {
         if (collision.gameObject == Castle.instance.gameObject)
         {
-            Castle.instance.TakeDamage(10);
+            Castle.instance.HealCastle(10);
             ObjectPool.Instance.ReturnEnemy(this.gameObject);
             this.gameObject.SetActive(false);
 
