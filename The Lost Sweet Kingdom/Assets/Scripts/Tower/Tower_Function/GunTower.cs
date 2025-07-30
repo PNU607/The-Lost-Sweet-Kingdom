@@ -86,7 +86,8 @@ public class GunTower : TrackingTower
         //Debug.Log("SpawnWeapon");
         if (closestAttackTarget != null)
         {
-            TowerWeapon weapon = weaponPool.Spawn(towerBase.weaponSpawnTransform.position);
+            TowerWeapon weapon = TowerManager.Instance.GetWeapon(currentTowerData.weaponPrefab);
+            weapon.transform.position = towerBase.weaponSpawnTransform.position;
             weapon.Setup(closestAttackTarget.transform, this);
         }
         /*else

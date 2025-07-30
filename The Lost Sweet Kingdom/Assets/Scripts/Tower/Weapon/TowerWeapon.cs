@@ -74,6 +74,8 @@ public class TowerWeapon : MonoBehaviour
         if (shotTower != null)
         {
             shotTower.GetComponent<Tower>().ReleaseWeapon(this);
+            target = null; // 타겟을 초기화하여 더 이상 공격하지 않도록 함
+            shotTower = null; // 발사한 타워를 초기화
         }
         else
         {

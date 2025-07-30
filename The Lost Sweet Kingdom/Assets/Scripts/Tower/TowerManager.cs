@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Sound;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Pool;
 using UnityEngine.Tilemaps;
 
 /* 
@@ -79,12 +80,19 @@ public class TowerManager : MonoBehaviour
 
     private LayerMask towerLayer;
 
+    private Dictionary<GameObject, GameObjectPool<TowerWeapon>> weaponPools = new();
+
     /// <summary>
     /// Awake
     /// 싱글톤 세팅
     /// </summary>
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
     }
 
@@ -445,5 +453,24 @@ public class TowerManager : MonoBehaviour
             currentDragTarget = null;
             isDragging = false;
         }
+    }
+
+    public TowerWeapon GetWeapon(GameObject weaponPrefab)
+    {
+        if (!weaponPools.ContainsKey(weaponPrefab))
+        {
+            TowerWeapon weapon = weaponPrefab.GetComponent<TowerWeapon>();
+            var newPool = new GameObjectPool<TowerWeapon>(weapon, 100);
+            weaponPools[weaponPrefab] = newPool;
+        }
+
+        TowerWeapon poolWeapon = weaponPools[weaponPrefab].Spawn();
+        return poolWeapon;
+    }
+
+    public void ReturnWeapon(GameObject weaponPrefab, TowerWeapon weapon)
+    {
+        //weapon.gameObject.SetActive(false);
+        weaponPools[weaponPrefab].Release(weapon);
     }
 }

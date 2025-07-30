@@ -47,7 +47,8 @@ public class MultiTargetGunTower : TrackingTower
         {
             foreach (EnemyTest enemy in enemiesInRange)
             {
-                TowerWeapon weapon = weaponPool.Spawn(towerBase.weaponSpawnTransform.position);
+                TowerWeapon weapon = TowerManager.Instance.GetWeapon(currentTowerData.weaponPrefab);
+                weapon.transform.position = towerBase.weaponSpawnTransform.position;
                 weapon.Setup(enemy.transform, this);
             }
 

@@ -12,33 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: NavySquirrelData
   m_EditorClassIdentifier: 
-  towerName: Navy Squirrel
+  towerName: "\uB0A8\uC0C9 \uB2E4\uB78C\uC950"
   towerColor: 5
   towerType: 2
   towerIcon: {fileID: 21300000, guid: d6e90e9bd01bc8947a9058da75c020bb, type: 3}
-  towerPrefab: {fileID: 4625834919878556233, guid: 317c52815fa92f548a941df6995f42c3, type: 3}
-  weaponPrefab: {fileID: 0}
+  towerPrefab: {fileID: 5863450404713642296, guid: 4f24e8fa1a8109a478ac654bd15835eb, type: 3}
+  weaponPrefab: {fileID: 3573716237412387163, guid: 4af51bce7907aca439c4e3332bc9caf8, type: 3}
   spriteLibrary: {fileID: 7108339969198208228, guid: f461a2c6e6da8eb4a8a3a6b7ac410af7, type: 3}
   cost: 0
   levelDatas:
   - level: 1
     attackRange: 1.7
-    attackWeaponRange: 0
+    attackWeaponRange: 0.5
     attackCooldown: 1
-    attackDuration: 0
+    attackDuration: 1.5
     attackDamage: 1
     rotationSpeed: 0
   - level: 2
     attackRange: 2
-    attackWeaponRange: 0
+    attackWeaponRange: 0.8
     attackCooldown: 0.8
-    attackDuration: 0
+    attackDuration: 1.7
     attackDamage: 1.2
     rotationSpeed: 0
   - level: 3
     attackRange: 2.2
-    attackWeaponRange: 0
+    attackWeaponRange: 1
     attackCooldown: 0.5
-    attackDuration: 0
+    attackDuration: 2
     attackDamage: 1.4
     rotationSpeed: 0
