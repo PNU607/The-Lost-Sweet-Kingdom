@@ -261,4 +261,9 @@ public class EnemyTest : MonoBehaviour
         gameObject.SetActive(true);
         InitializeEnemy();
     }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
 }

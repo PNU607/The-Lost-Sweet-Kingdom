@@ -4,6 +4,13 @@ public class DamageZone : TowerWeapon
 {
     public float duration = 0f; // DamageZone의 지속 시간
     public float tickTimer = 0f;
+    public bool isAttackZone = false; // 공격 영역 여부
+
+    public virtual void Setup(Transform target, Tower shotTower, bool isAttackZone)
+    {
+        this.isAttackZone = isAttackZone;
+        Setup(target, shotTower);
+    }
 
     public override void Setup(Transform target, Tower shotTower)
     {

@@ -32,7 +32,6 @@ public class ExplosiveMissile : Missile
 
     public Vector3 startTargetPosition;
     private float threshold = 0.1f;
-    private float scaler = 4.5f; // 폭발 범위 표시용 스케일 조정 값
 
     public override void Setup(Transform target, Tower shotTower)
     {
@@ -92,7 +91,10 @@ public class ExplosiveMissile : Missile
     {
         if (explosionRangeIndicator != null)
         {
-            explosionRangeIndicator.transform.localScale = new Vector3(shotTower.applyLevelData.attackWeaponRange * 2 * scaler, shotTower.applyLevelData.attackWeaponRange * 2 * scaler, 1);
+            explosionRangeIndicator.transform.localScale 
+                = new Vector3(shotTower.applyLevelData.attackWeaponRange * 2f / this.transform.localScale.x
+                , shotTower.applyLevelData.attackWeaponRange * 2f / this.transform.localScale.y
+                , 1);
         }
     }
 

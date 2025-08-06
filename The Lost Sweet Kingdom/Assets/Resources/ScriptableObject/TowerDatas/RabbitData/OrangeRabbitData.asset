@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: OrangeRabbitData
   m_EditorClassIdentifier: 
-  towerName: Orange Rabbit
+  towerName: "\uC8FC\uD669\uC0C9 \uD1A0\uB07C"
   towerColor: 1
   towerType: 0
   towerIcon: {fileID: 21300000, guid: 045197e9a87fae24b99d9e80bf2db01a, type: 3}
@@ -40,5 +40,5 @@ MonoBehaviour:
     attackWeaponRange: 0
     attackCooldown: 0.5
     attackDuration: 0
-    attackDamage: 1.4
+    attackDamage: 3
     rotationSpeed: 0

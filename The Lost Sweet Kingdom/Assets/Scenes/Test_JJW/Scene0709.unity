@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183b7d1bf0fadd84caf8b4bfc8a03dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rerollData: {fileID: 11400000, guid: f44f1a51a5720ba428268028e5192096, type: 2}
+  rerollData: {fileID: 11400000, guid: aa51c9b07177b1346bc808efe90a3b56, type: 2}
   unitPanel: {fileID: 1078726805}
   rerollCost: 0
   towerUIPrefab: {fileID: 8887764149964107737, guid: 9c3375d47960540a282addc2bf3e7695, type: 3}
@@ -909,6 +909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f038e58ce04fb437bbd2ee2d5364b4be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectPoolTrans: {fileID: 1085672205}
   tilemap: {fileID: 617617599}
   attackableTilemap: {fileID: 1486419929}
   bonusManager: {fileID: 571643898}

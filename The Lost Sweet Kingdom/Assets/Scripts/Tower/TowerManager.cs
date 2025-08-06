@@ -45,6 +45,9 @@ public class TowerManager : MonoBehaviour
     /// </summary>
     private Camera mainCamera;
 
+    public Transform objectPoolTrans;
+    private GameObject weaponPoolsParent;
+
     /// <summary>
     /// 타워를 배치할 파일맵
     /// </summary>
@@ -105,6 +108,9 @@ public class TowerManager : MonoBehaviour
         mainCamera = Camera.main;
 
         towerLayer = LayerMask.GetMask("Tower");
+
+        weaponPoolsParent = new GameObject("WeaponPools");
+        weaponPoolsParent.transform.SetParent(objectPoolTrans);
     }
 
     /// <summary>
@@ -459,8 +465,11 @@ public class TowerManager : MonoBehaviour
     {
         if (!weaponPools.ContainsKey(weaponPrefab))
         {
+            GameObject currentWeaponPools = new GameObject(weaponPrefab.name + " Pools");
+            currentWeaponPools.transform.SetParent(weaponPoolsParent.transform);
+
             TowerWeapon weapon = weaponPrefab.GetComponent<TowerWeapon>();
-            var newPool = new GameObjectPool<TowerWeapon>(weapon, 100);
+            var newPool = new GameObjectPool<TowerWeapon>(weapon, 1000, currentWeaponPools.transform);
             weaponPools[weaponPrefab] = newPool;
         }
 
