@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:The Lost Sweet Kingdom/Assets/Animations/Tower/AnimationClip/Tower/Weapon/IdleAnim.anim.meta
 guid: e5f35f2aa7bd4d941bbd7f58c108d0d6
+========
+guid: b0fc1fd91e6e48f4896aa527803df2bf
+>>>>>>>> 3d21b9e676e2bdc007d177e8ac2e38ae33af469b:The Lost Sweet Kingdom/Assets/Resources/ScriptableObject/EnemyDatas/Boss.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 7400000

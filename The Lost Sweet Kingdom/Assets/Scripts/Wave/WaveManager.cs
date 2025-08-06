@@ -25,6 +25,11 @@ public class WaveManager : MonoBehaviour
 
     private int CountEnemy()
     {
+        if (waveCount >= waves.Count)
+        {
+            return 0;
+        }
+
         int total = 0;
         foreach (var enemy in waves[waveCount].enemies)
         {
@@ -47,6 +52,9 @@ public class WaveManager : MonoBehaviour
         Debug.Log("Round Finish");
         EnemySpawner.instance.isGameRunning = false;
         waveCount++;
+
+        EnemySpawner.instance.currentWaveIndex = waveCount;
+
         totalEnemy = CountEnemy();
     }
 }

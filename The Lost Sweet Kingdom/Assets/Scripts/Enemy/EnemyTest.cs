@@ -28,7 +28,7 @@ public class EnemyTest : MonoBehaviour
     private SpriteLibrary spriteLibrary;
     private SpriteResolver spriteResolver;
 
-    private void OnEnable()
+    /*private void OnEnable()
     {
         if (currentEnemyData == null)
         {
@@ -36,7 +36,7 @@ public class EnemyTest : MonoBehaviour
         }
 
         InitializeEnemy();
-    }
+    }*/
 
     private void Awake()
     {
@@ -147,7 +147,7 @@ public class EnemyTest : MonoBehaviour
         //Debug.Log($"Take Damage {damage} | Total HP: {hp}");
 
         hp -= damage;
-        Debug.Log($"Enemy HP: {hp} / {currentEnemyData.maxHealth}");
+        //Debug.Log($"Enemy HP: {hp} / {currentEnemyData.maxHealth}");
         UpdateHealthBar();
 
         if (hp > 0)
@@ -227,7 +227,7 @@ public class EnemyTest : MonoBehaviour
         _soundObject = Sound.Play("EnemyDeath", false);
         _soundObject.SetVolume(0.1f);
         GoldManager.instance.AddGold(currentEnemyData.goldReward);
-        ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData);
+        ObjectPool.Instance.ReturnEnemy(this.gameObject);
 
         if (healthSlider != null)
         {
@@ -243,17 +243,22 @@ public class EnemyTest : MonoBehaviour
     {
         if (collision.gameObject == Castle.instance.gameObject)
         {
-            Castle.instance.TakeDamage(10);
-            ObjectPool.Instance.ReturnEnemy(this.gameObject, currentEnemyData);
+            Castle.instance.HealCastle(10);
+            ObjectPool.Instance.ReturnEnemy(this.gameObject);
             this.gameObject.SetActive(false);
 
             WaveManager.instance.enemyCountDown();
         }
     }
 
+    public EnemyData GetEnemyData()
+    {
+        return currentEnemyData;
+    }
     public void SetEnemyData(EnemyData data)
     {
         currentEnemyData = data;
+        gameObject.SetActive(true);
         InitializeEnemy();
     }
 
