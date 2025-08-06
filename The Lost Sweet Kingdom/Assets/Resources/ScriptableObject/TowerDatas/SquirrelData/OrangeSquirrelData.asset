@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: OrangeSquirrelData
   m_EditorClassIdentifier: 
-  towerName: Orange Squirrel
+  towerName: "\uC8FC\uD669\uC0C9 \uB2E4\uB78C\uC950"
   towerColor: 1
   towerType: 2
   towerIcon: {fileID: 21300000, guid: 680d6b59eb0a2c847b216862b08df6b8, type: 3}
   towerPrefab: {fileID: 4625834919878556233, guid: 317c52815fa92f548a941df6995f42c3, type: 3}
-  weaponPrefab: {fileID: 4877909776406011252, guid: c5299a537a04d4259b09560dd7f13104, type: 3}
+  weaponPrefab: {fileID: 4877909776406011252, guid: f030e73a38f23ed478bd9e9b764212e6, type: 3}
   spriteLibrary: {fileID: 7108339969198208228, guid: 391b7788c2d408f46be11b1c36387a78, type: 3}
   cost: 0
   levelDatas:

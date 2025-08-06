@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class ScattershotTower : PinpointTower
 {
-    protected List<TowerWeapon> attackingTowerWeapons = new List<TowerWeapon>(); // 발사된 무기들을 저장하는 리스트
+    protected TowerWeapon attackingTowerWeapon; // 발사된 무기를 저장
 
     public override void Attack()
     {
         base.Attack();
 
-        for (int i = 0; i < attackingTowerWeapons.Count; i++)
-        {
-            attackingTowerWeapons[i].Setup(closestAttackTarget.transform, this); // 발사된 무기들을 타겟에 맞춰 설정
-        }
+        attackingTowerWeapon.Setup(closestAttackTarget.transform, this); // 발사된 무기를 타겟에 맞춰 설정
     }
 
     protected override TowerWeapon SpawnWeapon(Vector3 spawnPos, Transform targetTransform)
     {
+        if (attackingTowerWeapon != null)
+        {
+            ReleaseWeapon(attackingTowerWeapon); // 이전에 발사된 무기가 있다면 제거
+        }
+
         // 머리 위 이펙트 위치
         Vector3 attachTargetOffset = this.gameObject.transform.position + attackHeadOffset;
 
@@ -25,14 +27,14 @@ public class ScattershotTower : PinpointTower
         weapon.transform.SetParent(this.gameObject.transform);
         weapon.transform.position = attachTargetOffset; // 무기의 위치를 타겟의 머리 위로 설정
 
-        attackingTowerWeapons.Add(weapon); // 발사된 무기를 리스트에 추가
+        attackingTowerWeapon = weapon; // 발사된 무기를 리스트에 추가
 
         return weapon;
     }
 
     public override void ReleaseWeapon(TowerWeapon weapon)
     {
-        attackingTowerWeapons.Remove(weapon); // 발사된 무기 리스트에서 제거
+        attackingTowerWeapon = null; // 발사된 무기 변수에서 제거
         base.ReleaseWeapon(weapon);
     }
 }

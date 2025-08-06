@@ -91,4 +91,13 @@ public class TrackingTower : Tower
         //Quaternion targetRotation = Quaternion.Euler(0, 0, degree);
         //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * currentTowerData.rotationSpeed);
     }
+
+    protected virtual TowerWeapon SpawnWeapon(Vector3 spawnPos, Transform targetTransform)
+    {
+        TowerWeapon weapon = TowerManager.Instance.GetWeapon(currentTowerData.weaponPrefab);
+        weapon.transform.position = spawnPos;
+        weapon.Setup(targetTransform, this);
+
+        return weapon;
+    }
 }

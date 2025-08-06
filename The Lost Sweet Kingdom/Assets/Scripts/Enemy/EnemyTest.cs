@@ -256,4 +256,9 @@ public class EnemyTest : MonoBehaviour
         currentEnemyData = data;
         InitializeEnemy();
     }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2038352330243437496}
   - component: {fileID: 1506993855183643127}
   - component: {fileID: 5086690480208435194}
+  - component: {fileID: 8405924177292469148}
   m_Layer: 0
   m_Name: Letter
   m_TagString: Untagged
@@ -174,3 +175,24 @@ MonoBehaviour:
   duration: 0
   tickTimer: 0
   towerWeapon: {fileID: 8700896297119908757, guid: e2b4fe8198d71ba498454b4165af7c96, type: 3}
+--- !u!95 &8405924177292469148
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3573716237412387163}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c499c7cabbab12b44855d159d43cc825, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

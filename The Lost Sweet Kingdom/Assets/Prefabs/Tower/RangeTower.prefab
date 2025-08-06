@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3943208275471777250}
-  - component: {fileID: 2042277182748317284}
+  - component: {fileID: 3118896971651605792}
   m_Layer: 7
   m_Name: RangeTower
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 6100903446563868652}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2042277182748317284
+--- !u!114 &3118896971651605792
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1a8c88c994da2a4e8b675fb3642e1d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerBase: {fileID: 6525876877620782821}
+  towerBase: {fileID: 0}
   currentTowerData: {fileID: 0}
   applyLevelData:
     level: 0
@@ -133,14 +133,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3943208275471777250, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
   m_PrefabInstance: {fileID: 7067225699723342350}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6525876877620782821 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4072175614159803627, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
-  m_PrefabInstance: {fileID: 7067225699723342350}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8445d4b45d217a84f9d5f65f4f9a9a86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
