@@ -3866,6 +3866,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4270600783329574544, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4283190384870784024, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
       propertyPath: m_SortingOrder
       value: 1
@@ -3912,6 +3916,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6746002708727112631, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7087198961127673897, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7087198961127673897, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
