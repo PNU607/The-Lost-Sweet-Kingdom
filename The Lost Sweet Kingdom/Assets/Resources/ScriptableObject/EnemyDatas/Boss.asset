@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boss
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2776107149917627590, guid: 43fd16807a915f145993f873f03069a9, type: 3}
-  maxHealth: 1000
+  maxHealth: 500
   moveSpeed: 1
   goldReward: 100
   spriteLibraryAsset: {fileID: 7108339969198208228, guid: 1208013fed83cbc49ab14acb4c853f9a, type: 3}
