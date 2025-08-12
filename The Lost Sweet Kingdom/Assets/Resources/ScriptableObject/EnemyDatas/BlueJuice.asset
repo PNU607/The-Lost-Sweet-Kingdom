@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BlueJuice
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2776107149917627590, guid: 43fd16807a915f145993f873f03069a9, type: 3}
-  maxHealth: 10
+  maxHealth: 30
   moveSpeed: 2
-  goldReward: 100
+  goldReward: 10
   spriteLibraryAsset: {fileID: 7108339969198208228, guid: ff8b69fb07e06f745be269056d7ab79b, type: 3}
   poolSize: 10
