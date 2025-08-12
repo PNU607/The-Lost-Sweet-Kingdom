@@ -8,7 +8,7 @@ using System.Sound;
 public class EnemyTest : MonoBehaviour
 {
     [SerializeField]
-    private EnemyData currentEnemyData;
+    public EnemyData currentEnemyData;
     public float hp;
 
     private Slider healthSlider;
@@ -25,7 +25,7 @@ public class EnemyTest : MonoBehaviour
     private List<Vector2> path;
 
     private Animator enemyAnim;
-    private SpriteLibrary spriteLibrary;
+    public SpriteLibrary spriteLibrary;
     private SpriteResolver spriteResolver;
 
     /*private void OnEnable()
@@ -137,7 +137,7 @@ public class EnemyTest : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
         if (hp <= 0) return;
 
