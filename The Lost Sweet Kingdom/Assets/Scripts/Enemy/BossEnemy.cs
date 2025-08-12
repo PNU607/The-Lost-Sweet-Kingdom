@@ -25,14 +25,4 @@ public class BossEnemy : EnemyTest
             spriteLibrary.spriteLibraryAsset = currentEnemyData.damagedSpriteLibraryAsset;
         }
     }
-
-    /*protected override void InitializeEnemy()
-    {
-        base.InitializeEnemy();
-        if (spriteLibrary != null && currentEnemyData.normalSpriteLibraryAsset != null)
-        {
-            spriteLibrary.spriteLibraryAsset = currentEnemyData.normalSpriteLibraryAsset;
-        }
-        isDamagedSpriteSet = false;
-    }*/
 }
