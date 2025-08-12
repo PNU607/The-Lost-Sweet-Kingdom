@@ -620,7 +620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - {fileID: 11400000, guid: 33fadf20a984e4a4a981e5b1c6866781, type: 2}
+  - {fileID: 11400000, guid: 10455b7803479ca4d97d47e5da1e3f7b, type: 2}
   - {fileID: 11400000, guid: 10455b7803479ca4d97d47e5da1e3f7b, type: 2}
   spawnPoint: {fileID: 2021651343}
   currentWaveIndex: 0

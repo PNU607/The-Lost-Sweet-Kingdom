@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: GhostLollipop
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2776107149917627590, guid: f64950bcdbc388a4bb900d91345e5d7b, type: 3}
-  maxHealth: 30
-  moveSpeed: 2
+  maxHealth: 50
+  moveSpeed: 1
   goldReward: 10
   spriteLibraryAsset: {fileID: 7108339969198208228, guid: e126f30e3ded8a74f901fe373d41adc2, type: 3}
   damagedSpriteLibraryAsset: {fileID: 7108339969198208228, guid: f3ba0f22b6f4eec4d90810e1dc664993, type: 3}
-  poolSize: 10
+  poolSize: 1

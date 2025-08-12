@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: PumpkinLollipop
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2776107149917627590, guid: f64950bcdbc388a4bb900d91345e5d7b, type: 3}
-  maxHealth: 30
-  moveSpeed: 2
+  maxHealth: 50
+  moveSpeed: 1
   goldReward: 10
   spriteLibraryAsset: {fileID: 7108339969198208228, guid: b5286d8b7dd10eb498b08734c67b2d56, type: 3}
   damagedSpriteLibraryAsset: {fileID: 7108339969198208228, guid: a3a1fa843341f9d4785d1c419abd19a7, type: 3}
-  poolSize: 10
+  poolSize: 1
