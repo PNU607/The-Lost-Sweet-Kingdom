@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: YellowPudding
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2776107149917627590, guid: 43fd16807a915f145993f873f03069a9, type: 3}
-  maxHealth: 5
-  moveSpeed: 3
-  goldReward: 30
+  maxHealth: 30
+  moveSpeed: 2
+  goldReward: 10
   spriteLibraryAsset: {fileID: 7108339969198208228, guid: a9350570abdbd3440b6d697d97727ef4, type: 3}
   poolSize: 10
