@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bbaf4811c346084fab98641aaa1d4ee, type: 3}
+  m_Name: AllEnemyWave
+  m_EditorClassIdentifier: 
+  enemies:
+  - enemyData: {fileID: 11400000, guid: a5d3c04ab62bdf24caf1746303b310cb, type: 2}
+    count: 5
+    spawnDelay: 1
+  - enemyData: {fileID: 11400000, guid: ddfc41cdfedbab540a062e35214ebfb5, type: 2}
+    count: 5
+    spawnDelay: 1
+  - enemyData: {fileID: 11400000, guid: 4a471abe833f8b042b0a0236497b95ce, type: 2}
+    count: 5
+    spawnDelay: 1
+  - enemyData: {fileID: 11400000, guid: 066ebfed471aa2843a2bcdefbeaf8a05, type: 2}
+    count: 5
+    spawnDelay: 1
+  - enemyData: {fileID: 11400000, guid: 31dc8c551d8548d4d82d2ca3d5d9a21b, type: 2}
+    count: 5
+    spawnDelay: 1
+  - enemyData: {fileID: 11400000, guid: 7e2a3049f3eefa749a3ea0359645972d, type: 2}
+    count: 5
+    spawnDelay: 1
+  - enemyData: {fileID: 11400000, guid: fc279a0d16dfbff43a195e9d47e1f408, type: 2}
+    count: 5
+    spawnDelay: 1
+  - enemyData: {fileID: 11400000, guid: b95a33d93a46b8e4f935f2123ea7ea20, type: 2}
+    count: 5
+    spawnDelay: 1
+  - enemyData: {fileID: 11400000, guid: 1324e32f444b6d540a46589f20938ed3, type: 2}
+    count: 5
+    spawnDelay: 1
+  - enemyData: {fileID: 11400000, guid: 9f03ec6aa3d431d4bb0db0807d7210ac, type: 2}
+    count: 5
+    spawnDelay: 1
+  - enemyData: {fileID: 11400000, guid: e530cb2df9cc9a74ca7f3b128eafaf13, type: 2}
+    count: 5
+    spawnDelay: 1
+  - enemyData: {fileID: 11400000, guid: 866a1f876a9200b48a8e431a1923691b, type: 2}
+    count: 5
+    spawnDelay: 1
+  - enemyData: {fileID: 11400000, guid: 55161da051785bd49979475ebde6dbe2, type: 2}
+    count: 5
+    spawnDelay: 1
+  - enemyData: {fileID: 11400000, guid: b63080505f9f2624f80f00f3d11803a7, type: 2}
+    count: 5
+    spawnDelay: 1
+  - enemyData: {fileID: 11400000, guid: 75495cf2c2246e94f8ae13420b204042, type: 2}
+    count: 5
+    spawnDelay: 1
+  startDelay: 1

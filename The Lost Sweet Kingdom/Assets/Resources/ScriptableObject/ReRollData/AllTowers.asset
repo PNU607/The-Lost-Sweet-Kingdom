@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1aa61544d1799744b78214b8bdb9a41, type: 3}
-  m_Name: ReRollData 1
+  m_Name: AllTowers
   m_EditorClassIdentifier: 
   units:
   - unitName: RedRabbit

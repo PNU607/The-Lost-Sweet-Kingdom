@@ -10,10 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bbaf4811c346084fab98641aaa1d4ee, type: 3}
-  m_Name: EnemyTestWave
+  m_Name: BossEnemy
   m_EditorClassIdentifier: 
   enemies:
-  - enemyData: {fileID: 11400000, guid: a5d3c04ab62bdf24caf1746303b310cb, type: 2}
-    count: 15
-    spawnDelay: 1
+  - enemyData: {fileID: 11400000, guid: 55161da051785bd49979475ebde6dbe2, type: 2}
+    count: 1
+    spawnDelay: 5
+  - enemyData: {fileID: 11400000, guid: b63080505f9f2624f80f00f3d11803a7, type: 2}
+    count: 1
+    spawnDelay: 5
+  - enemyData: {fileID: 11400000, guid: 75495cf2c2246e94f8ae13420b204042, type: 2}
+    count: 1
+    spawnDelay: 5
   startDelay: 1
