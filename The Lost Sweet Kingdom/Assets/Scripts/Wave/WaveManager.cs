@@ -6,8 +6,6 @@ public class WaveManager : MonoBehaviour
 {
     public static WaveManager instance;
 
-    public List<WaveData> waves;
-
     public int totalEnemy;
     public int waveCount = 0;
 
@@ -18,6 +16,7 @@ public class WaveManager : MonoBehaviour
             instance = this;
         }
     }
+
     private void Start()
     {
         totalEnemy = CountEnemy();
@@ -25,13 +24,13 @@ public class WaveManager : MonoBehaviour
 
     private int CountEnemy()
     {
-        if (waveCount >= waves.Count)
+        if (waveCount >= EnemySpawner.instance.waves.Count)
         {
             return 0;
         }
 
         int total = 0;
-        foreach (var enemy in waves[waveCount].enemies)
+        foreach (var enemy in EnemySpawner.instance.waves[waveCount].enemies)
         {
             total += enemy.count;
         }
@@ -47,6 +46,7 @@ public class WaveManager : MonoBehaviour
             RoundFinish();
         }
     }
+
     public void RoundFinish()
     {
         Debug.Log("Round Finish");
