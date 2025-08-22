@@ -66,9 +66,7 @@ public class BigbangTower : TrackingTower
             Vector2 offset = Random.insideUnitCircle * applyLevelData.attackRange;
             Vector3 spawnPos = transform.position + new Vector3(offset.x, offset.y, 0);
 
-            TowerWeapon weapon = TowerManager.Instance.GetWeapon(currentTowerData.weaponPrefab);
-            weapon.transform.position = spawnPos;
-            weapon.Setup(null, this);
+            var weapon = SpawnWeapon(spawnPos, null);
 
             if (!weaponBaseScaleSet)
             {

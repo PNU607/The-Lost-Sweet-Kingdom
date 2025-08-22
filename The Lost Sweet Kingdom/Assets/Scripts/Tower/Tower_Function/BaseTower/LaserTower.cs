@@ -30,6 +30,12 @@ public class LaserTower : TrackingTower
     /// </summary>
     public LineRenderer lineRenderer;
 
+    protected override void Start()
+    {
+        base.Start();
+
+        lineRenderer.positionCount = 2;
+    }
 
     /// <summary>
     /// 타겟을 향해 레이저를 생성
@@ -100,14 +106,13 @@ public class LaserTower : TrackingTower
         {
             Vector2 startPos = transform.position;
             Vector2 direction = (closestAttackTarget.transform.position - transform.position).normalized;
-            float maxDistance = applyLevelData.attackWeaponRange;
+            float maxDistance = applyLevelData.attackRange;
 
             // 레이저의 끝 지점 설정 (레이저가 최대 사거리까지 가도록)
             Vector2 endPos = (Vector2)transform.position + direction * maxDistance;
 
             // LineRenderer로 레이저 시각화
             lineRenderer.enabled = true;
-            lineRenderer.positionCount = 2;
             lineRenderer.SetPosition(0, startPos);
             lineRenderer.SetPosition(1, endPos);
 
@@ -136,7 +141,7 @@ public class LaserTower : TrackingTower
     /// <returns></returns>
     private IEnumerator DisableLaser()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.4f);
         lineRenderer.enabled = false;
     }
 }

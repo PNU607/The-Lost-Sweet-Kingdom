@@ -29,20 +29,24 @@ public class DamageZone : TowerWeapon
         {
             tickTimer = 0f;
 
-            Collider2D[] enemies = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0f, shotTower.towerBase.enemyLayer);
-            foreach (var enemy in enemies)
-            {
-                if (enemy.TryGetComponent(out EnemyTest enemyTest))
-                {
-                    enemyTest.TakeDamage(shotTower.applyLevelData.attackDamage);
-                }
-            }
+            AttackNoTarget();
         }
 
         if (duration <= 0f)
         {
-            Debug.Log(duration);
             ReleaseWeapon();
+        }
+    }
+
+    protected virtual void AttackNoTarget()
+    {
+        Collider2D[] enemies = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0f, shotTower.towerBase.enemyLayer);
+        foreach (var enemy in enemies)
+        {
+            if (enemy.TryGetComponent(out EnemyTest enemyTest))
+            {
+                enemyTest.TakeDamage(shotTower.applyLevelData.attackDamage);
+            }
         }
     }
 }

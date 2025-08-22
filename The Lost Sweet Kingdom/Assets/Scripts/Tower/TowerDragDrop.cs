@@ -194,6 +194,7 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         // 드래그 중 사거리 표시 활성화
         previewTower = previewTowerObj.GetComponent<Tower>();
         previewTower.Setup(currentTowerData, 1);
+        previewTower.isAttackable = false; // 드래그 중에는 공격 불가
         previewTower.towerBase.towerCollider.enabled = false;
         previewTower.ShowRange(true);
         previewTower.towerBase.towerAnim.SetBool("isDragging", true);

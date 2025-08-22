@@ -131,6 +131,11 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     private HashSet<TowerBonus> activeBonuses = new HashSet<TowerBonus>();
 
     /// <summary>
+    /// 타워가 공격 가능한 상태인지 여부
+    /// </summary>
+    public bool isAttackable = false;
+
+    /// <summary>
     /// Start
     /// TowerWeapon Pool 생성
     /// </summary>
@@ -148,6 +153,8 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// <param name="nextTowerData"></param>
     public virtual void Setup(TowerData nextTowerData, int level = 1)
     {
+        isAttackable = true; // 공격 가능 상태로 초기화
+
         if (towerBase == null)
         {
             towerBase = GetComponentInChildren<TowerBase>();
@@ -178,6 +185,8 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
         {
             mainCamera = Camera.main;
         }
+
+        attackTimer = applyLevelData.attackCooldown; // 공격 타이머 초기화
     }
 
     /// <summary>
@@ -220,6 +229,11 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
         // UI 위가 아닐 때만 드래그 허용
         if (!IsPointerOverUI()) 
         {
+            isAttackable = false; // 공격 불가능 상태로 변경
+            this.attackTimer = this.applyLevelData.attackCooldown; // 공격 타이머 초기화
+            this.attackTargets = null; // 공격 타겟 초기화
+            this.closestAttackTarget = null;
+
             isDragging = true;
             towerBase.towerAnim.SetBool("isDragging", true);
             prevPosition = transform.position;
@@ -247,7 +261,6 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// </summary>
     public void OnMouseUpEvent()
     {
-        isDragging = false;
         towerBase.towerAnim.SetBool("isDragging", false);
         // 이동 완료 후 충돌 활성화
         towerBase.towerCollider.enabled = true;
@@ -296,6 +309,9 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
         }
 
         ShowRange(false);
+
+        isDragging = false;
+        isAttackable = true; // 공격 가능 상태로 변경
     }
 
     /// <summary>
@@ -343,7 +359,7 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
         }
 
         attackTimer += Time.deltaTime;
-        if (currentTowerState == TowerState.AttackToTarget)
+        if (currentTowerState == TowerState.AttackToTarget && isAttackable)
         {
             if (attackTimer >= applyLevelData.attackCooldown)
             {
@@ -387,7 +403,7 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// <returns></returns>
     protected virtual void AttackToTarget()
     {
-
+        
     }
 
     /// <summary>

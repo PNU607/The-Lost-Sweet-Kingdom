@@ -4,34 +4,24 @@ using UnityEngine;
 
 public class DamageCircle : DamageZone
 {
-    protected override void Update()
+    public override void Setup(Transform target, Tower shotTower)
     {
-        base.Update();
+        base.Setup(target, shotTower);
+        duration = shotTower.applyLevelData.attackDuration; // 지속 시간 설정
+    }
 
-        duration -= Time.deltaTime;
-        tickTimer += Time.deltaTime;
+    protected override void AttackNoTarget()
+    {
+        CircleCollider2D circle = GetComponent<CircleCollider2D>();
+        float radius = circle.radius * transform.localScale.x;
 
-        if (tickTimer >= 1f)
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, radius, shotTower.towerBase.enemyLayer);
+        foreach (var enemy in enemies)
         {
-            tickTimer = 0f;
-
-            CircleCollider2D circle = GetComponent<CircleCollider2D>();
-            float radius = circle.radius * transform.localScale.x;
-
-            Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, radius, shotTower.towerBase.enemyLayer);
-            foreach (var enemy in enemies)
+            if (enemy.TryGetComponent(out EnemyTest enemyTest))
             {
-                if (enemy.TryGetComponent(out EnemyTest enemyTest))
-                {
-                    enemyTest.TakeDamage(shotTower.applyLevelData.attackDamage);
-                }
+                enemyTest.TakeDamage(shotTower.applyLevelData.attackDamage);
             }
-        }
-
-        if (duration <= 0f)
-        {
-            //Destroy(gameObject);
-            shotTower.ReleaseWeapon(this);
         }
     }
 }
