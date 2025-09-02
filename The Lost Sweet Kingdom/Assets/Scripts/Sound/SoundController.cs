@@ -15,7 +15,6 @@ public class SoundController : MonoBehaviour
 
     private void Awake()
     {
-        // 싱글톤 초기화
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -34,7 +33,6 @@ public class SoundController : MonoBehaviour
     {
         SoundData soundData = DataManager.Instance.SoundData;
 
-        // UI 초기화
         masterVolumeSlider.value = soundData.masterVolume;
         uiVolumeSlider.value = soundData.typeVolumes[SoundType.UI];
         bgmVolumeSlider.value = soundData.typeVolumes[SoundType.BGM];
@@ -42,14 +40,12 @@ public class SoundController : MonoBehaviour
         friendlyVolumeSlider.value = soundData.typeVolumes[SoundType.FRIENDLY];
         enemyVolumeSlider.value = soundData.typeVolumes[SoundType.ENEMY];
 
-        // 실제 사운드 매니저에도 적용
         SoundManager.Instance.SetMasterVolume(soundData.masterVolume);
         foreach (var kv in soundData.typeVolumes)
         {
             SoundManager.Instance.SetVolume(kv.Key, kv.Value);
         }
 
-        // 이벤트 등록
         masterVolumeSlider.onValueChanged.AddListener(UpdateMasterVolume);
         uiVolumeSlider.onValueChanged.AddListener(UpdateUIVolume);
         bgmVolumeSlider.onValueChanged.AddListener(UpdateBgmVolume);
