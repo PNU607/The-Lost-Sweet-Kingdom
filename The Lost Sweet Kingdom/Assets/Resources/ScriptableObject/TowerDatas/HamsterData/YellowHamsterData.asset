@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: YellowHamsterData
   m_EditorClassIdentifier: 
-  towerName: Yellow Hamster
+  towerName: "\uB178\uB780\uC0C9 \uD584\uC2A4\uD130"
   towerColor: 2
   towerType: 1
   towerIcon: {fileID: 21300000, guid: 8a3cdaf593afc114fbfa7f49e706c8f6, type: 3}
   towerPrefab: {fileID: 4625834919878556233, guid: 6417b89f1f7536d4cb093630b88c86ab, type: 3}
-  weaponPrefab: {fileID: 4877909776406011252, guid: a5fb88efefa1e494da9f948c0ef8518e, type: 3}
+  weaponPrefab: {fileID: 4877909776406011252, guid: ea7920f03dc8cef4497c3dff074727c5, type: 3}
   spriteLibrary: {fileID: 7108339969198208228, guid: 74c0e940ecc3e284c8bce577ba5050c3, type: 3}
   cost: 0
   levelDatas:
