@@ -9,9 +9,6 @@ public class SoundController : MonoBehaviour
     public Scrollbar masterVolumeSlider;
     public Scrollbar uiVolumeSlider;
     public Scrollbar bgmVolumeSlider;
-    public Scrollbar effectVolumeSlider;
-    public Scrollbar friendlyVolumeSlider;
-    public Scrollbar enemyVolumeSlider;
 
     private void Awake()
     {
@@ -36,9 +33,6 @@ public class SoundController : MonoBehaviour
         masterVolumeSlider.value = soundData.masterVolume;
         uiVolumeSlider.value = soundData.typeVolumes[SoundType.UI];
         bgmVolumeSlider.value = soundData.typeVolumes[SoundType.BGM];
-        effectVolumeSlider.value = soundData.typeVolumes[SoundType.EFFECT];
-        friendlyVolumeSlider.value = soundData.typeVolumes[SoundType.FRIENDLY];
-        enemyVolumeSlider.value = soundData.typeVolumes[SoundType.ENEMY];
 
         SoundManager.Instance.SetMasterVolume(soundData.masterVolume);
         foreach (var kv in soundData.typeVolumes)
@@ -49,9 +43,6 @@ public class SoundController : MonoBehaviour
         masterVolumeSlider.onValueChanged.AddListener(UpdateMasterVolume);
         uiVolumeSlider.onValueChanged.AddListener(UpdateUIVolume);
         bgmVolumeSlider.onValueChanged.AddListener(UpdateBgmVolume);
-        effectVolumeSlider.onValueChanged.AddListener(UpdateEffectVolume);
-        friendlyVolumeSlider.onValueChanged.AddListener(UpdateFriendlyVolume);
-        enemyVolumeSlider.onValueChanged.AddListener(UpdateEnemyVolume);
     }
 
     private void UpdateMasterVolume(float value)
@@ -70,23 +61,5 @@ public class SoundController : MonoBehaviour
     {
         SoundManager.Instance.SetVolume(SoundType.BGM, value);
         DataManager.Instance.SetVolume(SoundType.BGM, value);
-    }
-
-    private void UpdateEffectVolume(float value)
-    {
-        SoundManager.Instance.SetVolume(SoundType.EFFECT, value);
-        DataManager.Instance.SetVolume(SoundType.EFFECT, value);
-    }
-
-    private void UpdateFriendlyVolume(float value)
-    {
-        SoundManager.Instance.SetVolume(SoundType.FRIENDLY, value);
-        DataManager.Instance.SetVolume(SoundType.FRIENDLY, value);
-    }
-
-    private void UpdateEnemyVolume(float value)
-    {
-        SoundManager.Instance.SetVolume(SoundType.ENEMY, value);
-        DataManager.Instance.SetVolume(SoundType.ENEMY, value);
     }
 }
