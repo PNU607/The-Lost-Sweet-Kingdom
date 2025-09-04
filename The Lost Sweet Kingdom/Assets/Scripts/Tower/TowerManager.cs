@@ -263,6 +263,7 @@ public class TowerManager : MonoBehaviour
 
         Vector3Int nextCellPosition = tilemap.WorldToCell(nextPosition);
         PlaceTower(nextCellPosition, towerObj);
+        bonusManager.RegisterTower(towerObj.GetComponent<Tower>());
     }
 
     /// <summary>
