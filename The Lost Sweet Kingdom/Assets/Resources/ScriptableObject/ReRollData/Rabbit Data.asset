@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1aa61544d1799744b78214b8bdb9a41, type: 3}
+  m_Name: Rabbit Data
+  m_EditorClassIdentifier: 
+  units:
+  - unitName: RedRabbit
+    towerData: {fileID: 11400000, guid: 44d0fff61f0794bf68082d6ba446b0d7, type: 2}
+    spawnProbability: 0.3
+  - unitName: OrangeRabbit
+    towerData: {fileID: 11400000, guid: 3f50a8dc188be4a8ea39ed140f311e07, type: 2}
+    spawnProbability: 0.25
+  - unitName: YellowRabbit
+    towerData: {fileID: 11400000, guid: 714a518771c5a44888e0eaf176962e27, type: 2}
+    spawnProbability: 0.15
+  - unitName: GreenRabbit
+    towerData: {fileID: 11400000, guid: c0975cf7f894941f3b81be9e254336d5, type: 2}
+    spawnProbability: 0.1
+  - unitName: BlueRabbit
+    towerData: {fileID: 11400000, guid: 2785164a8b61c4821a53e46185156e78, type: 2}
+    spawnProbability: 0.1
+  - unitName: NavyRabbit
+    towerData: {fileID: 11400000, guid: 64b661c6ceb1340b08000ce7d2406d50, type: 2}
+    spawnProbability: 0.05
+  - unitName: PurpleRabbit
+    towerData: {fileID: 11400000, guid: 0d704662b39b24047a494fe1c405594e, type: 2}
+    spawnProbability: 0.05

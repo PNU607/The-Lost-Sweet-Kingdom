@@ -17,7 +17,7 @@ MonoBehaviour:
     type: 0
     clip: {fileID: 8300000, guid: 74ce930a94f2e524496d611da6f41c5f, type: 3}
   - name: GameBgm
-    type: 4
+    type: 1
     clip: {fileID: 8300000, guid: 5445dc98a42083b409c11a333da860a6, type: 3}
   - name: TowerUIMoushover
     type: 0
@@ -35,5 +35,8 @@ MonoBehaviour:
     type: 0
     clip: {fileID: 8300000, guid: f09eeef1047347544a2673fb4e1fee9f, type: 3}
   - name: EnemyDeath
-    type: 3
+    type: 0
     clip: {fileID: 8300000, guid: 093e6948ba8265d41b0172499374fe68, type: 3}
+  - name: TitleBgm
+    type: 1
+    clip: {fileID: 8300000, guid: a64b6740ab7533e4b825b113cc986ef4, type: 3}

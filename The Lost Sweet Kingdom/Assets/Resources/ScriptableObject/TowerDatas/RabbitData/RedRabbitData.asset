@@ -22,7 +22,7 @@ MonoBehaviour:
   cost: 0
   levelDatas:
   - level: 1
-    attackRange: 2
+    attackRange: 3
     attackWeaponRange: 0
     attackCooldown: 0.8
     attackDuration: 0

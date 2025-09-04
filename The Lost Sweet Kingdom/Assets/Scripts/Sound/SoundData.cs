@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,9 +10,17 @@ public class SoundData
     public Dictionary<SoundType, float> typeVolumes = new Dictionary<SoundType, float>()
     {
         { SoundType.UI, 1f },
-        { SoundType.EFFECT, 1f },
-        { SoundType.FRIENDLY, 1f },
-        { SoundType.ENEMY, 1f },
         { SoundType.BGM, 1f }
     };
+
+    public float GetVolume(SoundType type)
+    {
+        return typeVolumes.ContainsKey(type) ? typeVolumes[type] : 1f;
+    }
+
+    public void SetVolume(SoundType type, float value)
+    {
+        if (typeVolumes.ContainsKey(type))
+            typeVolumes[type] = value;
+    }
 }

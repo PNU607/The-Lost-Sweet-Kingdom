@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: GreenHamsterData
   m_EditorClassIdentifier: 
-  towerName: Green Hamster
+  towerName: "\uCD08\uB85D\uC0C9 \uD584\uC2A4\uD130"
   towerColor: 3
   towerType: 1
   towerIcon: {fileID: 21300000, guid: ab4d55c60c1f0b841b5146e198471a16, type: 3}
@@ -22,7 +22,7 @@ MonoBehaviour:
   cost: 0
   levelDatas:
   - level: 1
-    attackRange: 1.7
+    attackRange: 3
     attackWeaponRange: 0.5
     attackCooldown: 1
     attackDuration: 0.8

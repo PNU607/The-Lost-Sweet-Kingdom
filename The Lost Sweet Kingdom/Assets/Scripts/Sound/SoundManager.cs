@@ -8,9 +8,6 @@ using System.Sound;
 public enum SoundType
 {
     UI,
-    EFFECT,
-    FRIENDLY,
-    ENEMY,
     BGM
 }
 

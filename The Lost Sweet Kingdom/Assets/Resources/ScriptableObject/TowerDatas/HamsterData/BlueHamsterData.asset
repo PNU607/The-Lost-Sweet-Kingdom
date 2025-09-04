@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: BlueHamsterData
   m_EditorClassIdentifier: 
-  towerName: Blue Hamster
+  towerName: "\uD30C\uB780\uC0C9 \uD584\uC2A4\uD130"
   towerColor: 4
   towerType: 1
   towerIcon: {fileID: 21300000, guid: 68b060ef54793344496cde12d0c42b79, type: 3}

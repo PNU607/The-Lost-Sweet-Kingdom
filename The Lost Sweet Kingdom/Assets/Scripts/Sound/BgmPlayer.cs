@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class BgmPlayer : MonoBehaviour
 {
+    public string bgmName;
     private void Start()
     {
         SoundObject _soundObject;
-        _soundObject = Sound.Play("GameBgm", true);
+        _soundObject = Sound.Play(bgmName, true);
         _soundObject.SetVolume(0.1f);
     }
 }
