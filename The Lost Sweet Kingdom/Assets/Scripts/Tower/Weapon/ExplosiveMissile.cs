@@ -33,12 +33,16 @@ public class ExplosiveMissile : Missile
     public Vector3 startTargetPosition;
     private float threshold = 0.1f;
 
+    [SerializeField] private float attackInterval = 1f;
+
     public override void Setup(Transform target, Tower shotTower)
     {
         base.Setup(target, shotTower);
         startTargetPosition = target.transform.position;
         explosionRangeIndicator.enabled = false;
         UpdateRangeIndicator();
+
+        StartCoroutine(AttackLoop());
     }
 
     /// <summary>
@@ -48,23 +52,32 @@ public class ExplosiveMissile : Missile
     {
         isAttackStopped = true;
         explosionRangeIndicator.enabled = true;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, shotTower.applyLevelData.attackWeaponRange, shotTower.towerBase.enemyLayer);
-        foreach (Collider2D col in colliders)
-        {
-            EnemyTest enemy = col.GetComponent<EnemyTest>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(shotTower.applyLevelData.attackDamage);
-            }
-        }
+        
         ReleaseWeapon();
+    }
+
+    private IEnumerator AttackLoop()
+    {
+        while (true)
+        {
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, shotTower.applyLevelData.attackWeaponRange, shotTower.towerBase.enemyLayer);
+            foreach (Collider2D col in colliders)
+            {
+                EnemyTest enemy = col.GetComponent<EnemyTest>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(shotTower.applyLevelData.attackDamage);
+                }
+            }
+            yield return new WaitForSeconds(attackInterval);
+        }
     }
 
     protected override void Update()
     {
         base.Update();
 
-        if (Vector3.Distance(transform.position, startTargetPosition) < threshold)
+        if (Vector3.Distance(transform.position, startTargetPosition) < threshold && !isAttackStopped)
         {
             Attack();
         }
@@ -82,6 +95,11 @@ public class ExplosiveMissile : Missile
         {
             direction = Vector3.zero;
         }
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
     /// <summary>
