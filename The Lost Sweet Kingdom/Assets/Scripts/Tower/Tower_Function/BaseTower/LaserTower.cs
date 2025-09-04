@@ -28,14 +28,16 @@ public class LaserTower : TrackingTower
     /// <summary>
     /// 레이저 시각 효과 표시용 LineRenderer
     /// </summary>
-    public LineRenderer lineRenderer;
+    //public LineRenderer lineRenderer;
 
-    protected override void Start()
-    {
-        base.Start();
+    public Laser2D laser;
 
-        lineRenderer.positionCount = 2;
-    }
+    //protected override void Start()
+    //{
+    //    base.Start();
+
+    //    lineRenderer.positionCount = 2;
+    //}
 
     /// <summary>
     /// 타겟을 향해 레이저를 생성
@@ -87,7 +89,10 @@ public class LaserTower : TrackingTower
     /// </summary>
     private void StopLaser()
     {
-        lineRenderer.enabled = false;
+        // 타겟 없으면 레이저 숨기기
+        //lineRenderer.enabled = false;
+        
+        laser.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -104,7 +109,7 @@ public class LaserTower : TrackingTower
     {
         if (closestAttackTarget != null)
         {
-            Vector2 startPos = transform.position;
+            Vector2 startPos = towerBase.weaponSpawnTransform.position;
             Vector2 direction = (closestAttackTarget.transform.position - transform.position).normalized;
             float maxDistance = applyLevelData.attackRange;
 
@@ -112,9 +117,14 @@ public class LaserTower : TrackingTower
             Vector2 endPos = (Vector2)transform.position + direction * maxDistance;
 
             // LineRenderer로 레이저 시각화
-            lineRenderer.enabled = true;
-            lineRenderer.SetPosition(0, startPos);
-            lineRenderer.SetPosition(1, endPos);
+            //lineRenderer.enabled = true;
+            //lineRenderer.SetPosition(0, startPos);
+            //lineRenderer.SetPosition(1, endPos);
+
+            laser.gameObject.SetActive(true);
+            Vector2 start = startPos;
+            Vector2 end = endPos;
+            laser.UpdateLaser(start, end);
 
             // Raycast로 선상의 모든 적 찾기
             RaycastHit2D[] hits = Physics2D.RaycastAll(startPos, direction, maxDistance, towerBase.enemyLayer);
@@ -142,6 +152,6 @@ public class LaserTower : TrackingTower
     private IEnumerator DisableLaser()
     {
         yield return new WaitForSeconds(0.4f);
-        lineRenderer.enabled = false;
+        StopLaser();
     }
 }
