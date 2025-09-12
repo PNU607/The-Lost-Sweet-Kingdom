@@ -162,7 +162,7 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         SoundObject _soundObject;
         _soundObject = Sound.Play("TowerUIMoushover", false);
-        _soundObject.SetVolume(0.1f);
+        //_soundObject.SetVolume(0.1f);
     }
 
     /// <summary>
@@ -182,7 +182,7 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         SoundObject _soundObject;
         _soundObject = Sound.Play("TowerMerge", false);
-        _soundObject.SetVolume(0.1f);
+        //_soundObject.SetVolume(0.1f);
 
         // UI 요소 반투명하게 처리
         canvasGroup.alpha = 0.5f;
@@ -235,7 +235,7 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
                 SoundObject _soundObject;
                 _soundObject = Sound.Play("TowerInstallation", false);
-                _soundObject.SetVolume(0.1f);
+                //_soundObject.SetVolume(0.1f);
             }
             else
             {

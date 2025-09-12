@@ -142,7 +142,7 @@ public class EnemyTest : MonoBehaviour
         if (hp <= 0) return;
 
         SoundObject sound = Sound.Play("EnemyAttacked", false);
-        sound?.SetVolume(0.03f);
+        //sound?.SetVolume(0.03f);
 
         //Debug.Log($"Take Damage {damage} | Total HP: {hp}");
 
@@ -225,7 +225,7 @@ public class EnemyTest : MonoBehaviour
         Debug.Log("Die");
         SoundObject _soundObject;
         _soundObject = Sound.Play("EnemyDeath", false);
-        _soundObject.SetVolume(0.1f);
+        //_soundObject.SetVolume(0.1f);
         GoldManager.instance.AddGold(currentEnemyData.goldReward);
         ObjectPool.Instance.ReturnEnemy(this.gameObject);
 

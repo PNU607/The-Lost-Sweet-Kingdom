@@ -136,7 +136,7 @@ public class TowerManager : MonoBehaviour
 
                 SoundObject _soundObject;
                 _soundObject = Sound.Play("TowerMousehover", false);
-                _soundObject.SetVolume(0.3f);
+                //_soundObject.SetVolume(0.3f);
             }
         }
         else
