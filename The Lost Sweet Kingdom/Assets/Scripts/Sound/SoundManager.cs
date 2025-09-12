@@ -38,6 +38,13 @@ public class SoundManager : MonoBehaviour
         }
 
         InitializeVolumes();
+
+        var soundData = DataManager.Instance.SoundData;
+        SetMasterVolume(soundData.masterVolume);
+        foreach (var entry in soundData.typeVolumes)
+        {
+            SetVolume(entry.type, entry.volume);
+        }
     }
 
     private void InitializeVolumes()
