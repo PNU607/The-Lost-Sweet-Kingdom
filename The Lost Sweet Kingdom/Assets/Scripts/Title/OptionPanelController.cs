@@ -19,7 +19,7 @@ public class OptionPanelController : MonoBehaviour
         {
             SoundObject _soundObject;
             _soundObject = Sound.Play("TowerUIMoushover", false);
-            _soundObject.SetVolume(8f);
+            //_soundObject.SetVolume(8f);
 
             optionPanel.SetActive(true);
         }
@@ -31,7 +31,7 @@ public class OptionPanelController : MonoBehaviour
         {
             SoundObject _soundObject;
             _soundObject = Sound.Play("TowerUIMoushover", false);
-            _soundObject.SetVolume(8f);
+            //_soundObject.SetVolume(8f);
 
             optionPanel.SetActive(false);
         }
