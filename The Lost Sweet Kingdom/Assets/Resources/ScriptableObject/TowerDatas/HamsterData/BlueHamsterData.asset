@@ -25,8 +25,8 @@ MonoBehaviour:
     attackRange: 3
     attackWeaponRange: 0
     attackCooldown: 1
-    attackDuration: 0.8
-    attackDamage: 1
+    attackDuration: 2
+    attackDamage: 2
     rotationSpeed: 0
   - level: 2
     attackRange: 3
