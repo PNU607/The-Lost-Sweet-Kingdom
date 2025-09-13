@@ -218,7 +218,7 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
         Debug.Log("마우스 올림: " + gameObject.name);
         SoundObject _soundObject;
         _soundObject = Sound.Play("TowerMousehover", false);
-        _soundObject.SetVolume(0.1f);
+        //_soundObject.SetVolume(0.1f);
     }
 
     /// <summary>
@@ -284,7 +284,7 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
 
                 SoundObject _soundObject;
                 _soundObject = Sound.Play("TowerMerge", false);
-                _soundObject.SetVolume(0.1f);
+                //_soundObject.SetVolume(0.1f);
             }
             else
             {

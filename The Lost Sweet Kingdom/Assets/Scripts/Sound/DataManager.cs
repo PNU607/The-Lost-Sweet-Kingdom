@@ -51,26 +51,19 @@ public class DataManager : MonoBehaviour
         SaveData();
     }
 
-    public void SetVolume(SoundType type, float volume)
-    {
-        if (SoundData.typeVolumes.ContainsKey(type))
-        {
-            SoundData.typeVolumes[type] = volume;
-        }
-        else
-        {
-            SoundData.typeVolumes.Add(type, volume);
-        }
-        SaveData();
-    }
-
     public float GetMasterVolume()
     {
         return SoundData.masterVolume;
     }
 
+    public void SetVolume(SoundType type, float volume)
+    {
+        SoundData.SetVolume(type, volume);
+        SaveData();
+    }
+
     public float GetVolume(SoundType type)
     {
-        return SoundData.typeVolumes.TryGetValue(type, out var value) ? value : 1f;
+        return SoundData.GetVolume(type);
     }
 }

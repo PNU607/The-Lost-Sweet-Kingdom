@@ -31,13 +31,13 @@ public class SoundController : MonoBehaviour
         SoundData soundData = DataManager.Instance.SoundData;
 
         masterVolumeSlider.value = soundData.masterVolume;
-        uiVolumeSlider.value = soundData.typeVolumes[SoundType.UI];
-        bgmVolumeSlider.value = soundData.typeVolumes[SoundType.BGM];
+        uiVolumeSlider.value = soundData.GetVolume(SoundType.UI);
+        bgmVolumeSlider.value = soundData.GetVolume(SoundType.BGM);
 
         SoundManager.Instance.SetMasterVolume(soundData.masterVolume);
-        foreach (var kv in soundData.typeVolumes)
+        foreach (var entry in soundData.typeVolumes)
         {
-            SoundManager.Instance.SetVolume(kv.Key, kv.Value);
+            SoundManager.Instance.SetVolume(entry.type, entry.volume);
         }
 
         masterVolumeSlider.onValueChanged.AddListener(UpdateMasterVolume);
