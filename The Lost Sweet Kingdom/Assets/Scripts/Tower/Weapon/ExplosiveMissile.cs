@@ -33,7 +33,7 @@ public class ExplosiveMissile : Missile
     public Vector3 startTargetPosition;
     private float threshold = 0.1f;
 
-    [SerializeField] private float attackInterval = 1f;
+    [SerializeField] private float attackInterval = .2f;
 
     public override void Setup(Transform target, Tower shotTower)
     {
