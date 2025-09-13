@@ -144,7 +144,7 @@ public class EnemyTest : MonoBehaviour
         SoundObject sound = Sound.Play("EnemyAttacked", false);
         sound?.SetVolume(0.03f);
 
-        //Debug.Log($"Take Damage {damage} | Total HP: {hp}");
+        Debug.Log($"Take Damage {damage} | Total HP: {hp}");
 
         hp -= damage;
         //Debug.Log($"Enemy HP: {hp} / {currentEnemyData.maxHealth}");

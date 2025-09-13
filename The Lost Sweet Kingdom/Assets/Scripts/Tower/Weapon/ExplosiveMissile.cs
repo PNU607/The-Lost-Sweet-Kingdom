@@ -126,6 +126,7 @@ public class ExplosiveMissile : Missile
         yield return new WaitForSeconds(explosionTime);
 
         base.ReleaseWeapon();
+        StopAllCoroutines();
         explosionRangeIndicator.enabled = false;
         isAttackStopped = false;
     }
