@@ -1300,6 +1300,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8120736266760171923, guid: 6ddfb6a9ecef72342b04e0d1922010eb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -170
+      objectReference: {fileID: 0}
     - target: {fileID: 8963444855322059184, guid: 6ddfb6a9ecef72342b04e0d1922010eb, type: 3}
       propertyPath: m_Name
       value: SoundPanel
