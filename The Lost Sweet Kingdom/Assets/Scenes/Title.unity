@@ -1001,7 +1001,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Eixt
+  m_text: Exit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d6a63664f216f0043b58766ff8883912, type: 2}
   m_sharedMaterial: {fileID: 6997923026719535433, guid: d6a63664f216f0043b58766ff8883912, type: 2}
