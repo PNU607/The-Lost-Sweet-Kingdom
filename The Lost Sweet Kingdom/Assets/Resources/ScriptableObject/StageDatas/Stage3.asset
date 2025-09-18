@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Stage3
   m_EditorClassIdentifier: 
   stageName: Stage3
+  stageSprite: {fileID: 21300000, guid: a2e8271c738f0c244a85497f73ff08eb, type: 3}
   difficulty: 2
   isLocked: 1
   isCleared: 0

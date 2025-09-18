@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33871a5a8ad6c8643874177ff611a1ad, type: 3}
-  m_Name: Stage1
+  m_Script: {fileID: 11500000, guid: 2bbaf4811c346084fab98641aaa1d4ee, type: 3}
+  m_Name: TestWave
   m_EditorClassIdentifier: 
-  stageName: Stage1
-  stageSprite: {fileID: 21300000, guid: 6827c748691f9d842a22f8690447e7c6, type: 3}
-  difficulty: 0
-  isLocked: 0
-  isCleared: 1
+  enemies:
+  - enemyData: {fileID: 11400000, guid: a5d3c04ab62bdf24caf1746303b310cb, type: 2}
+    count: 1
+    spawnDelay: 1
+  startDelay: 1
