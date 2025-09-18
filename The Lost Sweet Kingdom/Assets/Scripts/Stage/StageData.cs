@@ -4,6 +4,15 @@ using UnityEngine;
 public class StageData : ScriptableObject
 {
     public string stageName;
-    public int difficulty;
+    public DifficultyLevel difficulty;
     public bool isLocked;
+    public bool isCleared;
+}
+
+public enum DifficultyLevel
+{
+    Easy,
+    Medium,
+    Hard,
+    Expert
 }

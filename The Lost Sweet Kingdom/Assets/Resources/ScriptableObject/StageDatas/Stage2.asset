@@ -12,10 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33871a5a8ad6c8643874177ff611a1ad, type: 3}
   m_Name: Stage2
   m_EditorClassIdentifier: 
-  stageId: Stage2
-  displayName: Stage2
-  sceneName: Stage2
-  thumbnail: {fileID: 21300000, guid: 694fb54e6c0cd0646b465df3a8d631b6, type: 3}
-  description: stage2
+  stageName: Stage2
   difficulty: 1
-  defaultLocked: 0
+  isLocked: 0
+  isCleared: 0
