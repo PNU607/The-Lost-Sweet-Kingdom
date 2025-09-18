@@ -17,6 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test_JJW/Scene0918.unity
     guid: 90c4dd3ae0a7b4944a3fef08bc401cd1
+  - enabled: 1
     path: Assets/Scenes/Stage/Stage1.unity
     guid: 4afe39f0b1f86084fa158ed649f1a554
   - enabled: 1
