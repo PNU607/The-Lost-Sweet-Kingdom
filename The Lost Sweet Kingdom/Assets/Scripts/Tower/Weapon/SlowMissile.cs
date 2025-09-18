@@ -44,6 +44,7 @@ public class SlowMissile : Missile
     private IEnumerator SlowEnemy(EnemyTest enemy)
     {
         if (enemy == null) yield break;
+        if (!enemy.gameObject.activeSelf) yield break;
 
         // 적 이속 감소
         enemy.SetSpeedMultiplier(1 / shotTower.applyLevelData.attackDamage, shotTower.applyLevelData.attackDuration);
