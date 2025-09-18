@@ -30,6 +30,7 @@ public class StageSlot : MonoBehaviour
         currentData = data;
 
         //nameText.text = data.stageName;
+        stageBtn.targetGraphic.GetComponent<Image>().sprite = data.stageSprite;
         difficultyText.text = data.difficulty.ToString();
         lockIcon.SetActive(data.isLocked);
         clearText.text = data.isCleared ? "클리어 완료!" : "";
