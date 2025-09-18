@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183b7d1bf0fadd84caf8b4bfc8a03dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rerollData: {fileID: 11400000, guid: f44f1a51a5720ba428268028e5192096, type: 2}
+  rerollData: {fileID: 11400000, guid: cea02041570c84648b022d340be982d9, type: 2}
   unitPanel: {fileID: 1078726805}
   rerollCost: 0
   towerUIPrefab: {fileID: 8887764149964107737, guid: 9c3375d47960540a282addc2bf3e7695, type: 3}
@@ -469,10 +469,6 @@ PrefabInstance:
       value: -597.216
       objectReference: {fileID: 0}
     - target: {fileID: 1441680289927817738, guid: 6ddfb6a9ecef72342b04e0d1922010eb, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.19
-      objectReference: {fileID: 0}
-    - target: {fileID: 1441680289927817738, guid: 6ddfb6a9ecef72342b04e0d1922010eb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -502,11 +498,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1441680289927817738, guid: 6ddfb6a9ecef72342b04e0d1922010eb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1
+      value: -82.96045
       objectReference: {fileID: 0}
     - target: {fileID: 1441680289927817738, guid: 6ddfb6a9ecef72342b04e0d1922010eb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5
+      value: -10.607971
       objectReference: {fileID: 0}
     - target: {fileID: 1441680289927817738, guid: 6ddfb6a9ecef72342b04e0d1922010eb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3785,14 +3781,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 913834410}
     m_Modifications:
-    - target: {fileID: 3088722903434813168, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 3088722903434813168, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 4537884917895454944, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_Name
       value: Option
@@ -3876,14 +3864,6 @@ PrefabInstance:
     - target: {fileID: 4801126071775133329, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6471575062331677996, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
-      propertyPath: m_fontSize
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 6471575062331677996, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 8168903525088690271, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: optionPanel
