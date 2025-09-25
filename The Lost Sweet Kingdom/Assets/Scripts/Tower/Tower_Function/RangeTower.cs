@@ -13,7 +13,7 @@ public class RangeTower : TrackingTower
 
     protected Tilemap attackableTilemap;
 
-    protected List<EnemyTest> candidates = new List<EnemyTest>();
+    protected List<Enemy> candidates = new List<Enemy>();
 
     public override void Setup(TowerData nextTowerData, int level = 1)
     {
@@ -95,7 +95,7 @@ public class RangeTower : TrackingTower
                     {
                         if (enemyCol == null) continue;
 
-                        if (enemyCol.TryGetComponent(out EnemyTest enemy))
+                        if (enemyCol.TryGetComponent(out Enemy enemy))
                         {
                             candidates.Add(enemy);
                             AttackRangeTarget(enemyCol);

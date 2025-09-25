@@ -31,7 +31,7 @@ public class ToxicMissile : Missile
     /// <param name="collision"></param>
     protected override void Attack(Collider2D collision)
     {
-        EnemyTest enemy = collision.GetComponent<EnemyTest>();
+        Enemy enemy = collision.GetComponent<Enemy>();
         StartCoroutine(DealContinuousDamage(enemy));
     }
 
@@ -40,7 +40,7 @@ public class ToxicMissile : Missile
     /// </summary>
     /// <param name="enemy">공격할 적</param>
     /// <returns></returns>
-    private IEnumerator DealContinuousDamage(EnemyTest enemy)
+    private IEnumerator DealContinuousDamage(Enemy enemy)
     {
         if (enemy == null) yield break;
         if (!enemy.gameObject.activeSelf) yield break;

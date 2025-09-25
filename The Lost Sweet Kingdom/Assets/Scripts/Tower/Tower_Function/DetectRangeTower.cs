@@ -45,7 +45,7 @@ public class DetectRangeTower : RangeTower
                     {
                         if (enemyCol == null) continue;
 
-                        if (enemyCol.TryGetComponent(out EnemyTest enemy))
+                        if (enemyCol.TryGetComponent(out Enemy enemy))
                         {
                             candidates.Add(enemy);
                             AttackRangeTarget(enemyCol);
