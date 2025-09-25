@@ -118,11 +118,11 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// <summary>
     /// 공격할 타겟 리스트
     /// </summary>
-    protected List<EnemyTest> attackTargets = null;
+    protected List<Enemy> attackTargets = null;
     /// <summary>
     /// 가장 가까운 타겟
     /// </summary>
-    protected EnemyTest closestAttackTarget = null;
+    protected Enemy closestAttackTarget = null;
 
     private int starCount = 0;
     /// <summary>
@@ -419,16 +419,16 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// 공격 범위 내 적들의 리스트를 반환
     /// </summary>
     /// <returns></returns>
-    protected List<EnemyTest> GetEnemiesInRange()
+    protected List<Enemy> GetEnemiesInRange()
     {
-        List<EnemyTest> enemiesInRange = new List<EnemyTest>();
+        List<Enemy> enemiesInRange = new List<Enemy>();
 
         // 현재 타워의 위치에서 원형의 공격 범위 내에 있는 모든 Enemy(Layer)를 가져옴
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, applyLevelData.attackRange, towerBase.enemyLayer);
 
         foreach (Collider2D col in colliders)
         {
-            EnemyTest enemy = col.GetComponent<EnemyTest>();
+            Enemy enemy = col.GetComponent<Enemy>();
             if (enemy != null)
             {
                 enemiesInRange.Add(enemy);
@@ -441,15 +441,15 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// 공격 범위 내 가장 가까운 적 하나를 반환
     /// </summary>
     /// <returns></returns>
-    protected EnemyTest GetClosestEnemy()
+    protected Enemy GetClosestEnemy()
     {
-        List<EnemyTest> enemies = GetEnemiesInRange();
+        List<Enemy> enemies = GetEnemiesInRange();
 
         float closestDistance = Mathf.Infinity;
-        EnemyTest closestEnemy = null;
+        Enemy closestEnemy = null;
 
         // 범위 내 모든 적 순회
-        foreach (EnemyTest enemy in enemies)
+        foreach (Enemy enemy in enemies)
         {
             // 각 적과 타워와의 제곱 거리 계산 (루트 연산 제거)
             float distance = (enemy.transform.position - transform.position).sqrMagnitude;

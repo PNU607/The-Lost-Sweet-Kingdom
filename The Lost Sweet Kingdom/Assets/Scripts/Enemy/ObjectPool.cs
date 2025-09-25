@@ -49,7 +49,7 @@ public class ObjectPool : MonoBehaviour
             enemy.transform.SetParent(poolParents[data]);
         }
 
-        EnemyTest enemyTest = enemy.GetComponent<EnemyTest>();
+        Enemy enemyTest = enemy.GetComponent<Enemy>();
         if (enemyTest == null)
         {
             Debug.LogError("Enemy prefab does not have EnemyTest component");
@@ -68,7 +68,7 @@ public class ObjectPool : MonoBehaviour
 
         enemy.SetActive(false);
 
-        EnemyTest enemyTest = enemy.GetComponent<EnemyTest>();
+        Enemy enemyTest = enemy.GetComponent<Enemy>();
         if (enemyTest == null || enemyTest.GetEnemyData() == null)
         {
             Debug.LogWarning("Returned enemy has no valid data");

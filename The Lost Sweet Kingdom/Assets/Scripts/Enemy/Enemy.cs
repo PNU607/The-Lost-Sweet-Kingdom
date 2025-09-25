@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.U2D.Animation;
 using System.Sound;
 
-public class EnemyTest : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [SerializeField]
     public EnemyData currentEnemyData;
@@ -28,6 +28,8 @@ public class EnemyTest : MonoBehaviour
     public SpriteLibrary spriteLibrary;
     private SpriteResolver spriteResolver;
 
+    private SpriteRenderer spriteRenderer;
+
     /*private void OnEnable()
     {
         if (currentEnemyData == null)
@@ -41,6 +43,7 @@ public class EnemyTest : MonoBehaviour
     private void Awake()
     {
         originalScale = transform.localScale;
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         healthSlider = GetComponentInChildren<Slider>();
         if (healthSlider == null)
@@ -214,9 +217,22 @@ public class EnemyTest : MonoBehaviour
         float timer = 0;
         while (timer <= duration)
         {
+            if (!gameObject.activeInHierarchy) yield break;
+
             TakeDamage(damage);
+            StartCoroutine(PoisonEffect());
             yield return new WaitForSeconds(0.5f);
             timer += 0.5f;
+        }
+    }
+    private IEnumerator PoisonEffect()
+    {
+        if (spriteRenderer != null)
+        {
+            Color originalColor = spriteRenderer.color;
+            spriteRenderer.color = Color.green;
+            yield return new WaitForSeconds(0.2f);
+            spriteRenderer.color = originalColor;
         }
     }
 

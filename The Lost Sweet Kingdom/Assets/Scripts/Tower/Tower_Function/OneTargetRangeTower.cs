@@ -11,7 +11,7 @@ public class OneTargetRangeTower : RangeTower
 
         if (candidates.Count > 0)
         {
-            EnemyTest closest = null;
+            Enemy closest = null;
             float minDist = float.MaxValue;
             Vector3 towerPos = transform.position;
 

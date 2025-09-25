@@ -18,7 +18,7 @@ public class DamageCircle : DamageZone
         Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, radius, shotTower.towerBase.enemyLayer);
         foreach (var enemy in enemies)
         {
-            if (enemy.TryGetComponent(out EnemyTest enemyTest))
+            if (enemy.TryGetComponent(out Enemy enemyTest))
             {
                 enemyTest.TakeDamage(shotTower.applyLevelData.attackDamage);
             }
