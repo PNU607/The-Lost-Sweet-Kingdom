@@ -227,7 +227,7 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             // 드래그 끝난 위치에 타워 생성
             // 잘못 된 위치일시, 초기화
             //TowerManager.Instance.TrySpawnTower(currentTowerData.towerPrefab);
-            bool isBuildable = TowerManager.Instance.TrySpawnTower(currentTowerData, 1);
+            bool isBuildable = TowerManager.Instance.TrySpawnTower(previewTower, 1);
             if (isBuildable)
             {
                 canvasGroup.alpha = 0.3f;

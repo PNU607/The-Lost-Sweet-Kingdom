@@ -43,6 +43,7 @@ public class ToxicMissile : Missile
     private IEnumerator DealContinuousDamage(Enemy enemy)
     {
         if (enemy == null) yield break;
+        if (!enemy.gameObject.activeSelf) yield break;
 
         // 적 이속 감소
         enemy.TakeContinuousDamageForBullet(shotTower.applyLevelData.attackDamage, shotTower.applyLevelData.attackDuration);

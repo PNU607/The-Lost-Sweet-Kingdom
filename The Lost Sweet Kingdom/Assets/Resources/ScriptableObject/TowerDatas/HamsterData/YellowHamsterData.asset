@@ -19,7 +19,7 @@ MonoBehaviour:
   towerPrefab: {fileID: 4625834919878556233, guid: 6417b89f1f7536d4cb093630b88c86ab, type: 3}
   weaponPrefab: {fileID: 4877909776406011252, guid: ea7920f03dc8cef4497c3dff074727c5, type: 3}
   spriteLibrary: {fileID: 7108339969198208228, guid: 74c0e940ecc3e284c8bce577ba5050c3, type: 3}
-  cost: 0
+  cost: 3
   levelDatas:
   - level: 1
     attackRange: 3

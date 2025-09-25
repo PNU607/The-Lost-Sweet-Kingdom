@@ -19,26 +19,26 @@ MonoBehaviour:
   towerPrefab: {fileID: 4625834919878556233, guid: 691c7b50770665241b69a8bb97bfb08d, type: 3}
   weaponPrefab: {fileID: 4877909776406011252, guid: ea7920f03dc8cef4497c3dff074727c5, type: 3}
   spriteLibrary: {fileID: 7108339969198208228, guid: b002533faaa4ee5438aba5fa81623cb5, type: 3}
-  cost: 0
+  cost: 2
   levelDatas:
   - level: 1
-    attackRange: 3
+    attackRange: 2.5
     attackWeaponRange: 0
     attackCooldown: 1
     attackDuration: 2
     attackDamage: 1
     rotationSpeed: 0
   - level: 2
-    attackRange: 2
+    attackRange: 2.8
     attackWeaponRange: 0
     attackCooldown: 0.8
     attackDuration: 2
     attackDamage: 2
     rotationSpeed: 0
   - level: 3
-    attackRange: 2.2
+    attackRange: 3
     attackWeaponRange: 0
-    attackCooldown: 0.6
+    attackCooldown: 0.5
     attackDuration: 2
     attackDamage: 3
     rotationSpeed: 0
