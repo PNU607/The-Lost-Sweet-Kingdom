@@ -31,7 +31,7 @@ public class SlowMissile : Missile
     /// <param name="collision"></param>
     protected override void Attack(Collider2D collision)
     {
-        EnemyTest enemy = collision.GetComponent<EnemyTest>();
+        Enemy enemy = collision.GetComponent<Enemy>();
 
         StartCoroutine(SlowEnemy(enemy));
     }
@@ -41,7 +41,7 @@ public class SlowMissile : Missile
     /// </summary>
     /// <param name="enemy">공격할 적</param>
     /// <returns></returns>
-    private IEnumerator SlowEnemy(EnemyTest enemy)
+    private IEnumerator SlowEnemy(Enemy enemy)
     {
         if (enemy == null) yield break;
         if (!enemy.gameObject.activeSelf) yield break;

@@ -43,7 +43,7 @@ public class DamageZone : TowerWeapon
         Collider2D[] enemies = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0f, shotTower.towerBase.enemyLayer);
         foreach (var enemy in enemies)
         {
-            if (enemy.TryGetComponent(out EnemyTest enemyTest))
+            if (enemy.TryGetComponent(out Enemy enemyTest))
             {
                 enemyTest.TakeDamage(shotTower.applyLevelData.attackDamage);
             }

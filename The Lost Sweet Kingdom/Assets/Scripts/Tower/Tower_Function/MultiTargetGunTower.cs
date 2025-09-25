@@ -41,11 +41,11 @@ public class MultiTargetGunTower : TrackingTower
 
     public override void Attack()
     {
-        List<EnemyTest> enemiesInRange = GetEnemiesInRange();
+        List<Enemy> enemiesInRange = GetEnemiesInRange();
 
         if (enemiesInRange.Count > 0)
         {
-            foreach (EnemyTest enemy in enemiesInRange)
+            foreach (Enemy enemy in enemiesInRange)
             {
                 TowerWeapon weapon = TowerManager.Instance.GetWeapon(currentTowerData.weaponPrefab);
                 weapon.transform.position = towerBase.weaponSpawnTransform.position;

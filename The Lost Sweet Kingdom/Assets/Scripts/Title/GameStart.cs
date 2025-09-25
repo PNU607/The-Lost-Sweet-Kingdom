@@ -14,6 +14,7 @@ public class GameStart : MonoBehaviour
         SoundObject _soundObject;
         _soundObject = Sound.Play("TowerUIMoushover", false);
         //_soundObject.SetVolume(0.1f);
+        Time.timeScale = 1f;
 
         SceneManager.LoadScene(nextSceneName);
     }

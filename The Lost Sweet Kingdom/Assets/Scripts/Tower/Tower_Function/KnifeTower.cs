@@ -28,7 +28,7 @@ public class KnifeTower : RotatingTower
     /// <summary>
     /// 개별 적 공격 타이머
     /// </summary>
-    private Dictionary<EnemyTest, float> lastAttackTime = new Dictionary<EnemyTest, float>(); // 개별 적 공격 타이머
+    private Dictionary<Enemy, float> lastAttackTime = new Dictionary<Enemy, float>(); // 개별 적 공격 타이머
 
     /// <summary>
     /// 무기가 적과 충돌하면 대미지 적용
@@ -38,7 +38,7 @@ public class KnifeTower : RotatingTower
     {
         if (collision.CompareTag("Enemy"))
         {
-            EnemyTest enemy = collision.GetComponent<EnemyTest>();
+            Enemy enemy = collision.GetComponent<Enemy>();
             if (enemy != null)
             {
                 TryDamageEnemy(enemy);
@@ -50,7 +50,7 @@ public class KnifeTower : RotatingTower
     /// 적에게 대미지를 주되, 일정 시간 간격을 둠
     /// </summary>
     /// <param name="enemy"></param>
-    private void TryDamageEnemy(EnemyTest enemy)
+    private void TryDamageEnemy(Enemy enemy)
     {
         if (lastAttackTime.ContainsKey(enemy))
         {

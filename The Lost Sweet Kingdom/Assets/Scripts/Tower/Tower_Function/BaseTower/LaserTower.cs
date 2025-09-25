@@ -130,7 +130,7 @@ public class LaserTower : TrackingTower
             RaycastHit2D[] hits = Physics2D.RaycastAll(startPos, direction, maxDistance, towerBase.enemyLayer);
             foreach (RaycastHit2D hit in hits)
             {
-                EnemyTest enemy = hit.collider.GetComponent<EnemyTest>();
+                Enemy enemy = hit.collider.GetComponent<Enemy>();
                 if (enemy != null)
                 {
                     enemy.TakeDamage(applyLevelData.attackDamage);
