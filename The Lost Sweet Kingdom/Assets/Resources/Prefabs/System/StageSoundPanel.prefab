@@ -1921,6 +1921,7 @@ GameObject:
   - component: {fileID: 2537602899252263391}
   - component: {fileID: 6153500395977364641}
   - component: {fileID: 8347630727836455438}
+  - component: {fileID: 1216820521029064476}
   m_Layer: 5
   m_Name: Exit
   m_TagString: Untagged
@@ -2030,9 +2031,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: OptionPanelController, Assembly-CSharp
-        m_MethodName: ClosePanel
+      - m_Target: {fileID: 1216820521029064476}
+        m_TargetAssemblyTypeName: Exit, Assembly-CSharp
+        m_MethodName: OnButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2042,3 +2043,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1216820521029064476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9153968561736735140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63252d3a324cfc44a1895981f5d48d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
