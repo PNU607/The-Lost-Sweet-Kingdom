@@ -151,21 +151,20 @@ public class TowerManager : MonoBehaviour
     /// <summary>
     /// 타워를 배치할 수 있는 영역인지 체크 후 배치
     /// </summary>
-    /// <param name="towerData">배치할 타워의 데이터</param>
+    /// <param name="tower">배치할 타워</param>
     /// <param name="level">배치할 타워의 레벨</param>
-    public bool TrySpawnTower(TowerData towerData, int level)
+    public bool TrySpawnTower(Tower tower, int level)
     {
         // 마우스 위치를 월드 좌표로 변환
         Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
         // 타워 설치 가능 여부 확인
         Tower occupiedTower;
-        Tower spawnTower = towerData.towerPrefab.GetComponent<Tower>();
         bool isOccupiedTile = IsTileOccupied(mousePosition, out occupiedTower);
         if (isOccupiedTile
-            && CanMerge(occupiedTower, towerData))
+            && CanMerge(occupiedTower, tower))
         {
-            MergeTowers(occupiedTower, spawnTower);
+            MergeTowers(occupiedTower, tower);
             return true;
         }
         // 배치 불가능한 위치라면 원래 자리로 되돌리기
@@ -175,7 +174,7 @@ public class TowerManager : MonoBehaviour
             return false;
         }
 
-        SpawnTower(mousePosition, towerData, level);
+        SpawnTower(mousePosition, tower.CurrentTowerData, level);
 
         return true;
     }
@@ -391,27 +390,12 @@ public class TowerManager : MonoBehaviour
     /// <returns></returns>
     public bool CanMerge(Tower towerA, Tower towerB)
     {
-        // 같은 종류의 타워인지, 같은 레벨인지 확인
+        // 같은 종류의 타워인지
         if (towerA.CurrentTowerData != towerB.CurrentTowerData)
             return false;
 
-        // 최대 레벨인지 확인
-        if (towerA.CurrentTowerData != null && towerA.CurrentTowerData.levelDatas.Length == towerA.towerLevel)
-            return false;
-
-        return true;
-    }
-
-    /// <summary>
-    /// Merge 가능 여부 확인
-    /// </summary>
-    /// <param name="towerA">Merge할 위치에 있는 타워</param>
-    /// <param name="towerBData">Merge할 위치로 이동하는 타워의 데이터</param>
-    /// <returns></returns>
-    public bool CanMerge(Tower towerA, TowerData towerBData)
-    {
-        // 같은 종류의 타워인지, 같은 레벨인지 확인
-        if (towerA.CurrentTowerData != towerBData)
+        // 같은 레벨인지 확인
+        if (towerA.towerLevel != towerB.towerLevel)
             return false;
 
         // 최대 레벨인지 확인

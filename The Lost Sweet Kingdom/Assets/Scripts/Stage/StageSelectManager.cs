@@ -164,13 +164,12 @@ public class StageSelectManager : MonoBehaviour
     #endregion
 
     #region Movement
-
-    public void MoveLeft()
+    public void Moveleft()
     {
         if (isAnimating || stageDatas.Count <= 1) return;
 
         HandleInput();
-        ShiftSlotsLeft();
+        ShiftSlotsRight();
         AnimateSlots();
     }
 
@@ -179,7 +178,7 @@ public class StageSelectManager : MonoBehaviour
         if (isAnimating || stageDatas.Count <= 1) return;
 
         HandleInput();
-        ShiftSlotsRight();
+        ShiftSlotsLeft();
         AnimateSlots();
     }
 
@@ -407,5 +406,27 @@ public class StageSelectManager : MonoBehaviour
         return null;
     }
 
+    void Update()
+    {
+        // 키보드 입력 처리
+        if (Input.GetKeyDown(KeyCode.LeftArrow) /*|| Input.GetKeyDown(KeyCode.A)*/)
+        {
+            // 왼쪽으로 회전
+            Moveleft();
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightArrow) /*|| Input.GetKeyDown(KeyCode.D)*/)
+        {
+            // 오른쪽으로 회전
+            MoveRight();
+        }
+
+        // 선택 확인
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            // 게임 시작
+            activeSlots[CENTER_INDEX].LoadStageScene();
+        }
+    }
     #endregion
 }

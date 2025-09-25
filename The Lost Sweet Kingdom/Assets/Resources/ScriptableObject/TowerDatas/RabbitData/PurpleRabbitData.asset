@@ -12,33 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
   m_Name: PurpleRabbitData
   m_EditorClassIdentifier: 
-  towerName: Purple Rabbit
+  towerName: "\uBCF4\uB77C\uC0C9 \uD1A0\uB07C"
   towerColor: 6
   towerType: 0
   towerIcon: {fileID: 21300000, guid: 3046d19460b3db14890c38cac88297d3, type: 3}
   towerPrefab: {fileID: 4625834919878556233, guid: cc6b1553822fe442d9bae0ead6513038, type: 3}
   weaponPrefab: {fileID: 4877909776406011252, guid: 3cdc75d993a3744a5bcac738351679bf, type: 3}
   spriteLibrary: {fileID: 7108339969198208228, guid: 818308e1d8f48469693fb3ec3e9eafca, type: 3}
-  cost: 0
+  cost: 7
   levelDatas:
   - level: 1
-    attackRange: 1.7
-    attackWeaponRange: 1
+    attackRange: 3.3
+    attackWeaponRange: 1.2
     attackCooldown: 1
-    attackDuration: 0.8
-    attackDamage: 1
+    attackDuration: 2
+    attackDamage: 1.5
     rotationSpeed: 0
   - level: 2
-    attackRange: 2
-    attackWeaponRange: 1.25
+    attackRange: 4
+    attackWeaponRange: 1.5
     attackCooldown: 0.8
-    attackDuration: 1
-    attackDamage: 1.2
+    attackDuration: 2.5
+    attackDamage: 2.5
     rotationSpeed: 0
   - level: 3
-    attackRange: 2.2
-    attackWeaponRange: 1.5
+    attackRange: 5
+    attackWeaponRange: 1.8
     attackCooldown: 0.5
-    attackDuration: 1.2
-    attackDamage: 1.4
+    attackDuration: 3
+    attackDamage: 3.5
     rotationSpeed: 0

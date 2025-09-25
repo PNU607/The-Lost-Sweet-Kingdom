@@ -65,7 +65,7 @@ public class StageSlot : MonoBehaviour
             stageBtn.interactable = true;
     }
 
-    private void LoadStageScene()
+    public void LoadStageScene()
     {
         SceneManager.LoadScene(currentData.name);
     }
