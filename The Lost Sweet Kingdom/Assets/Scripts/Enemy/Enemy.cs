@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.U2D.Animation;
 using System.Sound;
 
-public class EnemyTest : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [SerializeField]
     public EnemyData currentEnemyData;

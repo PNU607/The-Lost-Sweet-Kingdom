@@ -47,7 +47,7 @@ public class MultiShootGunTower : TrackingTower
 
     private IEnumerator ShootMultipleTargets()
     {
-        List<EnemyTest> enemiesInRange = GetEnemiesInRange();
+        List<Enemy> enemiesInRange = GetEnemiesInRange();
 
         if (enemiesInRange.Count == 0)
         {
@@ -55,18 +55,18 @@ public class MultiShootGunTower : TrackingTower
             yield break;
         }
 
-        EnemyTest lastTarget = null;
+        Enemy lastTarget = null;
 
         for (int i = 0; i < shotsPerAttack; i++)
         {
-            EnemyTest target = null;
+            Enemy target = null;
 
             int maxTry = 10;
             int tryCount = 0;
 
             while (tryCount < maxTry)
             {
-                EnemyTest candidate = enemiesInRange[Random.Range(0, enemiesInRange.Count)];
+                Enemy candidate = enemiesInRange[Random.Range(0, enemiesInRange.Count)];
 
                 if (candidate != lastTarget)
                 {
