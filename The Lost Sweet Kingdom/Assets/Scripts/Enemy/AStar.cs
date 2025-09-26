@@ -36,7 +36,8 @@ public class AStar : MonoBehaviour
 
         openList.Add(startNode);
 
-        while (openList.Count > 0)
+        int safetyCounter = 10000;
+        while (openList.Count > 0 && safetyCounter-- > 0)
         {
             Node currentNode = openList[0];
             foreach (Node node in openList)
@@ -80,6 +81,12 @@ public class AStar : MonoBehaviour
                     openList.Add(neighborNode);
                 }
             }
+        }
+
+        if (safetyCounter <= 0)
+        {
+            Debug.LogError("A* search exceeded safety limit!");
+            return null;
         }
 
         return null;
