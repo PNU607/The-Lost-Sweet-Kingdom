@@ -67,6 +67,7 @@ public class Enemy : MonoBehaviour
         transform.localScale = originalScale;
         baseSpeed = currentEnemyData.moveSpeed;
         moveSpeed = currentEnemyData.moveSpeed;
+        spriteRenderer.color = Color.white;
 
         UpdateHealthBar();
 
@@ -220,7 +221,10 @@ public class Enemy : MonoBehaviour
             if (!gameObject.activeInHierarchy) yield break;
 
             TakeDamage(damage);
-            StartCoroutine(PoisonEffect());
+            if (gameObject.activeInHierarchy)
+            {
+                StartCoroutine(PoisonEffect());
+            }
             yield return new WaitForSeconds(0.5f);
             timer += 0.5f;
         }
@@ -229,10 +233,9 @@ public class Enemy : MonoBehaviour
     {
         if (spriteRenderer != null)
         {
-            Color originalColor = spriteRenderer.color;
             spriteRenderer.color = Color.green;
             yield return new WaitForSeconds(0.2f);
-            spriteRenderer.color = originalColor;
+            spriteRenderer.color = Color.white;
         }
     }
 
