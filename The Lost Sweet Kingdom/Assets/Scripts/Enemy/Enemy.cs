@@ -30,16 +30,6 @@ public class Enemy : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-    /*private void OnEnable()
-    {
-        if (currentEnemyData == null)
-        {
-            return;
-        }
-
-        InitializeEnemy();
-    }*/
-
     private void Awake()
     {
         originalScale = transform.localScale;
@@ -63,7 +53,16 @@ public class Enemy : MonoBehaviour
     {
         StopAllCoroutines();
 
-        hp = currentEnemyData.maxHealth;
+        int currentWave = WaveManager.instance.waveCount;
+        float calculatedMaxHealth = currentEnemyData.maxHealth;
+
+        if (currentWave > 0)
+        {
+            int multiplier = (currentWave - 1) / 10;
+            calculatedMaxHealth += multiplier * currentEnemyData.increaseHealth;
+        }
+        hp = calculatedMaxHealth;
+
         transform.localScale = originalScale;
         baseSpeed = currentEnemyData.moveSpeed;
         moveSpeed = currentEnemyData.moveSpeed;

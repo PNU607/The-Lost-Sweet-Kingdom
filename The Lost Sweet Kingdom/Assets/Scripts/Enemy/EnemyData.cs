@@ -12,7 +12,9 @@ public class EnemyData : ScriptableObject
 
     [Header("Stats")]
     // 체력
-    public int maxHealth = 3;
+    public int maxHealth = 3; 
+    // 체력 증가량
+    public int increaseHealth = 10;
     // 이동 속도
     public float moveSpeed = 2.0f;
     // 처치 시 획득하는 골드
