@@ -164,7 +164,7 @@ public class StageSelectManager : MonoBehaviour
     #endregion
 
     #region Movement
-    public void Moveleft()
+    public void MoveLeft()
     {
         if (isAnimating || stageDatas.Count <= 1) return;
 
@@ -412,7 +412,7 @@ public class StageSelectManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftArrow) /*|| Input.GetKeyDown(KeyCode.A)*/)
         {
             // 왼쪽으로 회전
-            Moveleft();
+            MoveLeft();
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow) /*|| Input.GetKeyDown(KeyCode.D)*/)
