@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class OneTargetRangeTower : RangeTower
 {
-    protected Vector3 weaponScale = Vector3.one; // ¹«±âÀÇ ±âº» ½ºÄÉÀÏ
+    protected Vector3 weaponScale = Vector3.one; // ë¬´ê¸°ì˜ ê¸°ë³¸ ìŠ¤ì¼€ì¼
 
     public override void Attack()
     {
@@ -27,11 +27,11 @@ public class OneTargetRangeTower : RangeTower
 
             if (closest != null)
             {
-                // ¸Ó¸® À§ ÀÌÆåÆ® À§Ä¡
+                // ë¨¸ë¦¬ ìœ„ ì´í™íŠ¸ ìœ„ì¹˜
                 Vector3 effectPos = closest.transform.position + attackHeadOffset;
 
                 TowerWeapon weapon = SpawnWeapon(effectPos, closest.transform);
-                weaponScale = weapon.transform.localScale; // ¹«±âÀÇ ±âº» ½ºÄÉÀÏÀ» ÀúÀå
+                weaponScale = weapon.transform.localScale; // ë¬´ê¸°ì˜ ê¸°ë³¸ ìŠ¤ì¼€ì¼ì„ ì €ì¥
 
 
                 //var health = closest.GetComponent<EnemyTest>();
@@ -43,6 +43,6 @@ public class OneTargetRangeTower : RangeTower
 
     protected override void AttackRangeTarget(Collider2D enemyCol)
     {
-        return; // ´ÜÀÏ Å¸°Ù °ø°İÀÌ¹Ç·Î ¹üÀ§ °ø°İ ·ÎÁ÷Àº »ç¿ëÇÏÁö ¾ÊÀ½
+        return; // ë‹¨ì¼ íƒ€ê²Ÿ ê³µê²©ì´ë¯€ë¡œ ë²”ìœ„ ê³µê²© ë¡œì§ì€ ì‚¬ìš©í•˜ì§€ ì•ŠìŒ
     }
 }

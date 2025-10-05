@@ -7,7 +7,7 @@ public class DamageCircle : DamageZone
     public override void Setup(Transform target, Tower shotTower)
     {
         base.Setup(target, shotTower);
-        duration = shotTower.applyLevelData.attackDuration; // Áö¼Ó ½Ã°£ ¼³Á¤
+        duration = shotTower.applyLevelData.attackDuration; // ì§€ì† ì‹œê°„ ì„¤ì •
     }
 
     protected override void AttackNoTarget()

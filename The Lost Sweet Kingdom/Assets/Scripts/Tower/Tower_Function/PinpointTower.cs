@@ -5,29 +5,29 @@ using UnityEngine;
 public class PinpointTower : OneTargetRangeTower
 {
     /// <summary>
-    /// BulletÀ» Object Pool¿¡ ¹İÈ¯
+    /// Bulletì„ Object Poolì— ë°˜í™˜
     /// </summary>
     /// <param name="weapon"></param>
     public override void ReleaseWeapon(TowerWeapon weapon)
     {
-        DettachWeapon(weapon); // ¹«±â¸¦ ºĞ¸®ÇÏ¿© µ¶¸³ÀûÀ¸·Î Á¸ÀçÇÏµµ·Ï ÇÔ
+        DettachWeapon(weapon); // ë¬´ê¸°ë¥¼ ë¶„ë¦¬í•˜ì—¬ ë…ë¦½ì ìœ¼ë¡œ ì¡´ì¬í•˜ë„ë¡ í•¨
         base.ReleaseWeapon(weapon);
     }
 
     protected virtual void DettachWeapon(TowerWeapon weapon)
     {
-        weapon.transform.SetParent(null); // ¹«±âÀÇ ºÎ¸ğ¸¦ ÇØÁ¦ÇÏ¿© µ¶¸³ÀûÀ¸·Î Á¸ÀçÇÏµµ·Ï ÇÔ
-        weapon.transform.localScale = weaponScale; // ¹«±âÀÇ ½ºÄÉÀÏÀ» ÃÊ±âÈ­ÇÏ¿© Å©±â ¹®Á¦ ¹æÁö
+        weapon.transform.SetParent(null); // ë¬´ê¸°ì˜ ë¶€ëª¨ë¥¼ í•´ì œí•˜ì—¬ ë…ë¦½ì ìœ¼ë¡œ ì¡´ì¬í•˜ë„ë¡ í•¨
+        weapon.transform.localScale = weaponScale; // ë¬´ê¸°ì˜ ìŠ¤ì¼€ì¼ì„ ì´ˆê¸°í™”í•˜ì—¬ í¬ê¸° ë¬¸ì œ ë°©ì§€
     }
 
     protected override TowerWeapon SpawnWeapon(Vector3 spawnPos, Transform targetTransform)
     {
-        // ¸Ó¸® À§ ÀÌÆåÆ® À§Ä¡
+        // ë¨¸ë¦¬ ìœ„ ì´í™íŠ¸ ìœ„ì¹˜
         Vector3 attachTargetOffset = targetTransform.position + attackHeadOffset;
 
-        TowerWeapon weapon = base.SpawnWeapon(attachTargetOffset, targetTransform); // ±âº» ¹«±â »ı¼º ·ÎÁ÷ È£Ãâ
+        TowerWeapon weapon = base.SpawnWeapon(attachTargetOffset, targetTransform); // ê¸°ë³¸ ë¬´ê¸° ìƒì„± ë¡œì§ í˜¸ì¶œ
         weapon.transform.SetParent(targetTransform);
-        weapon.transform.position = attachTargetOffset; // ¹«±âÀÇ À§Ä¡¸¦ Å¸°ÙÀÇ ¸Ó¸® À§·Î ¼³Á¤
+        weapon.transform.position = attachTargetOffset; // ë¬´ê¸°ì˜ ìœ„ì¹˜ë¥¼ íƒ€ê²Ÿì˜ ë¨¸ë¦¬ ìœ„ë¡œ ì„¤ì •
         
         return weapon;
     }

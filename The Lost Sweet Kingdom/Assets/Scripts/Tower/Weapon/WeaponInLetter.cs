@@ -11,11 +11,11 @@ public class WeaponInLetter : Missile
         if (shotTower != null)
         {
             //shotTower.GetComponent<Tower>().ReleaseWeapon(this);
-            Destroy(gameObject); // Object PoolÀ» »ç¿ëÇÏÁö ¾Ê´Â °æ¿ì, °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ ÆÄ±«
+            Destroy(gameObject); // Object Poolì„ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” ê²½ìš°, ê²Œì„ ì˜¤ë¸Œì íŠ¸ë¥¼ íŒŒê´´
         }
         else
         {
-            Debug.Log("shotTower ¾øÀ½");
+            Debug.Log("shotTower ì—†ìŒ");
         }
     }
 }

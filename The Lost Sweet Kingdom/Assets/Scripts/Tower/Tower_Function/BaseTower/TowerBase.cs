@@ -5,36 +5,36 @@ using UnityEngine;
 public class TowerBase : MonoBehaviour
 {
     /// <summary>
-    /// ¹ß»çÃ¼ »ı¼ºÇÒ À§Ä¡ (transform)
+    /// ë°œì‚¬ì²´ ìƒì„±í•  ìœ„ì¹˜ (transform)
     /// </summary>
     public Transform weaponSpawnTransform;
 
     /// <summary>
-    /// Å¸¿ö µå·¡±× ½Ã À§Ä¡ º¸Á¤°ª
+    /// íƒ€ì›Œ ë“œë˜ê·¸ ì‹œ ìœ„ì¹˜ ë³´ì •ê°’
     /// </summary>
     public Vector3 offset;
     /// <summary>
-    /// Å¸¿öÀÇ Äİ¶óÀÌ´õ
+    /// íƒ€ì›Œì˜ ì½œë¼ì´ë”
     /// </summary>
     public Collider2D towerCollider;
 
     /// <summary>
-    /// Å¸¿öÀÇ °ø°İ ¹üÀ§ Ç¥½Ã¿ë SpriteRenderer
+    /// íƒ€ì›Œì˜ ê³µê²© ë²”ìœ„ í‘œì‹œìš© SpriteRenderer
     /// </summary>
     public SpriteRenderer rangeIndicator;
 
     /// <summary>
-    /// Àû ·¹ÀÌ¾î
+    /// ì  ë ˆì´ì–´
     /// </summary>
     public LayerMask enemyLayer;
 
     /// <summary>
-    /// Å¸¿öÀÇ ¾Ö´Ï¸ŞÀÌÅÍ
+    /// íƒ€ì›Œì˜ ì• ë‹ˆë©”ì´í„°
     /// </summary>
     public Animator towerAnim;
 
     /// <summary>
-    /// Å¸¿öÀÇ ½ºÇÁ¶óÀÌÆ® ·»´õ·¯
+    /// íƒ€ì›Œì˜ ìŠ¤í”„ë¼ì´íŠ¸ ë Œë”ëŸ¬
     /// </summary>
     public SpriteRenderer towerSprite;
 

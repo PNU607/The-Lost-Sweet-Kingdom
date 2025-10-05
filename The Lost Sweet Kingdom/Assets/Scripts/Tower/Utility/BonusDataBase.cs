@@ -8,7 +8,7 @@ public class BonusDataBase : ScriptableObject
 {
     public List<BonusData> bonusDatas;
 
-    // ÀÌ¸§À¸·Î °¡Á®¿À´Â ÇÔ¼ö
+    // ì´ë¦„ìœ¼ë¡œ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
     public BonusData GetBonusByName(string _bonusName)
     {
         return bonusDatas.FirstOrDefault(b => b.bonusTitle == _bonusName);
