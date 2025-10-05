@@ -207,7 +207,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 931768054}
         m_TargetAssemblyTypeName: StageSelectManager, Assembly-CSharp
-        m_MethodName: MoveLeft
+        m_MethodName: Moveleft
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
