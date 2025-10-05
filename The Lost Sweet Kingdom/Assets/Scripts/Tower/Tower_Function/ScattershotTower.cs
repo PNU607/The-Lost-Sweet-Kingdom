@@ -4,37 +4,37 @@ using UnityEngine;
 
 public class ScattershotTower : PinpointTower
 {
-    protected TowerWeapon attackingTowerWeapon; // ¹ß»çµÈ ¹«±â¸¦ ÀúÀå
+    protected TowerWeapon attackingTowerWeapon; // ë°œì‚¬ëœ ë¬´ê¸°ë¥¼ ì €ì¥
 
     public override void Attack()
     {
         base.Attack();
 
-        attackingTowerWeapon.Setup(closestAttackTarget.transform, this); // ¹ß»çµÈ ¹«±â¸¦ Å¸°Ù¿¡ ¸ÂÃç ¼³Á¤
+        attackingTowerWeapon.Setup(closestAttackTarget.transform, this); // ë°œì‚¬ëœ ë¬´ê¸°ë¥¼ íƒ€ê²Ÿì— ë§ì¶° ì„¤ì •
     }
 
     protected override TowerWeapon SpawnWeapon(Vector3 spawnPos, Transform targetTransform)
     {
         if (attackingTowerWeapon != null)
         {
-            ReleaseWeapon(attackingTowerWeapon); // ÀÌÀü¿¡ ¹ß»çµÈ ¹«±â°¡ ÀÖ´Ù¸é Á¦°Å
+            ReleaseWeapon(attackingTowerWeapon); // ì´ì „ì— ë°œì‚¬ëœ ë¬´ê¸°ê°€ ìˆë‹¤ë©´ ì œê±°
         }
 
-        // ¸Ó¸® À§ ÀÌÆåÆ® À§Ä¡
+        // ë¨¸ë¦¬ ìœ„ ì´í™íŠ¸ ìœ„ì¹˜
         Vector3 attachTargetOffset = this.gameObject.transform.position + attackHeadOffset;
 
-        TowerWeapon weapon = base.SpawnWeapon(attachTargetOffset, targetTransform); // ±âº» ¹«±â »ı¼º ·ÎÁ÷ È£Ãâ
+        TowerWeapon weapon = base.SpawnWeapon(attachTargetOffset, targetTransform); // ê¸°ë³¸ ë¬´ê¸° ìƒì„± ë¡œì§ í˜¸ì¶œ
         weapon.transform.SetParent(this.gameObject.transform);
-        weapon.transform.position = attachTargetOffset; // ¹«±âÀÇ À§Ä¡¸¦ Å¸°ÙÀÇ ¸Ó¸® À§·Î ¼³Á¤
+        weapon.transform.position = attachTargetOffset; // ë¬´ê¸°ì˜ ìœ„ì¹˜ë¥¼ íƒ€ê²Ÿì˜ ë¨¸ë¦¬ ìœ„ë¡œ ì„¤ì •
 
-        attackingTowerWeapon = weapon; // ¹ß»çµÈ ¹«±â¸¦ ¸®½ºÆ®¿¡ Ãß°¡
+        attackingTowerWeapon = weapon; // ë°œì‚¬ëœ ë¬´ê¸°ë¥¼ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
 
         return weapon;
     }
 
     public override void ReleaseWeapon(TowerWeapon weapon)
     {
-        attackingTowerWeapon = null; // ¹ß»çµÈ ¹«±â º¯¼ö¿¡¼­ Á¦°Å
+        attackingTowerWeapon = null; // ë°œì‚¬ëœ ë¬´ê¸° ë³€ìˆ˜ì—ì„œ ì œê±°
         base.ReleaseWeapon(weapon);
     }
 }

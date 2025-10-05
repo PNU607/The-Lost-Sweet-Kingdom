@@ -5,29 +5,29 @@ using UnityEngine;
 
 public enum BonusStatType
 {
-    °ø°İ·Â,
-    °ø°İ¼Óµµ,
-    °ø°İ¹üÀ§,
+    ê³µê²©ë ¥,
+    ê³µê²©ì†ë„,
+    ê³µê²©ë²”ìœ„,
 }
 
 public enum TowerBonus
 {
-    »ö»ó,
-    Å¸ÀÔ,
+    ìƒ‰ìƒ,
+    íƒ€ì…,
 }
 
 [CreateAssetMenu(fileName = "NewTowerData", menuName = "Tower Defense/Tower Bonus Data")]
 public class BonusData : ScriptableObject
 {
     [Header("Bonus Info")]
-    public TowerBonus bonusType; // º¸³Ê½º Á¾·ù (¿¹: °°Àº »ö»ó, °°Àº Å¸ÀÔ µî)
+    public TowerBonus bonusType; // ë³´ë„ˆìŠ¤ ì¢…ë¥˜ (ì˜ˆ: ê°™ì€ ìƒ‰ìƒ, ê°™ì€ íƒ€ì… ë“±)
     [HideInInspector]
-    public string bonusTitle; // º¸³Ê½º ÀÌ¸§
+    public string bonusTitle; // ë³´ë„ˆìŠ¤ ì´ë¦„
     public string bonusName;
-    public string bonusContent; // º¸³Ê½º ¼³¸í
-    public BonusStatType statAffected; // °ø°İ·Â, »ç°Å¸®, °ø°İ¼Óµµ µî
-    public float value;           // º¯È­·® (¿¹: +10%)
-    public Sprite bonusIcon; // º¸³Ê½º ¾ÆÀÌÄÜ
+    public string bonusContent; // ë³´ë„ˆìŠ¤ ì„¤ëª…
+    public BonusStatType statAffected; // ê³µê²©ë ¥, ì‚¬ê±°ë¦¬, ê³µê²©ì†ë„ ë“±
+    public float value;           // ë³€í™”ëŸ‰ (ì˜ˆ: +10%)
+    public Sprite bonusIcon; // ë³´ë„ˆìŠ¤ ì•„ì´ì½˜
 
 #if UNITY_EDITOR
     private void OnValidate()
@@ -36,58 +36,58 @@ public class BonusData : ScriptableObject
 
         if (this.name == TowerColorEng.Red.ToString())
         {
-            bonusCase = TowerColor.»¡°£»ö.ToString();
+            bonusCase = TowerColor.ë¹¨ê°„ìƒ‰.ToString();
         }
         else if (this.name == TowerColorEng.Orange.ToString())
         {
-            bonusCase = TowerColor.ÁÖÈ²»ö.ToString();
+            bonusCase = TowerColor.ì£¼í™©ìƒ‰.ToString();
         }
         else if (this.name == TowerColorEng.Yellow.ToString())
         {
-            bonusCase = TowerColor.³ë¶õ»ö.ToString();
+            bonusCase = TowerColor.ë…¸ë€ìƒ‰.ToString();
         }
         else if (this.name == TowerColorEng.Green.ToString())
             {
-            bonusCase = TowerColor.ÃÊ·Ï»ö.ToString();
+            bonusCase = TowerColor.ì´ˆë¡ìƒ‰.ToString();
         }
         else if (this.name == TowerColorEng.Blue.ToString())
         {
-            bonusCase = TowerColor.ÆÄ¶õ»ö.ToString();
+            bonusCase = TowerColor.íŒŒë€ìƒ‰.ToString();
         }
         else if (this.name == TowerColorEng.Navy.ToString())
         {
-            bonusCase = TowerColor.³²»ö.ToString();
+            bonusCase = TowerColor.ë‚¨ìƒ‰.ToString();
         }
         else if (this.name == TowerColorEng.Purple.ToString())
         {
-            bonusCase = TowerColor.º¸¶ó»ö.ToString();
+            bonusCase = TowerColor.ë³´ë¼ìƒ‰.ToString();
         }
         else if (this.name == TowerTypeEng.Rabbit.ToString())
         {
-            bonusCase = TowerType.Åä³¢.ToString();
+            bonusCase = TowerType.í† ë¼.ToString();
         }
         else if (this.name == TowerTypeEng.Hamster.ToString())
         {
-            bonusCase = TowerType.ÇÜ½ºÅÍ.ToString();
+            bonusCase = TowerType.í–„ìŠ¤í„°.ToString();
         }
         else if (this.name == TowerTypeEng.Squirrel.ToString())
         {
-            bonusCase = TowerType.´Ù¶÷Áã.ToString();
+            bonusCase = TowerType.ë‹¤ëŒì¥.ToString();
         }
 
         bonusTitle = string.Format("{0}_{1}", bonusType.ToString(), bonusCase);
-        if (bonusType.Equals(TowerBonus.»ö»ó))
+        if (bonusType.Equals(TowerBonus.ìƒ‰ìƒ))
         {
-            bonusName = string.Format(bonusCase + " »ö»ó º¸³Ê½º");
-            bonusContent = string.Format("{0} Å¸¿öÀÇ {1}°³ ÀÌ»ó Á¶ÇÕÀ¸·Î {2}ÀÌ/°¡ {3}% Áõ°¡ÇÕ´Ï´Ù.",
+            bonusName = string.Format(bonusCase + " ìƒ‰ìƒ ë³´ë„ˆìŠ¤");
+            bonusContent = string.Format("{0} íƒ€ì›Œì˜ {1}ê°œ ì´ìƒ ì¡°í•©ìœ¼ë¡œ {2}ì´/ê°€ {3}% ì¦ê°€í•©ë‹ˆë‹¤.",
                 bonusCase, 
                 TowerBonusManager.Instance?.colorCombinationNum == null ? 3 : TowerBonusManager.Instance?.colorCombinationNum, 
                 statAffected, (value * 100));
         }
-        else if (bonusType.Equals(TowerBonus.Å¸ÀÔ))
+        else if (bonusType.Equals(TowerBonus.íƒ€ì…))
         {
-            bonusName = string.Format(bonusCase + " Å¸ÀÔ º¸³Ê½º");
-            bonusContent = string.Format("{0} Å¸¿öÀÇ {1}°³ ÀÌ»ó Á¶ÇÕÀ¸·Î {2}ÀÌ/°¡ {3}% Áõ°¡ÇÕ´Ï´Ù.",
+            bonusName = string.Format(bonusCase + " íƒ€ì… ë³´ë„ˆìŠ¤");
+            bonusContent = string.Format("{0} íƒ€ì›Œì˜ {1}ê°œ ì´ìƒ ì¡°í•©ìœ¼ë¡œ {2}ì´/ê°€ {3}% ì¦ê°€í•©ë‹ˆë‹¤.",
                 bonusCase, 
                 TowerBonusManager.Instance?.typeCombinationNum == null ? 7 : TowerBonusManager.Instance?.typeCombinationNum, 
                 statAffected, (value * 100));

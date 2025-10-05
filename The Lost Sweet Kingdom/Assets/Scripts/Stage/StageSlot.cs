@@ -33,7 +33,7 @@ public class StageSlot : MonoBehaviour
         stageBtn.targetGraphic.GetComponent<Image>().sprite = data.stageSprite;
         difficultyText.text = data.difficulty.ToString();
         lockIcon.SetActive(data.isLocked);
-        clearText.text = data.isCleared ? "Å¬¸®¾î ¿Ï·á!" : "";
+        clearText.text = data.isCleared ? "í´ë¦¬ì–´ ì™„ë£Œ!" : "";
     }
 
     public StageData GetStageData()
@@ -48,7 +48,7 @@ public class StageSlot : MonoBehaviour
 
     public void OverlayOn()
     {
-        // ¿À¹ö·¹ÀÌ È¿°ú ±¸Çö
+        // ì˜¤ë²„ë ˆì´ íš¨ê³¼ êµ¬í˜„
         overlayImage.blocksRaycasts = true;
         overlayImage.alpha = 1f;
 
@@ -57,7 +57,7 @@ public class StageSlot : MonoBehaviour
 
     public void OverlayOff()
     {
-        // ¿À¹ö·¹ÀÌ È¿°ú Á¦°Å ±¸Çö
+        // ì˜¤ë²„ë ˆì´ íš¨ê³¼ ì œê±° êµ¬í˜„
         overlayImage.blocksRaycasts = false;
         overlayImage.alpha = 0f;
 

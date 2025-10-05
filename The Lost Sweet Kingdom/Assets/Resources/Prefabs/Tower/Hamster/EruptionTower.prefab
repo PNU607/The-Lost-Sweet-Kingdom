@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3943208275471777250}
-  - component: {fileID: 4104098908866035380}
   - component: {fileID: -821453339090018014}
   m_Layer: 7
   m_Name: EruptionTower
@@ -34,39 +33,6 @@ Transform:
   - {fileID: 6100903446563868652}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4104098908866035380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4625834919878556233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4c754ecd4c59504c8f892366c894f4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponSpawnTransform: {fileID: 6308560535118868880}
-  currentTowerData: {fileID: 11400000, guid: 1aee3fc270b523648a32b3ee67994524, type: 2}
-  applyLevelData:
-    level: 1
-    attackRange: 3
-    attackWeaponRange: 0
-    attackCooldown: 1
-    attackDuration: 0.8
-    attackDamage: 1
-    rotationSpeed: 0
-  towerLevel: 1
-  towerCollider: {fileID: 567085941890029935}
-  rangeIndicator: {fileID: 5904461553786000135}
-  towerAnim: {fileID: 4136688089220438735}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  StarArea: {fileID: 5426412832108668736}
-  LevelStarObj: {fileID: 3200583436632040334, guid: 089b339b16e386943a3241620a0beb76, type: 3}
-  shotsPerAttack: 10
-  shotInterval: 0.1
 --- !u!114 &-821453339090018014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b0f6babc9c7a84598b0002ccfbf62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSpawnTransform: {fileID: 6308560535118868880}
+  towerBase: {fileID: 6525876877620782821}
   currentTowerData: {fileID: 0}
   applyLevelData:
     level: 0
@@ -90,14 +56,7 @@ MonoBehaviour:
     attackDamage: 0
     rotationSpeed: 0
   towerLevel: 0
-  towerCollider: {fileID: 567085941890029935}
-  rangeIndicator: {fileID: 5904461553786000135}
-  towerAnim: {fileID: 4136688089220438735}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  StarArea: {fileID: 0}
-  LevelStarObj: {fileID: 0}
+  isAttackable: 0
 --- !u!1001 &7067225699723342350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -171,33 +130,19 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
---- !u!58 &567085941890029935 stripped
-CircleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 7335631502555507553, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
-  m_PrefabInstance: {fileID: 7067225699723342350}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &4136688089220438735 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6592042468430555329, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
-  m_PrefabInstance: {fileID: 7067225699723342350}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5426412832108668736 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2980725363458446670, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
-  m_PrefabInstance: {fileID: 7067225699723342350}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &5904461553786000135 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 3738841098518847753, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
-  m_PrefabInstance: {fileID: 7067225699723342350}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6100903446563868652 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3943208275471777250, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
   m_PrefabInstance: {fileID: 7067225699723342350}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6308560535118868880 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3863901792690209694, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
+--- !u!114 &6525876877620782821 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4072175614159803627, guid: c7e256cb287dd42ee97fedc45f502f07, type: 3}
   m_PrefabInstance: {fileID: 7067225699723342350}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8445d4b45d217a84f9d5f65f4f9a9a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -41,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (currentWaveIndex >= waves.Count)
         {
-            Debug.Log("´õ ÀÌ»ó ¿şÀÌºê ¾øÀ½");
+            Debug.Log("ë” ì´ìƒ ì›¨ì´ë¸Œ ì—†ìŒ");
             yield break;
         }
 
@@ -62,7 +62,7 @@ public class EnemySpawner : MonoBehaviour
             }
         }
 
-        Debug.Log("Spawn Á¾·á");
+        Debug.Log("Spawn ì¢…ë£Œ");
     }
 
     public void UpdateWaveText()

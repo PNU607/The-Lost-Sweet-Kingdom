@@ -3,13 +3,13 @@ using UnityEngine;
 public class Laser2D : MonoBehaviour
 {
     [Header("References")]
-    public SpriteRenderer laserBody;   // º»Ã¼ (Draw Mode = Tiled)
-    public SpriteRenderer startGlow;   // ½ÃÀÛÁ¡ Glow
-    public SpriteRenderer endGlow;     // ³¡Á¡ Glow
+    public SpriteRenderer laserBody;   // ë³¸ì²´ (Draw Mode = Tiled)
+    public SpriteRenderer startGlow;   // ì‹œì‘ì  Glow
+    public SpriteRenderer endGlow;     // ëì  Glow
 
     [Header("Settings")]
-    public float laserWidth = 0.2f;    // ·¹ÀÌÀú µÎ²²
-    public float scrollSpeed = 2f;     // ÅØ½ºÃ³ Èå¸£´Â ¼Óµµ
+    public float laserWidth = 0.2f;    // ë ˆì´ì € ë‘ê»˜
+    public float scrollSpeed = 2f;     // í…ìŠ¤ì²˜ íë¥´ëŠ” ì†ë„
 
     private Material bodyMat;
 
@@ -17,30 +17,30 @@ public class Laser2D : MonoBehaviour
     {
         if (laserBody != null)
         {
-            // ¸ÓÆ¼¸®¾ó ÀÎ½ºÅÏ½ºÈ­ (ÅØ½ºÃ³ Offset °³º° Á¦¾î¿ë)
+            // ë¨¸í‹°ë¦¬ì–¼ ì¸ìŠ¤í„´ìŠ¤í™” (í…ìŠ¤ì²˜ Offset ê°œë³„ ì œì–´ìš©)
             bodyMat = Instantiate(laserBody.material);
             laserBody.material = bodyMat;
         }
     }
 
     /// <summary>
-    /// ·¹ÀÌÀú¸¦ °»½Å (start ¡æ end±îÁö)
+    /// ë ˆì´ì €ë¥¼ ê°±ì‹  (start â†’ endê¹Œì§€)
     /// </summary>
     public void UpdateLaser(Vector2 startPos, Vector2 endPos)
     {
         Vector2 dir = endPos - startPos;
         float length = dir.magnitude;
 
-        // º»Ã¼ À§Ä¡/±æÀÌ Á¶Á¤
+        // ë³¸ì²´ ìœ„ì¹˜/ê¸¸ì´ ì¡°ì •
         laserBody.transform.position = startPos;
-        laserBody.transform.right = dir.normalized; // È¸Àü
-        laserBody.size = new Vector2(length, laserWidth); // ±æÀÌ/±½±â
+        laserBody.transform.right = dir.normalized; // íšŒì „
+        laserBody.size = new Vector2(length, laserWidth); // ê¸¸ì´/êµµê¸°
 
-        // Glow À§Ä¡
+        // Glow ìœ„ì¹˜
         if (startGlow != null) startGlow.transform.position = startPos;
         if (endGlow != null) endGlow.transform.position = endPos;
 
-        // UV ½ºÅ©·Ñ (¿òÁ÷ÀÌ´Â ´À³¦)
+        // UV ìŠ¤í¬ë¡¤ (ì›€ì§ì´ëŠ” ëŠë‚Œ)
         if (bodyMat != null)
         {
             Vector2 offset = bodyMat.mainTextureOffset;

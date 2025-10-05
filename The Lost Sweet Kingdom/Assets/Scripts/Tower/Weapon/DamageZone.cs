@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class DamageZone : TowerWeapon
 {
-    public float duration = 0f; // DamageZoneÀÇ Áö¼Ó ½Ã°£
+    public float duration = 0f; // DamageZoneì˜ ì§€ì† ì‹œê°„
     public float tickTimer = 0f;
-    public bool isAttackZone = false; // °ø°İ ¿µ¿ª ¿©ºÎ
+    public bool isAttackZone = false; // ê³µê²© ì˜ì—­ ì—¬ë¶€
 
     public virtual void Setup(Transform target, Tower shotTower, bool isAttackZone)
     {
@@ -15,7 +15,7 @@ public class DamageZone : TowerWeapon
     public override void Setup(Transform target, Tower shotTower)
     {
         base.Setup(target, shotTower);
-        duration = shotTower.applyLevelData.attackDuration; // Áö¼Ó ½Ã°£ ¼³Á¤
+        duration = shotTower.applyLevelData.attackDuration; // ì§€ì† ì‹œê°„ ì„¤ì •
     }
 
     protected override void Update()
