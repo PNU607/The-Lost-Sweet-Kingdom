@@ -1226,31 +1226,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1922195717299893667, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1922195717299893667, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3499645657236998171, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3499645657236998171, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5947955423487061979, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5947955423487061979, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8963444855322059184, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
       propertyPath: m_Name
       value: StageSoundPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8963444855322059184, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

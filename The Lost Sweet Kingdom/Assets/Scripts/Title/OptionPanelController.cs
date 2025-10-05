@@ -7,12 +7,6 @@ public class OptionPanelController : MonoBehaviour
 {
     [SerializeField] private GameObject optionPanel;
 
-    private void Start()
-    {
-        if (optionPanel != null)
-            optionPanel.SetActive(false);
-    }
-
     public void OpenPanel()
     {
         if (optionPanel != null)
