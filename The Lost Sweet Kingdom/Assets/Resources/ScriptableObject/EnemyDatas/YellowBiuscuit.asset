@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2776107149917627590, guid: 43fd16807a915f145993f873f03069a9, type: 3}
   maxHealth: 10
   moveSpeed: 2
-  goldReward: 10
+  goldReward: 60
   spriteLibraryAsset: {fileID: 7108339969198208228, guid: 1208013fed83cbc49ab14acb4c853f9a, type: 3}
   damagedSpriteLibraryAsset: {fileID: 0}
-  poolSize: 10
+  poolSize: 150

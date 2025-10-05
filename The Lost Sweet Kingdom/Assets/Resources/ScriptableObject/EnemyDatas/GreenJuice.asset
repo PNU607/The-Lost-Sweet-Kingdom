@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2776107149917627590, guid: 43fd16807a915f145993f873f03069a9, type: 3}
   maxHealth: 10
-  moveSpeed: 2
-  goldReward: 10
+  moveSpeed: 2.2
+  goldReward: 20
   spriteLibraryAsset: {fileID: 7108339969198208228, guid: c1bdc7f84daae6e408f79e5270bf571a, type: 3}
   damagedSpriteLibraryAsset: {fileID: 0}
-  poolSize: 10
+  poolSize: 150

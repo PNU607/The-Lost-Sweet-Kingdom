@@ -18,4 +18,4 @@ MonoBehaviour:
   goldReward: 10
   spriteLibraryAsset: {fileID: 7108339969198208228, guid: 196fe9d882391a840ad8915e207bbafd, type: 3}
   damagedSpriteLibraryAsset: {fileID: 0}
-  poolSize: 10
+  poolSize: 150
