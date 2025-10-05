@@ -75,9 +75,6 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     /// </summary>
     private Vector3 originalScale;
     private float scaleUpFactor = 1.3f;
-    private Canvas selfCanvas;
-    private int originalOrder;
-    private int highlightOrder = 10;
 
     /// <summary>
     /// 타워 비용을 표시할 텍스트
@@ -101,9 +98,6 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private void Awake()
     {
         originalScale = transform.localScale;
-        selfCanvas = GetComponent<Canvas>();
-        if (selfCanvas != null)
-            originalOrder = selfCanvas.sortingOrder;
 
         canvasGroup = GetComponent<CanvasGroup>();
         towerImage = GetComponentInChildren<Image>();
@@ -158,7 +152,6 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnPointerEnter(PointerEventData eventData)
     {
         transform.localScale = originalScale * scaleUpFactor;
-        selfCanvas.sortingOrder = highlightOrder;
 
         SoundObject _soundObject;
         _soundObject = Sound.Play("TowerUIMoushover", false);
@@ -171,7 +164,7 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnPointerExit(PointerEventData eventData)
     {
         transform.localScale = originalScale;
-        selfCanvas.sortingOrder = originalOrder;
+        //selfCanvas.sortingOrder = originalOrder;
     }
 
     /// <summary>
