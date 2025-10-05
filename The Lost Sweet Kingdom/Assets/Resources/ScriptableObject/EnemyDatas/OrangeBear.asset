@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: OrangeBear
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2776107149917627590, guid: 43fd16807a915f145993f873f03069a9, type: 3}
-  maxHealth: 10
+  maxHealth: 30
+  increaseHealth: 10
   moveSpeed: 2
   goldReward: 40
   spriteLibraryAsset: {fileID: 7108339969198208228, guid: 7d1207068a9d25b48bb04e09a83c5ff6, type: 3}
