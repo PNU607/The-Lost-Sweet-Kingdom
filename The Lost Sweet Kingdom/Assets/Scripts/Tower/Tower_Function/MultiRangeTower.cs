@@ -5,9 +5,9 @@ using UnityEngine;
 public class MultiRangeTower : RangeTower
 {
     [SerializeField]
-    private float attackDelay = 0.5f; // °ø°İ µô·¹ÀÌ ½Ã°£
+    private float attackDelay = 0.5f; // ê³µê²© ë”œë ˆì´ ì‹œê°„
 
-    private float startAttackTime = 0; // °ø°İ ½ÃÀÛ ½Ã°£
+    private float startAttackTime = 0; // ê³µê²© ì‹œì‘ ì‹œê°„
 
     private void Awake()
     {
@@ -15,36 +15,36 @@ public class MultiRangeTower : RangeTower
     }
 
     /// <summary>
-    /// Å¸°ÙÀ» ÇâÇØ ¹ß»çÃ¼¸¦ »ı¼º
+    /// íƒ€ê²Ÿì„ í–¥í•´ ë°œì‚¬ì²´ë¥¼ ìƒì„±
     /// </summary>
     /// <returns></returns>
     protected override void AttackToTarget()
     {
-        // Å¸°ÙÀÌ ¾øÀ¸¸é
+        // íƒ€ê²Ÿì´ ì—†ìœ¼ë©´
         if (closestAttackTarget == null)
         {
-            // Å¸°Ù Å½»ö »óÅÂ·Î ÀüÈ¯
+            // íƒ€ê²Ÿ íƒìƒ‰ ìƒíƒœë¡œ ì „í™˜
             towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
 
-        // Å¸°ÙÀÌ ºñÈ°¼ºÈ­µÇ¸é
+        // íƒ€ê²Ÿì´ ë¹„í™œì„±í™”ë˜ë©´
         if (!closestAttackTarget.gameObject.activeSelf)
         {
-            // Å¸°Ù Å½»ö »óÅÂ·Î ÀüÈ¯
+            // íƒ€ê²Ÿ íƒìƒ‰ ìƒíƒœë¡œ ì „í™˜
             towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
 
-        // Å¸°Ù°úÀÇ °Å¸® °è»ê
+        // íƒ€ê²Ÿê³¼ì˜ ê±°ë¦¬ ê³„ì‚°
         float distance = Vector3.Distance(closestAttackTarget.transform.position, transform.position);
 
-        // Å¸°Ù°úÀÇ °Å¸®°¡ °ø°İ ¹üÀ§º¸´Ù ¸Ö¸® ÀÖÀ¸¸é
+        // íƒ€ê²Ÿê³¼ì˜ ê±°ë¦¬ê°€ ê³µê²© ë²”ìœ„ë³´ë‹¤ ë©€ë¦¬ ìˆìœ¼ë©´
         if (distance > applyLevelData.attackRange)
         {
-            // Å¸°Ù Å½»ö »óÅÂ·Î ÀüÈ¯
+            // íƒ€ê²Ÿ íƒìƒ‰ ìƒíƒœë¡œ ì „í™˜
             attackTargets = null;
             towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
@@ -56,7 +56,7 @@ public class MultiRangeTower : RangeTower
             startAttackTime = Time.time;
 
             towerBase.towerAnim.SetBool("isAttacking", true);
-            // °ø°İ
+            // ê³µê²©
             StartCoroutine(SetAttackAnimation());
 
             attackTimer = 0;
@@ -65,7 +65,7 @@ public class MultiRangeTower : RangeTower
     }
 
     /// <summary>
-    /// ¹ß»çÃ¼ »ı¼º ÈÄ ¼¼ÆÃ
+    /// ë°œì‚¬ì²´ ìƒì„± í›„ ì„¸íŒ…
     /// </summary>
     private IEnumerator SetAttackAnimation()
     {

@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class SlowZone : TowerWeapon
 {
-    private float duration = 0f; // DamageZoneÀÇ Áö¼Ó ½Ã°£
+    private float duration = 0f; // DamageZoneì˜ ì§€ì† ì‹œê°„
     private float tickTimer = 0f;
 
     public override void Setup(Transform target, Tower shotTower)
     {
         base.Setup(target, shotTower);
-        duration = shotTower.applyLevelData.attackDuration; // Áö¼Ó ½Ã°£ ¼³Á¤
+        duration = shotTower.applyLevelData.attackDuration; // ì§€ì† ì‹œê°„ ì„¤ì •
     }
 
     protected override void Update()
@@ -38,15 +38,15 @@ public class SlowZone : TowerWeapon
     }
 
     /// <summary>
-    /// ÀÏÁ¤½Ã°£µ¿¾È ÀûÀÇ ÀÌ¼ÓÀ» ´À¸®°Ô ¸¸µê
+    /// ì¼ì •ì‹œê°„ë™ì•ˆ ì ì˜ ì´ì†ì„ ëŠë¦¬ê²Œ ë§Œë“¦
     /// </summary>
-    /// <param name="enemy">°ø°İÇÒ Àû</param>
+    /// <param name="enemy">ê³µê²©í•  ì </param>
     /// <returns></returns>
     private IEnumerator SlowEnemy(Enemy enemy)
     {
         if (enemy == null) yield break;
 
-        // Àû ÀÌ¼Ó °¨¼Ò
+        // ì  ì´ì† ê°ì†Œ
         enemy.SetSpeedMultiplier(1 / shotTower.applyLevelData.attackDamage, shotTower.applyLevelData.attackDuration);
     }
 }

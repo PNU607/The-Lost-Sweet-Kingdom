@@ -16,8 +16,8 @@ public class TowerBonusManager : MonoBehaviour
     [SerializeField]
     private GameObject bonusIconPrefab;
 
-    public int colorCombinationNum = 3; // º¸³Ê½º¿¡ ÇÊ¿äÇÑ °°Àº »ö»ó Å¸¿öÀÇ ¼ö
-    public int typeCombinationNum = 7;  // º¸³Ê½º¿¡ ÇÊ¿äÇÑ °°Àº Å¸ÀÔ Å¸¿öÀÇ ¼ö
+    public int colorCombinationNum = 3; // ë³´ë„ˆìŠ¤ì— í•„ìš”í•œ ê°™ì€ ìƒ‰ìƒ íƒ€ì›Œì˜ ìˆ˜
+    public int typeCombinationNum = 7;  // ë³´ë„ˆìŠ¤ì— í•„ìš”í•œ ê°™ì€ íƒ€ì… íƒ€ì›Œì˜ ìˆ˜
 
     private HashSet<BonusData> activeBonusNames = new HashSet<BonusData>();
     private Dictionary<BonusData, GameObject> activeBonusIcons = new Dictionary<BonusData, GameObject>();
@@ -57,7 +57,7 @@ public class TowerBonusManager : MonoBehaviour
         foreach (var group in groupedByColor)
         {
             string bonusName = string.Format("{0}_{1}"
-                , TowerBonus.»ö»ó.ToString()
+                , TowerBonus.ìƒ‰ìƒ.ToString()
                 , group.FirstOrDefault().CurrentTowerData.towerColor.ToString());
             BonusData bonusData = bonusDataBase.GetBonusByName(bonusName);
 
@@ -71,7 +71,7 @@ public class TowerBonusManager : MonoBehaviour
         foreach (var group in groupedByType)
         {
             string bonusName = string.Format("{0}_{1}"
-                , TowerBonus.Å¸ÀÔ.ToString()
+                , TowerBonus.íƒ€ì….ToString()
                 , group.FirstOrDefault().CurrentTowerData.towerType.ToString());
             BonusData bonusData = bonusDataBase.GetBonusByName(bonusName);
             newBonusNames.Add(bonusData);
@@ -81,9 +81,9 @@ public class TowerBonusManager : MonoBehaviour
             }
         }
 
-        // »ı±ä º¸³Ê½º
+        // ìƒê¸´ ë³´ë„ˆìŠ¤
         var addedBonus = newBonusNames.Except(activeBonusNames).ToList();
-        // »ç¶óÁø º¸³Ê½º
+        // ì‚¬ë¼ì§„ ë³´ë„ˆìŠ¤
         var removedBonus = activeBonusNames.Except(newBonusNames).ToList();
 
         foreach (var bonus in addedBonus)

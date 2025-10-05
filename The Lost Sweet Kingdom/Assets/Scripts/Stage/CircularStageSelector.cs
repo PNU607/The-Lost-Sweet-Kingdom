@@ -7,42 +7,42 @@ using DG.Tweening;
 public class CircularStageSelector : MonoBehaviour
 {
     [Header("Settings")]
-    public float radius = 300f; // ¿øÀÇ ¹İÁö¸§
-    public float animationDuration = 0.6f; // ¾Ö´Ï¸ŞÀÌ¼Ç ½Ã°£
-    public Ease animationEase = Ease.OutQuad; // ¾Ö´Ï¸ŞÀÌ¼Ç ÀÌÂ¡
+    public float radius = 300f; // ì›ì˜ ë°˜ì§€ë¦„
+    public float animationDuration = 0.6f; // ì• ë‹ˆë©”ì´ì…˜ ì‹œê°„
+    public Ease animationEase = Ease.OutQuad; // ì• ë‹ˆë©”ì´ì…˜ ì´ì§•
 
     [Header("UI References")]
     public Button leftButton;
     public Button rightButton;
-    public Transform itemParent; // ¾ÆÀÌÅÛµéÀÇ ºÎ¸ğ ¿ÀºêÁ§Æ®
-    public GameObject itemPrefab; // ¾ÆÀÌÅÛ ÇÁ¸®ÆÕ
+    public Transform itemParent; // ì•„ì´í…œë“¤ì˜ ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸
+    public GameObject itemPrefab; // ì•„ì´í…œ í”„ë¦¬íŒ¹
 
     [Header("Display Settings")]
-    public float centerScale = 1.2f; // °¡¿îµ¥ ¾ÆÀÌÅÛÀÇ Å©±â
-    public float sideScale = 0.8f; // ÁÂ¿ì ¾ÆÀÌÅÛÀÇ Å©±â
-    public float centerAlpha = 1f; // °¡¿îµ¥ ¾ÆÀÌÅÛÀÇ Åõ¸íµµ
-    public float sideAlpha = 0.6f; // ÁÂ¿ì ¾ÆÀÌÅÛÀÇ Åõ¸íµµ
+    public float centerScale = 1.2f; // ê°€ìš´ë° ì•„ì´í…œì˜ í¬ê¸°
+    public float sideScale = 0.8f; // ì¢Œìš° ì•„ì´í…œì˜ í¬ê¸°
+    public float centerAlpha = 1f; // ê°€ìš´ë° ì•„ì´í…œì˜ íˆ¬ëª…ë„
+    public float sideAlpha = 0.6f; // ì¢Œìš° ì•„ì´í…œì˜ íˆ¬ëª…ë„
 
-    // µ¥ÀÌÅÍ
+    // ë°ì´í„°
     private List<StageData> allStageData = new List<StageData>();
     private List<GameObject> allItems = new List<GameObject>();
     private int currentCenterIndex = 0;
     private bool isAnimating = false;
 
-    // °íÁ¤ À§Ä¡ (Áß¾Ó, ¿ìÃø, ÁÂÃø)
+    // ê³ ì • ìœ„ì¹˜ (ì¤‘ì•™, ìš°ì¸¡, ì¢Œì¸¡)
     private Vector3 centerPos;
     private Vector3 rightPos;
     private Vector3 leftPos;
 
     void Start()
     {
-        // ¹öÆ° ÀÌº¥Æ® ¿¬°á
+        // ë²„íŠ¼ ì´ë²¤íŠ¸ ì—°ê²°
         if (leftButton != null)
             leftButton.onClick.AddListener(MoveLeft);
         if (rightButton != null)
             rightButton.onClick.AddListener(MoveRight);
 
-        // À§Ä¡ °è»ê
+        // ìœ„ì¹˜ ê³„ì‚°
         CalculatePositions();
     }
 
@@ -57,23 +57,23 @@ public class CircularStageSelector : MonoBehaviour
                                       radius * Mathf.Cos(240f * Mathf.Deg2Rad), 0);
     }
 
-    // Stage¿¡¼­ È£ÃâÇÏ¿© ¾ÆÀÌÅÛµé »ı¼º
+    // Stageì—ì„œ í˜¸ì¶œí•˜ì—¬ ì•„ì´í…œë“¤ ìƒì„±
     public void CreateItems(List<StageData> stageDataList)
     {
-        // ±âÁ¸ ¾ÆÀÌÅÛµé Á¦°Å
+        // ê¸°ì¡´ ì•„ì´í…œë“¤ ì œê±°
         ClearAllItems();
 
-        // µ¥ÀÌÅÍ ÀúÀå
+        // ë°ì´í„° ì €ì¥
         allStageData = new List<StageData>(stageDataList);
 
-        // ¸ğµç ¾ÆÀÌÅÛ »ı¼º
+        // ëª¨ë“  ì•„ì´í…œ ìƒì„±
         for (int i = 0; i < allStageData.Count; i++)
         {
             GameObject item = CreateSingleItem(allStageData[i], i);
             allItems.Add(item);
         }
 
-        // ÃÊ±â À§Ä¡ ¼³Á¤
+        // ì´ˆê¸° ìœ„ì¹˜ ì„¤ì •
         currentCenterIndex = 0;
         UpdateItemsImmediate();
     }
@@ -82,27 +82,27 @@ public class CircularStageSelector : MonoBehaviour
     {
         if (itemPrefab == null)
         {
-            Debug.LogError("Item PrefabÀÌ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù!");
+            Debug.LogError("Item Prefabì´ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!");
             return null;
         }
 
-        // ¾ÆÀÌÅÛ »ı¼º
+        // ì•„ì´í…œ ìƒì„±
         GameObject itemObj = Instantiate(itemPrefab, itemParent);
 
-        // StageSlot ÄÄÆ÷³ÍÆ®¿¡ µ¥ÀÌÅÍ ¼³Á¤
+        // StageSlot ì»´í¬ë„ŒíŠ¸ì— ë°ì´í„° ì„¤ì •
         StageSlot stageSlot = itemObj.GetComponent<StageSlot>();
         if (stageSlot != null)
         {
             stageSlot.SetData(stageData);
         }
 
-        // CanvasGroup Ãß°¡ (Åõ¸íµµ Á¶Àı¿ë)
+        // CanvasGroup ì¶”ê°€ (íˆ¬ëª…ë„ ì¡°ì ˆìš©)
         if (itemObj.GetComponent<CanvasGroup>() == null)
         {
             itemObj.AddComponent<CanvasGroup>();
         }
 
-        // Å¬¸¯ ÀÌº¥Æ® Ãß°¡
+        // í´ë¦­ ì´ë²¤íŠ¸ ì¶”ê°€
         Button itemButton = itemObj.GetComponent<Button>();
         if (itemButton == null)
             itemButton = itemObj.AddComponent<Button>();
@@ -119,7 +119,7 @@ public class CircularStageSelector : MonoBehaviour
         {
             if (item != null)
             {
-                item.transform.DOKill(); // DOTween ¾Ö´Ï¸ŞÀÌ¼Ç ÁßÁö
+                item.transform.DOKill(); // DOTween ì• ë‹ˆë©”ì´ì…˜ ì¤‘ì§€
                 DestroyImmediate(item);
             }
         }
@@ -156,28 +156,28 @@ public class CircularStageSelector : MonoBehaviour
 
             if (displayIndex == -1)
             {
-                // È­¸é¿¡¼­ »ç¶óÁ®¾ß ÇÏ´Â ¾ÆÀÌÅÛ
+                // í™”ë©´ì—ì„œ ì‚¬ë¼ì ¸ì•¼ í•˜ëŠ” ì•„ì´í…œ
                 item.transform.DOScale(0f, animationDuration).SetEase(animationEase);
                 item.GetComponent<CanvasGroup>().DOFade(0f, animationDuration).SetEase(animationEase)
                     .OnComplete(() => item.SetActive(false));
             }
             else
             {
-                // È­¸é¿¡ ³ªÅ¸³ª¾ß ÇÏ´Â ¾ÆÀÌÅÛ
+                // í™”ë©´ì— ë‚˜íƒ€ë‚˜ì•¼ í•˜ëŠ” ì•„ì´í…œ
                 item.SetActive(true);
 
                 Vector3 targetPos = GetTargetPosition(displayIndex);
                 float targetScale = GetTargetScale(displayIndex);
                 float targetAlpha = GetTargetAlpha(displayIndex);
 
-                // DOTween ¾Ö´Ï¸ŞÀÌ¼Ç
+                // DOTween ì• ë‹ˆë©”ì´ì…˜
                 item.transform.DOMove(targetPos, animationDuration).SetEase(animationEase);
                 item.transform.DOScale(targetScale, animationDuration).SetEase(animationEase);
                 item.GetComponent<CanvasGroup>().DOFade(targetAlpha, animationDuration).SetEase(animationEase);
             }
         }
 
-        // ¾Ö´Ï¸ŞÀÌ¼Ç ¿Ï·á ´ë±â
+        // ì• ë‹ˆë©”ì´ì…˜ ì™„ë£Œ ëŒ€ê¸°
         DOVirtual.DelayedCall(animationDuration, () => isAnimating = false);
     }
 
@@ -190,12 +190,12 @@ public class CircularStageSelector : MonoBehaviour
 
             if (displayIndex == -1)
             {
-                // È­¸é¿¡ Ç¥½ÃµÇÁö ¾Ê´Â ¾ÆÀÌÅÛ
+                // í™”ë©´ì— í‘œì‹œë˜ì§€ ì•ŠëŠ” ì•„ì´í…œ
                 item.SetActive(false);
             }
             else
             {
-                // È­¸é¿¡ Ç¥½ÃµÇ´Â ¾ÆÀÌÅÛ
+                // í™”ë©´ì— í‘œì‹œë˜ëŠ” ì•„ì´í…œ
                 item.SetActive(true);
                 item.transform.position = GetTargetPosition(displayIndex);
                 item.transform.localScale = Vector3.one * GetTargetScale(displayIndex);
@@ -204,28 +204,28 @@ public class CircularStageSelector : MonoBehaviour
         }
     }
 
-    // ¾ÆÀÌÅÛÀÌ È­¸éÀÇ ¾î´À À§Ä¡¿¡ ÀÖ¾î¾ß ÇÏ´ÂÁö °è»ê (-1ÀÌ¸é È­¸é¿¡ ¾øÀ½)
+    // ì•„ì´í…œì´ í™”ë©´ì˜ ì–´ëŠ ìœ„ì¹˜ì— ìˆì–´ì•¼ í•˜ëŠ”ì§€ ê³„ì‚° (-1ì´ë©´ í™”ë©´ì— ì—†ìŒ)
     int GetDisplayIndex(int itemIndex)
     {
         if (allItems.Count <= 3)
         {
-            // 3°³ ÀÌÇÏ¸é ¸ğµÎ Ç¥½Ã
+            // 3ê°œ ì´í•˜ë©´ ëª¨ë‘ í‘œì‹œ
             return itemIndex;
         }
 
-        // ÇöÀç Áß¾Ó ¾ÆÀÌÅÛÀ» ±âÁØÀ¸·Î »ó´ëÀû À§Ä¡ °è»ê
+        // í˜„ì¬ ì¤‘ì•™ ì•„ì´í…œì„ ê¸°ì¤€ìœ¼ë¡œ ìƒëŒ€ì  ìœ„ì¹˜ ê³„ì‚°
         int relativeIndex = (itemIndex - currentCenterIndex + allItems.Count) % allItems.Count;
 
         switch (relativeIndex)
         {
-            case 0: return 0; // Áß¾Ó
-            case 1: return 1; // ¿ìÃø
-            case 2: return -1; // ¼û±è
+            case 0: return 0; // ì¤‘ì•™
+            case 1: return 1; // ìš°ì¸¡
+            case 2: return -1; // ìˆ¨ê¹€
             default:
                 if (relativeIndex == allItems.Count - 1)
-                    return 2; // ÁÂÃø
+                    return 2; // ì¢Œì¸¡
                 else
-                    return -1; // ¼û±è
+                    return -1; // ìˆ¨ê¹€
         }
     }
 
@@ -233,9 +233,9 @@ public class CircularStageSelector : MonoBehaviour
     {
         switch (displayIndex)
         {
-            case 0: return centerPos; // Áß¾Ó
-            case 1: return rightPos;  // ¿ìÃø
-            case 2: return leftPos;   // ÁÂÃø
+            case 0: return centerPos; // ì¤‘ì•™
+            case 1: return rightPos;  // ìš°ì¸¡
+            case 2: return leftPos;   // ì¢Œì¸¡
             default: return centerPos;
         }
     }
@@ -244,8 +244,8 @@ public class CircularStageSelector : MonoBehaviour
     {
         switch (displayIndex)
         {
-            case 0: return centerScale; // Áß¾Ó
-            default: return sideScale;  // ÁÂ¿ì
+            case 0: return centerScale; // ì¤‘ì•™
+            default: return sideScale;  // ì¢Œìš°
         }
     }
 
@@ -253,12 +253,12 @@ public class CircularStageSelector : MonoBehaviour
     {
         switch (displayIndex)
         {
-            case 0: return centerAlpha; // Áß¾Ó
-            default: return sideAlpha;  // ÁÂ¿ì
+            case 0: return centerAlpha; // ì¤‘ì•™
+            default: return sideAlpha;  // ì¢Œìš°
         }
     }
 
-    // Æ¯Á¤ ¾ÆÀÌÅÛÀ» Áß¾ÓÀ¸·Î ¼±ÅÃ
+    // íŠ¹ì • ì•„ì´í…œì„ ì¤‘ì•™ìœ¼ë¡œ ì„ íƒ
     public void SelectItem(int itemIndex)
     {
         if (isAnimating || itemIndex < 0 || itemIndex >= allItems.Count) return;
@@ -267,7 +267,7 @@ public class CircularStageSelector : MonoBehaviour
         AnimateItems();
     }
 
-    // ÇöÀç ¼±ÅÃµÈ ¾ÆÀÌÅÛ µ¥ÀÌÅÍ ¹İÈ¯
+    // í˜„ì¬ ì„ íƒëœ ì•„ì´í…œ ë°ì´í„° ë°˜í™˜
     public StageData GetCurrentStageData()
     {
         if (currentCenterIndex >= 0 && currentCenterIndex < allStageData.Count)
@@ -277,7 +277,7 @@ public class CircularStageSelector : MonoBehaviour
         return null;
     }
 
-    // ÇöÀç ¼±ÅÃµÈ ¾ÆÀÌÅÛ GameObject ¹İÈ¯
+    // í˜„ì¬ ì„ íƒëœ ì•„ì´í…œ GameObject ë°˜í™˜
     public GameObject GetCurrentItem()
     {
         if (currentCenterIndex >= 0 && currentCenterIndex < allItems.Count)
@@ -292,7 +292,7 @@ public class CircularStageSelector : MonoBehaviour
         return isAnimating;
     }
 
-    // ¸ğµç ¾ÆÀÌÅÛÀÇ ¾Ö´Ï¸ŞÀÌ¼Ç ÁßÁö
+    // ëª¨ë“  ì•„ì´í…œì˜ ì• ë‹ˆë©”ì´ì…˜ ì¤‘ì§€
     void OnDestroy()
     {
         foreach (var item in allItems)

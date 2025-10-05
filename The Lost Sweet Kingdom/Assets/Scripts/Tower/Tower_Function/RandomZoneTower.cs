@@ -15,49 +15,49 @@ public class RandomZoneTower : ZoneTower
     }
 
     /// <summary>
-    /// Å¸°ÙÀ» ÇâÇØ ¹ß»çÃ¼¸¦ »ı¼º
+    /// íƒ€ê²Ÿì„ í–¥í•´ ë°œì‚¬ì²´ë¥¼ ìƒì„±
     /// </summary>
     /// <returns></returns>
     protected override void AttackToTarget()
     {
-        // Å¸°ÙÀÌ ¾øÀ¸¸é
+        // íƒ€ê²Ÿì´ ì—†ìœ¼ë©´
         if (closestAttackTarget == null)
         {
-            // Å¸°Ù Å½»ö »óÅÂ·Î ÀüÈ¯
+            // íƒ€ê²Ÿ íƒìƒ‰ ìƒíƒœë¡œ ì „í™˜
             towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
 
-        // Å¸°ÙÀÌ ºñÈ°¼ºÈ­µÇ¸é
+        // íƒ€ê²Ÿì´ ë¹„í™œì„±í™”ë˜ë©´
         if (!closestAttackTarget.gameObject.activeSelf)
         {
-            // Å¸°Ù Å½»ö »óÅÂ·Î ÀüÈ¯
+            // íƒ€ê²Ÿ íƒìƒ‰ ìƒíƒœë¡œ ì „í™˜
             towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
 
-        // Å¸°Ù°úÀÇ °Å¸® °è»ê
+        // íƒ€ê²Ÿê³¼ì˜ ê±°ë¦¬ ê³„ì‚°
         float distance = Vector3.Distance(closestAttackTarget.transform.position, transform.position);
 
-        // Å¸°Ù°úÀÇ °Å¸®°¡ °ø°İ ¹üÀ§º¸´Ù ¸Ö¸® ÀÖÀ¸¸é
+        // íƒ€ê²Ÿê³¼ì˜ ê±°ë¦¬ê°€ ê³µê²© ë²”ìœ„ë³´ë‹¤ ë©€ë¦¬ ìˆìœ¼ë©´
         if (distance > applyLevelData.attackRange)
         {
-            // Å¸°Ù Å½»ö »óÅÂ·Î ÀüÈ¯
+            // íƒ€ê²Ÿ íƒìƒ‰ ìƒíƒœë¡œ ì „í™˜
             attackTargets = null;
             towerBase.towerAnim.SetBool("isAttacking", false);
             ChangeState(TowerState.SearchTarget);
             return;
         }
 
-        // °ø°İ
+        // ê³µê²©
         SetAttackAnimation();
         attackTimer = 0;
     }
 
     /// <summary>
-    /// ¹ß»çÃ¼ »ı¼º ÈÄ ¼¼ÆÃ
+    /// ë°œì‚¬ì²´ ìƒì„± í›„ ì„¸íŒ…
     /// </summary>
     private void SetAttackAnimation()
     {
@@ -77,7 +77,7 @@ public class RandomZoneTower : ZoneTower
 
                 if (!attackableTilemap.HasTile(tilePos)) continue;
 
-                // ÇØ´ç Å¸ÀÏ¿¡ ÀûÀÌ ÀÖ´ÂÁö È®ÀÎ
+                // í•´ë‹¹ íƒ€ì¼ì— ì ì´ ìˆëŠ”ì§€ í™•ì¸
                 Vector3 world = attackableTilemap.GetCellCenterWorld(tilePos);
                 Collider2D[] colliders = Physics2D.OverlapBoxAll(
                     world,
@@ -91,11 +91,11 @@ public class RandomZoneTower : ZoneTower
                     enemyTiles.Add(tilePos);
                 }
 
-                break; // ÇÑ ¹æÇâ¿¡ ÇÏ³ª¸¸
+                break; // í•œ ë°©í–¥ì— í•˜ë‚˜ë§Œ
             }
         }
 
-        // ÀûÀÌ ÀÖ´Â Å¸ÀÏ Áß ·£´ı n°³ ¼±ÅÃ
+        // ì ì´ ìˆëŠ” íƒ€ì¼ ì¤‘ ëœë¤ nê°œ ì„ íƒ
         int count = Mathf.Min(attackEnemyCount, enemyTiles.Count);
         for (int i = 0; i < count; i++)
         {

@@ -12,7 +12,7 @@ public class StageSelectManager : MonoBehaviour
 
     [Header("Stage Configuration")]
     [SerializeField] private List<StageData> stageDatas;
-    [SerializeField] private List<Transform> positionSlots; // 5°³ÀÇ À§Ä¡ ½½·Ô
+    [SerializeField] private List<Transform> positionSlots; // 5ê°œì˜ ìœ„ì¹˜ ìŠ¬ë¡¯
 
     [Header("Animation Settings")]
     [SerializeField] private float baseDuration = 0.5f;
@@ -28,7 +28,7 @@ public class StageSelectManager : MonoBehaviour
 
     // Runtime variables
     private readonly List<StageSlot> activeSlots = new List<StageSlot>();
-    private readonly List<int> currentDataIndices = new List<int>(); // ÇöÀç °¢ ½½·ÔÀÌ ÂüÁ¶ÇÏ´Â µ¥ÀÌÅÍ ÀÎµ¦½º
+    private readonly List<int> currentDataIndices = new List<int>(); // í˜„ì¬ ê° ìŠ¬ë¡¯ì´ ì°¸ì¡°í•˜ëŠ” ë°ì´í„° ì¸ë±ìŠ¤
     private Vector3 centerScale;
     private Vector3 normalScale = Vector3.one;
 
@@ -93,16 +93,16 @@ public class StageSelectManager : MonoBehaviour
             var slot = GetOrCreateSlot();
             slot.transform.position = positionSlots[i].position;
 
-            // µ¥ÀÌÅÍ ÀÎµ¦½º °è»ê
+            // ë°ì´í„° ì¸ë±ìŠ¤ ê³„ì‚°
             int dataIndex;
             if (dataCount >= MAX_SLOTS)
             {
-                // µ¥ÀÌÅÍ°¡ ÃæºĞÇÑ °æ¿ì Á÷Á¢ ¸ÅÇÎ
+                // ë°ì´í„°ê°€ ì¶©ë¶„í•œ ê²½ìš° ì§ì ‘ ë§¤í•‘
                 dataIndex = i;
             }
             else
             {
-                // µ¥ÀÌÅÍ°¡ ÀûÀº °æ¿ì ¼øÈ¯ ¹èÄ¡
+                // ë°ì´í„°ê°€ ì ì€ ê²½ìš° ìˆœí™˜ ë°°ì¹˜
                 if (dataCount == 1)
                 {
                     dataIndex = i == CENTER_INDEX ? 0 : -1;
@@ -115,13 +115,13 @@ public class StageSelectManager : MonoBehaviour
                 }
                 else if (dataCount == 3)
                 {
-                    // 3°³ÀÎ °æ¿ì 1, 2, 0, 1, 2 ÆĞÅÏÀ¸·Î ½ÃÀÛ
+                    // 3ê°œì¸ ê²½ìš° 1, 2, 0, 1, 2 íŒ¨í„´ìœ¼ë¡œ ì‹œì‘
                     int[] pattern = { 1, 2, 0, 1, 2 };
                     dataIndex = pattern[i];
                 }
                 else
                 {
-                    // 4°³ ÀÌ»óÀÎ °æ¿ì ±âº» ¼øÈ¯
+                    // 4ê°œ ì´ìƒì¸ ê²½ìš° ê¸°ë³¸ ìˆœí™˜
                     dataIndex = (i + 1) % dataCount;
                 }
             }
@@ -184,7 +184,7 @@ public class StageSelectManager : MonoBehaviour
 
     private void ShiftSlotsLeft()
     {
-        // ½½·ÔµéÀ» ¿ŞÂÊÀ¸·Î ¼øÈ¯ ÀÌµ¿ (Ã¹ ¹øÂ° ½½·ÔÀÌ ¸¶Áö¸·À¸·Î)
+        // ìŠ¬ë¡¯ë“¤ì„ ì™¼ìª½ìœ¼ë¡œ ìˆœí™˜ ì´ë™ (ì²« ë²ˆì§¸ ìŠ¬ë¡¯ì´ ë§ˆì§€ë§‰ìœ¼ë¡œ)
         if (activeSlots.Count > 0)
         {
             var firstSlot = activeSlots[0];
@@ -192,14 +192,14 @@ public class StageSelectManager : MonoBehaviour
             activeSlots.Add(firstSlot);
         }
 
-        // µ¥ÀÌÅÍ ÀÎµ¦½ºµµ ÇÔ²² ¼øÈ¯ ÀÌµ¿
+        // ë°ì´í„° ì¸ë±ìŠ¤ë„ í•¨ê»˜ ìˆœí™˜ ì´ë™
         ShiftDataIndicesLeft();
         UpdateSlotData();
     }
 
     private void ShiftSlotsRight()
     {
-        // ½½·ÔµéÀ» ¿À¸¥ÂÊÀ¸·Î ¼øÈ¯ ÀÌµ¿ (¸¶Áö¸· ½½·ÔÀÌ Ã¹ ¹øÂ°·Î)
+        // ìŠ¬ë¡¯ë“¤ì„ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ìˆœí™˜ ì´ë™ (ë§ˆì§€ë§‰ ìŠ¬ë¡¯ì´ ì²« ë²ˆì§¸ë¡œ)
         if (activeSlots.Count > 0)
         {
             var lastSlot = activeSlots[activeSlots.Count - 1];
@@ -207,14 +207,14 @@ public class StageSelectManager : MonoBehaviour
             activeSlots.Insert(0, lastSlot);
         }
 
-        // µ¥ÀÌÅÍ ÀÎµ¦½ºµµ ÇÔ²² ¼øÈ¯ ÀÌµ¿
+        // ë°ì´í„° ì¸ë±ìŠ¤ë„ í•¨ê»˜ ìˆœí™˜ ì´ë™
         ShiftDataIndicesRight();
         UpdateSlotData();
     }
 
     private void ShiftDataIndicesLeft()
     {
-        // µ¥ÀÌÅÍ°¡ ÀûÀ» ¶§´Â ÆĞÅÏÀ» À¯ÁöÇÏ¸é¼­ ¼øÈ¯
+        // ë°ì´í„°ê°€ ì ì„ ë•ŒëŠ” íŒ¨í„´ì„ ìœ ì§€í•˜ë©´ì„œ ìˆœí™˜
         int dataCount = stageDatas.Count;
 
         for (int i = 0; i < currentDataIndices.Count; i++)
@@ -228,7 +228,7 @@ public class StageSelectManager : MonoBehaviour
 
     private void ShiftDataIndicesRight()
     {
-        // µ¥ÀÌÅÍ°¡ ÀûÀ» ¶§´Â ÆĞÅÏÀ» À¯ÁöÇÏ¸é¼­ ¼øÈ¯
+        // ë°ì´í„°ê°€ ì ì„ ë•ŒëŠ” íŒ¨í„´ì„ ìœ ì§€í•˜ë©´ì„œ ìˆœí™˜
         int dataCount = stageDatas.Count;
 
         for (int i = 0; i < currentDataIndices.Count; i++)
@@ -242,7 +242,7 @@ public class StageSelectManager : MonoBehaviour
 
     private void UpdateSlotData()
     {
-        // ¸ğµç È°¼º ½½·ÔÀÇ µ¥ÀÌÅÍ¸¦ ÇöÀç ÀÎµ¦½º¿¡ ¸Â°Ô ¾÷µ¥ÀÌÆ®
+        // ëª¨ë“  í™œì„± ìŠ¬ë¡¯ì˜ ë°ì´í„°ë¥¼ í˜„ì¬ ì¸ë±ìŠ¤ì— ë§ê²Œ ì—…ë°ì´íŠ¸
         for (int i = 0; i < activeSlots.Count; i++)
         {
             if (activeSlots[i] != null && activeSlots[i].gameObject.activeSelf &&
@@ -286,7 +286,7 @@ public class StageSelectManager : MonoBehaviour
             Vector3 targetPosition = positionSlots[i].position;
             bool isCenter = (i == CENTER_INDEX);
 
-            // °£´ÜÇÑ Á¡ÇÁ ¾Ö´Ï¸ŞÀÌ¼ÇÀ¸·Î À§Ä¡ ÀÌµ¿
+            // ê°„ë‹¨í•œ ì í”„ ì• ë‹ˆë©”ì´ì…˜ìœ¼ë¡œ ìœ„ì¹˜ ì´ë™
             slotTransform.DOJump(targetPosition, jumpPower, 1, currentDuration)
                 .SetEase(Ease.OutQuad)
                 .OnComplete(() =>
@@ -299,12 +299,12 @@ public class StageSelectManager : MonoBehaviour
                     }
                 });
 
-            // ½ºÄÉÀÏ ¾Ö´Ï¸ŞÀÌ¼Ç
+            // ìŠ¤ì¼€ì¼ ì• ë‹ˆë©”ì´ì…˜
             Vector3 targetScale = isCenter ? centerScale : normalScale;
             slotTransform.DOScale(targetScale, currentDuration * 0.8f)
                 .SetEase(Ease.OutQuad);
 
-            // ¿À¹ö·¹ÀÌ »óÅÂ ¾÷µ¥ÀÌÆ®
+            // ì˜¤ë²„ë ˆì´ ìƒíƒœ ì—…ë°ì´íŠ¸
             UpdateSlotOverlay(i, isCenter);
         }
     }
@@ -408,23 +408,23 @@ public class StageSelectManager : MonoBehaviour
 
     void Update()
     {
-        // Å°º¸µå ÀÔ·Â Ã³¸®
+        // í‚¤ë³´ë“œ ì…ë ¥ ì²˜ë¦¬
         if (Input.GetKeyDown(KeyCode.LeftArrow) /*|| Input.GetKeyDown(KeyCode.A)*/)
         {
-            // ¿ŞÂÊÀ¸·Î È¸Àü
+            // ì™¼ìª½ìœ¼ë¡œ íšŒì „
             Moveleft();
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow) /*|| Input.GetKeyDown(KeyCode.D)*/)
         {
-            // ¿À¸¥ÂÊÀ¸·Î È¸Àü
+            // ì˜¤ë¥¸ìª½ìœ¼ë¡œ íšŒì „
             MoveRight();
         }
 
-        // ¼±ÅÃ È®ÀÎ
+        // ì„ íƒ í™•ì¸
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            // °ÔÀÓ ½ÃÀÛ
+            // ê²Œì„ ì‹œì‘
             activeSlots[CENTER_INDEX].LoadStageScene();
         }
     }

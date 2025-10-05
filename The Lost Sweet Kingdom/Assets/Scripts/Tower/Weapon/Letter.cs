@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class Letter : TowerWeapon
 {
-    public float duration = 0f; // DamageZoneÀÇ Áö¼Ó ½Ã°£
+    public float duration = 0f; // DamageZoneì˜ ì§€ì† ì‹œê°„
     public float tickTimer = 0f;
 
     public WeaponInLetter towerWeapon;
@@ -13,7 +13,7 @@ public class Letter : TowerWeapon
     public override void Setup(Transform target, Tower shotTower)
     {
         base.Setup(target, shotTower);
-        duration = shotTower.applyLevelData.attackDuration; // Áö¼Ó ½Ã°£ ¼³Á¤
+        duration = shotTower.applyLevelData.attackDuration; // ì§€ì† ì‹œê°„ ì„¤ì •
     }
 
     protected override void Update()
@@ -23,7 +23,7 @@ public class Letter : TowerWeapon
         if (target == null
                 || target != null && !target.gameObject.activeSelf)
         {
-            // Å¸°ÙÀÌ ¾øÀ¸¸é ¹«±â ¹ß»ç ÁßÁö
+            // íƒ€ê²Ÿì´ ì—†ìœ¼ë©´ ë¬´ê¸° ë°œì‚¬ ì¤‘ì§€
             isAttackStopped = true;
             ReleaseWeapon();
             return;
