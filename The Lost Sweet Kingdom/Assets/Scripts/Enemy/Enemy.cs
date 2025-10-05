@@ -30,16 +30,6 @@ public class Enemy : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-    /*private void OnEnable()
-    {
-        if (currentEnemyData == null)
-        {
-            return;
-        }
-
-        InitializeEnemy();
-    }*/
-
     private void Awake()
     {
         originalScale = transform.localScale;
@@ -63,10 +53,20 @@ public class Enemy : MonoBehaviour
     {
         StopAllCoroutines();
 
-        hp = currentEnemyData.maxHealth;
+        int currentWave = WaveManager.instance.waveCount;
+        float calculatedMaxHealth = currentEnemyData.maxHealth;
+
+        if (currentWave > 0)
+        {
+            int multiplier = (currentWave - 1) / 10;
+            calculatedMaxHealth += multiplier * currentEnemyData.increaseHealth;
+        }
+        hp = calculatedMaxHealth;
+
         transform.localScale = originalScale;
         baseSpeed = currentEnemyData.moveSpeed;
         moveSpeed = currentEnemyData.moveSpeed;
+        spriteRenderer.color = Color.white;
 
         UpdateHealthBar();
 
@@ -220,7 +220,10 @@ public class Enemy : MonoBehaviour
             if (!gameObject.activeInHierarchy) yield break;
 
             TakeDamage(damage);
-            StartCoroutine(PoisonEffect());
+            if (gameObject.activeInHierarchy)
+            {
+                StartCoroutine(PoisonEffect());
+            }
             yield return new WaitForSeconds(0.5f);
             timer += 0.5f;
         }
@@ -229,10 +232,9 @@ public class Enemy : MonoBehaviour
     {
         if (spriteRenderer != null)
         {
-            Color originalColor = spriteRenderer.color;
             spriteRenderer.color = Color.green;
             yield return new WaitForSeconds(0.2f);
-            spriteRenderer.color = originalColor;
+            spriteRenderer.color = Color.white;
         }
     }
 

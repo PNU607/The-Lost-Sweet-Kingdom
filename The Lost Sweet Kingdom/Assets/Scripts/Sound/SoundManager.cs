@@ -66,6 +66,20 @@ public class SoundManager : MonoBehaviour
         return bgmSoundObject;
     }
 
+    public void PlayBgm(string bgmName)
+    {
+        if (bgmSoundObject != null && bgmSoundObject.IsPlaying)
+        {
+            if (bgmSoundObject.name == bgmName)
+                return;
+
+            bgmSoundObject.Stop();
+        }
+
+        bgmSoundObject = Sound.Play(bgmName, true);
+        bgmSoundObject.name = bgmName;
+    }
+
     private void Start()
     {
         GetSoundObjects();
