@@ -40,12 +40,17 @@ public class OptionPanelController : MonoBehaviour
 
             if (dimPanel != null)
             {
+                Debug.Log("SetActiveFalse dim");
                 Image dim = dimPanel.GetComponent<Image>();
                 Color dimColor = dim.color;
                 dimColor.a = 0f;
                 dim.color = dimColor;
 
                 dimPanel.SetActive(false);
+            }
+            else
+            {
+                Debug.Log("Dimpanel Null");
             }
 
             Time.timeScale = 1f;
