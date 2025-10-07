@@ -50,11 +50,25 @@ public class WaveManager : MonoBehaviour
     public void RoundFinish()
     {
         Debug.Log("Round Finish");
-        EnemySpawner.instance.isGameRunning = false;
+        if (!EnemySpawner.instance.autoGameStart)
+        {
+            EnemySpawner.instance.isGameRunning = false;
+        }
         waveCount++;
 
         EnemySpawner.instance.currentWaveIndex = waveCount;
 
+        if (EnemySpawner.instance.autoGameStart)
+        {
+            StartCoroutine(wait());
+            EnemySpawner.instance.autoGame();
+        }
+
         totalEnemy = CountEnemy();
+    }
+
+    public IEnumerator wait()
+    {
+        yield return new WaitForSeconds(5f);
     }
 }
