@@ -8,6 +8,7 @@ public class GoldManager : MonoBehaviour
     public static GoldManager instance;
 
     public int gold;
+    public int firstGold;
     public TextMeshProUGUI goldText;
 
 
@@ -21,7 +22,7 @@ public class GoldManager : MonoBehaviour
 
     private void Start()
     {
-        gold = 100;
+        gold = firstGold;
         UpdateGoldUI();
     }
 

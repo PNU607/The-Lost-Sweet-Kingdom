@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold: 0
+  firstGold: 500
   goldText: {fileID: 1334343414}
 --- !u!4 &258218615
 Transform:
@@ -2697,7 +2698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495653648551609432, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
       propertyPath: maxHp
-      value: 1000
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -33,12 +33,12 @@ public class Castle : MonoBehaviour
 
     private void Update()
     {
-        if (castleHp >= maxHp) //&& !GameManager.Instance.isCleared)
+        if (castleHp >= maxHp && !GameManager.Instance.isCleared)
         {
-            //Debug.Log("와 건강해졌어");
-            //GameManager.Instance.isCleared = true;
-            //Time.timeScale = 0f;
-            //GameManager.Instance.GameOver();
+            Debug.Log("와 건강해졌어");
+            GameManager.Instance.isCleared = true;
+            Time.timeScale = 0f;
+            GameManager.Instance.GameOver();
         }
     }
 
