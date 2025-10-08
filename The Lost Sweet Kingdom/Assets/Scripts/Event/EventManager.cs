@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class EventManager : MonoBehaviour
 {
@@ -28,7 +29,6 @@ public class EventManager : MonoBehaviour
             Debug.LogWarning("ShowBounceUI: 대상 UI 오브젝트가 없습니다!");
             return;
         }
-
         uiObject.SetActive(true);
 
         RectTransform rect = uiObject.GetComponent<RectTransform>();
@@ -36,7 +36,7 @@ public class EventManager : MonoBehaviour
 
         rect.DOAnchorPos(Vector2.zero, 0.7f)
             .SetEase(Ease.OutBounce)
-            .SetUpdate(true);
+            .SetUpdate(false);
     }
 
     public void FadeIn(Image targetImage, float duration = -1f)
@@ -75,34 +75,28 @@ public class EventManager : MonoBehaviour
                     targetImage.gameObject.SetActive(false);
             });
     }
-    public void FadeInText(Text targetText, float duration = -1f)
+    public void FadeInTMP(TextMeshPro targetTMP, float duration = -1f)
     {
-        if (targetText == null) return;
+        if (targetTMP == null) return;
         float fadeTime = duration > 0 ? duration : fadeDuration;
-        Color c = targetText.color;
-        c.a = 0;
-        targetText.color = c;
-        targetText.gameObject.SetActive(true);
-        targetText.DOFade(1f, fadeTime).SetUpdate(true);
+        targetTMP.alpha = 0f;
+        targetTMP.gameObject.SetActive(true);
+        targetTMP.DOFade(1f, fadeTime).SetUpdate(true);
     }
-
-    public void FadeOutText(Text targetText, float duration = -1f, bool deactivateAfter = true)
+    public void FadeOutTMP(TextMeshPro targetTMP, float duration = -1f, bool deactivateAfter = true)
     {
-        if (targetText == null) return;
+        if (targetTMP == null) return;
         float fadeTime = duration > 0 ? duration : fadeDuration;
-        targetText.DOFade(0f, fadeTime).SetUpdate(true)
+        targetTMP.DOFade(0f, fadeTime)
+            .SetUpdate(true)
             .OnComplete(() =>
             {
                 if (deactivateAfter)
-                    targetText.gameObject.SetActive(false);
+                    targetTMP.gameObject.SetActive(false);
             });
     }
 
-    public void DelayEvent(float delayTime)
-    {
-        StartCoroutine(StartDelay(delayTime));
-    }
-    private IEnumerator StartDelay(float delayTime)
+    public IEnumerator DelayEvent(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
     }
