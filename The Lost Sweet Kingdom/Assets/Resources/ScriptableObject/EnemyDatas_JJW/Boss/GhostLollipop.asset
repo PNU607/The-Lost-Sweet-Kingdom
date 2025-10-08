@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2724f645758e41c0af099aa7536579e, type: 3}
+  m_Name: GhostLollipop
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 2776107149917627590, guid: f64950bcdbc388a4bb900d91345e5d7b, type: 3}
+  maxHealth: 50
+  moveSpeed: 1
+  goldReward: 150
+  spriteLibraryAsset: {fileID: 7108339969198208228, guid: e126f30e3ded8a74f901fe373d41adc2, type: 3}
+  damagedSpriteLibraryAsset: {fileID: 7108339969198208228, guid: f3ba0f22b6f4eec4d90810e1dc664993, type: 3}
+  poolSize: 1

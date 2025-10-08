@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a68815be6b5e42829e3708e88c4250e, type: 3}
+  m_Name: OrangeRabbitData
+  m_EditorClassIdentifier: 
+  towerName: "\uC8FC\uD669\uC0C9 \uD1A0\uB07C"
+  towerColor: 1
+  towerType: 0
+  towerIcon: {fileID: 21300000, guid: 045197e9a87fae24b99d9e80bf2db01a, type: 3}
+  towerPrefab: {fileID: 4625834919878556233, guid: cc6b1553822fe442d9bae0ead6513038, type: 3}
+  weaponPrefab: {fileID: 4877909776406011252, guid: c5299a537a04d4259b09560dd7f13104, type: 3}
+  spriteLibrary: {fileID: 7108339969198208228, guid: e375af8d4cbc344c0b6f531fe50660fc, type: 3}
+  cost: 100
+  levelDatas:
+  - level: 1
+    attackRange: 2.5
+    attackWeaponRange: 0
+    attackCooldown: 1
+    attackDuration: 0
+    attackDamage: 1
+    rotationSpeed: 0
+  - level: 2
+    attackRange: 2.8
+    attackWeaponRange: 0
+    attackCooldown: 0.8
+    attackDuration: 0
+    attackDamage: 2
+    rotationSpeed: 0
+  - level: 3
+    attackRange: 3
+    attackWeaponRange: 0
+    attackCooldown: 0.5
+    attackDuration: 0
+    attackDamage: 3
+    rotationSpeed: 0
