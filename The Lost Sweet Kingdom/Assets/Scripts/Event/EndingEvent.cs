@@ -11,6 +11,7 @@ public class EndingEvent : MonoBehaviour
     [SerializeField] private GameObject towers;
     [SerializeField] private TextMeshPro gameName;
     [SerializeField] private TextMeshPro creater;
+    [SerializeField] private TextMeshPro jihoon;
     [SerializeField] private TextMeshPro thxText;
 
     [SerializeField] private float delayTime = 5f;
@@ -37,6 +38,10 @@ public class EndingEvent : MonoBehaviour
         EventManager.Instance.FadeInTMP(creater);
         yield return EventManager.Instance.DelayEvent(delayTime);
         EventManager.Instance.FadeOutTMP(creater);
+        yield return EventManager.Instance.DelayEvent(shortDelayTime);
+        EventManager.Instance.FadeInTMP(jihoon);
+        yield return EventManager.Instance.DelayEvent(delayTime);
+        EventManager.Instance.FadeOutTMP(jihoon);
         yield return EventManager.Instance.DelayEvent(shortDelayTime);
         EventManager.Instance.FadeOut(towers.GetComponent<Image>());
         yield return EventManager.Instance.DelayEvent(shortDelayTime);
