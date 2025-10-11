@@ -13,6 +13,7 @@ public class EnemySpawner : MonoBehaviour
 
     public int currentWaveIndex = 0;
     public bool isGameRunning = false;
+    public bool autoGameStart = false;
 
     public TextMeshProUGUI waveText;
 
@@ -36,6 +37,11 @@ public class EnemySpawner : MonoBehaviour
             isGameRunning = true;
             StartCoroutine(SpawnWaves());
         }
+    }
+
+    public void autoGame()
+    {
+        StartCoroutine(SpawnWaves());
     }
 
     IEnumerator SpawnWaves()

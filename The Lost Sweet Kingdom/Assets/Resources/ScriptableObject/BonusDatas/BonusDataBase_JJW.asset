@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9af2ff78c11bf9b4694b8f18d2c0da13, type: 3}
+  m_Name: BonusDataBase_JJW
+  m_EditorClassIdentifier: 
+  bonusDatas:
+  - {fileID: 11400000, guid: a00722be23ae1954c8ce313cc202044a, type: 2}
+  - {fileID: 11400000, guid: 7db87765a10478b4982c2fea96d8c322, type: 2}
+  - {fileID: 11400000, guid: fff2c9e086f55724793988647f49a4ae, type: 2}
+  - {fileID: 11400000, guid: b7acb787f1f8fbf4eb184074047dc038, type: 2}
+  - {fileID: 11400000, guid: 2f63b7d37b9ce40429dcc629930fd67c, type: 2}
+  - {fileID: 11400000, guid: 41a2d2cf28173ba448a3ba1a88f747f9, type: 2}
+  - {fileID: 11400000, guid: ec16608c33b201f458091b5948506f34, type: 2}
+  - {fileID: 11400000, guid: 879d34d38255edc4d9b05f98a14402d8, type: 2}
+  - {fileID: 11400000, guid: b92ea24623f2b9c469c157054f038146, type: 2}
+  - {fileID: 11400000, guid: cd96e62102f702b479d9a19a2d6433aa, type: 2}

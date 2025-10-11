@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1aa61544d1799744b78214b8bdb9a41, type: 3}
+  m_Name: AllTowers_JJW
+  m_EditorClassIdentifier: 
+  units:
+  - unitName: RedRabbit
+    towerData: {fileID: 11400000, guid: 3b4f4d53b7d50f743aa4fef46e114aa6, type: 2}
+    spawnProbability: 0.06
+  - unitName: OrangeRabbit
+    towerData: {fileID: 11400000, guid: 9dfa0f71157e4bc428ae24b5183063ca, type: 2}
+    spawnProbability: 0.047
+  - unitName: YellowRabbit
+    towerData: {fileID: 11400000, guid: 6c4b96d5bce73b143b2c0c353c7a8788, type: 2}
+    spawnProbability: 0.047
+  - unitName: GreenRabbit
+    towerData: {fileID: 11400000, guid: 7192abbac72deda41a36a48ae1eb9bf3, type: 2}
+    spawnProbability: 0.047
+  - unitName: BlueRabbit
+    towerData: {fileID: 11400000, guid: b744b0ad4e3ccaf4381d69f72adb4104, type: 2}
+    spawnProbability: 0.047
+  - unitName: NavyRabbit
+    towerData: {fileID: 11400000, guid: fad5a12b774200041ab13e59d447e6e4, type: 2}
+    spawnProbability: 0.047
+  - unitName: PurpleRabbit
+    towerData: {fileID: 11400000, guid: a74595d4c53fc814cb3ea65b3f62d6b9, type: 2}
+    spawnProbability: 0.047
+  - unitName: RedHamster
+    towerData: {fileID: 11400000, guid: 9450d3e76a3cdf84fada497b391114ad, type: 2}
+    spawnProbability: 0.047
+  - unitName: OrangeHamster
+    towerData: {fileID: 11400000, guid: f25e115bdc0938c449a3a62794f5c7fe, type: 2}
+    spawnProbability: 0.047
+  - unitName: YellowHamster
+    towerData: {fileID: 11400000, guid: 4af74c232f43f884fb3ee4295b531664, type: 2}
+    spawnProbability: 0.047
+  - unitName: GreenHamster
+    towerData: {fileID: 11400000, guid: 9a4b0aedf7301484e994e1f68d321964, type: 2}
+    spawnProbability: 0.047
+  - unitName: BlueHamster
+    towerData: {fileID: 11400000, guid: b39bedd57e941504f8b55751404464a8, type: 2}
+    spawnProbability: 0.047
+  - unitName: NavyHamster
+    towerData: {fileID: 11400000, guid: 3c34d4aa87535de45a20ce91b440aa56, type: 2}
+    spawnProbability: 0.047
+  - unitName: PurpleHamster
+    towerData: {fileID: 11400000, guid: 7d8b792732682ee47b4d70a52c31d8fd, type: 2}
+    spawnProbability: 0.047
+  - unitName: RedSquirrel
+    towerData: {fileID: 11400000, guid: 55fcd7e7cce830c42bc796e127c25768, type: 2}
+    spawnProbability: 0.047
+  - unitName: OrangeSquirrel
+    towerData: {fileID: 11400000, guid: dcfd506998e6a3d4c86d30621a9632ed, type: 2}
+    spawnProbability: 0.047
+  - unitName: YellowSquirrel
+    towerData: {fileID: 11400000, guid: 0c3b53e01b53fd94e9dba74cb756df0b, type: 2}
+    spawnProbability: 0.047
+  - unitName: GreenSquirrel
+    towerData: {fileID: 11400000, guid: cfaa1b49e58c3ab4fa07138c6c0b9c79, type: 2}
+    spawnProbability: 0.047
+  - unitName: BlueSquirrel
+    towerData: {fileID: 11400000, guid: 6642287caa149bb45b4c36ce2129746d, type: 2}
+    spawnProbability: 0.047
+  - unitName: NavySquirrel
+    towerData: {fileID: 11400000, guid: 1df328b7bb712274da6b8521b0d68a0d, type: 2}
+    spawnProbability: 0.047
+  - unitName: PurpleSquirrel
+    towerData: {fileID: 11400000, guid: 9149a1f33f84b9b47971321b658c4dc7, type: 2}
+    spawnProbability: 0.047
