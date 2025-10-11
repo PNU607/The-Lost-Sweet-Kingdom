@@ -23,6 +23,7 @@ public class GoldManager : MonoBehaviour
     private void Start()
     {
         gold = firstGold;
+
         UpdateGoldUI();
     }
 
