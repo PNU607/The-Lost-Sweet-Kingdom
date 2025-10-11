@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2724f645758e41c0af099aa7536579e, type: 3}
+  m_Name: PumpkinLollipop
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 2776107149917627590, guid: f64950bcdbc388a4bb900d91345e5d7b, type: 3}
+  maxHealth: 50
+  moveSpeed: 1
+  goldReward: 200
+  spriteLibraryAsset: {fileID: 7108339969198208228, guid: b5286d8b7dd10eb498b08734c67b2d56, type: 3}
+  damagedSpriteLibraryAsset: {fileID: 7108339969198208228, guid: a3a1fa843341f9d4785d1c419abd19a7, type: 3}
+  poolSize: 1

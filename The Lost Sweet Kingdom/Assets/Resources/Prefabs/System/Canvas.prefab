@@ -34,9 +34,9 @@ RectTransform:
   - {fileID: 5105789858212291210}
   - {fileID: 2232958055671224794}
   - {fileID: 9070697962466240841}
-  - {fileID: 8354845238910931714}
   - {fileID: 4512393621674808995}
   - {fileID: 7348008665884336477}
+  - {fileID: 8354845238910931714}
   - {fileID: 9035563358128214564}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -997,6 +997,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   currentWaveIndex: 0
   isGameRunning: 0
+  autoGameStart: 0
   waveText: {fileID: 1296540877070861026}
 --- !u!1 &8413412499584313356
 GameObject:
@@ -1224,37 +1225,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1922195717299893667, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1922195717299893667, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3499645657236998171, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3499645657236998171, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5947955423487061979, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5947955423487061979, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 3901035868809197834, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
+      propertyPath: dimPanel
+      value: 
+      objectReference: {fileID: 214557583721803947}
     - target: {fileID: 8963444855322059184, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
       propertyPath: m_Name
       value: StageSoundPanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 8963444855322059184, guid: 874e28d92607e5f408275aeb4577a6e3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1363,15 +1340,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: DimPanel
       objectReference: {fileID: 0}
-    - target: {fileID: 8271539644643620364, guid: da74cc3c1db95d14b99d1cebf5ce3935, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da74cc3c1db95d14b99d1cebf5ce3935, type: 3}
+--- !u!1 &214557583721803947 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8271539644643620364, guid: da74cc3c1db95d14b99d1cebf5ce3935, type: 3}
+  m_PrefabInstance: {fileID: 8084009190639634087}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7348008665884336477 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1569915087963465722, guid: da74cc3c1db95d14b99d1cebf5ce3935, type: 3}
@@ -1468,10 +1446,6 @@ PrefabInstance:
     - target: {fileID: 3219121579785666321, guid: 82e7be5739078bb47ac6371fcb866ace, type: 3}
       propertyPath: m_Name
       value: GameOverUi
-      objectReference: {fileID: 0}
-    - target: {fileID: 3219121579785666321, guid: 82e7be5739078bb47ac6371fcb866ace, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1575,14 +1549,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6471575062331677996, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
-      propertyPath: m_fontSize
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 6471575062331677996, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 45
-      objectReference: {fileID: 0}
+    - target: {fileID: 8168903525088690271, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
+      propertyPath: dimPanel
+      value: 
+      objectReference: {fileID: 214557583721803947}
     - target: {fileID: 8168903525088690271, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: optionPanel
       value: 
