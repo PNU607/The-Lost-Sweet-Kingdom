@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Sound;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ReRoll : MonoBehaviour
 {
@@ -37,6 +38,10 @@ public class ReRoll : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        HorizontalLayoutGroup layout = unitPanel.GetComponent<HorizontalLayoutGroup>();
+        if (layout != null)
+            layout.enabled = true;
+
         for (int i = 0; i < 5; i++)
         {
             Unit randomUnit = GetRandomUnitBasedOnProbability();
@@ -48,6 +53,16 @@ public class ReRoll : MonoBehaviour
                 towerDragDrop.SetUp(randomUnit.towerData);
             }
         }
+
+        StartCoroutine(DisableLayoutAfterFrame());
+    }
+
+    private IEnumerator DisableLayoutAfterFrame()
+    {
+        yield return null;
+        HorizontalLayoutGroup layout = unitPanel.GetComponent<HorizontalLayoutGroup>();
+        if (layout != null)
+            layout.enabled = false;
     }
 
     private Unit GetRandomUnitBasedOnProbability()
