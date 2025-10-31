@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject dimPanel;
+    public bool isSpeedUp = false;
+    public float gameSpeed = 1f;
 
     public bool isCleared = false;
 
@@ -20,6 +22,28 @@ public class GameManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+    }
+    public void IsSpeedUp()
+    {
+        isSpeedUp = !isSpeedUp;
+        if (isSpeedUp)
+        {
+            gameSpeed = 2f;
+            Time.timeScale = gameSpeed;
+        }
+        else
+        {
+            gameSpeed = 1f;
+            Time.timeScale = gameSpeed;
+        }
+    }
+    public void ResumeGame()
+    {
+        Time.timeScale = gameSpeed;
+    }
+    public void StopGame()
+    {
+        Time.timeScale = 0f;
     }
 
     public void GameOver()

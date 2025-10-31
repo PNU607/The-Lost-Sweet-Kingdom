@@ -1224,7 +1224,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4537884917895454944, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_Name
-      value: FadeOutTest
+      value: GameSpeedUp
       objectReference: {fileID: 0}
     - target: {fileID: 4801126071775133329, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_Pivot.x
@@ -1309,46 +1309,46 @@ PrefabInstance:
     - target: {fileID: 5315202875191890216, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 5469822154556363606}
+      objectReference: {fileID: 3334573793358497617}
     - target: {fileID: 5315202875191890216, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Fadeout
+      value: OnButtonClick
       objectReference: {fileID: 0}
     - target: {fileID: 5315202875191890216, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FadeOut, Assembly-CSharp
+      value: SpeedUp, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6471575062331677996, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_text
-      value: Clear
+      value: X2
       objectReference: {fileID: 0}
     - target: {fileID: 6471575062331677996, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_fontColor.b
-      value: 0.5245282
+      value: 0.19520736
       objectReference: {fileID: 0}
     - target: {fileID: 6471575062331677996, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_fontColor.g
-      value: 0.5245282
+      value: 0.5622641
       objectReference: {fileID: 0}
     - target: {fileID: 6471575062331677996, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_fontColor.r
-      value: 0.5245282
+      value: 0.16443564
       objectReference: {fileID: 0}
     - target: {fileID: 6471575062331677996, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4287006342
+      value: 4281503530
       objectReference: {fileID: 0}
     - target: {fileID: 7039283723709191313, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_Color.b
-      value: 0.20754719
+      value: 0.5508104
       objectReference: {fileID: 0}
     - target: {fileID: 7039283723709191313, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_Color.g
-      value: 0.20754719
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7039283723709191313, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_Color.r
-      value: 0.20754719
+      value: 0.4584905
       objectReference: {fileID: 0}
     - target: {fileID: 8168903525088690271, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: dimPanel
@@ -1365,14 +1365,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4537884917895454944, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5469822154556363606}
+      addedObject: {fileID: 3334573793358497617}
   m_SourcePrefab: {fileID: 100100000, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
 --- !u!1 &3661452978592358219 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4537884917895454944, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
   m_PrefabInstance: {fileID: 876467310104805291}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5469822154556363606
+--- !u!114 &3334573793358497617
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1381,13 +1381,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3661452978592358219}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3740a08f54fb4244889abd81f97f7f39, type: 3}
+  m_Script: {fileID: 11500000, guid: 33dc90a121cb65e4e8eb038e43c8b467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blackScreen: {fileID: 6441142585488068482}
-  fadeDuration: 1
-  sceneChangeDuration: 5
-  nextScene: Ending
 --- !u!224 &5659002620099690810 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4801126071775133329, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
