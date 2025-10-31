@@ -13,10 +13,43 @@ MonoBehaviour:
   m_Name: Stage2_Wave26
   m_EditorClassIdentifier: 
   enemies:
-  - enemyData: {fileID: 11400000, guid: 066ebfed471aa2843a2bcdefbeaf8a05, type: 2}
-    count: 36
-    spawnDelay: 1.22
-  - enemyData: {fileID: 11400000, guid: 866a1f876a9200b48a8e431a1923691b, type: 2}
-    count: 36
-    spawnDelay: 1.22
+  - enemyData: {fileID: 11400000, guid: b6bff233ecc55cd46aa5ce883de845e8, type: 2}
+    count: 1
+    spawnDelay: 0.5
+  - enemyData: {fileID: 11400000, guid: d90c794be431ff342a48eaa463656901, type: 2}
+    count: 1
+    spawnDelay: 0.5
+  - enemyData: {fileID: 11400000, guid: b6bff233ecc55cd46aa5ce883de845e8, type: 2}
+    count: 1
+    spawnDelay: 0.5
+  - enemyData: {fileID: 11400000, guid: d90c794be431ff342a48eaa463656901, type: 2}
+    count: 1
+    spawnDelay: 0.5
+  - enemyData: {fileID: 11400000, guid: b6bff233ecc55cd46aa5ce883de845e8, type: 2}
+    count: 1
+    spawnDelay: 0.5
+  - enemyData: {fileID: 11400000, guid: d90c794be431ff342a48eaa463656901, type: 2}
+    count: 1
+    spawnDelay: 0.5
+  - enemyData: {fileID: 11400000, guid: b6bff233ecc55cd46aa5ce883de845e8, type: 2}
+    count: 1
+    spawnDelay: 0.5
+  - enemyData: {fileID: 11400000, guid: d90c794be431ff342a48eaa463656901, type: 2}
+    count: 1
+    spawnDelay: 0.5
+  - enemyData: {fileID: 11400000, guid: b6bff233ecc55cd46aa5ce883de845e8, type: 2}
+    count: 1
+    spawnDelay: 0.5
+  - enemyData: {fileID: 11400000, guid: d90c794be431ff342a48eaa463656901, type: 2}
+    count: 1
+    spawnDelay: 0.5
+  - enemyData: {fileID: 11400000, guid: b6bff233ecc55cd46aa5ce883de845e8, type: 2}
+    count: 1
+    spawnDelay: 0.5
+  - enemyData: {fileID: 11400000, guid: d90c794be431ff342a48eaa463656901, type: 2}
+    count: 1
+    spawnDelay: 0.5
+  - enemyData: {fileID: 11400000, guid: b6bff233ecc55cd46aa5ce883de845e8, type: 2}
+    count: 1
+    spawnDelay: 0.5
   startDelay: 1
