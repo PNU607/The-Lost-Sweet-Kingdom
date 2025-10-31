@@ -6,6 +6,8 @@ public class WaveManager : MonoBehaviour
 {
     public static WaveManager instance;
 
+    public ReRoll reRollManager;
+
     public int totalEnemy;
     public int waveCount = 0;
 
@@ -14,6 +16,11 @@ public class WaveManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+        }
+
+        if (reRollManager == null)
+        {
+            reRollManager = FindObjectOfType<ReRoll>();
         }
     }
 
@@ -40,7 +47,7 @@ public class WaveManager : MonoBehaviour
     public void enemyCountDown()
     {
         totalEnemy--;
-        Debug.Log($"Remain : {totalEnemy}");
+        //Debug.Log($"Remain : {totalEnemy}");
         if (totalEnemy == 0)
         {
             RoundFinish();
@@ -49,7 +56,7 @@ public class WaveManager : MonoBehaviour
 
     public void RoundFinish()
     {
-        Debug.Log("Round Finish");
+        //Debug.Log("Round Finish");
         if (!EnemySpawner.instance.autoGameStart)
         {
             EnemySpawner.instance.isGameRunning = false;
@@ -57,6 +64,11 @@ public class WaveManager : MonoBehaviour
         waveCount++;
 
         EnemySpawner.instance.currentWaveIndex = waveCount;
+
+        if (reRollManager != null)
+        {
+            reRollManager.UpdateRerollData(waveCount);
+        }
 
         if (EnemySpawner.instance.autoGameStart)
         {

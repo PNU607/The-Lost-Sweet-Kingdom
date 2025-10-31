@@ -6,14 +6,52 @@ using UnityEngine.UI;
 
 public class ReRoll : MonoBehaviour
 {
-    public ReRollData rerollData;
+    public List<ReRollData> rerollDataList;
+    private ReRollData currentRerollData;
+    private int currentRerollIndex = -1;
+
     public Transform unitPanel;
     public int rerollCost = 2;
     public GameObject towerUIPrefab;
 
     private void Start()
     {
+        if (WaveManager.instance != null)
+        {
+            UpdateRerollData(WaveManager.instance.waveCount);
+        }
+        else
+        {
+            UpdateRerollData(0);
+        }
+
         GenerateUnits();
+    }
+    public void UpdateRerollData(int currentWaveCount)
+    {
+        if (rerollDataList == null || rerollDataList.Count == 0)
+        {
+            Debug.LogError("ReRoll Data List가 비어있습니다.");
+            return;
+        }
+
+        int newIndex = currentWaveCount / 10;
+
+        if (newIndex >= rerollDataList.Count)
+        {
+            newIndex = rerollDataList.Count - 1;
+        }
+
+        if (currentRerollIndex != newIndex)
+        {
+            currentRerollIndex = newIndex;
+            currentRerollData = rerollDataList[currentRerollIndex];
+            Debug.Log($"ReRoll Data Index가 {currentRerollIndex}로 변경되었습니다. (현재 웨이브: {currentWaveCount})");
+        }
+        else if (currentRerollData == null)
+        {
+            currentRerollData = rerollDataList[newIndex];
+        }
     }
 
     public void OnReRollButton()
@@ -67,8 +105,11 @@ public class ReRoll : MonoBehaviour
 
     private Unit GetRandomUnitBasedOnProbability()
     {
+        if (currentRerollData == null) return null;
+
         float totalProbability = 0f;
-        foreach (Unit unit in rerollData.units)
+
+        foreach (Unit unit in currentRerollData.units)
         {
             totalProbability += unit.spawnProbability;
         }
@@ -76,7 +117,7 @@ public class ReRoll : MonoBehaviour
         float randomValue = Random.Range(0f, totalProbability);
         float cumulativeProbability = 0f;
 
-        foreach (Unit unit in rerollData.units)
+        foreach (Unit unit in currentRerollData.units)
         {
             cumulativeProbability += unit.spawnProbability;
             if (randomValue <= cumulativeProbability)
@@ -85,6 +126,6 @@ public class ReRoll : MonoBehaviour
             }
         }
 
-        return rerollData.units[0];
+        return currentRerollData.units[0];
     }
 }

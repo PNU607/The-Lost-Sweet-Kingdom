@@ -1622,17 +1622,6 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
---- !u!114 &850796107 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6189759415458439815, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
-  m_PrefabInstance: {fileID: 965041021}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &886301135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1797,10 +1786,22 @@ PrefabInstance:
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 2021651343}
-    - target: {fileID: 3334573793358497617, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
-      propertyPath: speedText
+    - target: {fileID: 7079376873232618961, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
+      propertyPath: rerollDataList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079376873232618961, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
+      propertyPath: rerollDataList.Array.data[0]
       value: 
-      objectReference: {fileID: 850796107}
+      objectReference: {fileID: 11400000, guid: cea02041570c84648b022d340be982d9, type: 2}
+    - target: {fileID: 7079376873232618961, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
+      propertyPath: rerollDataList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 88c922aa3428b8a4c968ea11faab87b5, type: 2}
+    - target: {fileID: 7079376873232618961, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
+      propertyPath: rerollDataList.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: aa51c9b07177b1346bc808efe90a3b56, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2272,6 +2273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e557fe98c63284c8df5c34e96662de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reRollManager: {fileID: 0}
   totalEnemy: 0
   waveCount: 0
 --- !u!4 &1525395301

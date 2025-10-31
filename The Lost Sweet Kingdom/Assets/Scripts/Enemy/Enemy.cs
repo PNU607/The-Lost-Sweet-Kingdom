@@ -147,7 +147,7 @@ public class Enemy : MonoBehaviour
         SoundObject sound = Sound.Play("EnemyAttacked", false);
         //sound?.SetVolume(0.03f);
 
-        Debug.Log($"Take Damage {damage} | Total HP: {hp}");
+        //Debug.Log($"Take Damage {damage} | Total HP: {hp}");
 
         hp -= damage;
         //Debug.Log($"Enemy HP: {hp} / {currentEnemyData.maxHealth}");
@@ -194,8 +194,8 @@ public class Enemy : MonoBehaviour
 
     public void SetSpeedMultiplier(float multiplier, float duration)
     {
-        Debug.Log("Set Speed Multiplier: " + multiplier + " for duration: " + duration);
-        Debug.Log("baseSpeed: " + baseSpeed);
+        //Debug.Log("Set Speed Multiplier: " + multiplier + " for duration: " + duration);
+        //Debug.Log("baseSpeed: " + baseSpeed);
 
         moveSpeed = baseSpeed * multiplier;
         StartCoroutine(ResetSpeed(duration));
@@ -240,7 +240,7 @@ public class Enemy : MonoBehaviour
 
     private void OnDie()
     {
-        Debug.Log("Die");
+        //Debug.Log("Die");
         SoundObject _soundObject;
         _soundObject = Sound.Play("EnemyDeath", false);
         //_soundObject.SetVolume(0.1f);
