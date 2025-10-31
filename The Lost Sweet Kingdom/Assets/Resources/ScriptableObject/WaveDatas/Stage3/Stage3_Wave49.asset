@@ -13,16 +13,10 @@ MonoBehaviour:
   m_Name: Stage3_Wave49
   m_EditorClassIdentifier: 
   enemies:
-  - enemyData: {fileID: 11400000, guid: ddfc41cdfedbab540a062e35214ebfb5, type: 2}
-    count: 64
-    spawnDelay: 0.6
-  - enemyData: {fileID: 11400000, guid: b95a33d93a46b8e4f935f2123ea7ea20, type: 2}
-    count: 64
-    spawnDelay: 0.6
-  - enemyData: {fileID: 11400000, guid: 7e2a3049f3eefa749a3ea0359645972d, type: 2}
-    count: 64
-    spawnDelay: 0.6
-  - enemyData: {fileID: 11400000, guid: 9f03ec6aa3d431d4bb0db0807d7210ac, type: 2}
-    count: 64
-    spawnDelay: 0.6
+  - enemyData: {fileID: 11400000, guid: 10d1084f0becada45bba8636493506e0, type: 2}
+    count: 22
+    spawnDelay: 0.4
+  - enemyData: {fileID: 11400000, guid: 762c4042131c15344ae5afbb2c329ec1, type: 2}
+    count: 13
+    spawnDelay: 0.5
   startDelay: 1

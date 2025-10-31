@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Stage3_Wave29
   m_EditorClassIdentifier: 
   enemies:
-  - enemyData: {fileID: 11400000, guid: 7e2a3049f3eefa749a3ea0359645972d, type: 2}
-    count: 40
-    spawnDelay: 1.13
-  - enemyData: {fileID: 11400000, guid: 9f03ec6aa3d431d4bb0db0807d7210ac, type: 2}
-    count: 40
-    spawnDelay: 1.13
+  - enemyData: {fileID: 11400000, guid: 10d1084f0becada45bba8636493506e0, type: 2}
+    count: 8
+    spawnDelay: 0.6
+  - enemyData: {fileID: 11400000, guid: 6c9a1bebe788ee64d9df28c107e3b5de, type: 2}
+    count: 8
+    spawnDelay: 0.8
+  - enemyData: {fileID: 11400000, guid: 6d2cdb7e61041da4ba3152c5e80dc4d6, type: 2}
+    count: 4
+    spawnDelay: 0.8
   startDelay: 1
