@@ -1320,7 +1320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6471575062331677996, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_text
-      value: X2
+      value: "\uC9F1\uBE60\uB984"
       objectReference: {fileID: 0}
     - target: {fileID: 6471575062331677996, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
       propertyPath: m_fontColor.b
@@ -1384,11 +1384,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33dc90a121cb65e4e8eb038e43c8b467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedText: {fileID: 6189759415458439815}
 --- !u!224 &5659002620099690810 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4801126071775133329, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
   m_PrefabInstance: {fileID: 876467310104805291}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6189759415458439815 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6471575062331677996, guid: c543ff3da16b39a4584d38a3f86bdeb1, type: 3}
+  m_PrefabInstance: {fileID: 876467310104805291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7490541639580137736
 PrefabInstance:
   m_ObjectHideFlags: 0
