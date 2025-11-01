@@ -153,6 +153,8 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         transform.localScale = originalScale * scaleUpFactor;
 
+        transform.SetAsLastSibling();
+
         SoundObject _soundObject;
         _soundObject = Sound.Play("TowerUIMoushover", false);
         //_soundObject.SetVolume(0.1f);
@@ -164,6 +166,7 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnPointerExit(PointerEventData eventData)
     {
         transform.localScale = originalScale;
+
         //selfCanvas.sortingOrder = originalOrder;
     }
 

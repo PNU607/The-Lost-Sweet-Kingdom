@@ -215,6 +215,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverUI: {fileID: 998121084}
   dimPanel: {fileID: 998121083}
+  isSpeedUp: 0
+  gameSpeed: 1
   isCleared: 0
 --- !u!1 &344610655
 GameObject:
@@ -1779,6 +1781,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7079376873232618961, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
+      propertyPath: rerollCost
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 9033865973653687467, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2632,6 +2638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e557fe98c63284c8df5c34e96662de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reRollManager: {fileID: 0}
   totalEnemy: 0
   waveCount: 0
 --- !u!4 &1525395301
@@ -2967,6 +2974,10 @@ PrefabInstance:
     - target: {fileID: 5539791218199227874, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8495653648551609432, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
+      propertyPath: maxHp
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

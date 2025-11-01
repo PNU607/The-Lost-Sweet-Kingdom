@@ -22,21 +22,21 @@ MonoBehaviour:
   cost: 50
   levelDatas:
   - level: 1
-    attackRange: 3
+    attackRange: 1.5
     attackWeaponRange: 0
     attackCooldown: 0.8
     attackDuration: 0
     attackDamage: 1
     rotationSpeed: 0
   - level: 2
-    attackRange: 3.5
+    attackRange: 2
     attackWeaponRange: 0
     attackCooldown: 0.5
     attackDuration: 0
     attackDamage: 2
     rotationSpeed: 0
   - level: 3
-    attackRange: 4
+    attackRange: 2.5
     attackWeaponRange: 0
     attackCooldown: 0.3
     attackDuration: 0

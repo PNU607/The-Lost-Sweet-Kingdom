@@ -16,7 +16,9 @@ public class OptionPanelController : MonoBehaviour
         {
             SoundObject _soundObject;
             _soundObject = Sound.Play("TowerUIMoushover", false);
-            Time.timeScale = 0f;
+
+            if (GameManager.Instance != null) GameManager.Instance.StopGame();
+
             //_soundObject.SetVolume(8f);
 
             if (dimPanel != null)
@@ -53,7 +55,7 @@ public class OptionPanelController : MonoBehaviour
                 Debug.Log("Dimpanel Null");
             }
 
-            Time.timeScale = 1f;
+            if (GameManager.Instance != null) GameManager.Instance.ResumeGame();
 
             optionPanel.SetActive(false);
         }
