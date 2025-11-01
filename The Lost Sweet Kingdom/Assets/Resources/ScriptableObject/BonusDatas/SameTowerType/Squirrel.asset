@@ -16,7 +16,7 @@ MonoBehaviour:
   bonusTitle: "\uD0C0\uC785_\uB2E4\uB78C\uC950"
   bonusName: "\uB2E4\uB78C\uC950 \uD0C0\uC785 \uBCF4\uB108\uC2A4"
   bonusContent: "\uB2E4\uB78C\uC950 \uD0C0\uC6CC\uC758 7\uAC1C \uC774\uC0C1 \uC870\uD569\uC73C\uB85C
-    \uACF5\uACA9\uB825\uC774/\uAC00 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    \uACF5\uACA9\uB825\uC774/\uAC00 0% \uC99D\uAC00\uD569\uB2C8\uB2E4."
   statAffected: 0
-  value: 0.1
+  value: 0
   bonusIcon: {fileID: 21300000, guid: 6b2745ed3e8c27d468a0898c7951c746, type: 3}
