@@ -13,10 +13,19 @@ MonoBehaviour:
   m_Name: Stage2_Wave8
   m_EditorClassIdentifier: 
   enemies:
-  - enemyData: {fileID: 11400000, guid: 4a471abe833f8b042b0a0236497b95ce, type: 2}
-    count: 15
-    spawnDelay: 1.76
-  - enemyData: {fileID: 11400000, guid: fc279a0d16dfbff43a195e9d47e1f408, type: 2}
-    count: 15
-    spawnDelay: 1.76
+  - enemyData: {fileID: 11400000, guid: b6bff233ecc55cd46aa5ce883de845e8, type: 2}
+    count: 1
+    spawnDelay: 0.5
+  - enemyData: {fileID: 11400000, guid: d90c794be431ff342a48eaa463656901, type: 2}
+    count: 1
+    spawnDelay: 0.5
+  - enemyData: {fileID: 11400000, guid: b6bff233ecc55cd46aa5ce883de845e8, type: 2}
+    count: 1
+    spawnDelay: 0.5
+  - enemyData: {fileID: 11400000, guid: d90c794be431ff342a48eaa463656901, type: 2}
+    count: 1
+    spawnDelay: 0.5
+  - enemyData: {fileID: 11400000, guid: b6bff233ecc55cd46aa5ce883de845e8, type: 2}
+    count: 1
+    spawnDelay: 0.5
   startDelay: 1

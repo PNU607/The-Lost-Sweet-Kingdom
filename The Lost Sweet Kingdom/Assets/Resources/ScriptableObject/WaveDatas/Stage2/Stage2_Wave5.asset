@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Stage2_Wave5
   m_EditorClassIdentifier: 
   enemies:
-  - enemyData: {fileID: 11400000, guid: 4a471abe833f8b042b0a0236497b95ce, type: 2}
-    count: 11
-    spawnDelay: 1.85
-  - enemyData: {fileID: 11400000, guid: fc279a0d16dfbff43a195e9d47e1f408, type: 2}
-    count: 11
-    spawnDelay: 1.85
+  - enemyData: {fileID: 11400000, guid: d015add4b89ea3e4b9ef8cd4ce772733, type: 2}
+    count: 5
+    spawnDelay: 0.25
+  - enemyData: {fileID: 11400000, guid: b6bff233ecc55cd46aa5ce883de845e8, type: 2}
+    count: 5
+    spawnDelay: 0.25
   startDelay: 1
