@@ -1797,7 +1797,7 @@ PrefabInstance:
     - target: {fileID: 7079376873232618961, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
       propertyPath: rerollDataList.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: cea02041570c84648b022d340be982d9, type: 2}
+      objectReference: {fileID: 11400000, guid: 88c922aa3428b8a4c968ea11faab87b5, type: 2}
     - target: {fileID: 7079376873232618961, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
       propertyPath: rerollDataList.Array.data[1]
       value: 
@@ -2697,7 +2697,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495653648551609432, guid: b8aed146923498e43b4a1275cbd07e7a, type: 3}
       propertyPath: maxHp
-      value: 30
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
