@@ -1787,6 +1787,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2021651343}
     - target: {fileID: 7079376873232618961, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
+      propertyPath: rerollCost
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079376873232618961, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
       propertyPath: rerollDataList.Array.size
       value: 3
       objectReference: {fileID: 0}
