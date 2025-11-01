@@ -91,8 +91,9 @@ public class LaserTower : TrackingTower
     {
         // 타겟 없으면 레이저 숨기기
         //lineRenderer.enabled = false;
-        
-        laser.gameObject.SetActive(false);
+
+        if (laser != null)
+            laser.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -107,42 +108,26 @@ public class LaserTower : TrackingTower
 
     public override void Attack()
     {
-        if (closestAttackTarget != null)
+        if (closestAttackTarget == null) return;
+
+        Vector2 startPos = towerBase.weaponSpawnTransform.position;
+        Vector2 direction = (closestAttackTarget.transform.position - transform.position).normalized;
+        float maxDistance = applyLevelData.attackRange;
+        Vector2 endPos = startPos + direction * maxDistance;
+
+        laser?.gameObject.SetActive(true);
+        laser?.UpdateLaser(startPos, endPos);
+
+        // 피격 판정
+        RaycastHit2D[] hits = Physics2D.RaycastAll(startPos, direction, maxDistance, towerBase.enemyLayer);
+        foreach (var hit in hits)
         {
-            Vector2 startPos = towerBase.weaponSpawnTransform.position;
-            Vector2 direction = (closestAttackTarget.transform.position - transform.position).normalized;
-            float maxDistance = applyLevelData.attackRange;
-
-            // 레이저의 끝 지점 설정 (레이저가 최대 사거리까지 가도록)
-            Vector2 endPos = (Vector2)transform.position + direction * maxDistance;
-
-            // LineRenderer로 레이저 시각화
-            //lineRenderer.enabled = true;
-            //lineRenderer.SetPosition(0, startPos);
-            //lineRenderer.SetPosition(1, endPos);
-
-            laser.gameObject.SetActive(true);
-            Vector2 start = startPos;
-            Vector2 end = endPos;
-            laser.UpdateLaser(start, end);
-
-            // Raycast로 선상의 모든 적 찾기
-            RaycastHit2D[] hits = Physics2D.RaycastAll(startPos, direction, maxDistance, towerBase.enemyLayer);
-            foreach (RaycastHit2D hit in hits)
-            {
-                Enemy enemy = hit.collider.GetComponent<Enemy>();
-                if (enemy != null)
-                {
-                    enemy.TakeDamage(applyLevelData.attackDamage);
-                }
-            }
-
-            StartCoroutine(DisableLaser());
+            Enemy enemy = hit.collider.GetComponent<Enemy>();
+            if (enemy != null)
+                enemy.TakeDamage(applyLevelData.attackDamage);
         }
-        else
-        {
-            towerBase.towerAnim.SetBool("isAttacking", false);
-        }
+
+        StartCoroutine(DisableLaser());
     }
 
     /// <summary>
@@ -153,5 +138,34 @@ public class LaserTower : TrackingTower
     {
         yield return new WaitForSeconds(0.4f);
         StopLaser();
+    }
+
+    // 에디터에서 시각화
+    private void OnDrawGizmos()
+    {
+        //if (!showLaserInEditor) return;
+
+        // 공격 범위 원
+        //Gizmos.color = rangeColor;
+        //Gizmos.DrawWireSphere(transform.position, applyLevelData != null ? applyLevelData.attackRange : 1f);
+
+        // 레이저 라인
+        if (closestAttackTarget != null)
+        {
+            Gizmos.color = Color.red;
+            Vector3 start = towerBase != null ? towerBase.weaponSpawnTransform.position : transform.position;
+            Vector3 end = closestAttackTarget.transform.position;
+            Gizmos.DrawLine(start, end);
+
+            // 타겟 방향 표시용 화살표
+            Gizmos.DrawSphere(end, 0.1f);
+        }
+        //else if (debugStart != Vector2.zero && debugEnd != Vector2.zero)
+        //{
+        //    // 마지막 레이저 방향 표시 (타겟 없을 때)
+        //    Gizmos.color = laserColor;
+        //    Gizmos.DrawLine(debugStart, debugEnd);
+        //    Gizmos.DrawSphere(debugEnd, 0.1f);
+        //}
     }
 }

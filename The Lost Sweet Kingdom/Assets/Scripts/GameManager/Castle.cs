@@ -47,6 +47,7 @@ public class Castle : MonoBehaviour
         castleHp += healCount;
         castleHp = Mathf.Min(castleHp, maxHp);
 
+        //Debug.Log($"CastleHp : {castleHp}");
         Debug.Log($"CastleHp : {castleHp}");
 
         if (hpSlider != null)

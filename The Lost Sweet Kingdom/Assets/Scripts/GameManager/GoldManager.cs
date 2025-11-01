@@ -49,5 +49,6 @@ public class GoldManager : MonoBehaviour
     public void UpdateGoldUI()
     {
         goldText.text = $"Gold : {gold}";
+        //goldText.text = $"Gold : {gold}";
     }
 }

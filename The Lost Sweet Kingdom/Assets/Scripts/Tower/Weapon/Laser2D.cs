@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[ExecuteAlways] // 에디터에서도 즉시 갱신
 public class Laser2D : MonoBehaviour
 {
     [Header("References")]
@@ -13,32 +14,60 @@ public class Laser2D : MonoBehaviour
 
     private Material bodyMat;
 
-    void Start()
+    private void Awake()
     {
-        if (laserBody != null)
+        InitMaterial();
+    }
+
+    private void Start()
+    {
+        InitMaterial();
+    }
+
+    private void InitMaterial()
+    {
+        if (laserBody != null && (bodyMat == null || Application.isEditor && !Application.isPlaying))
         {
-            // 머티리얼 인스턴스화 (텍스처 Offset 개별 제어용)
-            bodyMat = Instantiate(laserBody.material);
-            laserBody.material = bodyMat;
+            // 머티리얼 인스턴스화 (Editor에서도 각기 다른 Offset)
+            bodyMat = Instantiate(laserBody.sharedMaterial);
+            laserBody.sharedMaterial = bodyMat;
         }
     }
 
     /// <summary>
-    /// 레이저를 갱신 (start → end까지)
+    /// 레이저를 startPos → endPos로 갱신
     /// </summary>
     public void UpdateLaser(Vector2 startPos, Vector2 endPos)
     {
+        if (laserBody == null) return;
+
         Vector2 dir = endPos - startPos;
         float length = dir.magnitude;
 
-        // 본체 위치/길이 조정
-        laserBody.transform.position = startPos;
-        laserBody.transform.right = dir.normalized; // 회전
-        laserBody.size = new Vector2(length, laserWidth); // 길이/굵기
+        // 방향 회전 설정
+        Vector3 direction = dir.normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // 본체 중앙이 아닌 "시작점 → 끝점"에 정확히 맞게 위치 보정
+        laserBody.transform.position = (Vector3)startPos + (Vector3)(direction * length * 0.5f);
+        laserBody.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        // Draw Mode = Tiled 일 때만 size 적용 가능
+        laserBody.drawMode = SpriteDrawMode.Tiled;
+        laserBody.size = new Vector2(length, laserWidth);
 
         // Glow 위치
-        if (startGlow != null) startGlow.transform.position = startPos;
-        if (endGlow != null) endGlow.transform.position = endPos;
+        if (startGlow != null)
+        {
+            startGlow.transform.position = startPos;
+            startGlow.transform.rotation = Quaternion.Euler(0, 0, angle);
+        }
+
+        if (endGlow != null)
+        {
+            endGlow.transform.position = endPos;
+            endGlow.transform.rotation = Quaternion.Euler(0, 0, angle);
+        }
 
         // UV 스크롤 (움직이는 느낌)
         if (bodyMat != null)
@@ -47,5 +76,18 @@ public class Laser2D : MonoBehaviour
             offset.x -= Time.deltaTime * scrollSpeed;
             bodyMat.mainTextureOffset = offset;
         }
+
+#if UNITY_EDITOR
+        // SceneView에서 바로 반영되도록
+        if (!Application.isPlaying)
+            UnityEditor.SceneView.RepaintAll();
+#endif
+    }
+
+    private void OnDisable()
+    {
+        // 편집 중 레이저가 끊길 때 offset 초기화
+        if (bodyMat != null)
+            bodyMat.mainTextureOffset = Vector2.zero;
     }
 }
