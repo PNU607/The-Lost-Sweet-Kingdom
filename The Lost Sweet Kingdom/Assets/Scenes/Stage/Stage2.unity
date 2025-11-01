@@ -151,8 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005eefd2f1e399e4aa688daafea79356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 0
-  firstGold: 0
+  gold: 1000
+  firstGold: 1000
   goldText: {fileID: 998121085}
 --- !u!4 &258218615
 Transform:

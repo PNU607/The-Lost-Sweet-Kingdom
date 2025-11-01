@@ -36,12 +36,12 @@ public class WaveGenerator : MonoBehaviour
             var waveData = ScriptableObject.CreateInstance<WaveData>();
             waveData.enemies = new List<WaveData.EnemySpawnInfo>();
 
-            // 🔹 기본 난이도 증가 곡선 (0.8배 ~ 1.5배 정도 랜덤 가중)
+            // 기본 난이도 증가 곡선 (0.8배 ~ 1.5배 정도 랜덤 가중)
             float difficultyScale = 1f + (wave - 1) * 0.08f;
             float randomFactor = Random.Range(0.85f, 1.2f);
             float finalScale = difficultyScale * randomFactor;
 
-            // 🔹 Wave 10마다 보스
+            // Wave 10마다 보스
             if (wave % 10 == 0)
             {
                 waveData.enemies.Add(new WaveData.EnemySpawnInfo
@@ -53,10 +53,10 @@ public class WaveGenerator : MonoBehaviour
             }
             else
             {
-                // 🔹 패턴 선택 (랜덤)
+                // 패턴 선택 (랜덤)
                 PatternType pattern = (PatternType)Random.Range(0, (int)PatternType.Count);
 
-                // 🔹 패턴별 스폰 구성
+                // 패턴별 스폰 구성
                 switch (pattern)
                 {
                     case PatternType.Swarm:

@@ -226,8 +226,10 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// </summary>
     public void OnMouseDownEvent()
     {
+        if (isDragging) return; // 이미 드래그 중이라면 무시
+
         // UI 위가 아닐 때만 드래그 허용
-        if (!IsPointerOverUI()) 
+        if (!IsPointerOverUI())
         {
             isAttackable = false; // 공격 불가능 상태로 변경
             this.attackTimer = this.applyLevelData.attackCooldown; // 공격 타이머 초기화
@@ -250,6 +252,7 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// </summary>
     public void OnMouseDragEvent()
     {
+        Debug.Log("OnMouseDragEvent");
         if (isDragging)
         {
             transform.position = GetMouseWorldPosition() + towerBase.offset;
@@ -257,34 +260,41 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     }
 
     /// <summary>
-    /// 마우스 버튼을 뗏을 때
+    /// 마우스 버튼을 뗐을 때
     /// </summary>
-    public void OnMouseUpEvent()
+    public void OnMouseUpEvent(bool releasedOverUI = false)
     {
+        Debug.Log("OnMouseUpEvent");
+
         towerBase.towerAnim.SetBool("isDragging", false);
-        // 이동 완료 후 충돌 활성화
         towerBase.towerCollider.enabled = true;
+
+        // UI 위에서 놓았으면 이동 취소
+        if (releasedOverUI)
+        {
+            Debug.Log("UI 위에서 마우스 업 → 타워 이동 취소");
+            transform.position = prevPosition;
+            ShowRange(false);
+            isDragging = false;
+            isAttackable = true;
+            return;
+        }
 
         Vector3 movePosition = TowerManager.Instance.GetTilePosition(transform.position);
         Tower occupiedTower;
         bool isOccupiedTile = TowerManager.Instance.IsTileOccupied(movePosition, out occupiedTower);
 
-        if (isOccupiedTile) 
+        if (isOccupiedTile)
         {
-            // 현재 위치 타일의 타워가 자기 자신과 같을 때
             if (TowerManager.Instance.GetTowerObjOnThePosition(movePosition) == this.gameObject)
             {
                 Debug.Log("타워 이동 불가");
                 transform.position = prevPosition;
             }
-            // Merge가 가능하면
             else if (TowerManager.Instance.CanMerge(occupiedTower, this))
             {
                 TowerManager.Instance.MergeTowers(occupiedTower, this);
-
-                SoundObject _soundObject;
-                _soundObject = Sound.Play("TowerMerge", false);
-                //_soundObject.SetVolume(0.1f);
+                SoundObject _soundObject = Sound.Play("TowerMerge", false);
             }
             else
             {
@@ -292,12 +302,8 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
                 transform.position = prevPosition;
             }
         }
-        // 배치 불가능한 위치라면 원래 자리로 되돌리기
         else if (!TowerManager.Instance.IsBuildableTile(movePosition))
         {
-            //Debug.Log("타워 설치 가능 위치 아님!");
-
-            // 원래 자리로 돌아가게 설정
             Debug.Log("타워 이동 불가");
             transform.position = prevPosition;
         }
@@ -309,9 +315,8 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
         }
 
         ShowRange(false);
-
         isDragging = false;
-        isAttackable = true; // 공격 가능 상태로 변경
+        isAttackable = true;
     }
 
     /// <summary>
@@ -353,6 +358,13 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// </summary>
     protected virtual void Update()
     {
+        // 마우스 업 감지 (UI 위라도 항상 감지됨)
+        if (isDragging && Input.GetMouseButtonUp(0))
+        {
+            OnMouseUpEvent();
+            return; // 이 아래 상태 업데이트는 필요 없음
+        }
+
         if (prevTowerState == currentTowerState)
         {
             return;

@@ -259,7 +259,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == Castle.instance.gameObject)
+        if (collision.gameObject == Castle  .instance.gameObject)
         {
             Castle.instance.HealCastle(10);
             ObjectPool.Instance.ReturnEnemy(this.gameObject);

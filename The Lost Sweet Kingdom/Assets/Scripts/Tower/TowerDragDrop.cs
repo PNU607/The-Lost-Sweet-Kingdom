@@ -218,11 +218,19 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     /// <param name="eventData"></param>
     public void OnEndDrag(PointerEventData eventData)
     {
+        // UI 위에서 드랍한 경우 — 설치 취소
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            Debug.Log("UI 위에서 드랍 → 타워 설치 취소");
+            Destroy(previewTowerObj);
+            previewTowerObj = null;
+            canvasGroup.alpha = 1f;
+            canvasGroup.blocksRaycasts = true;
+            return;
+        }
+
         if (GoldManager.instance.gold >= currentTowerData.cost)
         {
-            // 드래그 끝난 위치에 타워 생성
-            // 잘못 된 위치일시, 초기화
-            //TowerManager.Instance.TrySpawnTower(currentTowerData.towerPrefab);
             bool isBuildable = TowerManager.Instance.TrySpawnTower(previewTower, 1);
             if (isBuildable)
             {
@@ -231,7 +239,6 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
                 SoundObject _soundObject;
                 _soundObject = Sound.Play("TowerInstallation", false);
-                //_soundObject.SetVolume(0.1f);
             }
             else
             {
@@ -241,7 +248,6 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
             previewTower.towerBase.towerAnim.SetBool("isDragging", false);
 
-            // 타워 프리뷰 오브젝트 삭제
             Destroy(previewTowerObj);
             previewTowerObj = null;
         }
@@ -249,7 +255,6 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             Debug.Log("Not Enough Money!");
 
-            // 타워 프리뷰 오브젝트 삭제
             Destroy(previewTowerObj);
             previewTowerObj = null;
 
@@ -257,5 +262,6 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             canvasGroup.blocksRaycasts = true;
         }
     }
+
 
 }
