@@ -1797,7 +1797,7 @@ PrefabInstance:
     - target: {fileID: 7079376873232618961, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
       propertyPath: rerollDataList.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 88c922aa3428b8a4c968ea11faab87b5, type: 2}
+      objectReference: {fileID: 11400000, guid: f44f1a51a5720ba428268028e5192096, type: 2}
     - target: {fileID: 7079376873232618961, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
       propertyPath: rerollDataList.Array.data[1]
       value: 

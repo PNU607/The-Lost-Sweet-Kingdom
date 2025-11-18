@@ -24,7 +24,7 @@ public class ObjectPool : MonoBehaviour
     {
         if (data == null)
         {
-            Debug.LogError("EnemyData is null in ObjectPool.GetEnemy");
+            Debug.LogError("EnemyData is null");
             return null;
         }
 
@@ -52,7 +52,7 @@ public class ObjectPool : MonoBehaviour
         Enemy enemyTest = enemy.GetComponent<Enemy>();
         if (enemyTest == null)
         {
-            Debug.LogError("Enemy prefab does not have EnemyTest component");
+            Debug.LogError("Enemy Test Null");
         }
         else
         {
@@ -71,7 +71,7 @@ public class ObjectPool : MonoBehaviour
         Enemy enemyTest = enemy.GetComponent<Enemy>();
         if (enemyTest == null || enemyTest.GetEnemyData() == null)
         {
-            Debug.LogWarning("Returned enemy has no valid data");
+            Debug.LogWarning("No Data EnemyTest");
             return;
         }
 
