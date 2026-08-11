@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33871a5a8ad6c8643874177ff611a1ad, type: 3}
   m_Name: Stage1
   m_EditorClassIdentifier: 
-  stageName: Stage1
+  stageName: 02.Stage
   stageSprite: {fileID: 21300000, guid: 6827c748691f9d842a22f8690447e7c6, type: 3}
   difficulty: 0
   isLocked: 0
-  isCleared: 1
+  isCleared: 0

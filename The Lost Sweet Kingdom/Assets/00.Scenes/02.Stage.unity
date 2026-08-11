@@ -1761,16 +1761,32 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1988113235499555000, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2383053202996837360, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
+      propertyPath: nextSceneName
+      value: 01.Main
+      objectReference: {fileID: 0}
     - target: {fileID: 3294335603361853681, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 2021651343}
+    - target: {fileID: 3565270805472634444, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
+      propertyPath: nextSceneName
+      value: 01.Main
+      objectReference: {fileID: 0}
     - target: {fileID: 3853073705651394259, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3853073705651394259, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222455011747165246, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6296738997362995475, guid: d4b1b7823497f3e458beeceb25f4a6c5, type: 3}

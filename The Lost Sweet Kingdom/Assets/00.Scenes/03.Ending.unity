@@ -863,7 +863,7 @@ MonoBehaviour:
   thxText: {fileID: 1270962689}
   delayTime: 5
   shortDelayTime: 2
-  nextScene: Title
+  nextScene: 00.Title
 --- !u!4 &1140692419
 Transform:
   m_ObjectHideFlags: 0
