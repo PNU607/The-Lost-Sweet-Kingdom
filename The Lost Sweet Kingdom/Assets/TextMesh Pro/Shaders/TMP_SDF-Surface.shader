@@ -4,10 +4,10 @@ Properties {
 	_FaceTex			("Fill Texture", 2D) = "white" {}
 	_FaceUVSpeedX		("Face UV Speed X", Range(-5, 5)) = 0.0
 	_FaceUVSpeedY		("Face UV Speed Y", Range(-5, 5)) = 0.0
-	[HDR]_FaceColor		("Fill Color", Color) = (1,1,1,1)
+	_FaceColor		    ("Fill Color", Color) = (1,1,1,1)
 	_FaceDilate			("Face Dilate", Range(-1,1)) = 0
 
-	[HDR]_OutlineColor	("Outline Color", Color) = (0,0,0,1)
+	_OutlineColor	    ("Outline Color", Color) = (0,0,0,1)
 	_OutlineTex			("Outline Texture", 2D) = "white" {}
 	_OutlineUVSpeedX	("Outline UV Speed X", Range(-5, 5)) = 0.0
 	_OutlineUVSpeedY	("Outline UV Speed Y", Range(-5, 5)) = 0.0
@@ -15,7 +15,7 @@ Properties {
 	_OutlineSoftness	("Outline Softness", Range(0,1)) = 0
 
 	_Bevel				("Bevel", Range(0,1)) = 0.5
-	_BevelOffset		("Bevel towerBase.offset", Range(-0.5,0.5)) = 0
+	_BevelOffset		("Bevel Offset", Range(-0.5,0.5)) = 0
 	_BevelWidth			("Bevel Width", Range(-.5,0.5)) = 0
 	_BevelClamp			("Bevel Clamp", Range(0,1)) = 0
 	_BevelRoundness		("Bevel Roundness", Range(0,1)) = 0
@@ -28,12 +28,12 @@ Properties {
 	_ReflectOutlineColor	("Outline Color", Color) = (0,0,0,1)
 	_Cube 					("Reflection Cubemap", Cube) = "black" { /* TexGen CubeReflect */ }
 	_EnvMatrixRotation  	("Texture Rotation", vector) = (0, 0, 0, 0)
-	[HDR]_SpecColor		    ("Specular Color", Color) = (0,0,0,1)
+	_SpecColor		        ("Specular Color", Color) = (0,0,0,1)
 
 	_FaceShininess		("Face Shininess", Range(0,1)) = 0
 	_OutlineShininess	("Outline Shininess", Range(0,1)) = 0
 
-	[HDR]_GlowColor		("Color", Color) = (0, 1, 0, 0.5)
+	_GlowColor		    ("Color", Color) = (0, 1, 0, 0.5)
 	_GlowOffset			("Offset", Range(-1,1)) = 0
 	_GlowInner			("Inner", Range(0,1)) = 0.05
 	_GlowOuter			("Outer", Range(0,1)) = 0.05
@@ -57,8 +57,8 @@ Properties {
 	_PerspectiveFilter	("Perspective Correction", Range(0, 1)) = 0.875
 	_Sharpness			("Sharpness", Range(-1,1)) = 0
 
-	_VertexOffsetX		("Vertex towerBase.offsetX", float) = 0
-	_VertexOffsetY		("Vertex towerBase.offsetY", float) = 0
+	_VertexOffsetX		("Vertex OffsetX", float) = 0
+	_VertexOffsetY		("Vertex OffsetY", float) = 0
 
 	_CullMode			("Cull Mode", Float) = 0
 	//_MaskCoord		("Mask Coords", vector) = (0,0,0,0)
@@ -118,7 +118,8 @@ SubShader {
 		#pragma multi_compile_shadowcaster
 		#include "UnityCG.cginc"
 
-		struct v2f {
+		struct v2f
+		{
 			V2F_SHADOW_CASTER;
 			float2	uv			: TEXCOORD1;
 			float2	uv2			: TEXCOORD3;
