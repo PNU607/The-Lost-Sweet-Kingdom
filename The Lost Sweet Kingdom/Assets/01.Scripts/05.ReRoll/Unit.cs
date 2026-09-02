@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+using System;
 
-[System.Serializable]
+[Serializable]
 public class Unit
 {
     public string unitName;
+    public string towerId;
+    [ExcelParer(ignore: true)]
     public TowerData towerData;
     public float spawnProbability;
 }

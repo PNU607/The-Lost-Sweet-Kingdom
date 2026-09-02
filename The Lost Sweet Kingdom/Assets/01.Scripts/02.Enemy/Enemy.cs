@@ -7,7 +7,7 @@ using System.Sound;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField]
+    [System.NonSerialized]
     public EnemyData currentEnemyData;
     public float hp;
 

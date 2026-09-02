@@ -1,9 +1,9 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-[CreateAssetMenu(fileName = "ReRollData", menuName = "ScriptableObject/ReRollData")]
-public class ReRollData : ScriptableObject
+[Serializable]
+public class ReRollData
 {
-    public List<Unit> units;
+    public string poolId;
+    public List<Unit> units = new();
 }

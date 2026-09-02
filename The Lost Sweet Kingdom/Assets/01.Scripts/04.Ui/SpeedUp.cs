@@ -13,7 +13,7 @@ public class SpeedUp : MonoBehaviour
     }
     public void OnButtonClick()
     {
-        GameManager.Instance.IsSpeedUp();
+        BattleManager.Instance.IsSpeedUp();
 
         UpdateSpeedUpButtonUI();
     }
@@ -21,10 +21,10 @@ public class SpeedUp : MonoBehaviour
     {
         if (speedText == null)
         {
-            Debug.LogError("Text æ¯¿Ω");
+            Debug.LogError("Text ÏóÜÏùå");
             return;
         }
-        if (GameManager.Instance.isSpeedUp) speedText.text = "x2";
+        if (BattleManager.Instance.isSpeedUp) speedText.text = "x2";
         else speedText.text = "x1";
     }
 }

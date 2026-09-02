@@ -5,9 +5,9 @@ public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool Instance;
 
-    private Dictionary<EnemyData, Queue<GameObject>> pool = new();
+    private readonly Dictionary<string, Queue<GameObject>> pool = new();
 
-    private Dictionary<EnemyData, Transform> poolParents = new();
+    private readonly Dictionary<string, Transform> poolParents = new();
 
     private void Awake()
     {
@@ -28,25 +28,32 @@ public class ObjectPool : MonoBehaviour
             return null;
         }
 
-        if (!pool.ContainsKey(data))
+        string enemyId = data.enemyId;
+        if (!pool.ContainsKey(enemyId))
         {
-            pool[data] = new Queue<GameObject>();
+            pool[enemyId] = new Queue<GameObject>();
 
-            GameObject parentGO = new GameObject(data.name + "_Pool");
+            GameObject parentGO = new GameObject(enemyId + "_Pool");
             parentGO.transform.SetParent(this.transform);
-            poolParents[data] = parentGO.transform;
+            poolParents[enemyId] = parentGO.transform;
         }
 
         GameObject enemy;
 
-        if (pool[data].Count > 0)
+        if (pool[enemyId].Count > 0)
         {
-            enemy = pool[data].Dequeue();
+            enemy = pool[enemyId].Dequeue();
         }
         else
         {
-            enemy = Instantiate(data.enemyPrefab);
-            enemy.transform.SetParent(poolParents[data]);
+            GameObject prefab = data.enemyPrefab;
+            if (prefab == null)
+            {
+                Debug.LogError($"Enemy prefab not found: {data.enemyPrefabAssetName}");
+                return null;
+            }
+            enemy = Instantiate(prefab);
+            enemy.transform.SetParent(poolParents[enemyId]);
         }
 
         Enemy enemyTest = enemy.GetComponent<Enemy>();
@@ -77,17 +84,18 @@ public class ObjectPool : MonoBehaviour
 
         EnemyData data = enemyTest.GetEnemyData();
 
-        if (!pool.ContainsKey(data))
+        string enemyId = data.enemyId;
+        if (!pool.ContainsKey(enemyId))
         {
-            pool[data] = new Queue<GameObject>();
+            pool[enemyId] = new Queue<GameObject>();
 
-            GameObject parentGO = new GameObject(data.name + "_Pool");
+            GameObject parentGO = new GameObject(enemyId + "_Pool");
             parentGO.transform.SetParent(this.transform);
-            poolParents[data] = parentGO.transform;
+            poolParents[enemyId] = parentGO.transform;
         }
 
-        enemy.transform.SetParent(poolParents[data]);
-        pool[data].Enqueue(enemy);
+        enemy.transform.SetParent(poolParents[enemyId]);
+        pool[enemyId].Enqueue(enemy);
     }
 }
 

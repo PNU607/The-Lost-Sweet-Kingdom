@@ -1,7 +1,6 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
-using static Unity.VisualScripting.StickyNote;
 
 public enum TowerColor
 {
@@ -39,9 +38,10 @@ public enum TowerTypeEng
     Squirrel,
 }
 
-[System.Serializable]
+[Serializable]
 public class TowerLevelData
 {
+    public string towerId;
     // 타워 레벨
     public int level;
     // 공격 사거리
@@ -56,12 +56,20 @@ public class TowerLevelData
     public float attackDamage;
     // 회전 속도
     public float rotationSpeed;
+
+    public string Key() => towerId;
+
+    public TowerLevelData Clone()
+    {
+        return (TowerLevelData)MemberwiseClone();
+    }
 }
 
-[CreateAssetMenu(fileName = "NewTowerData", menuName = "Tower Defense/Tower Data")]
-public class TowerData : ScriptableObject
+[Serializable]
+public class TowerData
 {
-    [Header("Basic Info")]
+    public string towerId;
+
     // 타워 이름
     public string towerName;
     // 타워 색상
@@ -69,26 +77,29 @@ public class TowerData : ScriptableObject
     // 타워 동물 타입
     public TowerType towerType;
 
-    [Header("UI & Prefab")]
-    // UI에서 표시될 타워 아이콘
-    public Sprite towerIcon;
-    // 배치할 타워 프리팹
-    public GameObject towerPrefab;
-    // 공격할 무기 프리팹
-    public GameObject weaponPrefab;
-    // 해당하는 타워의 Sprite Library
-    public SpriteLibraryAsset spriteLibrary;
-
-    [Header("Stats")]
     // 타워 가격
     public int cost;
-    // 타워 레벨별 데이터 배열
-    public TowerLevelData[] levelDatas;
 
-#if UNITY_EDITOR
-    private void OnValidate()
+    public string iconAssetName;
+    public string towerPrefabAssetName;
+    public string weaponPrefabAssetName;
+    public string spriteLibraryAssetName;
+
+    // 타워 레벨별 데이터 배열
+    [ExcelParer(ignore: true)]
+    public TowerLevelData[] levelDatas = Array.Empty<TowerLevelData>();
+
+    public Sprite towerIcon => LoadAsset<Sprite>(iconAssetName);
+    public GameObject towerPrefab => LoadAsset<GameObject>(towerPrefabAssetName);
+    public GameObject weaponPrefab => LoadAsset<GameObject>(weaponPrefabAssetName);
+    public SpriteLibraryAsset spriteLibrary => LoadAsset<SpriteLibraryAsset>(spriteLibraryAssetName);
+
+    public string Key() => towerId;
+
+    private static T LoadAsset<T>(string assetName) where T : UnityEngine.Object
     {
-        towerName = string.Format("{0} {1}", towerColor.ToString(), towerType.ToString());
+        return string.IsNullOrWhiteSpace(assetName)
+            ? null
+            : ResourceManager.Load<T>(assetName);
     }
-#endif
 }

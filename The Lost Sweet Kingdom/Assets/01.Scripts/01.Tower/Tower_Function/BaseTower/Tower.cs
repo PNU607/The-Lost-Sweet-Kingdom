@@ -62,7 +62,7 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// <summary>
     /// 현재 타워의 기본 데이터
     /// </summary>
-    [SerializeField]
+    [System.NonSerialized]
     protected TowerData currentTowerData;
     public TowerData CurrentTowerData
     {
@@ -171,7 +171,7 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
 
         currentTowerData = nextTowerData;
         //Debug.Log(level - 1);
-        applyLevelData = currentTowerData.levelDatas[level - 1];
+        applyLevelData = currentTowerData.levelDatas[level - 1].Clone();
 
         var spriteLibrary = GetComponentInChildren<SpriteLibrary>();
         spriteLibrary.spriteLibraryAsset = currentTowerData.spriteLibrary;
@@ -531,7 +531,7 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     public void ClearBonuses()
     {
         activeBonuses.Clear();
-        applyLevelData = currentTowerData.levelDatas[towerLevel - 1];
+        applyLevelData = currentTowerData.levelDatas[towerLevel - 1].Clone();
     }
 
     protected virtual void OnDisable()

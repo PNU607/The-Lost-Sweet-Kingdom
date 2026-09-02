@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
-[CreateAssetMenu(fileName = "NewEnemyData", menuName = "Tower Defense/Enemy Data")]
-public class EnemyData : ScriptableObject
+[Serializable]
+public class EnemyData
 {
-    [Header("Basic Info")]
-    //적 프리팹
-    public GameObject enemyPrefab;
+    public string enemyId;
+    public string enemyName;
+    public bool isBoss;
 
-    [Header("Stats")]
     // 체력
     public int maxHealth = 3; 
     // 체력 증가량
@@ -20,10 +18,22 @@ public class EnemyData : ScriptableObject
     // 처치 시 획득하는 골드
     public int goldReward;
 
-    [Header("Anim")]
-    public SpriteLibraryAsset spriteLibraryAsset;
-    public SpriteLibraryAsset damagedSpriteLibraryAsset;
-
-    [Header("Pooling")]
     public int poolSize = 1000;
+
+    public string enemyPrefabAssetName;
+    public string spriteLibraryAssetName;
+    public string damagedSpriteLibraryAssetName;
+
+    public GameObject enemyPrefab => LoadAsset<GameObject>(enemyPrefabAssetName);
+    public SpriteLibraryAsset spriteLibraryAsset => LoadAsset<SpriteLibraryAsset>(spriteLibraryAssetName);
+    public SpriteLibraryAsset damagedSpriteLibraryAsset => LoadAsset<SpriteLibraryAsset>(damagedSpriteLibraryAssetName);
+
+    public string Key() => enemyId;
+
+    private static T LoadAsset<T>(string assetName) where T : UnityEngine.Object
+    {
+        return string.IsNullOrWhiteSpace(assetName)
+            ? null
+            : ResourceManager.Load<T>(assetName);
+    }
 }

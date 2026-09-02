@@ -1,19 +1,29 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Wave", menuName = "Wave Data")]
-public class WaveData : ScriptableObject
+[Serializable]
+public class WaveData
 {
-    [System.Serializable]
+    [Serializable]
     public class EnemySpawnInfo
     {
+        public string waveId;
+        public int spawnOrder;
+        public string enemyId;
+        [ExcelParer(ignore: true)]
         public EnemyData enemyData;
         public int count;
         public float spawnDelay;
+
+        public string Key() => waveId;
     }
 
-    public List<EnemySpawnInfo> enemies;
+    public string waveId;
+    public string stageId;
+    public int waveNumber;
     public float startDelay = 1f;
+    [ExcelParer(ignore: true)]
+    public List<EnemySpawnInfo> enemies = new();
+
+    public string Key() => waveId;
 }

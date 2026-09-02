@@ -391,7 +391,9 @@ public class TowerManager : MonoBehaviour
     public bool CanMerge(Tower towerA, Tower towerB)
     {
         // 같은 종류의 타워인지
-        if (towerA.CurrentTowerData != towerB.CurrentTowerData)
+        if (towerA.CurrentTowerData == null ||
+            towerB.CurrentTowerData == null ||
+            towerA.CurrentTowerData.towerId != towerB.CurrentTowerData.towerId)
             return false;
 
         // 같은 레벨인지 확인

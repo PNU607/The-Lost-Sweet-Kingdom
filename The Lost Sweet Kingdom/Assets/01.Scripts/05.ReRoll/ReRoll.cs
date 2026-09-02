@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Sound;
@@ -6,7 +7,11 @@ using UnityEngine.UI;
 
 public class ReRoll : MonoBehaviour
 {
-    public List<ReRollData> rerollDataList;
+    [SerializeField]
+    private List<string> rerollPoolIds = new() { "AllTowers", "Rabbit", "Squirrel" };
+
+    [NonSerialized]
+    private readonly List<ReRollData> rerollDataList = new();
     private ReRollData currentRerollData;
     private int currentRerollIndex = -1;
 
@@ -16,6 +21,8 @@ public class ReRoll : MonoBehaviour
 
     private void Start()
     {
+        LoadReRollPools();
+
         if (WaveManager.instance != null)
         {
             UpdateRerollData(WaveManager.instance.waveCount);
@@ -27,11 +34,27 @@ public class ReRoll : MonoBehaviour
 
         GenerateUnits();
     }
+
+    private void LoadReRollPools()
+    {
+        GameDataRepository.EnsureLoaded();
+        rerollDataList.Clear();
+
+        if (rerollPoolIds == null || rerollPoolIds.Count == 0)
+        {
+            rerollPoolIds = new List<string> { "AllTowers", "Rabbit", "Squirrel" };
+        }
+
+        foreach (string poolId in rerollPoolIds)
+        {
+            rerollDataList.Add(GameDataRepository.GetReRollPool(poolId));
+        }
+    }
     public void UpdateRerollData(int currentWaveCount)
     {
         if (rerollDataList == null || rerollDataList.Count == 0)
         {
-            Debug.LogError("ReRoll Data List∞° ∫ÒæÓ¿÷Ω¿¥œ¥Ÿ.");
+            Debug.LogError("ReRoll Data ListÍ∞Ä ÎπÑÏñ¥ÏûàÏäµÎãàÎã§.");
             return;
         }
 
@@ -46,7 +69,7 @@ public class ReRoll : MonoBehaviour
         {
             currentRerollIndex = newIndex;
             currentRerollData = rerollDataList[currentRerollIndex];
-            Debug.Log($"ReRoll Data Index∞° {currentRerollIndex}∑Œ ∫Ø∞Êµ«æ˙Ω¿¥œ¥Ÿ. («ˆ¿Á ø˛¿Ã∫Í: {currentWaveCount})");
+            Debug.Log($"ReRoll Data IndexÍ∞Ä {currentRerollIndex}Î°ú Î≥ÄÍ≤ΩÎêòÏóàÏäµÎãàÎã§. (ÌòÑÏû¨ Ïõ®Ïù¥Î∏å: {currentWaveCount})");
         }
         else if (currentRerollData == null)
         {
@@ -84,7 +107,7 @@ public class ReRoll : MonoBehaviour
         {
             Unit randomUnit = GetRandomUnitBasedOnProbability();
 
-            if (randomUnit.towerData != null)
+            if (randomUnit?.towerData != null)
             {
                 GameObject towerObj = Instantiate(towerUIPrefab, unitPanel);
                 TowerDragDrop towerDragDrop = towerObj.GetComponent<TowerDragDrop>();
@@ -105,7 +128,10 @@ public class ReRoll : MonoBehaviour
 
     private Unit GetRandomUnitBasedOnProbability()
     {
-        if (currentRerollData == null) return null;
+        if (currentRerollData == null || currentRerollData.units.Count == 0)
+        {
+            return null;
+        }
 
         float totalProbability = 0f;
 
@@ -114,7 +140,7 @@ public class ReRoll : MonoBehaviour
             totalProbability += unit.spawnProbability;
         }
 
-        float randomValue = Random.Range(0f, totalProbability);
+        float randomValue = UnityEngine.Random.Range(0f, totalProbability);
         float cumulativeProbability = 0f;
 
         foreach (Unit unit in currentRerollData.units)

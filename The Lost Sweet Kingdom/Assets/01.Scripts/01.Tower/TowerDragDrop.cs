@@ -57,6 +57,7 @@ public class TowerDragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     /// <summary>
     /// UI에 표시할 타워의 데이터
     /// </summary>
+    [System.NonSerialized]
     public TowerData currentTowerData;
 
     /// <summary>

@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 using static WaveData;
 
@@ -8,7 +11,11 @@ public class EnemySpawner : MonoBehaviour
 {
     public static EnemySpawner instance;
 
-    public List<WaveData> waves;
+    [SerializeField]
+    private string stageId;
+
+    [NonSerialized]
+    public List<WaveData> waves = new();
     public Transform spawnPoint;
 
     public int currentWaveIndex = 0;
@@ -27,7 +34,33 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        LoadWavesFromExcel();
         UpdateWaveText();
+    }
+
+    private void LoadWavesFromExcel()
+    {
+        GameDataRepository.EnsureLoaded();
+
+        if (string.IsNullOrWhiteSpace(stageId))
+        {
+            Match match = Regex.Match(
+                SceneManager.GetActiveScene().name,
+                @"Stage\s*(\d+)",
+                RegexOptions.IgnoreCase);
+            if (match.Success)
+            {
+                stageId = $"Stage{match.Groups[1].Value}";
+            }
+        }
+
+        if (string.IsNullOrWhiteSpace(stageId))
+        {
+            throw new InvalidOperationException(
+                "EnemySpawner의 stageId를 확인할 수 없습니다. 씬 이름을 Stage1 형식으로 지정하거나 stageId를 입력하세요.");
+        }
+
+        waves = GameDataRepository.GetWavesForStage(stageId);
     }
 
     public void StartGame()
@@ -67,13 +100,12 @@ public class EnemySpawner : MonoBehaviour
             }
         }
 
-        List<List<EnemySpawnInfo>> enemyGroups = new List<List<EnemySpawnInfo>>();
         List<EnemySpawnInfo> currentGroup = new List<EnemySpawnInfo>();
         List<EnemySpawnInfo> finalSpawnList = new List<EnemySpawnInfo>();
 
         foreach (var enemyInfo in fullEnemyList)
         {
-            if (enemyInfo.enemyData.name.Contains("Lollipop"))
+            if (enemyInfo.enemyData.isBoss)
             {
                 if (currentGroup.Count > 0)
                 {
@@ -99,6 +131,11 @@ public class EnemySpawner : MonoBehaviour
         foreach (var enemyInfo in finalSpawnList)
         {
             GameObject enemy = ObjectPool.Instance.GetEnemy(enemyInfo.enemyData);
+            if (enemy == null)
+            {
+                Debug.LogError($"적 생성 실패: {enemyInfo.enemyId}");
+                continue;
+            }
             enemy.transform.position = spawnPoint.position;
 
             yield return new WaitForSeconds(enemyInfo.spawnDelay);
@@ -112,7 +149,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < list.Count; i++)
         {
             T temp = list[i];
-            int randomIndex = Random.Range(i, list.Count);
+            int randomIndex = UnityEngine.Random.Range(i, list.Count);
             list[i] = list[randomIndex];
             list[randomIndex] = temp;
         }
