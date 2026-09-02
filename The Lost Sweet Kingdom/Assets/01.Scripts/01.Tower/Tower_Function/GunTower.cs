@@ -37,38 +37,19 @@ public class GunTower : TrackingTower
     /// <returns></returns>
     protected override void AttackToTarget()
     {
-        // 타겟이 없으면
-        if (closestAttackTarget == null)
+        if (IsAimLocked)
         {
-            // 타겟 탐색 상태로 전환
-            towerBase.towerAnim.SetBool("isAttacking", false);
-            ChangeState(TowerState.SearchTarget);
             return;
         }
 
-        // 타겟이 비활성화되면
-        if (!closestAttackTarget.gameObject.activeSelf)
+        Enemy target = GetClosestEnemy();
+        if (target == null || !target.gameObject.activeSelf)
         {
-            // 타겟 탐색 상태로 전환
-            towerBase.towerAnim.SetBool("isAttacking", false);
-            ChangeState(TowerState.SearchTarget);
+            CancelAttackAndSearch();
             return;
         }
 
-        // 타겟과의 거리 계산
-        float distance = Vector3.Distance(closestAttackTarget.transform.position, transform.position);
-
-        // 타겟과의 거리가 공격 범위보다 멀리 있으면
-        if (distance > applyLevelData.attackRange)
-        {
-            // 타겟 탐색 상태로 전환
-            attackTargets = null;
-            towerBase.towerAnim.SetBool("isAttacking", false);
-            ChangeState(TowerState.SearchTarget);
-            return;
-        }
-
-        // 공격
+        LockAimToTarget(target);
         SetAttackAnimation();
         attackTimer = 0;
     }
@@ -83,16 +64,29 @@ public class GunTower : TrackingTower
 
     public override void Attack()
     {
-        //Debug.Log("SpawnWeapon");
-        if (closestAttackTarget != null)
+        Enemy target = LockedAttackTarget;
+
+        if (target != null && target.gameObject.activeSelf)
         {
             TowerWeapon weapon = TowerManager.Instance.GetWeapon(currentTowerData.weaponPrefab);
             weapon.transform.position = towerBase.weaponSpawnTransform.position;
-            weapon.Setup(closestAttackTarget.transform, this);
+            weapon.Setup(target.transform, this);
         }
-        /*else
-        {
-            towerBase.towerAnim.SetBool("isAttacking", false);
-        }*/
+
+        FinishAttackAndSearch();
+    }
+
+    private void CancelAttackAndSearch()
+    {
+        FinishAttackAndSearch();
+    }
+
+    private void FinishAttackAndSearch()
+    {
+        towerBase.towerAnim.SetBool("isAttacking", false);
+        ReleaseAimLock();
+        attackTargets = null;
+        closestAttackTarget = null;
+        ChangeState(TowerState.SearchTarget);
     }
 }

@@ -32,6 +32,10 @@ public class TrackingTower : Tower
 {
     protected bool isFlipX = false; // X축 반전 여부
 
+    protected Enemy LockedAttackTarget { get; private set; }
+
+    protected bool IsAimLocked { get; private set; }
+
     /// <summary>
     /// 타워 세팅
     /// 타워를 탐색 상태로 변경
@@ -52,19 +56,49 @@ public class TrackingTower : Tower
     protected override void Update()
     {
         base.Update();
-        if (closestAttackTarget != null)
+
+        if (IsAimLocked)
         {
-            RotateToTarget();
+            if (!isAttackable)
+            {
+                ReleaseAimLock();
+                towerBase.towerAnim.SetBool("isAttacking", false);
+            }
+            return;
         }
+
+        if (closestAttackTarget != null && closestAttackTarget.gameObject.activeSelf)
+        {
+            ApplyTargetDirection(closestAttackTarget);
+        }
+    }
+
+    protected void LockAimToTarget(Enemy target)
+    {
+        if (target == null)
+        {
+            return;
+        }
+
+        closestAttackTarget = target;
+        ApplyTargetDirection(target);
+        LockedAttackTarget = target;
+        IsAimLocked = true;
+    }
+
+    protected void ReleaseAimLock()
+    {
+        LockedAttackTarget = null;
+        IsAimLocked = false;
     }
 
     /// <summary>
     /// 공격 타겟 방향으로 회전
     /// </summary>
-    private void RotateToTarget()
+    private void ApplyTargetDirection(Enemy target)
     {
-        float dx = closestAttackTarget.transform.position.x - transform.position.x;
-        float dy = closestAttackTarget.transform.position.y - transform.position.y;
+        float dx = target.transform.position.x - transform.position.x;
+        float dy = target.transform.position.y - transform.position.y;
 
         float degree = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
 
@@ -90,6 +124,12 @@ public class TrackingTower : Tower
         }
         //Quaternion targetRotation = Quaternion.Euler(0, 0, degree);
         //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * currentTowerData.rotationSpeed);
+    }
+
+    protected override void OnDisable()
+    {
+        ReleaseAimLock();
+        base.OnDisable();
     }
 
     protected virtual TowerWeapon SpawnWeapon(Vector3 spawnPos, Transform targetTransform)
