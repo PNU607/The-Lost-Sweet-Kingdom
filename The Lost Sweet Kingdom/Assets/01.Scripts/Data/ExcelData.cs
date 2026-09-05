@@ -3,6 +3,15 @@ using System.Collections.Generic;
 
 public class ExcelData
 {
+    [SheetBinding("EventData", optional = false)]
+    public Dictionary<string, RoundEventData> roundEvents = new(StringComparer.OrdinalIgnoreCase);
+
+    [SheetBinding("EventChoiceData", optional = false)]
+    public Dictionary<string, List<RoundEventChoiceData>> roundEventChoices = new(StringComparer.OrdinalIgnoreCase);
+
+    [SheetBinding("EventSchedule", optional = false)]
+    public Dictionary<int, RoundEventSchedule> roundEventSchedule = new();
+
     [SheetBinding("TowerData", optional = false)]
     public Dictionary<string, TowerData> towerData = new(StringComparer.OrdinalIgnoreCase);
 

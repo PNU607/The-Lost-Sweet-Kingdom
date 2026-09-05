@@ -65,16 +65,19 @@ public class EnemySpawner : MonoBehaviour
 
     public void StartGame()
     {
+        if (RoundEventController.IsBlocking || WaveManager.instance.IsTransitioning ||
+            currentWaveIndex >= waves.Count || (BattleManager.Instance != null && BattleManager.Instance.isCleared)) return;
         if (!isGameRunning)
         {
             isGameRunning = true;
+            WaveManager.instance.BeginWave();
             StartCoroutine(SpawnWaves());
         }
     }
 
     public void autoGame()
     {
-        StartCoroutine(SpawnWaves());
+        StartGame();
     }
 
     IEnumerator SpawnWaves()

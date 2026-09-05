@@ -8,6 +8,21 @@ public class Castle : MonoBehaviour
     public int castleHp;
     public int maxHp = 200;
 
+    // Legacy castleHp stores accumulated enemy healing/damage (max means defeat).
+    // Event HP uses remaining durability without changing the existing enemy/slider contract.
+    public int RemainingHealth => Mathf.Max(0, maxHp - castleHp);
+    public float RemainingHealthFraction => maxHp > 0 ? (float)RemainingHealth / maxHp : 0;
+
+    public int RestoreHealth(int amount)
+    {
+        int restored = Mathf.Min(Mathf.Max(0, amount), castleHp);
+        castleHp -= restored;
+        if (hpSlider != null) hpSlider.value = castleHp;
+        return restored;
+    }
+
+    public void TakeEventDamage(int amount) => HealCastle(Mathf.Max(0, amount));
+
     [SerializeField]
     private Slider hpSlider;
 

@@ -17,6 +17,27 @@ public class ReRoll : MonoBehaviour
 
     public Transform unitPanel;
     public int rerollCost = 2;
+    [SerializeField] private TMPro.TMP_Text freeRerollText;
+    private int freeRerolls;
+    private int roundFreeRerolls;
+    public int FreeRerolls => freeRerolls + roundFreeRerolls;
+
+    public void AddFreeRerolls(int count)
+    {
+        freeRerolls += Mathf.Max(0, count);
+        UpdateFreeRerollUI();
+    }
+
+    public void SetRoundFreeRerolls(int count)
+    {
+        roundFreeRerolls = Mathf.Max(0, count);
+        UpdateFreeRerollUI();
+    }
+
+    private void UpdateFreeRerollUI()
+    {
+        if (freeRerollText != null) freeRerollText.text = $"무료 리롤 {FreeRerolls}회";
+    }
     public GameObject towerUIPrefab;
 
     private void Start()
@@ -33,6 +54,7 @@ public class ReRoll : MonoBehaviour
         }
 
         GenerateUnits();
+        UpdateFreeRerollUI();
     }
 
     private void LoadReRollPools()
@@ -79,11 +101,15 @@ public class ReRoll : MonoBehaviour
 
     public void OnReRollButton()
     {
-        if (GoldManager.instance.gold >= rerollCost)
+        if (RoundEventController.IsBlocking) return;
+        if (FreeRerolls > 0 || GoldManager.instance.gold >= rerollCost)
         {
             SoundObject _soundObject;
             _soundObject = Sound.Play("EnemyAttacked", false);
-            GoldManager.instance.SpendGold(rerollCost);
+            if (roundFreeRerolls > 0) roundFreeRerolls--;
+            else if (freeRerolls > 0) freeRerolls--;
+            else GoldManager.instance.SpendGold(rerollCost);
+            UpdateFreeRerollUI();
             GenerateUnits();
         }
         else

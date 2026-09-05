@@ -118,6 +118,7 @@ public class TowerManager : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (RoundEventController.IsBlocking) return;
         SetMouseHoverEvent();
         SetDragEvent();
     }
@@ -155,6 +156,7 @@ public class TowerManager : MonoBehaviour
     /// <param name="level">배치할 타워의 레벨</param>
     public bool TrySpawnTower(Tower tower, int level)
     {
+        if (RoundEventController.IsBlocking) return false;
         // 마우스 위치를 월드 좌표로 변환
         Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
@@ -273,6 +275,14 @@ public class TowerManager : MonoBehaviour
     private void PlaceTower(Vector3Int cellPosition, GameObject towerObj)
     {
         placedTowers[cellPosition] = towerObj;
+    }
+
+    public List<Tower> GetPlacedTowers()
+    {
+        var result = new List<Tower>();
+        foreach (var obj in placedTowers.Values)
+            if (obj != null && obj.TryGetComponent<Tower>(out var tower)) result.Add(tower);
+        return result;
     }
 
     /// <summary>

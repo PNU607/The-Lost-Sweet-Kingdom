@@ -124,7 +124,21 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// </summary>
     protected Enemy closestAttackTarget = null;
 
-    private int starCount = 0;
+    private readonly List<GameObject> levelStars = new();
+    public bool IsEventResting { get; private set; }
+    public bool CanEventAttack => !IsEventResting && !RoundEventController.IsBlocking;
+
+    public void SetEventResting(bool resting)
+    {
+        IsEventResting = resting;
+        if (towerBase == null) return;
+        towerBase.towerAnim.SetBool("isAttacking", false);
+        towerBase.towerSprite.color = resting ? new Color(.5f, .5f, .7f, .65f) : Color.white;
+        attackTargets = null;
+        closestAttackTarget = null;
+        attackTimer = 0;
+        ChangeState(TowerState.SearchTarget);
+    }
     /// <summary>
     /// 타워에 활성화된 보너스들
     /// </summary>
@@ -160,11 +174,18 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
             towerBase = GetComponentInChildren<TowerBase>();
         }
 
-        if (starCount < level)
+        while (levelStars.Count < level)
         {
             GameObject starClone = Instantiate(towerBase.LevelStarObj, towerBase.StarArea.transform);
             starClone.SetActive(true);
-            starCount = level;
+            levelStars.Add(starClone);
+        }
+        while (levelStars.Count > level)
+        {
+            int last = levelStars.Count - 1;
+            levelStars[last].SetActive(false);
+            Destroy(levelStars[last]);
+            levelStars.RemoveAt(last);
         }
 
         towerLevel = level;
@@ -172,6 +193,7 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
         currentTowerData = nextTowerData;
         //Debug.Log(level - 1);
         applyLevelData = currentTowerData.levelDatas[level - 1].Clone();
+        ApplyEventDamageBonus();
 
         var spriteLibrary = GetComponentInChildren<SpriteLibrary>();
         spriteLibrary.spriteLibraryAsset = currentTowerData.spriteLibrary;
@@ -358,6 +380,7 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     /// </summary>
     protected virtual void Update()
     {
+        if (!CanEventAttack) return;
         // 마우스 업 감지 (UI 위라도 항상 감지됨)
         if (isDragging && Input.GetMouseButtonUp(0))
         {
@@ -532,6 +555,13 @@ public class Tower : MonoBehaviour, IPointerEnterHandler
     {
         activeBonuses.Clear();
         applyLevelData = currentTowerData.levelDatas[towerLevel - 1].Clone();
+        ApplyEventDamageBonus();
+    }
+
+    private void ApplyEventDamageBonus()
+    {
+        if (RoundEventController.Instance != null)
+            applyLevelData.attackDamage *= RoundEventController.Instance.DamageMultiplier(currentTowerData);
     }
 
     protected virtual void OnDisable()

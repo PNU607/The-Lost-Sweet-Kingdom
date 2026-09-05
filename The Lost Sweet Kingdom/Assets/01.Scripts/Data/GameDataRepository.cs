@@ -19,6 +19,7 @@ public static class GameDataRepository
         new(StringComparer.OrdinalIgnoreCase);
 
     public static bool IsLoaded { get; private set; }
+    public static RoundEventCatalog EventCatalog { get; private set; }
     public static string LoadedFolderPath { get; private set; }
 
     public static IReadOnlyDictionary<string, TowerData> TowerData => Towers;
@@ -134,6 +135,7 @@ public static class GameDataRepository
 
     private static void BuildRuntimeData(ExcelData loaded, string folderPath)
     {
+        var eventCatalog = new RoundEventCatalog(loaded);
         var towers = new Dictionary<string, TowerData>(loaded.towerData, StringComparer.OrdinalIgnoreCase);
         var enemies = new Dictionary<string, EnemyData>(loaded.enemyData, StringComparer.OrdinalIgnoreCase);
         var waves = new Dictionary<string, WaveData>(loaded.waveData, StringComparer.OrdinalIgnoreCase);
@@ -227,6 +229,7 @@ public static class GameDataRepository
         CopyTo(reRollPools, ReRollPools);
 
         LoadedFolderPath = folderPath;
+        EventCatalog = eventCatalog;
         IsLoaded = true;
         Debug.Log(
             $"Excel 데이터 로드 완료: Tower {Towers.Count}, Enemy {Enemies.Count}, " +

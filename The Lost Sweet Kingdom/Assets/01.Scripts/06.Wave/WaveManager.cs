@@ -10,9 +10,13 @@ public class WaveManager : MonoBehaviour
 
     public int totalEnemy;
     public int waveCount = 0;
+    public bool IsTransitioning { get; private set; }
+    public RoundEventController RoundEvents { get; private set; }
 
     private void Awake()
     {
+        RoundEvents = GetComponent<RoundEventController>();
+        if (RoundEvents == null) RoundEvents = gameObject.AddComponent<RoundEventController>();
         if (instance == null)
         {
             instance = this;
@@ -46,6 +50,7 @@ public class WaveManager : MonoBehaviour
 
     public void enemyCountDown()
     {
+        if (IsTransitioning || totalEnemy <= 0) return;
         totalEnemy--;
         //Debug.Log($"Remain : {totalEnemy}");
         if (totalEnemy == 0)
@@ -56,31 +61,35 @@ public class WaveManager : MonoBehaviour
 
     public void RoundFinish()
     {
-        //Debug.Log("Round Finish");
-        if (!EnemySpawner.instance.autoGameStart)
-        {
-            EnemySpawner.instance.isGameRunning = false;
-        }
-        waveCount++;
-
-        EnemySpawner.instance.currentWaveIndex = waveCount;
-
-        if (reRollManager != null)
-        {
-            reRollManager.UpdateRerollData(waveCount);
-        }
-
-        if (EnemySpawner.instance.autoGameStart)
-        {
-            StartCoroutine(wait());
-            EnemySpawner.instance.autoGame();
-        }
-
-        totalEnemy = CountEnemy();
+        if (IsTransitioning || waveCount >= EnemySpawner.instance.waves.Count ||
+            (BattleManager.Instance != null && BattleManager.Instance.isCleared)) return;
+        IsTransitioning = true;
+        StartCoroutine(FinishRound());
     }
 
-    public IEnumerator wait()
+    public void BeginWave()
     {
-        yield return new WaitForSeconds(5f);
+        totalEnemy = CountEnemy();
+        RoundEvents.PrepareRound(waveCount + 1);
+    }
+
+    private IEnumerator FinishRound()
+    {
+        EnemySpawner.instance.isGameRunning = false;
+        waveCount++;
+        EnemySpawner.instance.currentWaveIndex = waveCount;
+        yield return RoundEvents.AfterRound(waveCount);
+        if (reRollManager != null) reRollManager.UpdateRerollData(waveCount);
+        totalEnemy = CountEnemy();
+        if (waveCount < EnemySpawner.instance.waves.Count)
+        {
+            RoundEvents.PrepareRound(waveCount + 1);
+            EnemySpawner.instance.UpdateWaveText();
+            if (EnemySpawner.instance.autoGameStart)
+                yield return new WaitForSeconds(5f);
+        }
+        IsTransitioning = false;
+        if (EnemySpawner.instance.autoGameStart && waveCount < EnemySpawner.instance.waves.Count)
+            EnemySpawner.instance.StartGame();
     }
 }

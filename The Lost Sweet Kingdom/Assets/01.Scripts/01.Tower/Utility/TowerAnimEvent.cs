@@ -11,6 +11,6 @@ public class towerAnimEvent : MonoBehaviour
 
     private void Attack()
     {
-        tower.Attack();
+        if (tower != null && tower.CanEventAttack) tower.Attack();
     }
 }

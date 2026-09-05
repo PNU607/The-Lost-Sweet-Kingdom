@@ -25,6 +25,7 @@ public class BattleManager : MonoBehaviour
     }
     public void IsSpeedUp()
     {
+        if (RoundEventController.IsBlocking) return;
         isSpeedUp = !isSpeedUp;
         if (isSpeedUp)
         {
@@ -39,6 +40,7 @@ public class BattleManager : MonoBehaviour
     }
     public void ResumeGame()
     {
+        if (RoundEventController.IsBlocking) return;
         Time.timeScale = gameSpeed;
     }
     public void StopGame()

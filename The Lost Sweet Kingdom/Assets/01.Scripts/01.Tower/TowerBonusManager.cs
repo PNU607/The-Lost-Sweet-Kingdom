@@ -100,6 +100,8 @@ public class TowerBonusManager : MonoBehaviour
         activeBonusNames = newBonusNames;
     }
 
+    public void RefreshBonuses() => EvaluateBonuses();
+
     public void ShowComboIcon(BonusData bonusData)
     {
         if (activeBonusIcons.ContainsKey(bonusData)) return;
