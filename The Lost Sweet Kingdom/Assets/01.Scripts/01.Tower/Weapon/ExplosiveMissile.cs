@@ -66,7 +66,10 @@ public class ExplosiveMissile : Missile
                 Enemy enemy = col.GetComponent<Enemy>();
                 if (enemy != null)
                 {
-                    enemy.TakeDamage(shotTower.applyLevelData.attackDamage);
+                    enemy.TakeDamage(
+                        shotTower.applyLevelData.attackDamage,
+                        shotTower.CurrentTowerData.towerType
+                    );
                 }
             }
             yield return new WaitForSeconds(attackInterval);

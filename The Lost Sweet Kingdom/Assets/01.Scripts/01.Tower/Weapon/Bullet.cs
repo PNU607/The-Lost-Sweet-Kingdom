@@ -105,6 +105,9 @@ public class Bullet : TowerWeapon
     {
         base.Attack(collision);
 
-        collision.GetComponent<Enemy>().TakeDamage(shotTower.applyLevelData.attackDamage);
+        collision.GetComponent<Enemy>().TakeDamage(
+            shotTower.applyLevelData.attackDamage,
+            shotTower.CurrentTowerData.towerType
+        );
     }
 }

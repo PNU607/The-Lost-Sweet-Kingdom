@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 using UnityEngine.U2D.Animation;
 using System.Sound;
 
@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     public EnemyData currentEnemyData;
     public float hp;
 
-    private Slider healthSlider;
+    private TextMeshProUGUI healthText;
 
     private Camera mainCamera;
     private Canvas uiCanvas;
@@ -35,10 +35,10 @@ public class Enemy : MonoBehaviour
         originalScale = transform.localScale;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        healthSlider = GetComponentInChildren<Slider>();
-        if (healthSlider == null)
+        healthText = GetComponentInChildren<TextMeshProUGUI>();
+        if (healthText == null)
         {
-            Debug.LogWarning("Not exist Hpbar.");
+            Debug.LogWarning("Not exist HpText.");
         }
 
         mainCamera = Camera.main;
@@ -61,6 +61,7 @@ public class Enemy : MonoBehaviour
             int multiplier = (currentWave - 1) / 10;
             calculatedMaxHealth += multiplier * currentEnemyData.increaseHealth;
         }
+
         hp = calculatedMaxHealth;
 
         transform.localScale = originalScale;
@@ -68,7 +69,7 @@ public class Enemy : MonoBehaviour
         moveSpeed = currentEnemyData.moveSpeed;
         spriteRenderer.color = Color.white;
 
-        UpdateHealthBar();
+        UpdateHealthText();
 
         path = null;
 
@@ -92,6 +93,7 @@ public class Enemy : MonoBehaviour
         enemyAnim = GetComponent<Animator>();
         spriteLibrary = GetComponent<SpriteLibrary>();
         spriteResolver = GetComponent<SpriteResolver>();
+
         if (spriteLibrary != null && currentEnemyData.spriteLibraryAsset != null)
         {
             spriteLibrary.spriteLibraryAsset = currentEnemyData.spriteLibraryAsset;
@@ -122,9 +124,9 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (healthSlider != null)
+        if (healthText != null)
         {
-            Canvas canvas = healthSlider.GetComponentInParent<Canvas>();
+            Canvas canvas = healthText.GetComponentInParent<Canvas>();
             if (canvas != null && canvas.renderMode == RenderMode.WorldSpace)
             {
                 canvas.transform.rotation = mainCamera.transform.rotation;
@@ -132,17 +134,24 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void UpdateHealthBar()
+    private void UpdateHealthText()
     {
-        if (healthSlider != null && currentEnemyData != null)
+        if (healthText != null)
         {
-            healthSlider.value = hp / currentEnemyData.maxHealth;
+            healthText.text = Mathf.CeilToInt(Mathf.Max(0f, hp)).ToString();
         }
     }
 
     public virtual void TakeDamage(float damage)
     {
+        TakeDamage(damage, null);
+    }
+
+    public virtual void TakeDamage(float damage, TowerType? attackerType)
+    {
         if (hp <= 0) return;
+
+        damage = CalculateDamage(damage, attackerType);
 
         SoundObject sound = Sound.Play("EnemyAttacked", false);
         //sound?.SetVolume(0.03f);
@@ -150,8 +159,10 @@ public class Enemy : MonoBehaviour
         //Debug.Log($"Take Damage {damage} | Total HP: {hp}");
 
         hp -= damage;
+
         //Debug.Log($"Enemy HP: {hp} / {currentEnemyData.maxHealth}");
-        UpdateHealthBar();
+
+        UpdateHealthText();
 
         if (hp > 0)
         {
@@ -161,6 +172,45 @@ public class Enemy : MonoBehaviour
         {
             OnDie();
         }
+    }
+
+    private float CalculateDamage(float damage, TowerType? attackerType)
+    {
+        if (currentEnemyData == null)
+        {
+            return damage;
+        }
+
+        if (currentEnemyData.enemyType != EnemyType.Special)
+        {
+            return damage;
+        }
+
+        switch (currentEnemyData.specialType)
+        {
+            case EnemySpecialType.Bear:
+                // Bear: 토끼 타워에게 50% 추가 피해
+                if (attackerType == TowerType.토끼)
+                {
+                    damage *= 1.5f;
+                }
+                break;
+
+            case EnemySpecialType.Biscuit:
+                // Biscuit: 다람쥐 타워에게 50% 추가 피해
+                if (attackerType == TowerType.다람쥐)
+                {
+                    damage *= 1.5f;
+                }
+                break;
+
+            case EnemySpecialType.Pudding:
+                // Pudding: 받는 피해를 30 감소
+                damage = Mathf.Max(0f, damage - 30f);
+                break;
+        }
+
+        return damage;
     }
 
     private IEnumerator DoDamageReaction()
@@ -215,25 +265,34 @@ public class Enemy : MonoBehaviour
     private IEnumerator TakeContinuousDamage(float damage, float duration)
     {
         float timer = 0;
+
         while (timer <= duration)
         {
-            if (!gameObject.activeInHierarchy) yield break;
+            if (!gameObject.activeInHierarchy)
+            {
+                yield break;
+            }
 
             TakeDamage(damage);
+
             if (gameObject.activeInHierarchy)
             {
                 StartCoroutine(PoisonEffect());
             }
+
             yield return new WaitForSeconds(0.5f);
             timer += 0.5f;
         }
     }
+
     private IEnumerator PoisonEffect()
     {
         if (spriteRenderer != null)
         {
             spriteRenderer.color = Color.green;
+
             yield return new WaitForSeconds(0.2f);
+
             spriteRenderer.color = Color.white;
         }
     }
@@ -241,15 +300,18 @@ public class Enemy : MonoBehaviour
     private void OnDie()
     {
         //Debug.Log("Die");
+
         SoundObject _soundObject;
         _soundObject = Sound.Play("EnemyDeath", false);
         //_soundObject.SetVolume(0.1f);
+
         GoldManager.instance.AddGold(currentEnemyData.goldReward);
+
         ObjectPool.Instance.ReturnEnemy(this.gameObject);
 
-        if (healthSlider != null)
+        if (healthText != null)
         {
-            healthSlider.value = 0f;
+            healthText.text = "0";
         }
 
         this.gameObject.SetActive(false);
@@ -259,10 +321,12 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == Castle  .instance.gameObject)
+        if (collision.gameObject == Castle.instance.gameObject)
         {
             Castle.instance.HealCastle(10);
+
             ObjectPool.Instance.ReturnEnemy(this.gameObject);
+
             this.gameObject.SetActive(false);
 
             WaveManager.instance.enemyCountDown();
@@ -273,10 +337,13 @@ public class Enemy : MonoBehaviour
     {
         return currentEnemyData;
     }
+
     public void SetEnemyData(EnemyData data)
     {
         currentEnemyData = data;
+
         gameObject.SetActive(true);
+
         InitializeEnemy();
     }
 

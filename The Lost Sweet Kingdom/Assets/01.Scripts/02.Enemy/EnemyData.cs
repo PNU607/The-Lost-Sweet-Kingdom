@@ -2,11 +2,30 @@ using System;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
+public enum EnemyType
+{
+    Common,
+    Special,
+    Boss
+}
+
+public enum EnemySpecialType
+{
+    None,
+    Bear,
+    Biscuit,
+    Pudding
+}
+
 [Serializable]
 public class EnemyData
 {
     public string enemyId;
     public string enemyName;
+
+    public EnemyType enemyType;
+    public EnemySpecialType specialType;
+
     public bool isBoss;
 
     // 체력
