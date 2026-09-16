@@ -31,6 +31,9 @@ using System.Collections;
  */
 public class GunTower : TrackingTower
 {
+    [SerializeField]
+    private float attack2HoldRatio = 0.8f;
+
     /// <summary>
     /// 타겟을 향해 발사체를 생성
     /// </summary>
@@ -43,6 +46,7 @@ public class GunTower : TrackingTower
         }
 
         Enemy target = GetClosestEnemy();
+
         if (target == null || !target.gameObject.activeSelf)
         {
             CancelAttackAndSearch();
@@ -51,6 +55,7 @@ public class GunTower : TrackingTower
 
         LockAimToTarget(target);
         SetAttackAnimation();
+
         attackTimer = 0;
     }
 
@@ -68,10 +73,28 @@ public class GunTower : TrackingTower
 
         if (target != null && target.gameObject.activeSelf)
         {
-            TowerWeapon weapon = TowerManager.Instance.GetWeapon(currentTowerData.weaponPrefab);
-            weapon.transform.position = towerBase.weaponSpawnTransform.position;
+            TowerWeapon weapon =
+                TowerManager.Instance.GetWeapon(currentTowerData.weaponPrefab);
+
+            weapon.transform.position =
+                towerBase.weaponSpawnTransform.position;
+
             weapon.Setup(target.transform, this);
         }
+
+        StartCoroutine(FinishAttackDelay());
+    }
+
+    /// <summary>
+    /// 공격 속도에 비례하여 Attack2 상태를 잠시 유지한 뒤
+    /// 공격 상태를 종료
+    /// </summary>
+    private IEnumerator FinishAttackDelay()
+    {
+        float delay =
+            applyLevelData.attackCooldown * attack2HoldRatio;
+
+        yield return new WaitForSeconds(delay);
 
         FinishAttackAndSearch();
     }
@@ -84,9 +107,12 @@ public class GunTower : TrackingTower
     private void FinishAttackAndSearch()
     {
         towerBase.towerAnim.SetBool("isAttacking", false);
+
         ReleaseAimLock();
+
         attackTargets = null;
         closestAttackTarget = null;
+
         ChangeState(TowerState.SearchTarget);
     }
 }
