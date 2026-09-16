@@ -7,9 +7,9 @@ public class BossEnemy : Enemy
 {
     private bool isDamagedSpriteSet = false;
 
-    public override void TakeDamage(float damage)
+    public override void TakeDamage(float damage, TowerType? attackerType)
     {
-        base.TakeDamage(damage);
+        base.TakeDamage(damage, attackerType);
 
         if (!isDamagedSpriteSet && hp <= currentEnemyData.maxHealth * 0.5f)
         {

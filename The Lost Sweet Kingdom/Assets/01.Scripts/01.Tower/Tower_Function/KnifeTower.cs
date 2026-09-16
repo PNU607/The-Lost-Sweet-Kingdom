@@ -61,14 +61,20 @@ public class KnifeTower : RotatingTower
             }
 
             // 대미지 적용
-            enemy.TakeDamage(applyLevelData.attackDamage);
+            enemy.TakeDamage(
+                applyLevelData.attackDamage,
+                CurrentTowerData.towerType
+            );
             // 마지막 공격 시간 기록
             lastAttackTime[enemy] = Time.time;
         }
         else
         {
             // 대미지 적용
-            enemy.TakeDamage(applyLevelData.attackDamage);
+            enemy.TakeDamage(
+                applyLevelData.attackDamage,
+                CurrentTowerData.towerType
+            );
             // 마지막 공격 시간 기록
             lastAttackTime.Add(enemy, Time.time);
         }

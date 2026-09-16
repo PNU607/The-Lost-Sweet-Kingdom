@@ -99,7 +99,10 @@ public class FanTower : TrackingTower
             {
                 float damage = applyLevelData.attackDamage;
 
-                hit.GetComponent<Enemy>().TakeDamage(damage);
+                hit.GetComponent<Enemy>().TakeDamage(
+                    damage,
+                    CurrentTowerData.towerType
+                );
             }
         }
 

@@ -20,7 +20,10 @@ public class DamageCircle : DamageZone
         {
             if (enemy.TryGetComponent(out Enemy enemyTest))
             {
-                enemyTest.TakeDamage(shotTower.applyLevelData.attackDamage);
+                enemyTest.TakeDamage(
+                    shotTower.applyLevelData.attackDamage,
+                    shotTower.CurrentTowerData.towerType
+                );
             }
         }
     }

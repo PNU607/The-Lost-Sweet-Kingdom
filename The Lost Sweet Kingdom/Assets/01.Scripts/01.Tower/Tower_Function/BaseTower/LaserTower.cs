@@ -124,7 +124,10 @@ public class LaserTower : TrackingTower
         {
             Enemy enemy = hit.collider.GetComponent<Enemy>();
             if (enemy != null)
-                enemy.TakeDamage(applyLevelData.attackDamage);
+                enemy.TakeDamage(
+                    applyLevelData.attackDamage,
+                    CurrentTowerData.towerType
+                );
         }
 
         StartCoroutine(DisableLaser());
